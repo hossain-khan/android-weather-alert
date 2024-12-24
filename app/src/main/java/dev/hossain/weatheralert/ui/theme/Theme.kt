@@ -1,4 +1,4 @@
-package app.example.ui.theme
+package dev.hossain.weatheralert.ui.theme
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -1,4 +1,4 @@
-package app.example.data
+package dev.hossain.weatheralert.data
 
 // -------------------------------------------------------------------------------------
 //

@@ -1,7 +1,7 @@
-package app.example
+package dev.hossain.weatheralert
 
 import android.app.Application
-import app.example.di.AppComponent
+import dev.hossain.weatheralert.di.AppComponent
 
 /**
  * Application class for the app with key initializations.

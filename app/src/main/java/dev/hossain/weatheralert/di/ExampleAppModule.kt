@@ -1,6 +1,6 @@
-package app.example.di
+package dev.hossain.weatheralert.di
 
-import app.example.data.ExampleEmailRepository
+import dev.hossain.weatheralert.data.ExampleEmailRepository
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Provides
 

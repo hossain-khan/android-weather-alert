@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "app.example"
+    namespace = "dev.hossain.weatheralert"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "app.example"
+        applicationId = "dev.hossain.weatheralert"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
