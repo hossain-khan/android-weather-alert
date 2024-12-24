@@ -1,4 +1,4 @@
-package app.example
+package dev.hossain.weatheralert
 
 import android.app.Activity
 import android.os.Bundle
@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import app.example.circuit.InboxScreen
-import app.example.di.ActivityKey
-import app.example.di.AppScope
-import app.example.ui.theme.ComposeAppTheme
+import dev.hossain.weatheralert.circuit.InboxScreen
+import dev.hossain.weatheralert.di.ActivityKey
+import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.theme.ComposeAppTheme
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
