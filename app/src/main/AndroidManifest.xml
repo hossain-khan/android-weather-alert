@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name=".ComposeApp"
-        android:appComponentFactory=".di.ComposeAppComponentFactory"
+        android:name=".WeatherAlertApp"
+        android:appComponentFactory=".di.WeatherAlertAppComponentFactory"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
