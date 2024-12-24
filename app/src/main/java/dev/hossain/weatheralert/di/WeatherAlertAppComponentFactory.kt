@@ -5,7 +5,7 @@ import android.app.Application
 import android.content.Intent
 import androidx.annotation.Keep
 import androidx.core.app.AppComponentFactory
-import dev.hossain.weatheralert.ComposeApp
+import dev.hossain.weatheralert.WeatherAlertApp
 import javax.inject.Provider
 
 /**
@@ -21,12 +21,12 @@ import javax.inject.Provider
  *
  * ```xml
  * <application
- *     android:appComponentFactory=".di.ComposeAppComponentFactory"
+ *     android:appComponentFactory=".di.WeatherAlertAppComponentFactory"
  *     ... />
  * ```
  */
 @Keep
-class ComposeAppComponentFactory : AppComponentFactory() {
+class WeatherAlertAppComponentFactory : AppComponentFactory() {
     /**
      * Retrieves an instance of the specified class (typically an Activity) from the provided
      * Dagger providers map. If a provider exists for the class, it uses that provider to
@@ -83,7 +83,7 @@ class ComposeAppComponentFactory : AppComponentFactory() {
     ): Application {
         val app = super.instantiateApplicationCompat(classLoader, className)
         // Retrieve the Dagger app component and the activity providers from it
-        activityProviders = (app as ComposeApp).appComponent().activityProviders
+        activityProviders = (app as WeatherAlertApp).appComponent().activityProviders
         return app
     }
 

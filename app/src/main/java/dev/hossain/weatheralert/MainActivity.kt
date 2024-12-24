@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import dev.hossain.weatheralert.circuit.InboxScreen
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.di.AppScope
-import dev.hossain.weatheralert.ui.theme.ComposeAppTheme
+import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -34,7 +34,7 @@ class MainActivity
             enableEdgeToEdge()
 
             setContent {
-                ComposeAppTheme {
+                WeatherAlertAppTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         // See https://slackhq.github.io/circuit/navigation/
                         val backStack = rememberSaveableBackStack(root = InboxScreen)
