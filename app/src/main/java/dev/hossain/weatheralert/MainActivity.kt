@@ -8,7 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import dev.hossain.weatheralert.circuit.InboxScreen
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.di.AppScope
@@ -20,6 +24,8 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
+import dev.hossain.weatheralert.circuit.SettingsScreen
+import dev.hossain.weatheralert.data.PreferencesManager
 import javax.inject.Inject
 
 @ContributesMultibinding(AppScope::class, boundType = Activity::class)
@@ -56,4 +62,17 @@ class MainActivity
                 }
             }
         }
+
+    // TODO - use this later
+    @Composable
+    fun AppNavigation(preferencesManager: PreferencesManager) {
+        val navController = rememberNavController()
+
+        NavHost(navController, startDestination = "settings") {
+            composable("settings") {
+                SettingsScreen(preferencesManager)
+            }
+            // Add other screens here
+        }
     }
+}

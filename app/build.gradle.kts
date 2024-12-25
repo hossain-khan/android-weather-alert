@@ -97,6 +97,9 @@ dependencies {
     // Moshi
     implementation(libs.moshi.kotlin)
 
+    // Navigation Compose
+    implementation(libs.navigation.compose)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
