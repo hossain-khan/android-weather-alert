@@ -23,10 +23,12 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.feature.settings.SettingsScreen
 import kotlinx.coroutines.launch
 
 
 class AlertListPresenter @AssistedInject constructor(
+    @Assisted private val navigator: Navigator,
     private val weatherRepository: WeatherRepository,
     private val dataStore: AlertConfigDataStore
 ) : Presenter<State> {
@@ -77,6 +79,10 @@ class AlertListPresenter @AssistedInject constructor(
                             dataStore.deleteAlertConfig(event.alert.category)
                         }
                     }
+
+                    Event.Settings -> {
+                        navigator.goTo(SettingsScreen)
+                    }
                 }
             }
         )
@@ -85,6 +91,6 @@ class AlertListPresenter @AssistedInject constructor(
     @CircuitInject(AlertListScreen::class, AppScope::class)
     @AssistedFactory
     fun interface Factory {
-        fun create(): AlertListPresenter
+        fun create(navigator: Navigator): AlertListPresenter
     }
 }

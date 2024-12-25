@@ -17,5 +17,6 @@ object AlertListScreen : Screen {
 
     sealed interface Event : CircuitUiEvent {
         data class Delete(val alert: AlertConfig) : Event
+        data object Settings : Event
     }
 }
