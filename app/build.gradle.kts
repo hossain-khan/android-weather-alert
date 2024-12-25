@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,6 +22,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Read API key from local.properties
+        val apiKey: String? = project.rootProject.file("local.properties").inputStream().use {
+            Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
+        }
+        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -43,6 +51,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -74,6 +83,25 @@ dependencies {
 
     implementation(libs.anvil.annotations)
     implementation(libs.anvil.annotations.optional)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // Data Store
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core)
+
+    // Glance
+    implementation(libs.androidx.glance)
+    implementation(libs.androidx.glance.appwidget)
+
+    // OkHttp
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 
     // Testing
     testImplementation(libs.junit)
