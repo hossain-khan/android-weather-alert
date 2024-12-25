@@ -1,9 +1,12 @@
 package dev.hossain.weatheralert.circuit
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,6 +69,40 @@ fun SettingsScreen(preferencesManager: PreferencesManager) {
         }
     }
 }
+
+/**
+ * Interactive Alert Threshold Adjustments
+ *
+ *     Purpose: Allow users to adjust alert thresholds in a fun and intuitive way.
+ *     Implementation: Use a slider or a rotary dial for thresholds.
+ *         Add haptic feedback for user interaction.
+ *         Animate the slider's color based on the value range (e.g., blue for low, red for high).
+ */
+@Composable
+fun ThresholdSlider(
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    label: String,
+    max: Float
+) {
+    val color by animateColorAsState(
+        if (value < max / 2) Color.Blue else Color.Red
+    )
+
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "$label: ${value.toInt()} cm", color = color)
+        Slider(
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = 0f..max,
+            colors = SliderDefaults.colors(
+                thumbColor = color,
+                activeTrackColor = color
+            )
+        )
+    }
+}
+
 
 
 @Preview(showBackground = true)

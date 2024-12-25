@@ -1,10 +1,17 @@
 package dev.hossain.weatheralert.widget
 
 import android.content.Context
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceAppWidget
 import androidx.glance.GlanceAppWidgetReceiver
 import androidx.glance.GlanceModifier
@@ -66,4 +73,29 @@ fun WeatherAlertWidgetContent(context: Context) {
             )
         )
     }
+}
+
+/**
+ * Subtle Animations on Widget
+ *
+ *     Purpose: Make the widget visually appealing.
+ *     Implementation:
+ *         Animate text color or size changes for alerts.
+ *         Use a wave animation or pulsing effect to emphasize alerts.
+ */
+@Composable
+fun AnimatedAlertText(alertText: String) {
+    val color = rememberInfiniteTransition().animateColor(
+        initialValue = Color.Blue,
+        targetValue = Color.Red,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+
+    Text(
+        text = alertText,
+        style = TextStyle(color = color.value, fontSize = 16.sp)
+    )
 }

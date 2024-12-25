@@ -91,4 +91,26 @@ class MainActivity
             composable("alerts") { AlertScreen() }
         }
     }
+
+    /**
+     * Transition Effects Between Screens
+     *
+     *     Purpose: Make navigation visually engaging.
+     *     Implementation: Use AnimatedNavHost for screen transitions.
+     *         Add fade-in, slide-in, or zoom-in effects for smoother screen changes.
+     */
+    @Composable
+    fun AnimatedNavGraph(navController: NavHostController) {
+        AnimatedNavHost(
+            navController = navController,
+            startDestination = "home",
+            enterTransition = { fadeIn(animationSpec = tween(500)) },
+            exitTransition = { fadeOut(animationSpec = tween(500)) }
+        ) {
+            composable("home") { HomeScreen() }
+            composable("settings") { SettingsScreen() }
+        }
+    }
+
+
 }
