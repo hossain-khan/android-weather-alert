@@ -49,7 +49,7 @@ fun AlertTile(
                     },
                     color = when {
                         forecast != null && forecast >= alertConfig.threshold -> Color.Red
-                        else -> Color.LightGray
+                        else -> Color.Blue
                     }
                 )
                 Text(text = "Threshold: ${alertConfig.threshold}${getUnit(alertConfig.category)}")
