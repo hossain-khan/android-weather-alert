@@ -23,6 +23,7 @@ import dev.hossain.weatheralert.core.model.AlertCategory
 import dev.hossain.weatheralert.core.network.WeatherRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import kotlinx.coroutines.flow.first
 
 class WeatherCheckWorker @AssistedInject constructor(
@@ -47,7 +48,7 @@ class WeatherCheckWorker @AssistedInject constructor(
         // You might want to fetch the user's location here
         val lat = 37.7749 // Example: San Francisco latitude
         val lon = -122.4194 // Example: San Francisco longitude
-        val apiKey = "YOUR_API_KEY" // Replace with your OpenWeatherMap API key
+        val apiKey = BuildConfig.WEATHER_API_KEY // Replace with your OpenWeatherMap API key
 
         try {
             val weatherData = weatherRepository.getWeatherData(lat, lon, apiKey)

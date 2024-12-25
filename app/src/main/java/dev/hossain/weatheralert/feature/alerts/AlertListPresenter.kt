@@ -2,7 +2,6 @@ package dev.hossain.weatheralert.feature.alerts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
@@ -22,6 +21,7 @@ import com.slack.circuit.runtime.presenter.Presenter
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.feature.settings.SettingsScreen
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class AlertListPresenter @AssistedInject constructor(
                         // Replace with actual lat, lon, and API key
                         val lat = 37.7749
                         val lon = -122.4194
-                        val apiKey = "YOUR_API_KEY"
+                        val apiKey = BuildConfig.WEATHER_API_KEY
 
                         try {
                             val weatherData = weatherRepository.getWeatherData(lat, lon, apiKey)
