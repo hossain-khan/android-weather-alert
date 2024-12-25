@@ -1,8 +1,5 @@
 package dev.hossain.weatheralert.feature.alerts
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import dev.hossain.weatheralert.core.model.AlertConfig
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
