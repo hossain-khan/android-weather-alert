@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,6 +28,7 @@ import com.squareup.anvil.annotations.ContributesMultibinding
 import dev.hossain.weatheralert.circuit.SettingsScreen
 import dev.hossain.weatheralert.data.PreferencesManager
 import javax.inject.Inject
+import dev.hossain.weatheralert.work.scheduleWeatherAlerts
 
 @ContributesMultibinding(AppScope::class, boundType = Activity::class)
 @ActivityKey(MainActivity::class)
@@ -38,6 +40,9 @@ class MainActivity
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             enableEdgeToEdge()
+
+            // Schedule weather alert worker
+            scheduleWeatherAlerts(this)
 
             setContent {
                 WeatherAlertAppTheme {
