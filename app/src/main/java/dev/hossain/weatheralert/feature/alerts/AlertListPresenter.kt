@@ -27,8 +27,6 @@ import kotlinx.coroutines.launch
 
 
 class AlertListPresenter @AssistedInject constructor(
-    @Assisted private val navigator: Navigator,
-    @Assisted private val screen: AlertListScreen,
     private val weatherRepository: WeatherRepository,
     private val dataStore: AlertConfigDataStore
 ) : Presenter<State> {
@@ -87,9 +85,6 @@ class AlertListPresenter @AssistedInject constructor(
     @CircuitInject(AlertListScreen::class, AppScope::class)
     @AssistedFactory
     fun interface Factory {
-        fun create(
-            navigator: Navigator,
-            screen: AlertListScreen,
-        ): AlertListPresenter
+        fun create(): AlertListPresenter
     }
 }

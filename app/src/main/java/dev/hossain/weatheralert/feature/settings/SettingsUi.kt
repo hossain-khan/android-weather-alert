@@ -27,6 +27,7 @@ import dev.hossain.weatheralert.di.AppScope
 import javax.inject.Inject
 
 @OptIn(ExperimentalMaterial3Api::class)
+@CircuitInject(SettingsScreen::class, AppScope::class)
 @Composable
 fun Settings(state: SettingsScreen.State, modifier: Modifier = Modifier) {
     Scaffold(
@@ -45,7 +46,6 @@ fun Settings(state: SettingsScreen.State, modifier: Modifier = Modifier) {
 }
 
 @Composable
-@CircuitInject(SettingsScreen::class, AppScope::class)
 fun SettingsContent(
     snowThreshold: String,
     rainThreshold: String,

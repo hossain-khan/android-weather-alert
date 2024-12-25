@@ -23,8 +23,6 @@ import kotlinx.coroutines.launch
 
 
 class SettingsPresenter @AssistedInject constructor(
-    @Assisted private val navigator: Navigator,
-    @Assisted private val screen: SettingsScreen,
     private val dataStore: AlertConfigDataStore
 ) : Presenter<State> {
 
@@ -73,9 +71,6 @@ class SettingsPresenter @AssistedInject constructor(
     @CircuitInject(SettingsScreen::class, AppScope::class)
     @AssistedFactory
     fun interface Factory {
-        fun create(
-            navigator: Navigator,
-            screen: SettingsScreen,
-        ): SettingsPresenter
+        fun create(): SettingsPresenter
     }
 }
