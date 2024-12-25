@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -27,6 +28,7 @@ import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
 import dev.hossain.weatheralert.circuit.SettingsScreen
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.ui.AlertScreen
 import javax.inject.Inject
 import dev.hossain.weatheralert.work.scheduleWeatherAlerts
 
@@ -78,6 +80,15 @@ class MainActivity
                 SettingsScreen(preferencesManager)
             }
             // Add other screens here
+        }
+    }
+
+
+    // TODO - use this later
+    @Composable
+    fun WeatherAlertApp(navController: NavHostController) {
+        NavHost(navController, startDestination = "alerts") {
+            composable("alerts") { AlertScreen() }
         }
     }
 }
