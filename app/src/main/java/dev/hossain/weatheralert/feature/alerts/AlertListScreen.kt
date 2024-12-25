@@ -1,7 +1,5 @@
 package dev.hossain.weatheralert.feature.alerts
 
-package com.example.weatheralert.feature.alerts
-
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

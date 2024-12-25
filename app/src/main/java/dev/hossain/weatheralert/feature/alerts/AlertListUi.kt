@@ -6,17 +6,24 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.slack.circuit.codegen.annotations.CircuitInject
 import dev.hossain.weatheralert.feature.alerts.components.AlertTile
 import com.slack.circuit.runtime.ui.Ui
+import dev.hossain.weatheralert.circuit.DetailScreen
+import dev.hossain.weatheralert.core.model.AlertConfig
+import dev.hossain.weatheralert.di.AppScope
 
+@OptIn(ExperimentalMaterial3Api::class)
+@CircuitInject(AlertListScreen::class, AppScope::class)
 @Composable
 fun AlertList(state: AlertListScreen.State, modifier: Modifier = Modifier) {
 
@@ -60,18 +67,6 @@ fun AlertListContent(
                 forecast = forecastData[alertConfig],
                 onDelete = { eventSink(AlertListScreen.Event.Delete(alertConfig)) }
             )
-        }
-    }
-}
-
-class AlertListUiFactory @Inject constructor() : Ui.Factory {
-    override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
-        return when (screen) {
-            is AlertListScreen -> ui<AlertListScreen.State> { state, modifier ->
-                AlertList(state, modifier)
-            }
-
-            else -> null
         }
     }
 }

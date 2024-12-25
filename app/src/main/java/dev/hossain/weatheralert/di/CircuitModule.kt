@@ -8,6 +8,9 @@ import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.Multibinds
+import dev.hossain.weatheralert.feature.alerts.AlertListPresenter
+import dev.hossain.weatheralert.feature.settings.SettingsPresenter
+import javax.inject.Singleton
 
 /**
  * Dagger module that provides dependencies for the Circuit framework.

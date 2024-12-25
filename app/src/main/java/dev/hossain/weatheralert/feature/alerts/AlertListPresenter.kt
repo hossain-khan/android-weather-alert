@@ -7,7 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import com.slack.circuit.codegen.annotations.CircuitInject
 import dev.hossain.weatheralert.core.data.AlertConfigDataStore
 import dev.hossain.weatheralert.core.model.AlertCategory
 import dev.hossain.weatheralert.core.model.AlertConfig
@@ -15,17 +17,25 @@ import dev.hossain.weatheralert.core.network.WeatherRepository
 import dev.hossain.weatheralert.feature.alerts.AlertListScreen.Event
 import dev.hossain.weatheralert.feature.alerts.AlertListScreen.State
 import com.slack.circuit.retained.collectAsRetainedState
+import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.di.AppScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class AlertListPresenter @Inject constructor(
+
+class AlertListPresenter @AssistedInject constructor(
+    @Assisted private val navigator: Navigator,
+    @Assisted private val screen: AlertListScreen,
     private val weatherRepository: WeatherRepository,
     private val dataStore: AlertConfigDataStore
 ) : Presenter<State> {
 
     @Composable
     override fun present(): State {
+        val coroutineScope = rememberCoroutineScope()
         val alertConfigs by dataStore.getAlertConfigs().collectAsRetainedState(emptyList())
         var isLoading by remember { mutableStateOf(false) }
         val forecastData = remember { mutableStateMapOf<AlertConfig, Double?>() }
@@ -72,5 +82,14 @@ class AlertListPresenter @Inject constructor(
                 }
             }
         )
+    }
+
+    @CircuitInject(AlertListScreen::class, AppScope::class)
+    @AssistedFactory
+    fun interface Factory {
+        fun create(
+            navigator: Navigator,
+            screen: AlertListScreen,
+        ): AlertListPresenter
     }
 }

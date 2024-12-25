@@ -5,11 +5,12 @@ import android.content.Context
 import com.squareup.anvil.annotations.MergeComponent
 import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.BindsInstance
+import dev.hossain.weatheralert.core.di.AppModule
 import javax.inject.Provider
 
 @MergeComponent(
     scope = AppScope::class,
-    modules = [ExampleAppModule::class, CircuitModule::class],
+    modules = [AppModule::class, ExampleAppModule::class, CircuitModule::class],
 )
 @SingleIn(AppScope::class)
 interface AppComponent {

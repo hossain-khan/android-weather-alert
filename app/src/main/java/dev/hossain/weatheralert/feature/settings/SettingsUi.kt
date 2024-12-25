@@ -7,17 +7,26 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.runtime.CircuitContext
+import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.runtime.ui.Ui
+import com.slack.circuit.runtime.ui.ui
+import dev.hossain.weatheralert.circuit.DetailScreen
+import dev.hossain.weatheralert.di.AppScope
+import javax.inject.Inject
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Settings(state: SettingsScreen.State, modifier: Modifier = Modifier) {
     Scaffold(
@@ -36,6 +45,7 @@ fun Settings(state: SettingsScreen.State, modifier: Modifier = Modifier) {
 }
 
 @Composable
+@CircuitInject(SettingsScreen::class, AppScope::class)
 fun SettingsContent(
     snowThreshold: String,
     rainThreshold: String,
@@ -72,18 +82,6 @@ fun SettingsContent(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Save Rain Threshold")
-        }
-    }
-}
-
-class SettingsUiFactory @Inject constructor() : Ui.Factory {
-    override fun create(screen: Screen, context: CircuitContext): Ui<*>? {
-        return when (screen) {
-            is SettingsScreen -> ui<SettingsScreen.State> { state, modifier ->
-                Settings(state, modifier)
-            }
-
-            else -> null
         }
     }
 }

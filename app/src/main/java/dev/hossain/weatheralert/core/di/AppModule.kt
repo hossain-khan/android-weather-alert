@@ -11,17 +11,12 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import dev.hossain.weatheralert.core.data.AlertConfigDataStore
 import dev.hossain.weatheralert.core.network.OpenWeatherMapApi
 import dev.hossain.weatheralert.core.network.WeatherRepository
-import dev.hossain.weatheralert.feature.alerts.AlertListPresenter
-import dev.hossain.weatheralert.feature.alerts.AlertListUiFactory
-import dev.hossain.weatheralert.feature.settings.SettingsPresenter
-import dev.hossain.weatheralert.feature.settings.SettingsUiFactory
-import com.google.gson.Gson
-import com.slack.circuit.runtime.presenter.Presenter
-import com.slack.circuit.runtime.ui.Ui
 import com.squareup.anvil.annotations.ContributesTo
+import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.Module
 import dagger.Provides
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -29,7 +24,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 private const val USER_PREFERENCES = "user_preferences"
 
@@ -38,7 +32,7 @@ private const val USER_PREFERENCES = "user_preferences"
 object AppModule {
 
     @Provides
-    @Singleton
+    @SingleIn(AppScope::class)
     fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -49,7 +43,7 @@ object AppModule {
     }
 
     @Provides
-    @Singleton
+    @SingleIn(AppScope::class)
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/")
@@ -59,20 +53,20 @@ object AppModule {
     }
 
     @Provides
-    @Singleton
+    @SingleIn(AppScope::class)
     fun provideOpenWeatherMapApi(retrofit: Retrofit): OpenWeatherMapApi {
         return retrofit.create(OpenWeatherMapApi::class.java)
     }
 
     @Provides
-    @Singleton
+    @SingleIn(AppScope::class)
     fun provideWeatherRepository(api: OpenWeatherMapApi): WeatherRepository {
         return WeatherRepository(api)
     }
 
-    @Singleton
+    @SingleIn(AppScope::class)
     @Provides
-    fun providesDataStore(context: Context): DataStore<Preferences> {
+    fun providesDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler(
                 produceNewData = { emptyPreferences() }
@@ -84,24 +78,8 @@ object AppModule {
     }
 
     @Provides
-    @Singleton
+    @SingleIn(AppScope::class)
     fun provideAlertConfigDataStore(dataStore: DataStore<Preferences>): AlertConfigDataStore {
         return AlertConfigDataStore(dataStore)
-    }
-
-    @Provides
-    @Singleton
-    fun provideCircuit(
-        alertListPresenterFactory: AlertListPresenter.Factory,
-        alertListUiFactory: AlertListUiFactory,
-        settingsPresenterFactory: SettingsPresenter.Factory,
-        settingsUiFactory: SettingsUiFactory
-    ): Circuit {
-        return Circuit.Builder()
-            .addPresenterFactory(alertListPresenterFactory)
-            .addUiFactory(alertListUiFactory)
-            .addPresenterFactory(settingsPresenterFactory)
-            .addUiFactory(settingsUiFactory)
-            .build()
     }
 }
