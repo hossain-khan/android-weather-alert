@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import dev.hossain.weatheralert.circuit.InboxScreen
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -20,6 +22,9 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
+import dev.hossain.weatheralert.core.work.WeatherCheckWorker
+import dev.hossain.weatheralert.feature.alerts.AlertListScreen
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @ContributesMultibinding(AppScope::class, boundType = Activity::class)
@@ -37,7 +42,7 @@ class MainActivity
                 WeatherAlertAppTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         // See https://slackhq.github.io/circuit/navigation/
-                        val backStack = rememberSaveableBackStack(root = InboxScreen)
+                        val backStack = rememberSaveableBackStack(root = AlertListScreen)
                         val navigator = rememberCircuitNavigator(backStack)
 
                         // See https://slackhq.github.io/circuit/circuit-content/
@@ -55,5 +60,22 @@ class MainActivity
                     }
                 }
             }
+
+            startWorker()
         }
+    private fun startWorker() {
+        // Schedule the periodic weather check
+        val workRequest = PeriodicWorkRequestBuilder<WeatherCheckWorker>(
+            1, TimeUnit.HOURS
+        ) // Adjust the interval as needed
+            .build()
+
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork(
+                WeatherCheckWorker.WORK_NAME,
+                ExistingPeriodicWorkPolicy.KEEP, // Or REPLACE if you want to overwrite existing work
+                workRequest
+            )
+
     }
+}
