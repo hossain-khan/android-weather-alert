@@ -3,12 +3,20 @@ package dev.hossain.weatheralert.work
 import android.app.NotificationManager
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import androidx.datastore.preferences.core.edit
+import androidx.glance.appwidget.updateAll
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.WeatherAlertKeys
+import dev.hossain.weatheralert.data.weatherAlertDataStore
+import dev.hossain.weatheralert.widget.WeatherAlertWidget
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class WeatherCheckWorker(
@@ -34,6 +42,12 @@ class WeatherCheckWorker(
             if (snowTomorrow > snowThreshold || rainTomorrow > rainThreshold) {
                 // Trigger a rich notification
                 triggerNotification(snowTomorrow, rainTomorrow, snowThreshold, rainThreshold)
+
+                val snowAlert = "Tomorrow: $snowTomorrow cm"
+                val rainAlert = "Tomorrow: $rainTomorrow mm"
+                saveWeatherAlertsToDataStore(context, snowAlert, rainAlert)
+                // Call after updating DataStore to update the widget after saving new data
+                notifyWidgetOfDataChange(context)
             }
 
             return Result.success()
@@ -66,5 +80,18 @@ class WeatherCheckWorker(
             .build()
 
         notificationManager.notify(1, notification)
+    }
+
+    private suspend fun saveWeatherAlertsToDataStore(context: Context, snowAlert: String, rainAlert: String) {
+        context.weatherAlertDataStore.edit { preferences ->
+            preferences[WeatherAlertKeys.SNOW_ALERT] = snowAlert
+            preferences[WeatherAlertKeys.RAIN_ALERT] = rainAlert
+        }
+    }
+
+    fun notifyWidgetOfDataChange(context: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            WeatherAlertWidget().updateAll(context)
+        }
     }
 }

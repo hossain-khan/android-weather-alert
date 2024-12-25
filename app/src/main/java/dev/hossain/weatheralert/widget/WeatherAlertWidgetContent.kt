@@ -1,6 +1,9 @@
 package dev.hossain.weatheralert.widget
 
+import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceAppWidget
 import androidx.glance.GlanceAppWidgetReceiver
@@ -13,12 +16,25 @@ import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.glance.unit.dp
+import dev.hossain.weatheralert.data.WeatherAlertKeys
+import dev.hossain.weatheralert.data.weatherAlertDataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
-fun WeatherAlertWidgetContent() {
+fun WeatherAlertWidgetContent(context: Context) {
+    val scope = CoroutineScope(Dispatchers.IO)
+    val snowAlert = remember { mutableStateOf("Loading...") }
+    val rainAlert = remember { mutableStateOf("Loading...") }
+
+    scope.launch {
+        val preferences = context.weatherAlertDataStore.data.first()
+        snowAlert.value = preferences[WeatherAlertKeys.SNOW_ALERT] ?: "No Snow Alert"
+        rainAlert.value = preferences[WeatherAlertKeys.RAIN_ALERT] ?: "No Rain Alert"
+    }
+
     Column(
         modifier = GlanceModifier
             .fillMaxSize()
@@ -35,7 +51,7 @@ fun WeatherAlertWidgetContent() {
         )
         Spacer(modifier = GlanceModifier.height(8.dp))
         Text(
-            text = "Snowfall: Tomorrow 7 cm",
+            text = snowAlert.value,
             style = TextStyle(
                 color = ColorProvider(android.R.color.holo_blue_dark),
                 fontSize = 14.dp
@@ -43,7 +59,7 @@ fun WeatherAlertWidgetContent() {
         )
         Spacer(modifier = GlanceModifier.height(4.dp))
         Text(
-            text = "Rainfall: Tomorrow 15 mm",
+            text = rainAlert.value,
             style = TextStyle(
                 color = ColorProvider(android.R.color.holo_green_dark),
                 fontSize = 14.dp
