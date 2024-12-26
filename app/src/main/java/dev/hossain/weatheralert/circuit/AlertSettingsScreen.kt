@@ -33,6 +33,8 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
+import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.di.AppScope
 import kotlinx.parcelize.Parcelize
@@ -64,8 +66,8 @@ constructor(
     @Composable
     override fun present(): AlertSettingsScreen.State {
         // State variables to hold threshold values
-        val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = 5.0f)
-        val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = 2.0f)
+        val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = DEFAULT_SNOW_THRESHOLD)
+        val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = DEFAULT_RAIN_THRESHOLD)
 
         var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
         var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
@@ -107,7 +109,7 @@ fun AlertSettingsScreen(state: AlertSettingsScreen.State, modifier: Modifier = M
             modifier = modifier
                 .fillMaxSize()
                 .padding(padding)
-                .padding(16.dp),
+                .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             // Snow Threshold Slider
