@@ -6,9 +6,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -26,9 +38,12 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
+import dev.hossain.weatheralert.api.RetrofitClient
 import dev.hossain.weatheralert.circuit.SettingsScreen
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.ui.AlertScreen
+import dev.hossain.weatheralert.ui.AlertViewModel
 import javax.inject.Inject
 import dev.hossain.weatheralert.work.scheduleWeatherAlerts
 
@@ -48,8 +63,13 @@ class MainActivity
 
             setContent {
                 WeatherAlertAppTheme {
-                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                        // See https://slackhq.github.io/circuit/navigation/
+                    val navController = rememberNavController()
+
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        bottomBar = { BottomNavigationBar(navController) }
+                    ) { innerPadding ->
+                        /*// See https://slackhq.github.io/circuit/navigation/
                         val backStack = rememberSaveableBackStack(root = InboxScreen)
                         val navigator = rememberCircuitNavigator(backStack)
 
@@ -64,6 +84,11 @@ class MainActivity
                                         navigator.pop()
                                     },
                             )
+                        }*/
+
+                        Box(modifier = Modifier.padding(innerPadding)) {
+                            //AppNavigation(PreferencesManager(application))
+                            AnimatedNavGraph(navController)
                         }
                     }
                 }
@@ -88,7 +113,14 @@ class MainActivity
     @Composable
     fun WeatherAlertApp(navController: NavHostController) {
         NavHost(navController, startDestination = "alerts") {
-            composable("alerts") { AlertScreen() }
+            composable("alerts") {
+                AlertScreen(
+                    AlertViewModel(
+                        preferencesManager = PreferencesManager(application),
+                        weatherRepository = WeatherRepository(RetrofitClient.weatherApi)
+                    )
+                )
+            }
         }
     }
 
@@ -101,16 +133,53 @@ class MainActivity
      */
     @Composable
     fun AnimatedNavGraph(navController: NavHostController) {
-        AnimatedNavHost(
+        NavHost(
             navController = navController,
             startDestination = "home",
             enterTransition = { fadeIn(animationSpec = tween(500)) },
             exitTransition = { fadeOut(animationSpec = tween(500)) }
         ) {
-            composable("home") { HomeScreen() }
-            composable("settings") { SettingsScreen() }
+            composable("home") {
+                AlertScreen(
+                    AlertViewModel(
+                        preferencesManager = PreferencesManager(application),
+                        weatherRepository = WeatherRepository(RetrofitClient.weatherApi)
+                    )
+                )
+            }
+            composable("settings") { SettingsScreen(PreferencesManager(application)) }
         }
     }
 
+    @Composable
+    fun BottomNavigationBar(navController: NavHostController) {
+        val items = listOf("home", "settings")
+        BottomAppBar {
+            val currentRoute = navController.currentBackStackEntry?.destination?.route
+            items.forEach { screen ->
+                NavigationBarItem(
+                    icon = {
+                        when (screen) {
+                            "home" -> Icon(Icons.Filled.Home, contentDescription = "Home")
+                            "settings" -> Icon(
+                                Icons.Filled.Settings,
+                                contentDescription = "Settings"
+                            )
 
+                            else -> Icon(Icons.Filled.Home, contentDescription = "Home")
+                        }
+                    },
+                    label = { Text(screen) },
+                    selected = currentRoute == screen,
+                    onClick = {
+                        navController.navigate(screen) {
+                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
+            }
+        }
+    }
 }

@@ -1,25 +1,19 @@
 package dev.hossain.weatheralert.widget
 
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.glance.GlanceAppWidget
-import androidx.glance.GlanceAppWidgetReceiver
+import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
-import androidx.glance.appwidget.GlanceAppWidgetScope
+import androidx.glance.appwidget.provideContent
 import androidx.glance.appwidget.updateAll
-import androidx.glance.layout.*
-import androidx.glance.text.Text
-import androidx.glance.text.TextStyle
-import androidx.glance.unit.ColorProvider
-import androidx.glance.unit.dp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherAlertWidget : GlanceAppWidget() {
-    @Composable
-    override fun Content() {
-        WeatherAlertWidgetContent()
+    override suspend fun provideGlance(context: Context, id: GlanceId) {
+        provideContent {
+            WeatherAlertWidgetContent(context)
+        }
     }
 }
 

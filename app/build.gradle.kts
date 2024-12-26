@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -20,6 +22,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Read API key from local.properties
+        val apiKey: String? = project.rootProject.file("local.properties").inputStream().use {
+            Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
+        }
+        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -43,7 +51,12 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -78,6 +91,7 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.moshi)
 
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
@@ -96,6 +110,7 @@ dependencies {
 
     // Moshi
     implementation(libs.moshi.kotlin)
+    kapt(libs.moshi.kotlin.codegen)
 
     // Navigation Compose
     implementation(libs.navigation.compose)

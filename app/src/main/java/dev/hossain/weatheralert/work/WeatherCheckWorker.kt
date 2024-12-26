@@ -8,9 +8,12 @@ import androidx.glance.appwidget.updateAll
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.api.RetrofitClient
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertKeys
+import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.weatherAlertDataStore
 import dev.hossain.weatheralert.widget.WeatherAlertWidget
 import kotlinx.coroutines.CoroutineScope
@@ -22,9 +25,12 @@ import kotlinx.coroutines.runBlocking
 class WeatherCheckWorker(
     private val context: Context,
     params: WorkerParameters,
-    private val preferencesManager: PreferencesManager, // Injected
-    private val weatherService: WeatherService // Injected
+//    private val preferencesManager: PreferencesManager, // Injected
+//    private val weatherService: WeatherRepository // Injected
 ) : CoroutineWorker(context, params) {
+
+    private val preferencesManager = PreferencesManager(context)
+    private val weatherService = WeatherRepository(RetrofitClient.weatherApi)
 
     override suspend fun doWork(): Result {
         try {
@@ -33,11 +39,16 @@ class WeatherCheckWorker(
             val rainThreshold = preferencesManager.rainThreshold.first()
 
             // Fetch forecast
-            val forecast = weatherService.getWeatherForecast(/* Pass required params */)
+            val forecast = weatherService.getDailyForecast(
+                // Use Toronto coordinates for now
+                latitude = 43.7,
+                longitude = -79.42,
+                apiKey = BuildConfig.WEATHER_API_KEY
+            )
 
             // Check if thresholds are exceeded
-            val snowTomorrow = forecast.daily[1].snow ?: 0.0 // Example: Snow forecast for tomorrow
-            val rainTomorrow = forecast.daily[1].rain ?: 0.0 // Example: Rain forecast for tomorrow
+            val snowTomorrow = forecast.daily[1].snowVolume ?: 0.0 // Example: Snow forecast for tomorrow
+            val rainTomorrow = forecast.daily[1].rainVolume ?: 0.0 // Example: Rain forecast for tomorrow
 
             if (snowTomorrow > snowThreshold || rainTomorrow > rainThreshold) {
                 // Trigger a rich notification
