@@ -50,67 +50,76 @@ data class AlertSettingsScreen(
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
-        data class SnowThresholdChanged(val value: Float) : Event()
-        data class RainThresholdChanged(val value: Float) : Event()
+        data class SnowThresholdChanged(
+            val value: Float,
+        ) : Event()
+
+        data class RainThresholdChanged(
+            val value: Float,
+        ) : Event()
+
         data object SaveSettingsClicked : Event()
     }
 }
 
 class AlertSettingsPresenter
-@AssistedInject
-constructor(
-    @Assisted private val navigator: Navigator,
-    @Assisted private val screen: AlertSettingsScreen,
-    private val preferencesManager: PreferencesManager,
-) : Presenter<AlertSettingsScreen.State> {
-    @Composable
-    override fun present(): AlertSettingsScreen.State {
-        // State variables to hold threshold values
-        val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = DEFAULT_SNOW_THRESHOLD)
-        val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = DEFAULT_RAIN_THRESHOLD)
+    @AssistedInject
+    constructor(
+        @Assisted private val navigator: Navigator,
+        @Assisted private val screen: AlertSettingsScreen,
+        private val preferencesManager: PreferencesManager,
+    ) : Presenter<AlertSettingsScreen.State> {
+        @Composable
+        override fun present(): AlertSettingsScreen.State {
+            // State variables to hold threshold values
+            val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = DEFAULT_SNOW_THRESHOLD)
+            val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = DEFAULT_RAIN_THRESHOLD)
 
-        var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
-        var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
+            var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
+            var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
 
-        return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
-            when (event) {
-                AlertSettingsScreen.Event.SaveSettingsClicked -> TODO()
-                is AlertSettingsScreen.Event.RainThresholdChanged -> {
-                    updatedRainThreshold = event.value
-                }
-                is AlertSettingsScreen.Event.SnowThresholdChanged -> {
-                    updatedSnowThreshold = event.value
+            return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
+                when (event) {
+                    AlertSettingsScreen.Event.SaveSettingsClicked -> TODO()
+                    is AlertSettingsScreen.Event.RainThresholdChanged -> {
+                        updatedRainThreshold = event.value
+                    }
+                    is AlertSettingsScreen.Event.SnowThresholdChanged -> {
+                        updatedSnowThreshold = event.value
+                    }
                 }
             }
         }
-    }
 
-    @CircuitInject(AlertSettingsScreen::class, AppScope::class)
-    @AssistedFactory
-    fun interface Factory {
-        fun create(
-            navigator: Navigator,
-            screen: AlertSettingsScreen,
-        ): AlertSettingsPresenter
+        @CircuitInject(AlertSettingsScreen::class, AppScope::class)
+        @AssistedFactory
+        fun interface Factory {
+            fun create(
+                navigator: Navigator,
+                screen: AlertSettingsScreen,
+            ): AlertSettingsPresenter
+        }
     }
-}
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @CircuitInject(AlertSettingsScreen::class, AppScope::class)
 @Composable
-fun AlertSettingsScreen(state: AlertSettingsScreen.State, modifier: Modifier = Modifier) {
+fun AlertSettingsScreen(
+    state: AlertSettingsScreen.State,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Configure Alerts") })
-        }
+        },
     ) { padding ->
         Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             // Snow Threshold Slider
             Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
@@ -120,7 +129,7 @@ fun AlertSettingsScreen(state: AlertSettingsScreen.State, modifier: Modifier = M
                     state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
                 },
                 valueRange = 1f..20f,
-                steps = 20
+                steps = 20,
             )
 
             // Rain Threshold Slider
@@ -131,14 +140,14 @@ fun AlertSettingsScreen(state: AlertSettingsScreen.State, modifier: Modifier = M
                     state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
                 },
                 valueRange = 1f..20f,
-                steps = 20
+                steps = 20,
             )
 
             Button(
                 onClick = {
                     state.eventSink(AlertSettingsScreen.Event.SaveSettingsClicked)
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Save Settings")
             }
@@ -159,10 +168,10 @@ fun ThresholdSlider(
     value: Float,
     onValueChange: (Float) -> Unit,
     label: String,
-    max: Float
+    max: Float,
 ) {
     val color by animateColorAsState(
-        if (value < max / 2) Color.Blue else Color.Red
+        if (value < max / 2) Color.Blue else Color.Red,
     )
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -171,20 +180,19 @@ fun ThresholdSlider(
             value = value,
             onValueChange = onValueChange,
             valueRange = 0f..max,
-            colors = SliderDefaults.colors(
-                thumbColor = color,
-                activeTrackColor = color
-            )
+            colors =
+                SliderDefaults.colors(
+                    thumbColor = color,
+                    activeTrackColor = color,
+                ),
         )
     }
 }
-
-
 
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
     AlertSettingsScreen(
-        AlertSettingsScreen.State(snowThreshold = 5.0f, rainThreshold = 10.0f) {}
+        AlertSettingsScreen.State(snowThreshold = 5.0f, rainThreshold = 10.0f) {},
     )
 }
