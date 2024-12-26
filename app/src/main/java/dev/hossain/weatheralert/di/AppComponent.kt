@@ -9,7 +9,7 @@ import javax.inject.Provider
 
 @MergeComponent(
     scope = AppScope::class,
-    modules = [ExampleAppModule::class, CircuitModule::class],
+    modules = [AppModule::class, ExampleAppModule::class, CircuitModule::class],
 )
 @SingleIn(AppScope::class)
 interface AppComponent {

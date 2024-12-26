@@ -9,7 +9,6 @@ import androidx.work.WorkerParameters
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.RetrofitClient
 import dev.hossain.weatheralert.data.WeatherAlertKeys
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.weatherAlertDataStore
@@ -19,10 +18,9 @@ class WeatherCheckWorker(
     private val context: Context,
     params: WorkerParameters,
 //    private val preferencesManager: PreferencesManager, // Injected
-//    private val weatherService: WeatherRepository // Injected
+    private val weatherService: WeatherRepository, // Injected
 ) : CoroutineWorker(context, params) {
     private val preferencesManager = PreferencesManager(context)
-    private val weatherService = WeatherRepository(RetrofitClient.weatherApi)
 
     override suspend fun doWork(): Result {
         try {
