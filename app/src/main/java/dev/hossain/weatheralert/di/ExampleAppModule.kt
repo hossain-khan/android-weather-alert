@@ -1,8 +1,8 @@
 package dev.hossain.weatheralert.di
 
-import dev.hossain.weatheralert.data.ExampleEmailRepository
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Provides
+import dev.hossain.weatheralert.data.ExampleEmailRepository
 
 // Example of a Dagger module that provides dependencies for the app.
 // You should delete this file and create your own modules.

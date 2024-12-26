@@ -10,6 +10,6 @@ interface WeatherApi {
         @Query("lon") longitude: Double,
         @Query("exclude") exclude: String = "current,minutely,hourly",
         @Query("units") units: String = "metric",
-        @Query("appid") apiKey: String
+        @Query("appid") apiKey: String,
     ): WeatherForecast
 }

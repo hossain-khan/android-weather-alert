@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class WeatherForecast(
-    val daily: List<DailyForecast>
+    val daily: List<DailyForecast>,
 )
 
 @JsonClass(generateAdapter = true)
@@ -14,17 +14,17 @@ data class DailyForecast(
     @Json(name = "temp") val temperature: Temperature,
     @Json(name = "weather") val weather: List<WeatherDescription>,
     @Json(name = "rain") val rainVolume: Double?, // mm (nullable)
-    @Json(name = "snow") val snowVolume: Double? // cm (nullable)
+    @Json(name = "snow") val snowVolume: Double?, // cm (nullable)
 )
 
 @JsonClass(generateAdapter = true)
 data class Temperature(
     val min: Double,
-    val max: Double
+    val max: Double,
 )
 
 @JsonClass(generateAdapter = true)
 data class WeatherDescription(
     val description: String,
-    val icon: String
+    val icon: String,
 )

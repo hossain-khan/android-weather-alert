@@ -9,10 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import dev.hossain.weatheralert.circuit.InboxScreen
-import dev.hossain.weatheralert.di.ActivityKey
-import dev.hossain.weatheralert.di.AppScope
-import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -20,6 +16,10 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
+import dev.hossain.weatheralert.circuit.InboxScreen
+import dev.hossain.weatheralert.di.ActivityKey
+import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import javax.inject.Inject
 
 @ContributesMultibinding(AppScope::class, boundType = Activity::class)

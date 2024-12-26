@@ -22,9 +22,10 @@ android {
         versionName = "1.0"
 
         // Read API key from local.properties
-        val apiKey: String? = project.rootProject.file("local.properties").inputStream().use {
-            Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
-        }
+        val apiKey: String? =
+            project.rootProject.file("local.properties").inputStream().use {
+                Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
+            }
         buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
