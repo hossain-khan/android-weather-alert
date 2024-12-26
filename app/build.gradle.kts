@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +20,13 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        // Read API key from local.properties
+        val apiKey: String =
+            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+                Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
+            } ?: "API_KEY_FROM_local.properties"
+        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +52,12 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -71,6 +85,33 @@ dependencies {
     // Dagger KSP support is in Alpha, not available yet. Using KAPT for now.
     // https://dagger.dev/dev-guide/ksp.html
     kapt(libs.dagger.compiler)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.moshi)
+
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
+
+    // Data Store
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core)
+
+    // Glance
+    implementation(libs.androidx.glance)
+    implementation(libs.androidx.glance.appwidget)
+
+    // OkHttp
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
+    // Moshi
+    implementation(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
+
+    // Navigation Compose
+    implementation(libs.navigation.compose)
 
     implementation(libs.anvil.annotations)
     implementation(libs.anvil.annotations.optional)
