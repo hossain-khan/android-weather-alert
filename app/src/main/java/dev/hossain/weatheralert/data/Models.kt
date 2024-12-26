@@ -3,6 +3,9 @@ package dev.hossain.weatheralert.data
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
+const val DEFAULT_SNOW_THRESHOLD = 5.0f // cm
+const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
+
 @JsonClass(generateAdapter = true)
 data class WeatherForecast(
     val daily: List<DailyForecast>,
