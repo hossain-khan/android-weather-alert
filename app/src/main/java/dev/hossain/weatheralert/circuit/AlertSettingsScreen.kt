@@ -18,65 +18,123 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.runtime.CircuitUiEvent
+import com.slack.circuit.runtime.CircuitUiState
+import com.slack.circuit.runtime.Navigator
+import com.slack.circuit.runtime.presenter.Presenter
+import com.slack.circuit.runtime.screen.Screen
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
-import kotlinx.coroutines.launch
+import dev.hossain.weatheralert.di.AppScope
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class AlertSettingsScreen(
+    val requestId: String,
+) : Screen {
+    data class State(
+        val snowThreshold: Float,
+        val rainThreshold: Float,
+        val eventSink: (Event) -> Unit,
+    ) : CircuitUiState
+
+    sealed class Event : CircuitUiEvent {
+        data class SnowThresholdChanged(val value: Float) : Event()
+        data class RainThresholdChanged(val value: Float) : Event()
+        data object SaveSettingsClicked : Event()
+    }
+}
+
+class AlertSettingsPresenter
+@AssistedInject
+constructor(
+    @Assisted private val navigator: Navigator,
+    @Assisted private val screen: AlertSettingsScreen,
+    private val preferencesManager: PreferencesManager,
+) : Presenter<AlertSettingsScreen.State> {
+    @Composable
+    override fun present(): AlertSettingsScreen.State {
+        // State variables to hold threshold values
+        val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = 5.0f)
+        val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = 2.0f)
+
+        var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
+        var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
+
+        return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
+            when (event) {
+                AlertSettingsScreen.Event.SaveSettingsClicked -> TODO()
+                is AlertSettingsScreen.Event.RainThresholdChanged -> {
+                    updatedRainThreshold = event.value
+                }
+                is AlertSettingsScreen.Event.SnowThresholdChanged -> {
+                    updatedSnowThreshold = event.value
+                }
+            }
+        }
+    }
+
+    @CircuitInject(AlertSettingsScreen::class, AppScope::class)
+    @AssistedFactory
+    fun interface Factory {
+        fun create(
+            navigator: Navigator,
+            screen: AlertSettingsScreen,
+        ): AlertSettingsPresenter
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
+@CircuitInject(AlertSettingsScreen::class, AppScope::class)
 @Composable
-fun SettingsScreen(preferencesManager: PreferencesManager) {
-    val scope = rememberCoroutineScope()
-
-    // State variables to hold threshold values
-    val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = 5.0f)
-    val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = 10.0f)
-
-    var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
-    var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
-
+fun AlertSettingsScreen(state: AlertSettingsScreen.State, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Configure Alerts") })
         }
     ) { padding ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             // Snow Threshold Slider
-            Text(text = "Snowfall Threshold: ${"%.1f".format(updatedSnowThreshold)} cm")
+            Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
             Slider(
-                value = updatedSnowThreshold,
-                onValueChange = { updatedSnowThreshold = it },
-                valueRange = 0f..50f,
-                steps = 10
+                value = state.snowThreshold,
+                onValueChange = {
+                    state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
+                },
+                valueRange = 1f..20f,
+                steps = 20
             )
 
             // Rain Threshold Slider
-            Text(text = "Rainfall Threshold: ${"%.1f".format(updatedRainThreshold)} mm")
+            Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
             Slider(
-                value = updatedRainThreshold,
-                onValueChange = { updatedRainThreshold = it },
-                valueRange = 0f..50f,
-                steps = 10
+                value = state.rainThreshold,
+                onValueChange = {
+                    state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
+                },
+                valueRange = 1f..20f,
+                steps = 20
             )
 
             Button(
                 onClick = {
-                    scope.launch {
-                        preferencesManager.updateSnowThreshold(updatedSnowThreshold)
-                        preferencesManager.updateRainThreshold(updatedRainThreshold)
-                    }
+                    state.eventSink(AlertSettingsScreen.Event.SaveSettingsClicked)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -124,5 +182,7 @@ fun ThresholdSlider(
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
-    SettingsScreen(preferencesManager = PreferencesManager(context = LocalContext.current))
+    AlertSettingsScreen(
+        AlertSettingsScreen.State(snowThreshold = 5.0f, rainThreshold = 10.0f) {}
+    )
 }

@@ -2,11 +2,20 @@ package dev.hossain.weatheralert.data
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
+import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class PreferencesManager(
-    private val context: Context,
+/*
+Problem:
+
+    You're using @ContributesBinding to bind PreferencesManager to PreferencesManager. This means you are telling Dagger/Anvil: "Whenever I need a PreferencesManager, use this PreferencesManager." This is redundant and incorrect.
+    @ContributesBinding is designed to bind an implementation to an interface (or a superclass, though less common).
+ */
+//@ContributesBinding(AppScope::class, boundType = PreferencesManager::class)
+class PreferencesManager @Inject constructor(
+    @ApplicationContext private val context: Context,
 ) {
     private val dataStore = context.dataStore
 
