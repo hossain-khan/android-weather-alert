@@ -7,9 +7,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.slack.circuit.runtime.presenter.Presenter
+import dev.hossain.weatheralert.data.repository.WeatherRepository
+import javax.inject.Inject
 
 class HomePresenter @Inject constructor(
-    private val getWeatherForecastUseCase: GetWeatherForecastUseCase,
+    private val getWeatherForecastUseCase: GetWeatherForecastUseCase, // ❌ This was never generated!
     private val weatherRepository: WeatherRepository
 ) : Presenter<HomeState, HomeEvent> {
 

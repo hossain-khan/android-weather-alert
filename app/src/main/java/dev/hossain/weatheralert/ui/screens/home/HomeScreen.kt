@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 data class HomeState(
-    val alertConfigs: List<AlertConfigUiModel>,
+    val alertConfigs: List<AlertConfigUiModel>, // ❌ This (AlertConfigUiModel) was never generated!
     val isLoading: Boolean,
     val error: String?
 ) : State
@@ -63,7 +63,7 @@ fun HomeScreen(state: HomeState, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AlertCard(config: AlertConfigUiModel) {
+fun AlertCard(config: AlertConfigUiModel) { // ❌ This (AlertConfigUiModel) was never generated!
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)

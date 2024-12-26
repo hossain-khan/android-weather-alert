@@ -26,13 +26,15 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dagger.multibindings.IntoMap
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.repository.AlertConfigRepository
+import dev.hossain.weatheralert.data.repository.WeatherRepository
 import dev.hossain.weatheralert.domain.model.AlertType
 
 class WeatherCheckWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     private val weatherRepository: WeatherRepository,
-    private val checkWeatherAlertsUseCase: CheckWeatherAlertsUseCase,
+    private val checkWeatherAlertsUseCase: CheckWeatherAlertsUseCase, // ❌ This was never generated!
     private val alertConfigRepository: AlertConfigRepository
 ) : CoroutineWorker(context, params) {
 
@@ -50,7 +52,7 @@ class WeatherCheckWorker @AssistedInject constructor(
                     AlertType.SNOW_FALL -> {
                         if ((forecast.snowfall ?: 0f) >= config.threshold) {
                             createNotification(
-                                WeatherAlert(
+                                WeatherAlert( // ❌ This was never generated!
                                     id = config.id,
                                     title = "Snow Alert ❄️",
                                     description = "Expected snowfall tomorrow: ${forecast.snowfall}cm. " +
@@ -63,7 +65,7 @@ class WeatherCheckWorker @AssistedInject constructor(
                     AlertType.RAIN_FALL -> {
                         if ((forecast.rainfall ?: 0f) >= config.threshold) {
                             createNotification(
-                                WeatherAlert(
+                                WeatherAlert( // ❌ This was never generated!
                                     id = config.id,
                                     title = "Rain Alert 🌧️",
                                     description = "Expected rainfall tomorrow: ${forecast.rainfall}mm",

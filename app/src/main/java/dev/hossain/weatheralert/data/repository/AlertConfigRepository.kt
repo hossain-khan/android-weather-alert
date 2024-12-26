@@ -1,17 +1,21 @@
 package dev.hossain.weatheralert.data.repository
 
 import android.content.Context
+import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import com.squareup.moshi.Json
 import dev.hossain.weatheralert.domain.model.AlertConfig
+import kotlinx.coroutines.flow.first
 import java.io.InputStream
 import java.io.OutputStream
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class AlertConfigRepository @Inject constructor(
     private val context: Context
 ) {
-    private val dataStore = context.createDataStore(
+    private val dataStore = context.createDataStore(  // ❌ This was never generated!
         name = "alert_configs",
         serializer = AlertConfigSerializer
     )
@@ -41,6 +45,11 @@ class AlertConfigRepository @Inject constructor(
             )
         }
     }
+}
+
+// ❌ This was never generated!
+private fun Context.createDataStore(name: String, serializer: AlertConfigSerializer): DataStore<AlertConfigsPreferences> {
+    TODO("Not yet implemented")
 }
 
 // Proto serializer for AlertConfig

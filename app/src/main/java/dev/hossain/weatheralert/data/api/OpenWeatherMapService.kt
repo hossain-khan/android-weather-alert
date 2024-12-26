@@ -9,5 +9,5 @@ interface OpenWeatherMapService {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("appid") apiKey: String
-    ): WeatherForecastResponse
+    ): WeatherForecastResponse // ❌ This was never generated!
 }

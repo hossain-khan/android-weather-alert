@@ -1,8 +1,10 @@
 package dev.hossain.weatheralert.widget
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.appwidget.GlanceAppWidget
@@ -15,6 +17,7 @@ import androidx.glance.text.TextStyle
 
 class WeatherAlertWidget : GlanceAppWidget() {
 
+    // Supposed to use `override suspend fun provideGlance(context: Context, id: GlanceId)` but not generated
     @Composable
     override fun Content() {
         Column(

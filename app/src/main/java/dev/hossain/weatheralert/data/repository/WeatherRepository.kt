@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.data.repository
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
@@ -10,6 +11,8 @@ import dev.hossain.weatheralert.data.model.WeatherForecast
 import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -41,14 +44,16 @@ class WeatherRepository @Inject constructor(
                         rainfall = forecast.rain?.amount,
                         timestamp = forecast.dt
                     )
-                } ?: throw WeatherDataNotFoundException()
+                } ?: throw WeatherDataNotFoundException() // ❌ This was never generated!
         }
     }
 
     @SuppressLint("MissingPermission")
     private suspend fun getCurrentLocation(): Location = suspendCoroutine { continuation ->
         if (!hasLocationPermission()) {
-            continuation.resumeWithException(LocationPermissionException())
+            continuation.resumeWithException(
+                LocationPermissionException() // ❌ This was never generated!
+            )
             return@suspendCoroutine
         }
 
@@ -57,7 +62,9 @@ class WeatherRepository @Inject constructor(
             .addOnSuccessListener { location ->
                 location?.let {
                     continuation.resume(it)
-                } ?: continuation.resumeWithException(LocationNotFoundException())
+                } ?: continuation.resumeWithException(
+                    LocationNotFoundException() // ❌ This was never generated!
+                )
             }
             .addOnFailureListener { e ->
                 continuation.resumeWithException(e)
