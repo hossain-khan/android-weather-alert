@@ -16,7 +16,7 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
-import dev.hossain.weatheralert.circuit.AlertSettingsScreen
+import dev.hossain.weatheralert.circuit.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -37,7 +37,7 @@ class MainActivity
                 WeatherAlertAppTheme {
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         // See https://slackhq.github.io/circuit/navigation/
-                        val backStack = rememberSaveableBackStack(root = AlertSettingsScreen("root"))
+                        val backStack = rememberSaveableBackStack(root = CurrentWeatherAlertScreen("root"))
                         val navigator = rememberCircuitNavigator(backStack)
 
                         // See https://slackhq.github.io/circuit/circuit-content/

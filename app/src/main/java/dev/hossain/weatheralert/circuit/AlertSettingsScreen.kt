@@ -36,6 +36,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -124,53 +125,55 @@ fun AlertSettingsScreen(
     state: AlertSettingsScreen.State,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Configure Alerts") })
-        },
-    ) { padding ->
-        Column(
-            modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            // Snow Threshold Slider
-            Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
-            Slider(
-                value = state.snowThreshold,
-                onValueChange = {
-                    state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
-                },
-                valueRange = 1f..20f,
-                steps = 20,
-            )
-
-            // Rain Threshold Slider
-            Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
-            Slider(
-                value = state.rainThreshold,
-                onValueChange = {
-                    state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
-                },
-                valueRange = 1f..20f,
-                steps = 20,
-            )
-
-            Button(
-                onClick = {
-                    state.eventSink(
-                        AlertSettingsScreen.Event.SaveSettingsClicked(
-                            state.snowThreshold,
-                            state.rainThreshold,
-                        ),
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
+    WeatherAlertAppTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(title = { Text("Configure Alerts") })
+            },
+        ) { padding ->
+            Column(
+                modifier =
+                    modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
             ) {
-                Text("Save Settings")
+                // Snow Threshold Slider
+                Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
+                Slider(
+                    value = state.snowThreshold,
+                    onValueChange = {
+                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
+                    },
+                    valueRange = 1f..20f,
+                    steps = 20,
+                )
+
+                // Rain Threshold Slider
+                Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
+                Slider(
+                    value = state.rainThreshold,
+                    onValueChange = {
+                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
+                    },
+                    valueRange = 1f..20f,
+                    steps = 20,
+                )
+
+                Button(
+                    onClick = {
+                        state.eventSink(
+                            AlertSettingsScreen.Event.SaveSettingsClicked(
+                                state.snowThreshold,
+                                state.rainThreshold,
+                            ),
+                        )
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text("Save Settings")
+                }
             }
         }
     }
