@@ -5,6 +5,7 @@ import android.content.Context
 import com.squareup.anvil.annotations.MergeComponent
 import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.BindsInstance
+import dev.hossain.weatheralert.WeatherAlertApp
 import javax.inject.Provider
 
 @MergeComponent(
@@ -26,6 +27,8 @@ interface AppComponent {
             @ApplicationContext @BindsInstance context: Context,
         ): AppComponent
     }
+
+    fun inject(app: WeatherAlertApp)
 
     companion object {
         fun create(context: Context): AppComponent = DaggerAppComponent.factory().create(context)
