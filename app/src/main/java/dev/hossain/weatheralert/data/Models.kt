@@ -46,3 +46,22 @@ data class AlertTileData(
      */
     val currentStatus: String,
 )
+
+enum class WeatherAlertCategory {
+    SNOWFALL,
+    RAINFALL,
+}
+
+@JsonClass(generateAdapter = true)
+data class WeatherAlert(
+    val alertCategory: WeatherAlertCategory,
+    val threshold: Float,
+    val lat: Double,
+    val lon: Double,
+    val cityName: String = "",
+)
+
+@JsonClass(generateAdapter = true)
+data class ConfiguredAlerts(
+    val alerts: List<WeatherAlert>,
+)
