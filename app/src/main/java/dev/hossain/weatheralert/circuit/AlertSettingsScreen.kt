@@ -161,10 +161,12 @@ fun AlertSettingsScreen(
 
             Button(
                 onClick = {
-                    state.eventSink(AlertSettingsScreen.Event.SaveSettingsClicked(
-                        state.snowThreshold,
-                        state.rainThreshold,
-                    ))
+                    state.eventSink(
+                        AlertSettingsScreen.Event.SaveSettingsClicked(
+                            state.snowThreshold,
+                            state.rainThreshold,
+                        ),
+                    )
                 },
                 modifier = Modifier.fillMaxWidth(),
             ) {

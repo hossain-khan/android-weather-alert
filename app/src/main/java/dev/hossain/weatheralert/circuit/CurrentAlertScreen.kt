@@ -64,75 +64,76 @@ data class CurrentWeatherAlertScreen(
 }
 
 class CurrentWeatherAlertPresenter
-@AssistedInject
-constructor(
-    @Assisted private val navigator: Navigator,
-    @Assisted private val screen: CurrentWeatherAlertScreen,
-    private val preferencesManager: PreferencesManager,
-    private val weatherRepository: WeatherRepository,
-) : Presenter<CurrentWeatherAlertScreen.State> {
-    @Composable
-    override fun present(): CurrentWeatherAlertScreen.State {
+    @AssistedInject
+    constructor(
+        @Assisted private val navigator: Navigator,
+        @Assisted private val screen: CurrentWeatherAlertScreen,
+        private val preferencesManager: PreferencesManager,
+        private val weatherRepository: WeatherRepository,
+    ) : Presenter<CurrentWeatherAlertScreen.State> {
+        @Composable
+        override fun present(): CurrentWeatherAlertScreen.State {
+            var weatherTiles = remember { emptyList<AlertTileData>() }
 
-        var weatherTiles = remember { emptyList<AlertTileData>() }
+            LaunchedEffect(Unit) {
+                combine(
+                    preferencesManager.snowThreshold,
+                    preferencesManager.rainThreshold,
+                    weatherRepository.getWeatherForecastFlow(
+                        // Use Toronto coordinates for now
+                        latitude = 43.7,
+                        longitude = -79.42,
+                        apiKey = BuildConfig.WEATHER_API_KEY,
+                    ), // Live updates from API
+                ) { snowThreshold, rainThreshold, forecast ->
+                    val snowStatus = forecast.daily[1].snowVolume ?: 0.0
+                    val rainStatus = forecast.daily[1].rainVolume ?: 0.0
 
-        LaunchedEffect(Unit) {
-            combine(
-                preferencesManager.snowThreshold,
-                preferencesManager.rainThreshold,
-                weatherRepository.getWeatherForecastFlow(
-                    // Use Toronto coordinates for now
-                    latitude = 43.7,
-                    longitude = -79.42,
-                    apiKey = BuildConfig.WEATHER_API_KEY
-                ) // Live updates from API
-            ) { snowThreshold, rainThreshold, forecast ->
-                val snowStatus = forecast.daily[1].snowVolume ?: 0.0
-                val rainStatus = forecast.daily[1].rainVolume ?: 0.0
-
-                listOf(
-                    AlertTileData(
-                        category = "Snowfall",
-                        threshold = "$snowThreshold cm",
-                        currentStatus = "Tomorrow: $snowStatus cm"
-                    ),
-                    AlertTileData(
-                        category = "Rainfall",
-                        threshold = "$rainThreshold mm",
-                        currentStatus = "Tomorrow: $rainStatus mm"
+                    listOf(
+                        AlertTileData(
+                            category = "Snowfall",
+                            threshold = "$snowThreshold cm",
+                            currentStatus = "Tomorrow: $snowStatus cm",
+                        ),
+                        AlertTileData(
+                            category = "Rainfall",
+                            threshold = "$rainThreshold mm",
+                            currentStatus = "Tomorrow: $rainStatus mm",
+                        ),
                     )
-                )
-            }.collect { tileData: List<AlertTileData> ->
-                weatherTiles = tileData
+                }.collect { tileData: List<AlertTileData> ->
+                    weatherTiles = tileData
+                }
+            }
+
+            return CurrentWeatherAlertScreen.State(weatherTiles.toPersistentList()) { event ->
+                when (event) {
+                    CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
+                }
             }
         }
 
-
-        return CurrentWeatherAlertScreen.State(weatherTiles.toPersistentList()) { event ->
-            when (event) {
-                CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
-            }
+        @CircuitInject(CurrentWeatherAlertScreen::class, AppScope::class)
+        @AssistedFactory
+        fun interface Factory {
+            fun create(
+                navigator: Navigator,
+                screen: CurrentWeatherAlertScreen,
+            ): CurrentWeatherAlertPresenter
         }
     }
-
-    @CircuitInject(CurrentWeatherAlertScreen::class, AppScope::class)
-    @AssistedFactory
-    fun interface Factory {
-        fun create(
-            navigator: Navigator,
-            screen: CurrentWeatherAlertScreen,
-        ): CurrentWeatherAlertPresenter
-    }
-}
 
 @CircuitInject(CurrentWeatherAlertScreen::class, AppScope::class)
 @Composable
-fun CurrentWeatherAlerts(state: CurrentWeatherAlertScreen.State, modifier: Modifier = Modifier) {
+fun CurrentWeatherAlerts(
+    state: CurrentWeatherAlertScreen.State,
+    modifier: Modifier = Modifier,
+) {
     Column(modifier = modifier.fillMaxSize()) {
         Text(
             text = "Weather Alerts",
             style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         )
         AlertTileGrid(tiles = state.tiles)
     }
@@ -143,7 +144,7 @@ fun AlertTileGrid(tiles: List<AlertTileData>) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 150.dp),
         contentPadding = PaddingValues(8.dp),
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         items(tiles) { tile ->
             AlertTile(data = tile, modifier = Modifier.fillMaxWidth())
@@ -151,43 +152,43 @@ fun AlertTileGrid(tiles: List<AlertTileData>) {
     }
 }
 
-
 @Composable
 fun AlertTile(
     data: AlertTileData,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.padding(8.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .padding(16.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+                    .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceEvenly,
         ) {
             Text(
                 text = data.category,
                 style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Threshold: ${data.threshold}",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = data.currentStatus,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -202,24 +203,30 @@ fun AlertTile(
  *         Use a pulse effect or fade-in animation for alert tiles.
  */
 @Composable
-fun AlertTileEnhanced(category: String, threshold: String, status: String, isUpdated: Boolean) {
+fun AlertTileEnhanced(
+    category: String,
+    threshold: String,
+    status: String,
+    isUpdated: Boolean,
+) {
     val scale = remember { Animatable(1f) }
 
     LaunchedEffect(isUpdated) {
         if (isUpdated) {
             scale.animateTo(
                 targetValue = 1.1f,
-                animationSpec = tween(300, easing = FastOutSlowInEasing)
+                animationSpec = tween(300, easing = FastOutSlowInEasing),
             )
             scale.animateTo(1f, animationSpec = tween(200))
         }
     }
 
     Card(
-        modifier = Modifier
-            .scale(scale.value)
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        modifier =
+            Modifier
+                .scale(scale.value)
+                .padding(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = category, style = MaterialTheme.typography.headlineSmall)
@@ -233,11 +240,12 @@ fun AlertTileEnhanced(category: String, threshold: String, status: String, isUpd
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
 fun CurrentWeatherAlertsPreview() {
-    val sampleTiles = listOf(
-        AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm"),
-        AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm")
-    )
+    val sampleTiles =
+        listOf(
+            AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm"),
+            AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm"),
+        )
     CurrentWeatherAlerts(
-        state = CurrentWeatherAlertScreen.State(sampleTiles.toPersistentList()) { }
+        state = CurrentWeatherAlertScreen.State(sampleTiles.toPersistentList()) { },
     )
 }

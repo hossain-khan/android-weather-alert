@@ -5,6 +5,4 @@ import dagger.Module
 
 @ContributesTo(AppScope::class)
 @Module
-class AppModule {
-
-}
+class AppModule

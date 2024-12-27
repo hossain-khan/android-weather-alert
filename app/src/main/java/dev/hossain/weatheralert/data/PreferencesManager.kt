@@ -15,19 +15,19 @@ class PreferencesManager
     ) {
         private val dataStore = context.dataStore
 
-    suspend fun currentSnowThreshold(): Float {
-        return dataStore.data.map { prefs ->
-            prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
-        }.first()
-    }
+        suspend fun currentSnowThreshold(): Float =
+            dataStore.data
+                .map { prefs ->
+                    prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
+                }.first()
 
-    suspend fun currentRainThreshold(): Float {
-        return dataStore.data.map { prefs ->
-            prefs[UserPreferences.rainThreshold] ?: DEFAULT_RAIN_THRESHOLD
-        }.first()
-    }
+        suspend fun currentRainThreshold(): Float =
+            dataStore.data
+                .map { prefs ->
+                    prefs[UserPreferences.rainThreshold] ?: DEFAULT_RAIN_THRESHOLD
+                }.first()
 
-    val snowThreshold: Flow<Float> =
+        val snowThreshold: Flow<Float> =
             dataStore.data.map { prefs ->
                 prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
             }
