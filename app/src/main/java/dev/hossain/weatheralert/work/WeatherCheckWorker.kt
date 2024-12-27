@@ -14,7 +14,7 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.weatherAlertDataStore
 import kotlinx.coroutines.flow.first
 
-class WeatherCheckWorker(
+class WeatherCheckWorker constructor(
     private val context: Context,
     params: WorkerParameters,
 //    private val preferencesManager: PreferencesManager, // Injected
