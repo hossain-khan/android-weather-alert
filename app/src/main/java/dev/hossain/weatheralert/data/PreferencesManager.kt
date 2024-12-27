@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -14,7 +15,19 @@ class PreferencesManager
     ) {
         private val dataStore = context.dataStore
 
-        val snowThreshold: Flow<Float> =
+    suspend fun currentSnowThreshold(): Float {
+        return dataStore.data.map { prefs ->
+            prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
+        }.first()
+    }
+
+    suspend fun currentRainThreshold(): Float {
+        return dataStore.data.map { prefs ->
+            prefs[UserPreferences.rainThreshold] ?: DEFAULT_RAIN_THRESHOLD
+        }.first()
+    }
+
+    val snowThreshold: Flow<Float> =
             dataStore.data.map { prefs ->
                 prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
             }

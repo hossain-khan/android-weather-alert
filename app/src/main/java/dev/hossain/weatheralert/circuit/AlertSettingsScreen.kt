@@ -14,10 +14,11 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,11 +34,11 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
-import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.di.AppScope
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import timber.log.Timber
 
 @Parcelize
 data class AlertSettingsScreen(
@@ -58,7 +59,10 @@ data class AlertSettingsScreen(
             val value: Float,
         ) : Event()
 
-        data object SaveSettingsClicked : Event()
+        data class SaveSettingsClicked(
+            val snowThreshold: Float,
+            val rainThreshold: Float,
+        ) : Event()
     }
 }
 
@@ -71,21 +75,33 @@ class AlertSettingsPresenter
     ) : Presenter<AlertSettingsScreen.State> {
         @Composable
         override fun present(): AlertSettingsScreen.State {
-            // State variables to hold threshold values
-            val snowThreshold by preferencesManager.snowThreshold.collectAsState(initial = DEFAULT_SNOW_THRESHOLD)
-            val rainThreshold by preferencesManager.rainThreshold.collectAsState(initial = DEFAULT_RAIN_THRESHOLD)
+            val scope = rememberCoroutineScope()
+            var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
+            var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
 
-            var updatedSnowThreshold by remember { mutableStateOf(snowThreshold) }
-            var updatedRainThreshold by remember { mutableStateOf(rainThreshold) }
+            LaunchedEffect(Unit) {
+                updatedSnowThreshold = preferencesManager.currentSnowThreshold()
+                updatedRainThreshold = preferencesManager.currentRainThreshold()
+
+                preferencesManager.snowThreshold.collect { updatedSnowThreshold = it }
+                preferencesManager.rainThreshold.collect { updatedRainThreshold = it }
+            }
 
             return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
                 when (event) {
-                    AlertSettingsScreen.Event.SaveSettingsClicked -> TODO()
                     is AlertSettingsScreen.Event.RainThresholdChanged -> {
                         updatedRainThreshold = event.value
                     }
                     is AlertSettingsScreen.Event.SnowThresholdChanged -> {
                         updatedSnowThreshold = event.value
+                    }
+
+                    is AlertSettingsScreen.Event.SaveSettingsClicked -> {
+                        Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
+                        scope.launch {
+                            preferencesManager.updateRainThreshold(event.rainThreshold)
+                            preferencesManager.updateSnowThreshold(event.snowThreshold)
+                        }
                     }
                 }
             }
@@ -145,7 +161,10 @@ fun AlertSettingsScreen(
 
             Button(
                 onClick = {
-                    state.eventSink(AlertSettingsScreen.Event.SaveSettingsClicked)
+                    state.eventSink(AlertSettingsScreen.Event.SaveSettingsClicked(
+                        state.snowThreshold,
+                        state.rainThreshold,
+                    ))
                 },
                 modifier = Modifier.fillMaxWidth(),
             ) {

@@ -81,6 +81,8 @@ dependencies {
     implementation(libs.circuitx.overlays)
     ksp(libs.circuit.codegen)
 
+    implementation(libs.timber)
+
     implementation(libs.dagger)
     // Dagger KSP support is in Alpha, not available yet. Using KAPT for now.
     // https://dagger.dev/dev-guide/ksp.html
