@@ -13,7 +13,7 @@ import javax.inject.Provider
         AppModule::class,
         ExampleAppModule::class,
         NetworkModule::class,
-        CircuitModule::class
+        CircuitModule::class,
     ],
 )
 @SingleIn(AppScope::class)
