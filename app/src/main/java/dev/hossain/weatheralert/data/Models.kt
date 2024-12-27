@@ -31,3 +31,18 @@ data class WeatherDescription(
     val description: String,
     val icon: String,
 )
+
+data class AlertTileData(
+    /**
+     * e.g., "Snowfall", "Rainfall"
+     */
+    val category: String,
+    /**
+     * e.g., "5 cm", "10 mm"
+     */
+    val threshold: String,
+    /**
+     * e.g., "Tomorrow: 7 cm", "Tomorrow: 15 mm"
+     */
+    val currentStatus: String,
+)
