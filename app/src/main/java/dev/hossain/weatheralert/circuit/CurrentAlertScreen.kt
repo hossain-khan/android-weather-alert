@@ -16,13 +16,23 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -44,22 +54,24 @@ import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.di.AppScope
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toPersistentList
+import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.combine
 import kotlinx.parcelize.Parcelize
+import timber.log.Timber
 
 @Parcelize
 data class CurrentWeatherAlertScreen(
     val id: String,
 ) : Screen {
     data class State(
-        val tiles: ImmutableList<AlertTileData>,
+        val tiles: List<AlertTileData>,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
         data object OnItemClicked : Event()
+
+        data object AddNewAlertClicked : Event()
     }
 }
 
@@ -73,7 +85,7 @@ class CurrentWeatherAlertPresenter
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
-            var weatherTiles = remember { emptyList<AlertTileData>() }
+            var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
 
             LaunchedEffect(Unit) {
                 combine(
@@ -102,13 +114,17 @@ class CurrentWeatherAlertPresenter
                         ),
                     )
                 }.collect { tileData: List<AlertTileData> ->
+                    Timber.d("Found weather data: ${tileData.size} items.")
                     weatherTiles = tileData
                 }
             }
 
-            return CurrentWeatherAlertScreen.State(weatherTiles.toPersistentList()) { event ->
+            return CurrentWeatherAlertScreen.State(weatherTiles) { event ->
                 when (event) {
                     CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
+                    CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
+                        navigator.goTo(AlertSettingsScreen("add-new-alert"))
+                    }
                 }
             }
         }
@@ -123,19 +139,38 @@ class CurrentWeatherAlertPresenter
         }
     }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @CircuitInject(CurrentWeatherAlertScreen::class, AppScope::class)
 @Composable
 fun CurrentWeatherAlerts(
     state: CurrentWeatherAlertScreen.State,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier.fillMaxSize()) {
-        Text(
-            text = "Weather Alerts",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(16.dp),
+    WeatherAlertAppTheme {
+        Scaffold(
+            topBar = {
+                TopAppBar(title = { Text("Weather Alerts") })
+            },
+            floatingActionButton = {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
+                    },
+                    text = { Text("Add Alert") },
+                    icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+                )
+            },
+            content = { padding ->
+                Column(
+                    modifier =
+                        modifier
+                            .fillMaxSize()
+                            .padding(padding),
+                ) {
+                    AlertTileGrid(tiles = state.tiles)
+                }
+            },
         )
-        AlertTileGrid(tiles = state.tiles)
     }
 }
 
@@ -245,7 +280,5 @@ fun CurrentWeatherAlertsPreview() {
             AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm"),
             AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm"),
         )
-    CurrentWeatherAlerts(
-        state = CurrentWeatherAlertScreen.State(sampleTiles.toPersistentList()) { },
-    )
+    CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
 }
