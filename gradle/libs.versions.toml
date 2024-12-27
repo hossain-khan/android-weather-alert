@@ -19,6 +19,7 @@ ksp = "2.1.0-1.0.29"
 
 # Forked Anvil
 # https://github.com/ZacSweers/anvil
+# Original Anvil - https://github.com/square/anvil
 anvil = "0.4.0"
 
 # https://dagger.dev/dev-guide/ksp
@@ -31,11 +32,25 @@ googleFonts = "1.7.6"
 timber = "5.0.1"
 
 retrofit = "2.11.0"
+
+# https://developer.android.com/jetpack/androidx/releases/work
 workManager = "2.10.0"
+
 dataStore = "1.1.1"
+
+# Android Widgets using Compose
+# https://developer.android.com/jetpack/androidx/releases/glance
 glance = "1.1.1"
+
+# Http client for Android
+# https://square.github.io/okhttp/
 okhttp = "4.12.0"
+
+# A modern JSON library for Kotlin and Java.
+# https://github.com/square/moshi
 moshi = "1.15.2"
+
+# Navigation for Jetpack Compose
 navigationCompose = "2.8.5"
 
 [libraries]
@@ -86,6 +101,7 @@ retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
+androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "workManager" }
 
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "dataStore" }
@@ -96,6 +112,8 @@ androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidge
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 
+# A modern JSON library for Kotlin and Java.
+# https://github.com/square/moshi
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 
@@ -111,7 +129,9 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 
+# Forked Anvil
 # https://github.com/ZacSweers/anvil/blob/main/FORK.md
+# Original Anvil - https://github.com/square/anvil
 anvil = { id = "dev.zacsweers.anvil", version.ref = "anvil" }
 
 
