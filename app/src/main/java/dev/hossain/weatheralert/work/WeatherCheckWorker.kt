@@ -31,7 +31,7 @@ class WeatherCheckWorker
         @Assisted private val context: Context,
         @Assisted params: WorkerParameters,
         private val preferencesManager: PreferencesManager,
-        private val weatherService: WeatherRepository,
+        private val weatherRepository: WeatherRepository,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
@@ -42,7 +42,7 @@ class WeatherCheckWorker
 
                 // Fetch forecast
                 val forecast =
-                    weatherService.getDailyForecast(
+                    weatherRepository.getDailyForecast(
                         // Use Toronto coordinates for now
                         latitude = 43.7,
                         longitude = -79.42,
