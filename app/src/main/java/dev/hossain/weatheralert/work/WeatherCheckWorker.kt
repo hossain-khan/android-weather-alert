@@ -6,6 +6,8 @@ import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.edit
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -14,14 +16,19 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.weatherAlertDataStore
 import kotlinx.coroutines.flow.first
 
-class WeatherCheckWorker constructor(
-    private val context: Context,
-    params: WorkerParameters,
-//    private val preferencesManager: PreferencesManager, // Injected
-    private val weatherService: WeatherRepository, // Injected
+/**
+ * Worker to check weather forecast and trigger notification if thresholds are exceeded.
+ *
+ * See additional details on Worker class:
+ * - https://developer.android.com/reference/androidx/work/Worker
+ * - https://developer.android.com/reference/kotlin/androidx/work/WorkManager
+ */
+class WeatherCheckWorker @AssistedInject constructor(
+    @Assisted private val context: Context,
+    @Assisted params: WorkerParameters,
+    private val preferencesManager: PreferencesManager,
+    private val weatherService: WeatherRepository,
 ) : CoroutineWorker(context, params) {
-    private val preferencesManager = PreferencesManager(context)
-
     override suspend fun doWork(): Result {
         try {
             // Fetch thresholds from DataStore
