@@ -53,6 +53,10 @@ moshi = "1.15.2"
 # Navigation for Jetpack Compose
 navigationCompose = "2.8.5"
 
+# API result type for modeling network API responses.
+# https://github.com/slackhq/EitherNet
+eithernet = "2.0.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -116,6 +120,11 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 # https://github.com/square/moshi
 moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
+
+# API result type for modeling network API responses.
+# https://github.com/slackhq/EitherNet
+eithernet = { group = "com.slack.eithernet", name = "eithernet", version.ref = "eithernet" }
+eithernet-integration-retrofit = { group = "com.slack.eithernet", name = "eithernet-integration-retrofit", version.ref = "eithernet" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -46,6 +46,7 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -56,6 +57,7 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
@@ -91,28 +93,36 @@ class CurrentWeatherAlertPresenter
                 combine(
                     preferencesManager.snowThreshold,
                     preferencesManager.rainThreshold,
-                    weatherRepository.getWeatherForecastFlow(
-                        // Use Toronto coordinates for now
-                        latitude = 43.7,
-                        longitude = -79.42,
-                        apiKey = BuildConfig.WEATHER_API_KEY,
+                    flowOf(
+                        weatherRepository.getDailyForecast(
+                            // Use Toronto coordinates for now
+                            latitude = 43.7,
+                            longitude = -79.42,
+                            apiKey = BuildConfig.WEATHER_API_KEY,
+                        ),
                     ), // Live updates from API
-                ) { snowThreshold, rainThreshold, forecast ->
-                    val snowStatus = forecast.daily[1].snowVolume ?: 0.0
-                    val rainStatus = forecast.daily[1].rainVolume ?: 0.0
-
-                    listOf(
-                        AlertTileData(
-                            category = "Snowfall",
-                            threshold = "$snowThreshold cm",
-                            currentStatus = "Tomorrow: $snowStatus cm",
-                        ),
-                        AlertTileData(
-                            category = "Rainfall",
-                            threshold = "$rainThreshold mm",
-                            currentStatus = "Tomorrow: $rainStatus mm",
-                        ),
-                    )
+                ) { snowThreshold, rainThreshold, apiResult ->
+                    val alertTileData: List<AlertTileData> =
+                        when (apiResult) {
+                            is ApiResult.Success -> {
+                                val snowStatus = apiResult.value.daily[1].snowVolume ?: 0.0
+                                val rainStatus = apiResult.value.daily[1].rainVolume ?: 0.0
+                                listOf(
+                                    AlertTileData(
+                                        category = "Snowfall",
+                                        threshold = "$snowThreshold cm",
+                                        currentStatus = "Tomorrow: $snowStatus cm",
+                                    ),
+                                    AlertTileData(
+                                        category = "Rainfall",
+                                        threshold = "$rainThreshold mm",
+                                        currentStatus = "Tomorrow: $rainStatus mm",
+                                    ),
+                                )
+                            }
+                            is ApiResult.Failure -> emptyList()
+                        }
+                    alertTileData
                 }.collect { tileData: List<AlertTileData> ->
                     Timber.d("Found weather data: ${tileData.size} items.")
                     weatherTiles = tileData

@@ -118,9 +118,13 @@ dependencies {
     implementation(libs.anvil.annotations)
     implementation(libs.anvil.annotations.optional)
 
+    implementation(libs.eithernet)
+    implementation(libs.eithernet.integration.retrofit)
+
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.androidx.work.testing)
+    testImplementation(testFixtures(libs.eithernet))
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

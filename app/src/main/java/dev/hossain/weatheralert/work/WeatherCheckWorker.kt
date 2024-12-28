@@ -6,6 +6,7 @@ import androidx.core.app.NotificationCompat
 import androidx.datastore.preferences.core.edit
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.BuildConfig
@@ -35,37 +36,48 @@ class WeatherCheckWorker
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
-            try {
-                // Fetch thresholds from DataStore
-                val snowThreshold = preferencesManager.snowThreshold.first()
-                val rainThreshold = preferencesManager.rainThreshold.first()
+            // Fetch thresholds from DataStore
+            val snowThreshold = preferencesManager.snowThreshold.first()
+            val rainThreshold = preferencesManager.rainThreshold.first()
 
-                // Fetch forecast
-                val forecast =
-                    weatherRepository.getDailyForecast(
-                        // Use Toronto coordinates for now
-                        latitude = 43.7,
-                        longitude = -79.42,
-                        apiKey = BuildConfig.WEATHER_API_KEY,
-                    )
+            // Fetch forecast
+            val forecastApiResult =
+                weatherRepository.getDailyForecast(
+                    // Use Toronto coordinates for now
+                    latitude = 43.7,
+                    longitude = -79.42,
+                    apiKey = BuildConfig.WEATHER_API_KEY,
+                )
 
-                // Check if thresholds are exceeded
-                val snowTomorrow = forecast.daily[1].snowVolume ?: 0.0 // Example: Snow forecast for tomorrow
-                val rainTomorrow = forecast.daily[1].rainVolume ?: 0.0 // Example: Rain forecast for tomorrow
+            when (forecastApiResult) {
+                is ApiResult.Success -> {
+                    // Check if thresholds are exceeded
+                    val snowTomorrow = forecastApiResult.value.daily[1].snowVolume ?: 0.0 // Example: Snow forecast for tomorrow
+                    val rainTomorrow = forecastApiResult.value.daily[1].rainVolume ?: 0.0 // Example: Rain forecast for tomorrow
 
-                if (snowTomorrow > snowThreshold || rainTomorrow > rainThreshold) {
-                    // Trigger a rich notification
-                    triggerNotification(snowTomorrow, rainTomorrow, snowThreshold, rainThreshold)
+                    if (snowTomorrow > snowThreshold || rainTomorrow > rainThreshold) {
+                        // Trigger a rich notification
+                        triggerNotification(snowTomorrow, rainTomorrow, snowThreshold, rainThreshold)
 
-                    val snowAlert = "Tomorrow: $snowTomorrow cm"
-                    val rainAlert = "Tomorrow: $rainTomorrow mm"
-                    saveWeatherAlertsToDataStore(context, snowAlert, rainAlert)
+                        val snowAlert = "Tomorrow: $snowTomorrow cm"
+                        val rainAlert = "Tomorrow: $rainTomorrow mm"
+                        saveWeatherAlertsToDataStore(context, snowAlert, rainAlert)
+                    }
+
+                    return Result.success()
                 }
-
-                return Result.success()
-            } catch (e: Exception) {
-                Timber.e(e, "Failed to check weather forecast")
-                return Result.retry()
+                is ApiResult.Failure.HttpFailure -> {
+                    return Result.retry()
+                }
+                is ApiResult.Failure.ApiFailure -> {
+                    return Result.failure()
+                }
+                is ApiResult.Failure.NetworkFailure -> {
+                    return Result.retry()
+                }
+                is ApiResult.Failure.UnknownFailure -> {
+                    return Result.failure()
+                }
             }
         }
 

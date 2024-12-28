@@ -1,6 +1,8 @@
 package dev.hossain.weatheralert.di
 
 import android.content.Context
+import com.slack.eithernet.integration.retrofit.ApiResultCallAdapterFactory
+import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
@@ -42,6 +44,8 @@ object NetworkModule {
         Retrofit
             .Builder()
             .baseUrl(BASE_URL)
+            .addConverterFactory(ApiResultConverterFactory)
+            .addCallAdapterFactory(ApiResultCallAdapterFactory)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
