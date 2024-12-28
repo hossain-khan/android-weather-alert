@@ -124,7 +124,6 @@ dependencies {
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.androidx.work.testing)
-    testImplementation(testFixtures(libs.eithernet))
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
