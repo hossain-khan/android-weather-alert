@@ -5,6 +5,7 @@ import android.content.Context
 import com.squareup.anvil.annotations.MergeComponent
 import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.BindsInstance
+import dev.hossain.weatheralert.WeatherAlertApp
 import javax.inject.Provider
 
 @MergeComponent(
@@ -19,6 +20,11 @@ import javax.inject.Provider
 @SingleIn(AppScope::class)
 interface AppComponent {
     val activityProviders: Map<Class<out Activity>, @JvmSuppressWildcards Provider<Activity>>
+
+    /**
+     * Injects dependencies into [WeatherAlertApp].
+     */
+    fun inject(app: WeatherAlertApp)
 
     @MergeComponent.Factory
     interface Factory {
