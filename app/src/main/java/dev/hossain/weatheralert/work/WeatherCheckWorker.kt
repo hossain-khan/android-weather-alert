@@ -15,6 +15,7 @@ import dev.hossain.weatheralert.data.WeatherAlertKeys
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.weatherAlertDataStore
 import kotlinx.coroutines.flow.first
+import timber.log.Timber
 
 /**
  * Worker to check weather forecast and trigger notification if thresholds are exceeded.
@@ -33,6 +34,7 @@ class WeatherCheckWorker
         private val weatherService: WeatherRepository,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
+            Timber.d("WeatherCheckWorker: Checking weather forecast")
             try {
                 // Fetch thresholds from DataStore
                 val snowThreshold = preferencesManager.snowThreshold.first()
@@ -62,7 +64,7 @@ class WeatherCheckWorker
 
                 return Result.success()
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.e(e, "Failed to check weather forecast")
                 return Result.retry()
             }
         }
@@ -73,6 +75,8 @@ class WeatherCheckWorker
             snowThreshold: Float,
             rainThreshold: Float,
         ) {
+            Timber.d("Triggering notification for snow: $snowTomorrow, rain: $rainTomorrow")
+
             val notificationText =
                 buildString {
                     if (snowTomorrow > snowThreshold) append("Snowfall: $snowTomorrow cm\n")
