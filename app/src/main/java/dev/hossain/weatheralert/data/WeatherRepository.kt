@@ -1,8 +1,7 @@
 package dev.hossain.weatheralert.data
+import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.di.AppScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
@@ -13,13 +12,7 @@ interface WeatherRepository {
         latitude: Double,
         longitude: Double,
         apiKey: String,
-    ): WeatherForecast
-
-    fun getWeatherForecastFlow(
-        latitude: Double,
-        longitude: Double,
-        apiKey: String,
-    ): Flow<WeatherForecast>
+    ): ApiResult<WeatherForecast, Unit>
 }
 
 /**
@@ -35,14 +28,5 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             apiKey: String,
-        ): WeatherForecast = api.getDailyForecast(latitude = latitude, longitude = longitude, apiKey = apiKey)
-
-        override fun getWeatherForecastFlow(
-            latitude: Double,
-            longitude: Double,
-            apiKey: String,
-        ): Flow<WeatherForecast> =
-            flow {
-                emit(getDailyForecast(latitude, longitude, apiKey))
-            }
+        ): ApiResult<WeatherForecast, Unit> = api.getDailyForecast(latitude = latitude, longitude = longitude, apiKey = apiKey)
     }
