@@ -18,7 +18,7 @@ object WorkerModule {
     @Provides
     fun provideWorkerFactory(
         preferencesManager: PreferencesManager,
-        weatherService: WeatherRepository,
+        weatherRepository: WeatherRepository,
     ): WorkerFactory =
         object : WorkerFactory() {
             override fun createWorker(
@@ -26,14 +26,17 @@ object WorkerModule {
                 workerClassName: String,
                 workerParameters: WorkerParameters,
             ): CoroutineWorker? {
-                val workerClass = Class.forName(workerClassName).asSubclass(CoroutineWorker::class.java)
+                val workerClass =
+                    Class
+                        .forName(workerClassName)
+                        .asSubclass(CoroutineWorker::class.java)
                 return when (workerClass) {
                     WeatherCheckWorker::class.java ->
                         WeatherCheckWorker(
                             context = appContext,
                             params = workerParameters,
                             preferencesManager = preferencesManager,
-                            weatherService = weatherService,
+                            weatherRepository = weatherRepository,
                         )
                     else -> null
                 }
