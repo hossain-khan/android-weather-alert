@@ -8,11 +8,12 @@ import dev.hossain.weatheralert.di.AppComponent
 import dev.hossain.weatheralert.work.WeatherCheckWorker
 import timber.log.Timber
 
-
 /**
  * Application class for the app with key initializations.
  */
-class WeatherAlertApp : Application(), Configuration.Provider {
+class WeatherAlertApp :
+    Application(),
+    Configuration.Provider {
     private val appComponent: AppComponent by lazy { AppComponent.create(this) }
 
     fun appComponent(): AppComponent = appComponent
@@ -21,7 +22,8 @@ class WeatherAlertApp : Application(), Configuration.Provider {
     override val workManagerConfiguration: Configuration
         get() {
             Timber.i("Setting up custom WorkManager configuration")
-            return Configuration.Builder()
+            return Configuration
+                .Builder()
                 .setMinimumLoggingLevel(android.util.Log.DEBUG)
                 .build()
         }
