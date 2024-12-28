@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.work.Configuration
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import androidx.work.WorkerFactory
 import dev.hossain.weatheralert.di.AppComponent
 import dev.hossain.weatheralert.work.WeatherCheckWorker
+import jakarta.inject.Inject
 import timber.log.Timber
 
 /**
@@ -18,6 +20,9 @@ class WeatherAlertApp :
 
     fun appComponent(): AppComponent = appComponent
 
+    @Inject
+    lateinit var workerFactory: WorkerFactory
+
     // https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration
     override val workManagerConfiguration: Configuration
         get() {
@@ -25,11 +30,13 @@ class WeatherAlertApp :
             return Configuration
                 .Builder()
                 .setMinimumLoggingLevel(android.util.Log.DEBUG)
+                .setWorkerFactory(workerFactory)
                 .build()
         }
 
     override fun onCreate() {
         super.onCreate()
+        appComponent.inject(this)
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
