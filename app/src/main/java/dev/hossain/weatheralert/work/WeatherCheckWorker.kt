@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.first
  * Worker to check weather forecast and trigger notification if thresholds are exceeded.
  *
  * See additional details on Worker class:
+ * - https://developer.android.com/topic/libraries/architecture/workmanager
  * - https://developer.android.com/reference/androidx/work/Worker
  * - https://developer.android.com/reference/kotlin/androidx/work/WorkManager
  */
