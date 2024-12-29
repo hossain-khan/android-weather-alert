@@ -1,0 +1,349 @@
+{
+  "X-API-URL": "https://api.openweathermap.org/data/3.0/onecall?lat=43.7&lon=-79.42&exclude=current%2Cminutely%2Chourly&units=metric&appid=key",
+  "X-REQUEST-DATE": "2024-12-28",
+  "lat": 43.7,
+  "lon": -79.42,
+  "timezone": "America/Toronto",
+  "timezone_offset": -18000,
+  "daily": [
+    {
+      "dt": 1735405200,
+      "sunrise": 1735390252,
+      "sunset": 1735422471,
+      "moonrise": 1735383720,
+      "moonset": 1735414200,
+      "moon_phase": 0.93,
+      "summary": "Expect a day of partly cloudy with rain",
+      "temp": {
+        "day": 3.52,
+        "min": 1.92,
+        "max": 4.86,
+        "night": 3.79,
+        "eve": 4.55,
+        "morn": 2.22
+      },
+      "feels_like": {
+        "day": 3.52,
+        "night": 2.58,
+        "eve": 4.55,
+        "morn": -0.35
+      },
+      "pressure": 1017,
+      "humidity": 99,
+      "dew_point": 3.59,
+      "wind_speed": 3.53,
+      "wind_deg": 92,
+      "wind_gust": 7.88,
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "clouds": 98,
+      "pop": 0.85,
+      "rain": 0.47,
+      "uvi": 0.8
+    },
+    {
+      "dt": 1735491600,
+      "sunrise": 1735476663,
+      "sunset": 1735508917,
+      "moonrise": 1735474020,
+      "moonset": 1735503420,
+      "moon_phase": 0.96,
+      "summary": "Expect a day of partly cloudy with rain",
+      "temp": {
+        "day": 3.95,
+        "min": 2.45,
+        "max": 10.06,
+        "night": 9.93,
+        "eve": 5.67,
+        "morn": 2.86
+      },
+      "feels_like": {
+        "day": -0.26,
+        "night": 6.65,
+        "eve": 2.55,
+        "morn": 0.45
+      },
+      "pressure": 1007,
+      "humidity": 98,
+      "dew_point": 3.82,
+      "wind_speed": 7.74,
+      "wind_deg": 197,
+      "wind_gust": 17.99,
+      "weather": [
+        {
+          "id": 501,
+          "main": "Rain",
+          "description": "moderate rain",
+          "icon": "10d"
+        }
+      ],
+      "clouds": 100,
+      "pop": 1,
+      "rain": 9.91,
+      "uvi": 0.16
+    },
+    {
+      "dt": 1735578000,
+      "sunrise": 1735563072,
+      "sunset": 1735595364,
+      "moonrise": 1735563960,
+      "moonset": 1735593360,
+      "moon_phase": 0,
+      "summary": "Expect a day of partly cloudy with rain",
+      "temp": {
+        "day": 2.47,
+        "min": 2.47,
+        "max": 8.11,
+        "night": 3.65,
+        "eve": 3.84,
+        "morn": 3.13
+      },
+      "feels_like": {
+        "day": -2.81,
+        "night": -0.55,
+        "eve": -1.18,
+        "morn": -1.93
+      },
+      "pressure": 997,
+      "humidity": 95,
+      "dew_point": 2.02,
+      "wind_speed": 8.64,
+      "wind_deg": 201,
+      "wind_gust": 17.47,
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "clouds": 100,
+      "pop": 0.36,
+      "rain": 0.24,
+      "uvi": 0.37
+    },
+    {
+      "dt": 1735664400,
+      "sunrise": 1735649478,
+      "sunset": 1735681814,
+      "moonrise": 1735653300,
+      "moonset": 1735683900,
+      "moon_phase": 0.03,
+      "summary": "Expect a day of rain with snow",
+      "temp": {
+        "day": 1.83,
+        "min": 0.43,
+        "max": 3.55,
+        "night": 1.97,
+        "eve": 2.73,
+        "morn": 0.59
+      },
+      "feels_like": {
+        "day": 1.83,
+        "night": -1.33,
+        "eve": 0.19,
+        "morn": -1.5
+      },
+      "pressure": 1007,
+      "humidity": 78,
+      "dew_point": -1.32,
+      "wind_speed": 5,
+      "wind_deg": 263,
+      "wind_gust": 10.84,
+      "weather": [
+        {
+          "id": 616,
+          "main": "Snow",
+          "description": "rain and snow",
+          "icon": "13d"
+        }
+      ],
+      "clouds": 99,
+      "pop": 0.97,
+      "rain": 0.52,
+      "snow": 0.95,
+      "uvi": 0.71
+    },
+    {
+      "dt": 1735750800,
+      "sunrise": 1735735882,
+      "sunset": 1735768265,
+      "moonrise": 1735742100,
+      "moonset": 1735774800,
+      "moon_phase": 0.06,
+      "summary": "There will be partly cloudy today",
+      "temp": {
+        "day": 3.44,
+        "min": -0.03,
+        "max": 3.44,
+        "night": -0.03,
+        "eve": 0.7,
+        "morn": 0.8
+      },
+      "feels_like": {
+        "day": -0.33,
+        "night": -4.14,
+        "eve": -3.42,
+        "morn": -3.54
+      },
+      "pressure": 1009,
+      "humidity": 55,
+      "dew_point": -4.43,
+      "wind_speed": 4.7,
+      "wind_deg": 281,
+      "wind_gust": 10.18,
+      "weather": [
+        {
+          "id": 804,
+          "main": "Clouds",
+          "description": "overcast clouds",
+          "icon": "04d"
+        }
+      ],
+      "clouds": 99,
+      "pop": 0.74,
+      "uvi": 0.87
+    },
+    {
+      "dt": 1735837200,
+      "sunrise": 1735822283,
+      "sunset": 1735854718,
+      "moonrise": 1735830360,
+      "moonset": 1735865820,
+      "moon_phase": 0.1,
+      "summary": "Expect a day of partly cloudy with snow",
+      "temp": {
+        "day": -0.23,
+        "min": -1.89,
+        "max": -0.23,
+        "night": -1.89,
+        "eve": -1.46,
+        "morn": -1.07
+      },
+      "feels_like": {
+        "day": -5.25,
+        "night": -7.51,
+        "eve": -7.18,
+        "morn": -6.18
+      },
+      "pressure": 1012,
+      "humidity": 60,
+      "dew_point": -6.77,
+      "wind_speed": 5.88,
+      "wind_deg": 264,
+      "wind_gust": 11.34,
+      "weather": [
+        {
+          "id": 600,
+          "main": "Snow",
+          "description": "light snow",
+          "icon": "13d"
+        }
+      ],
+      "clouds": 97,
+      "pop": 0.2,
+      "snow": 0.45,
+      "uvi": 1
+    },
+    {
+      "dt": 1735923600,
+      "sunrise": 1735908682,
+      "sunset": 1735941174,
+      "moonrise": 1735918260,
+      "moonset": 1735956780,
+      "moon_phase": 0.13,
+      "summary": "Expect a day of partly cloudy with snow",
+      "temp": {
+        "day": -1.21,
+        "min": -2.75,
+        "max": -1.21,
+        "night": -2.58,
+        "eve": -2.47,
+        "morn": -2.75
+      },
+      "feels_like": {
+        "day": -6.42,
+        "night": -7.92,
+        "eve": -7.93,
+        "morn": -8.05
+      },
+      "pressure": 1012,
+      "humidity": 60,
+      "dew_point": -7.81,
+      "wind_speed": 5.2,
+      "wind_deg": 259,
+      "wind_gust": 10.26,
+      "weather": [
+        {
+          "id": 600,
+          "main": "Snow",
+          "description": "light snow",
+          "icon": "13d"
+        }
+      ],
+      "clouds": 69,
+      "pop": 0.2,
+      "snow": 0.12,
+      "uvi": 1
+    },
+    {
+      "dt": 1736010000,
+      "sunrise": 1735995079,
+      "sunset": 1736027630,
+      "moonrise": 1736005980,
+      "moonset": 1736047680,
+      "moon_phase": 0.17,
+      "summary": "There will be partly cloudy today",
+      "temp": {
+        "day": -2.28,
+        "min": -3.99,
+        "max": -2.24,
+        "night": -3.3,
+        "eve": -2.82,
+        "morn": -3.99
+      },
+      "feels_like": {
+        "day": -8.21,
+        "night": -7.33,
+        "eve": -7.06,
+        "morn": -9.91
+      },
+      "pressure": 1018,
+      "humidity": 43,
+      "dew_point": -13.02,
+      "wind_speed": 5.76,
+      "wind_deg": 305,
+      "wind_gust": 12.67,
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04d"
+        }
+      ],
+      "clouds": 79,
+      "pop": 0.03,
+      "uvi": 1
+    }
+  ],
+  "alerts": [
+    {
+      "sender_name": "Environment Canada",
+      "event": "rainfall",
+      "start": 1735459200,
+      "end": 1735479986,
+      "description": "Significant rainfall is expected. The frozen ground has a reduced ability to absorb this rainfall. \n\nHazards:\nRainfall amounts of 20 to 40 mm\nPonding of water on roads.\n\nTiming:\nBeginning Sunday morning and ending Sunday night. \n\nDiscussion:\nRain will begin Sunday morning and may be heavy at times. The rain will taper to isolated showers Sunday night.\n\n###\n\nLocalized flooding in low-lying areas is possible.\n\nPlease continue to monitor alerts and forecasts issued by Environment Canada. To report severe weather, send an email to ONstorm@ec.gc.ca or tweet reports using #ONStorm.",
+      "tags": [
+        "Rain"
+      ]
+    }
+  ]
+}
