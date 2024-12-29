@@ -32,7 +32,7 @@ data class WeatherDescription(
     val icon: String,
 )
 
-data class AlertTileData(
+data class AlertTileData constructor(
     /**
      * e.g., "Snowfall", "Rainfall"
      */

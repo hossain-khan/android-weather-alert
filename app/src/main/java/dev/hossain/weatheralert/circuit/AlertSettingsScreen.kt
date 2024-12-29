@@ -1,28 +1,35 @@
 package dev.hossain.weatheralert.circuit
 
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AcUnit
+import androidx.compose.material.icons.outlined.Umbrella
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -139,27 +146,68 @@ fun AlertSettingsScreen(
                         .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
             ) {
-                // Snow Threshold Slider
-                Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
-                Slider(
-                    value = state.snowThreshold,
-                    onValueChange = {
-                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
-                    },
-                    valueRange = 1f..20f,
-                    steps = 20,
-                )
+                val checkedList = remember { mutableStateListOf<Int>() }
+                var selectedIndex by remember { mutableIntStateOf(0) }
+                val icons = listOf(Icons.Outlined.AcUnit, Icons.Outlined.Umbrella)
 
-                // Rain Threshold Slider
-                Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
-                Slider(
-                    value = state.rainThreshold,
-                    onValueChange = {
-                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
-                    },
-                    valueRange = 1f..20f,
-                    steps = 20,
-                )
+                val thresholdOption =
+                    listOf(
+                        "Snow",
+                        "Rain",
+                    )
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                    thresholdOption.forEachIndexed { index, label ->
+                        SegmentedButton(
+                            shape =
+                                SegmentedButtonDefaults.itemShape(
+                                    index = index,
+                                    count = thresholdOption.size,
+                                ),
+                            icon = {
+                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
+                                    Icon(
+                                        imageVector = icons[index],
+                                        contentDescription = null,
+                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
+                                    )
+                                }
+                            },
+                            onClick = { selectedIndex = index },
+                            selected = index == selectedIndex,
+                        ) { Text(label) }
+                    }
+                }
+
+                Crossfade(targetState = selectedIndex, label = "threshold-slider") { thresholdIndex ->
+                    when (thresholdIndex) {
+                        0 ->
+                            Column {
+                                // Snow Threshold Slider
+                                Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
+                                Slider(
+                                    value = state.snowThreshold,
+                                    onValueChange = {
+                                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
+                                    },
+                                    valueRange = 1f..20f,
+                                    steps = 20,
+                                )
+                            }
+                        1 ->
+                            Column {
+                                // Rain Threshold Slider
+                                Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
+                                Slider(
+                                    value = state.rainThreshold,
+                                    onValueChange = {
+                                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
+                                    },
+                                    valueRange = 1f..20f,
+                                    steps = 20,
+                                )
+                            }
+                    }
+                }
 
                 Button(
                     onClick = {
@@ -172,44 +220,10 @@ fun AlertSettingsScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Save Settings")
+                    Text("Add Alert Settings")
                 }
             }
         }
-    }
-}
-
-/**
- * Interactive Alert Threshold Adjustments
- *
- *     Purpose: Allow users to adjust alert thresholds in a fun and intuitive way.
- *     Implementation: Use a slider or a rotary dial for thresholds.
- *         Add haptic feedback for user interaction.
- *         Animate the slider's color based on the value range (e.g., blue for low, red for high).
- */
-@Composable
-fun ThresholdSlider(
-    value: Float,
-    onValueChange: (Float) -> Unit,
-    label: String,
-    max: Float,
-) {
-    val color by animateColorAsState(
-        if (value < max / 2) Color.Blue else Color.Red,
-    )
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "$label: ${value.toInt()} cm", color = color)
-        Slider(
-            value = value,
-            onValueChange = onValueChange,
-            valueRange = 0f..max,
-            colors =
-                SliderDefaults.colors(
-                    thumbColor = color,
-                    activeTrackColor = color,
-                ),
-        )
     }
 }
 
