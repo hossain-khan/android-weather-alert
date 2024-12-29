@@ -12,7 +12,6 @@ import javax.inject.Provider
     scope = AppScope::class,
     modules = [
         AppModule::class,
-        ExampleAppModule::class,
         NetworkModule::class,
         CircuitModule::class,
     ],
