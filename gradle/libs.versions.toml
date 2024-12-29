@@ -57,6 +57,11 @@ navigationCompose = "2.8.5"
 # https://github.com/slackhq/EitherNet
 eithernet = "2.0.0"
 
+# Kotlin linter with built-in formatter
+# https://github.com/jeremymailen/kotlinter-gradle
+# https://github.com/pinterest/ktlint
+kotlinter = "5.0.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -142,5 +147,10 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 # https://github.com/ZacSweers/anvil/blob/main/FORK.md
 # Original Anvil - https://github.com/square/anvil
 anvil = { id = "dev.zacsweers.anvil", version.ref = "anvil" }
+
+# Kotlin linter with built-in formatter
+# https://github.com/jeremymailen/kotlinter-gradle
+# https://github.com/pinterest/ktlint
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
 
 
