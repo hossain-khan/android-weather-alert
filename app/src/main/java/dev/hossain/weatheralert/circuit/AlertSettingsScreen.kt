@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,7 +30,9 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -41,9 +44,13 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.WeatherAlert
+import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -68,6 +75,7 @@ data class AlertSettingsScreen(
         ) : Event()
 
         data class SaveSettingsClicked(
+            val selectedAlertType: WeatherAlertCategory,
             val snowThreshold: Float,
             val rainThreshold: Float,
         ) : Event()
@@ -109,6 +117,27 @@ class AlertSettingsPresenter
                         scope.launch {
                             preferencesManager.updateRainThreshold(event.rainThreshold)
                             preferencesManager.updateSnowThreshold(event.snowThreshold)
+
+                            val configuredAlerts: ConfiguredAlerts = preferencesManager.userConfiguredAlerts.first()
+                            Timber.d("Current alerts: ${configuredAlerts.alerts}")
+
+                            preferencesManager.updateUserConfiguredAlerts(
+                                ConfiguredAlerts(
+                                    configuredAlerts.alerts +
+                                        WeatherAlert(
+                                            alertCategory = event.selectedAlertType,
+                                            threshold =
+                                                when (event.selectedAlertType) {
+                                                    WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
+                                                    WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
+                                                },
+                                            // Use Toronto coordinates for now
+                                            // https://github.com/hossain-khan/android-weather-alert/issues/30
+                                            lat = 43.7,
+                                            lon = 79.42,
+                                        ),
+                                ),
+                            )
                         }
                     }
                 }
@@ -146,22 +175,20 @@ fun AlertSettingsScreen(
                         .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
             ) {
-                val checkedList = remember { mutableStateListOf<Int>() }
-                var selectedIndex by remember { mutableIntStateOf(0) }
-                val icons = listOf(Icons.Outlined.AcUnit, Icons.Outlined.Umbrella)
+                val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
+                var selectedIndex: Int by remember { mutableIntStateOf(0) }
+                val selectedAlertCategory: WeatherAlertCategory by remember {
+                    derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
+                }
+                val icons: List<ImageVector> = listOf(Icons.Outlined.AcUnit, Icons.Outlined.Umbrella)
 
-                val thresholdOption =
-                    listOf(
-                        "Snow",
-                        "Rain",
-                    )
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-                    thresholdOption.forEachIndexed { index, label ->
+                    WeatherAlertCategory.entries.forEachIndexed { index, alertCategory ->
                         SegmentedButton(
                             shape =
                                 SegmentedButtonDefaults.itemShape(
                                     index = index,
-                                    count = thresholdOption.size,
+                                    count = WeatherAlertCategory.entries.size,
                                 ),
                             icon = {
                                 SegmentedButtonDefaults.Icon(active = index in checkedList) {
@@ -174,7 +201,7 @@ fun AlertSettingsScreen(
                             },
                             onClick = { selectedIndex = index },
                             selected = index == selectedIndex,
-                        ) { Text(label) }
+                        ) { Text(alertCategory.label) }
                     }
                 }
 
@@ -183,7 +210,11 @@ fun AlertSettingsScreen(
                         0 ->
                             Column {
                                 // Snow Threshold Slider
-                                Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
+                                Text(
+                                    text = "Snowfall Threshold: ${"%.1f".format(
+                                        state.snowThreshold,
+                                    )} ${WeatherAlertCategory.SNOW_FALL.unit}",
+                                )
                                 Slider(
                                     value = state.snowThreshold,
                                     onValueChange = {
@@ -196,7 +227,11 @@ fun AlertSettingsScreen(
                         1 ->
                             Column {
                                 // Rain Threshold Slider
-                                Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
+                                Text(
+                                    text = "Rainfall Threshold: ${"%.1f".format(
+                                        state.rainThreshold,
+                                    )} ${WeatherAlertCategory.RAIN_FALL.unit}",
+                                )
                                 Slider(
                                     value = state.rainThreshold,
                                     onValueChange = {
@@ -213,8 +248,9 @@ fun AlertSettingsScreen(
                     onClick = {
                         state.eventSink(
                             AlertSettingsScreen.Event.SaveSettingsClicked(
-                                state.snowThreshold,
-                                state.rainThreshold,
+                                selectedAlertType = selectedAlertCategory,
+                                snowThreshold = state.snowThreshold,
+                                rainThreshold = state.rainThreshold,
                             ),
                         )
                     },

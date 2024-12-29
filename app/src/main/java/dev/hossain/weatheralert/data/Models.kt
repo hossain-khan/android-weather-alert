@@ -47,9 +47,12 @@ data class AlertTileData constructor(
     val currentStatus: String,
 )
 
-enum class WeatherAlertCategory {
-    SNOWFALL,
-    RAINFALL,
+enum class WeatherAlertCategory(
+    val label: String,
+    val unit: String,
+) {
+    SNOW_FALL("Snow", "cm"),
+    RAIN_FALL("Rain", "mm"),
 }
 
 @JsonClass(generateAdapter = true)
