@@ -36,6 +36,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Run Linter
+        run: ./gradlew lintKotlin --parallel --daemon
+
       - name: Run test
         run: ./gradlew testDebugUnitTest --parallel --daemon
 
