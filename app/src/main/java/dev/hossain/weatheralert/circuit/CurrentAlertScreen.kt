@@ -47,17 +47,19 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.eithernet.ApiResult
+import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.data.AlertTileData
+import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
@@ -90,43 +92,45 @@ class CurrentWeatherAlertPresenter
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
 
             LaunchedEffect(Unit) {
-                combine(
-                    preferencesManager.snowThreshold,
-                    preferencesManager.rainThreshold,
-                    flowOf(
-                        weatherRepository.getDailyForecast(
-                            // Use Toronto coordinates for now
-                            latitude = 43.7,
-                            longitude = -79.42,
-                            apiKey = BuildConfig.WEATHER_API_KEY,
-                        ),
-                    ), // Live updates from API
-                ) { snowThreshold, rainThreshold, apiResult ->
-                    val alertTileData: List<AlertTileData> =
-                        when (apiResult) {
-                            is ApiResult.Success -> {
-                                val snowStatus = apiResult.value.daily[1].snowVolume ?: 0.0
-                                val rainStatus = apiResult.value.daily[1].rainVolume ?: 0.0
-                                listOf(
-                                    AlertTileData(
-                                        category = "Snowfall",
-                                        threshold = "$snowThreshold cm",
-                                        currentStatus = "Tomorrow: $snowStatus cm",
-                                    ),
-                                    AlertTileData(
-                                        category = "Rainfall",
-                                        threshold = "$rainThreshold mm",
-                                        currentStatus = "Tomorrow: $rainStatus mm",
-                                    ),
+                preferencesManager.userConfiguredAlerts
+                    .map { configuredAlerts: ConfiguredAlerts ->
+                        Timber.d("Found ${configuredAlerts.alerts.size} configuredAlerts.")
+                        val alertTileData = mutableListOf<AlertTileData>()
+                        configuredAlerts.alerts.forEach { alert ->
+                            val apiResult =
+                                weatherRepository.getDailyForecast(
+                                    latitude = alert.lat,
+                                    longitude = alert.lon,
+                                    apiKey = BuildConfig.WEATHER_API_KEY,
                                 )
+
+                            when (apiResult) {
+                                is ApiResult.Success -> {
+                                    val snowStatus = apiResult.value.daily[1].snowVolume ?: 0.0
+                                    val rainStatus = apiResult.value.daily[1].rainVolume ?: 0.0
+                                    alertTileData.add(
+                                        AlertTileData(
+                                            category = "${alert.alertCategory}",
+                                            threshold = "${alert.threshold} ${alert.alertCategory.unit}",
+                                            currentStatus = "Tomorrow: ${
+                                                if (alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
+                                                    snowStatus
+                                                } else {
+                                                    rainStatus
+                                                }} ${alert.alertCategory.unit}",
+                                        ),
+                                    )
+                                }
+                                is ApiResult.Failure -> {
+                                    Timber.d("Error fetching weather data: ${apiResult.exceptionOrNull()}")
+                                }
                             }
-                            is ApiResult.Failure -> emptyList()
                         }
-                    alertTileData
-                }.collect { tileData: List<AlertTileData> ->
-                    Timber.d("Found weather data: ${tileData.size} items.")
-                    weatherTiles = tileData
-                }
+                        alertTileData
+                    }.collect { tileData: List<AlertTileData> ->
+                        Timber.d("Found weather data: ${tileData.size} items.")
+                        weatherTiles = tileData
+                    }
             }
 
             return CurrentWeatherAlertScreen.State(weatherTiles) { event ->

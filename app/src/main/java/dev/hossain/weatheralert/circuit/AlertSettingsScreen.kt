@@ -1,28 +1,38 @@
 package dev.hossain.weatheralert.circuit
 
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AcUnit
+import androidx.compose.material.icons.outlined.Umbrella
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
-import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -34,9 +44,13 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.WeatherAlert
+import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -61,6 +75,7 @@ data class AlertSettingsScreen(
         ) : Event()
 
         data class SaveSettingsClicked(
+            val selectedAlertType: WeatherAlertCategory,
             val snowThreshold: Float,
             val rainThreshold: Float,
         ) : Event()
@@ -102,6 +117,27 @@ class AlertSettingsPresenter
                         scope.launch {
                             preferencesManager.updateRainThreshold(event.rainThreshold)
                             preferencesManager.updateSnowThreshold(event.snowThreshold)
+
+                            val configuredAlerts: ConfiguredAlerts = preferencesManager.userConfiguredAlerts.first()
+                            Timber.d("Current alerts: ${configuredAlerts.alerts}")
+
+                            preferencesManager.updateUserConfiguredAlerts(
+                                ConfiguredAlerts(
+                                    configuredAlerts.alerts +
+                                        WeatherAlert(
+                                            alertCategory = event.selectedAlertType,
+                                            threshold =
+                                                when (event.selectedAlertType) {
+                                                    WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
+                                                    WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
+                                                },
+                                            // Use Toronto coordinates for now
+                                            // https://github.com/hossain-khan/android-weather-alert/issues/30
+                                            lat = 43.7,
+                                            lon = 79.42,
+                                        ),
+                                ),
+                            )
                         }
                     }
                 }
@@ -139,77 +175,91 @@ fun AlertSettingsScreen(
                         .padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
             ) {
-                // Snow Threshold Slider
-                Text(text = "Snowfall Threshold: ${"%.1f".format(state.snowThreshold)} cm")
-                Slider(
-                    value = state.snowThreshold,
-                    onValueChange = {
-                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
-                    },
-                    valueRange = 1f..20f,
-                    steps = 20,
-                )
+                val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
+                var selectedIndex: Int by remember { mutableIntStateOf(0) }
+                val selectedAlertCategory: WeatherAlertCategory by remember {
+                    derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
+                }
+                val icons: List<ImageVector> = listOf(Icons.Outlined.AcUnit, Icons.Outlined.Umbrella)
 
-                // Rain Threshold Slider
-                Text(text = "Rainfall Threshold: ${"%.1f".format(state.rainThreshold)} mm")
-                Slider(
-                    value = state.rainThreshold,
-                    onValueChange = {
-                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
-                    },
-                    valueRange = 1f..20f,
-                    steps = 20,
-                )
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                    WeatherAlertCategory.entries.forEachIndexed { index, alertCategory ->
+                        SegmentedButton(
+                            shape =
+                                SegmentedButtonDefaults.itemShape(
+                                    index = index,
+                                    count = WeatherAlertCategory.entries.size,
+                                ),
+                            icon = {
+                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
+                                    Icon(
+                                        imageVector = icons[index],
+                                        contentDescription = null,
+                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
+                                    )
+                                }
+                            },
+                            onClick = { selectedIndex = index },
+                            selected = index == selectedIndex,
+                        ) { Text(alertCategory.label) }
+                    }
+                }
+
+                Crossfade(targetState = selectedIndex, label = "threshold-slider") { thresholdIndex ->
+                    when (thresholdIndex) {
+                        0 ->
+                            Column {
+                                // Snow Threshold Slider
+                                Text(
+                                    text = "Snowfall Threshold: ${"%.1f".format(
+                                        state.snowThreshold,
+                                    )} ${WeatherAlertCategory.SNOW_FALL.unit}",
+                                )
+                                Slider(
+                                    value = state.snowThreshold,
+                                    onValueChange = {
+                                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
+                                    },
+                                    valueRange = 1f..20f,
+                                    steps = 20,
+                                )
+                            }
+                        1 ->
+                            Column {
+                                // Rain Threshold Slider
+                                Text(
+                                    text = "Rainfall Threshold: ${"%.1f".format(
+                                        state.rainThreshold,
+                                    )} ${WeatherAlertCategory.RAIN_FALL.unit}",
+                                )
+                                Slider(
+                                    value = state.rainThreshold,
+                                    onValueChange = {
+                                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
+                                    },
+                                    valueRange = 1f..20f,
+                                    steps = 20,
+                                )
+                            }
+                    }
+                }
 
                 Button(
                     onClick = {
                         state.eventSink(
                             AlertSettingsScreen.Event.SaveSettingsClicked(
-                                state.snowThreshold,
-                                state.rainThreshold,
+                                selectedAlertType = selectedAlertCategory,
+                                snowThreshold = state.snowThreshold,
+                                rainThreshold = state.rainThreshold,
                             ),
                         )
                     },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Save Settings")
+                    Text("Add Alert Settings")
                 }
             }
         }
-    }
-}
-
-/**
- * Interactive Alert Threshold Adjustments
- *
- *     Purpose: Allow users to adjust alert thresholds in a fun and intuitive way.
- *     Implementation: Use a slider or a rotary dial for thresholds.
- *         Add haptic feedback for user interaction.
- *         Animate the slider's color based on the value range (e.g., blue for low, red for high).
- */
-@Composable
-fun ThresholdSlider(
-    value: Float,
-    onValueChange: (Float) -> Unit,
-    label: String,
-    max: Float,
-) {
-    val color by animateColorAsState(
-        if (value < max / 2) Color.Blue else Color.Red,
-    )
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "$label: ${value.toInt()} cm", color = color)
-        Slider(
-            value = value,
-            onValueChange = onValueChange,
-            valueRange = 0f..max,
-            colors =
-                SliderDefaults.colors(
-                    thumbColor = color,
-                    activeTrackColor = color,
-                ),
-        )
     }
 }
 

@@ -32,7 +32,7 @@ data class WeatherDescription(
     val icon: String,
 )
 
-data class AlertTileData(
+data class AlertTileData constructor(
     /**
      * e.g., "Snowfall", "Rainfall"
      */
@@ -47,9 +47,12 @@ data class AlertTileData(
     val currentStatus: String,
 )
 
-enum class WeatherAlertCategory {
-    SNOWFALL,
-    RAINFALL,
+enum class WeatherAlertCategory(
+    val label: String,
+    val unit: String,
+) {
+    SNOW_FALL("Snow", "cm"),
+    RAIN_FALL("Rain", "mm"),
 }
 
 @JsonClass(generateAdapter = true)

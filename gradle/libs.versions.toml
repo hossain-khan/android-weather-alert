@@ -9,6 +9,12 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.12.01"
 
+# Material Icons Extended
+# ⚠️ Due to the very large size of this library, make sure to use R8/Proguard to strip unused icons
+# https://developer.android.com/reference/kotlin/androidx/compose/material/icons/package-summary
+materialIconsExtended = "1.7.6"
+
+
 # https://github.com/slackhq/circuit/releases
 circuit = "0.25.0"
 
@@ -78,6 +84,11 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+# Material Icons Extended
+# ⚠️ Due to the very large size of this library, make sure to use R8/Proguard to strip unused icons
+# https://developer.android.com/reference/kotlin/androidx/compose/material/icons/package-summary
+material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 
 # Circuit - ⚡️A Compose-driven architecture for Kotlin and Android applications.
 # https://github.com/slackhq/circuit/releases
