@@ -21,7 +21,6 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -94,14 +93,6 @@ class AlertSettingsPresenter
             val scope = rememberCoroutineScope()
             var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
             var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
-
-            LaunchedEffect(Unit) {
-                updatedSnowThreshold = preferencesManager.currentSnowThreshold()
-                updatedRainThreshold = preferencesManager.currentRainThreshold()
-
-                preferencesManager.snowThreshold.collect { updatedSnowThreshold = it }
-                preferencesManager.rainThreshold.collect { updatedRainThreshold = it }
-            }
 
             return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
                 when (event) {
@@ -221,7 +212,6 @@ fun AlertSettingsScreen(
                                         state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
                                     },
                                     valueRange = 1f..20f,
-                                    steps = 20,
                                 )
                             }
                         1 ->
@@ -238,7 +228,6 @@ fun AlertSettingsScreen(
                                         state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
                                     },
                                     valueRange = 1f..20f,
-                                    steps = 20,
                                 )
                             }
                     }
