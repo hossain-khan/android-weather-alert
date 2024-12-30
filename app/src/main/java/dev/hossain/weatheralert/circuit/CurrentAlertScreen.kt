@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Archive
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -87,6 +86,10 @@ data class CurrentWeatherAlertScreen(
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
+        data class AlertRemoved(
+            val item: AlertTileData,
+        ) : Event()
+
         data object OnItemClicked : Event()
 
         data object AddNewAlertClicked : Event()
@@ -153,6 +156,14 @@ class CurrentWeatherAlertPresenter
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
                         navigator.goTo(AlertSettingsScreen("add-new-alert"))
                     }
+
+                    is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
+                        // TODO - use repository to remove alert later
+                        // For testing this is good to do locally.
+                        val updatedTiles = weatherTiles.toMutableList()
+                        updatedTiles.remove(event.item)
+                        weatherTiles = updatedTiles
+                    }
                 }
             }
         }
@@ -201,12 +212,7 @@ fun CurrentWeatherAlerts(
                 ) {
                     AlertTileGrid(
                         tiles = state.tiles,
-                        onUndo = {
-                            Timber.d("Undo clicked for: ${it.category}")
-                        },
-                        onRemove = {
-                            Timber.d("Remove clicked for: ${it.category}")
-                        },
+                        eventSink = state.eventSink,
                     )
                 }
             },
@@ -217,8 +223,7 @@ fun CurrentWeatherAlerts(
 @Composable
 fun AlertTileGrid(
     tiles: List<AlertTileData>,
-    onUndo: (AlertTileData) -> Unit,
-    onRemove: (AlertTileData) -> Unit,
+    eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -228,7 +233,11 @@ fun AlertTileGrid(
             items = tiles,
             key = { _, item -> item.uuid },
         ) { _, alertTileData ->
-            AlertTileItem(alertTileData = alertTileData, onUndo = onUndo, onRemove = onRemove)
+            AlertTileItem(
+                alertTileData = alertTileData,
+                eventSink = eventSink,
+                modifier = Modifier.animateItem(),
+            )
         }
     }
 }
@@ -237,8 +246,7 @@ fun AlertTileGrid(
 fun AlertTileItem(
     alertTileData: AlertTileData,
     modifier: Modifier = Modifier,
-    onUndo: (AlertTileData) -> Unit,
-    onRemove: (AlertTileData) -> Unit,
+    eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
 ) {
     val context = LocalContext.current
     val currentItem by rememberUpdatedState(alertTileData)
@@ -246,13 +254,11 @@ fun AlertTileItem(
         rememberSwipeToDismissBoxState(
             confirmValueChange = {
                 when (it) {
-                    SwipeToDismissBoxValue.StartToEnd -> {
-                        onRemove(currentItem)
+                    SwipeToDismissBoxValue.StartToEnd,
+                    SwipeToDismissBoxValue.EndToStart,
+                    -> {
+                        eventSink(CurrentWeatherAlertScreen.Event.AlertRemoved(currentItem))
                         Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
-                    }
-                    SwipeToDismissBoxValue.EndToStart -> {
-                        onRemove(currentItem)
-                        Toast.makeText(context, "Item archived", Toast.LENGTH_SHORT).show()
                     }
                     SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
                 }
@@ -280,8 +286,8 @@ fun AlertTileItem(
 fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     val color =
         when (dismissState.dismissDirection) {
-            SwipeToDismissBoxValue.StartToEnd -> Color(0xFFFF1744)
-            SwipeToDismissBoxValue.EndToStart -> Color(0xFF1DE9B6)
+            SwipeToDismissBoxValue.StartToEnd -> Color.Red
+            SwipeToDismissBoxValue.EndToStart -> Color.Red
             SwipeToDismissBoxValue.Settled -> Color.Transparent
         }
 
@@ -300,8 +306,8 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
         )
         Spacer(modifier = Modifier)
         Icon(
-            imageVector = Icons.Default.Archive,
-            contentDescription = "Archive",
+            imageVector = Icons.Default.Delete,
+            contentDescription = "delete",
         )
     }
 }
