@@ -199,7 +199,15 @@ fun CurrentWeatherAlerts(
                             .fillMaxSize()
                             .padding(padding),
                 ) {
-                    AlertTileGrid(tiles = state.tiles) {}
+                    AlertTileGrid(
+                        tiles = state.tiles,
+                        onUndo = {
+                            Timber.d("Undo clicked for: ${it.category}")
+                        },
+                        onRemove = {
+                            Timber.d("Remove clicked for: ${it.category}")
+                        },
+                    )
                 }
             },
         )
@@ -210,6 +218,7 @@ fun CurrentWeatherAlerts(
 fun AlertTileGrid(
     tiles: List<AlertTileData>,
     onUndo: (AlertTileData) -> Unit,
+    onRemove: (AlertTileData) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -219,7 +228,7 @@ fun AlertTileGrid(
             items = tiles,
             key = { _, item -> item.uuid },
         ) { _, alertTileData ->
-            AlertTileItem(alertTileData = alertTileData, onRemove = onUndo)
+            AlertTileItem(alertTileData = alertTileData, onUndo = onUndo, onRemove = onRemove)
         }
     }
 }
@@ -228,6 +237,7 @@ fun AlertTileGrid(
 fun AlertTileItem(
     alertTileData: AlertTileData,
     modifier: Modifier = Modifier,
+    onUndo: (AlertTileData) -> Unit,
     onRemove: (AlertTileData) -> Unit,
 ) {
     val context = LocalContext.current
