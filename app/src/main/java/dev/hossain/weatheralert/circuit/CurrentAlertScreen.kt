@@ -1,32 +1,27 @@
 package dev.hossain.weatheralert.circuit
 
-import androidx.compose.animation.animateColorAsState
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DismissDirection
-import androidx.compose.material.DismissValue
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Archive
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.rememberDismissState
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,20 +31,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -206,105 +206,93 @@ fun CurrentWeatherAlerts(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AlertTileGrid(
     tiles: List<AlertTileData>,
     onUndo: (AlertTileData) -> Unit,
 ) {
-    val scope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val tilesState = remember { mutableStateListOf(*tiles.toTypedArray()) }
-
-// This is an example of a list of dismissible items, similar to what you would see in an
-// email app. Swiping left reveals a 'delete' icon and swiping right reveals a 'done' icon.
-// The background will start as grey, but once the dismiss threshold is reached, the colour
-// will animate to red if you're swiping left or green if you're swiping right. When you let
-// go, the item will animate out of the way if you're swiping left (like deleting an email) or
-// back to its default position if you're swiping right (like marking an email as read/unread).
-    LazyColumn {
-        items(
-            count = tiles.size,
-            key = { index -> tiles[index] },
-        ) { item: Int ->
-            var unread by remember { mutableStateOf(false) }
-            val dismissState =
-                rememberDismissState(
-                    confirmStateChange = {
-                        if (it == DismissValue.DismissedToEnd) unread = !unread
-                        it != DismissValue.DismissedToEnd
-                    },
-                )
-//            val dismissState = rememberDismissState(
-//                confirmStateChange = {
-//                    if (it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart) {
-//                        tilesState.remove(tiles[item])
-//                        scope.launch {
-//                            val result = snackbarHostState.showSnackbar(
-//                                message = "Item deleted",
-//                                actionLabel = "Undo"
-//                            )
-//                            if (result == SnackbarResult.ActionPerformed) {
-//                                tilesState.add(tiles[item])
-//                                onUndo(tiles[item])
-//                            }
-//                        }
-//                    }
-//                    true
-//                }
-//            )
-            SwipeToDismiss(
-                state = dismissState,
-                modifier = Modifier.padding(vertical = 4.dp),
-                directions = setOf(DismissDirection.StartToEnd, DismissDirection.EndToStart),
-                background = {
-                    val direction = dismissState.dismissDirection ?: return@SwipeToDismiss
-                    val color by
-                        animateColorAsState(
-                            when (dismissState.targetValue) {
-                                DismissValue.Default -> Color.LightGray
-                                DismissValue.DismissedToEnd -> Color.Green
-                                DismissValue.DismissedToStart -> Color.Red
-                            },
-                            label = "background-color",
-                        )
-                    val alignment =
-                        when (direction) {
-                            DismissDirection.StartToEnd -> Alignment.CenterStart
-                            DismissDirection.EndToStart -> Alignment.CenterEnd
-                        }
-                    val icon =
-                        when (direction) {
-                            DismissDirection.StartToEnd -> Icons.Default.Done
-                            DismissDirection.EndToStart -> Icons.Default.Delete
-                        }
-                    val scale by
-                        animateFloatAsState(
-                            if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f,
-                            label = "icon-scale",
-                        )
-
-                    Box(
-                        Modifier.fillMaxSize().background(color).padding(horizontal = 20.dp),
-                        contentAlignment = alignment,
-                    ) {
-                        Icon(
-                            icon,
-                            contentDescription = "Localized description",
-                            modifier = Modifier.scale(scale),
-                        )
-                    }
-                },
-                dismissContent = {
-                    val cardElevation: Dp =
-                        animateDpAsState(
-                            if (dismissState.dismissDirection != null) 8.dp else 4.dp,
-                            label = "card-elevation",
-                        ).value
-                    AlertTile(data = tiles[item], cardElevation, modifier = Modifier.fillMaxWidth())
-                },
-            )
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 12.dp),
+    ) {
+        itemsIndexed(
+            items = tiles,
+            key = { _, item -> item.uuid },
+        ) { _, alertTileData ->
+            AlertTileItem(alertTileData = alertTileData, onRemove = onUndo)
         }
+    }
+}
+
+@Composable
+fun AlertTileItem(
+    alertTileData: AlertTileData,
+    modifier: Modifier = Modifier,
+    onRemove: (AlertTileData) -> Unit,
+) {
+    val context = LocalContext.current
+    val currentItem by rememberUpdatedState(alertTileData)
+    val dismissState =
+        rememberSwipeToDismissBoxState(
+            confirmValueChange = {
+                when (it) {
+                    SwipeToDismissBoxValue.StartToEnd -> {
+                        onRemove(currentItem)
+                        Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    SwipeToDismissBoxValue.EndToStart -> {
+                        onRemove(currentItem)
+                        Toast.makeText(context, "Item archived", Toast.LENGTH_SHORT).show()
+                    }
+                    SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
+                }
+                return@rememberSwipeToDismissBoxState true
+            },
+            // positional threshold of 25%
+            positionalThreshold = { it * .25f },
+        )
+    SwipeToDismissBox(
+        state = dismissState,
+        modifier = modifier,
+        backgroundContent = { DismissBackground(dismissState) },
+        content = {
+            val cardElevation: Dp =
+                animateDpAsState(
+                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 8.dp else 4.dp,
+                    label = "card-elevation",
+                ).value
+            AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
+        },
+    )
+}
+
+@Composable
+fun DismissBackground(dismissState: SwipeToDismissBoxState) {
+    val color =
+        when (dismissState.dismissDirection) {
+            SwipeToDismissBoxValue.StartToEnd -> Color(0xFFFF1744)
+            SwipeToDismissBoxValue.EndToStart -> Color(0xFF1DE9B6)
+            SwipeToDismissBoxValue.Settled -> Color.Transparent
+        }
+
+    Row(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color)
+                .padding(12.dp, 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = "delete",
+        )
+        Spacer(modifier = Modifier)
+        Icon(
+            imageVector = Icons.Default.Archive,
+            contentDescription = "Archive",
+        )
     }
 }
 
