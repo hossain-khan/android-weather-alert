@@ -1,6 +1,10 @@
 package dev.hossain.weatheralert.data
 
 import android.os.Parcelable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.AcUnit
+import androidx.compose.material.icons.outlined.Umbrella
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -48,6 +52,7 @@ data class AlertTileData constructor(
      * e.g., "Tomorrow: 7 cm", "Tomorrow: 15 mm"
      */
     val currentStatus: String,
+    val isAlertActive: Boolean,
     val uuid: String =
         java.util.UUID
             .randomUUID()
@@ -61,6 +66,12 @@ enum class WeatherAlertCategory(
     SNOW_FALL("Snow", "cm"),
     RAIN_FALL("Rain", "mm"),
 }
+
+internal fun WeatherAlertCategory.icon(): ImageVector =
+    when (this) {
+        WeatherAlertCategory.SNOW_FALL -> Icons.Outlined.AcUnit
+        WeatherAlertCategory.RAIN_FALL -> Icons.Outlined.Umbrella
+    }
 
 @JsonClass(generateAdapter = true)
 data class WeatherAlert(
