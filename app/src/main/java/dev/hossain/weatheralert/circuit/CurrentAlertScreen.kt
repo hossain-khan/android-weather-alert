@@ -1,23 +1,27 @@
 package dev.hossain.weatheralert.circuit
 
+import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Archive
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,20 +29,30 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -161,6 +175,9 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     WeatherAlertAppTheme {
+        val scope = rememberCoroutineScope()
+        val snackbarHostState = remember { SnackbarHostState() }
+
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Weather Alerts") })
@@ -174,6 +191,7 @@ fun CurrentWeatherAlerts(
                     icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
                 )
             },
+            snackbarHost = { SnackbarHost(snackbarHostState) },
             content = { padding ->
                 Column(
                     modifier =
@@ -181,7 +199,15 @@ fun CurrentWeatherAlerts(
                             .fillMaxSize()
                             .padding(padding),
                 ) {
-                    AlertTileGrid(tiles = state.tiles)
+                    AlertTileGrid(
+                        tiles = state.tiles,
+                        onUndo = {
+                            Timber.d("Undo clicked for: ${it.category}")
+                        },
+                        onRemove = {
+                            Timber.d("Remove clicked for: ${it.category}")
+                        },
+                    )
                 }
             },
         )
@@ -189,27 +215,107 @@ fun CurrentWeatherAlerts(
 }
 
 @Composable
-fun AlertTileGrid(tiles: List<AlertTileData>) {
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 150.dp),
-        contentPadding = PaddingValues(8.dp),
+fun AlertTileGrid(
+    tiles: List<AlertTileData>,
+    onUndo: (AlertTileData) -> Unit,
+    onRemove: (AlertTileData) -> Unit,
+) {
+    LazyColumn(
         modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = 12.dp),
     ) {
-        items(tiles) { tile ->
-            AlertTile(data = tile, modifier = Modifier.fillMaxWidth())
+        itemsIndexed(
+            items = tiles,
+            key = { _, item -> item.uuid },
+        ) { _, alertTileData ->
+            AlertTileItem(alertTileData = alertTileData, onUndo = onUndo, onRemove = onRemove)
         }
+    }
+}
+
+@Composable
+fun AlertTileItem(
+    alertTileData: AlertTileData,
+    modifier: Modifier = Modifier,
+    onUndo: (AlertTileData) -> Unit,
+    onRemove: (AlertTileData) -> Unit,
+) {
+    val context = LocalContext.current
+    val currentItem by rememberUpdatedState(alertTileData)
+    val dismissState =
+        rememberSwipeToDismissBoxState(
+            confirmValueChange = {
+                when (it) {
+                    SwipeToDismissBoxValue.StartToEnd -> {
+                        onRemove(currentItem)
+                        Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
+                    }
+                    SwipeToDismissBoxValue.EndToStart -> {
+                        onRemove(currentItem)
+                        Toast.makeText(context, "Item archived", Toast.LENGTH_SHORT).show()
+                    }
+                    SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
+                }
+                return@rememberSwipeToDismissBoxState true
+            },
+            // positional threshold of 25%
+            positionalThreshold = { it * .25f },
+        )
+    SwipeToDismissBox(
+        state = dismissState,
+        modifier = modifier,
+        backgroundContent = { DismissBackground(dismissState) },
+        content = {
+            val cardElevation: Dp =
+                animateDpAsState(
+                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 8.dp else 4.dp,
+                    label = "card-elevation",
+                ).value
+            AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
+        },
+    )
+}
+
+@Composable
+fun DismissBackground(dismissState: SwipeToDismissBoxState) {
+    val color =
+        when (dismissState.dismissDirection) {
+            SwipeToDismissBoxValue.StartToEnd -> Color(0xFFFF1744)
+            SwipeToDismissBoxValue.EndToStart -> Color(0xFF1DE9B6)
+            SwipeToDismissBoxValue.Settled -> Color.Transparent
+        }
+
+    Row(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(color)
+                .padding(12.dp, 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+        Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = "delete",
+        )
+        Spacer(modifier = Modifier)
+        Icon(
+            imageVector = Icons.Default.Archive,
+            contentDescription = "Archive",
+        )
     }
 }
 
 @Composable
 fun AlertTile(
     data: AlertTileData,
+    cardElevation: Dp,
     modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.padding(8.dp),
         shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
+        elevation = CardDefaults.cardElevation(cardElevation),
     ) {
         Column(
             modifier =

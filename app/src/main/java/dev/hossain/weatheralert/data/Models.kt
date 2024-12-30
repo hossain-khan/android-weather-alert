@@ -1,7 +1,9 @@
 package dev.hossain.weatheralert.data
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 const val DEFAULT_SNOW_THRESHOLD = 5.0f // cm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
@@ -32,6 +34,7 @@ data class WeatherDescription(
     val icon: String,
 )
 
+@Parcelize
 data class AlertTileData constructor(
     /**
      * e.g., "Snowfall", "Rainfall"
@@ -45,7 +48,11 @@ data class AlertTileData constructor(
      * e.g., "Tomorrow: 7 cm", "Tomorrow: 15 mm"
      */
     val currentStatus: String,
-)
+    val uuid: String =
+        java.util.UUID
+            .randomUUID()
+            .toString(),
+) : Parcelable
 
 enum class WeatherAlertCategory(
     val label: String,
