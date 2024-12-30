@@ -1,12 +1,14 @@
 package dev.hossain.weatheralert.circuit
 
 import android.widget.Toast
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -15,17 +17,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemColors
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -48,6 +57,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,6 +80,7 @@ import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.map
@@ -116,8 +127,11 @@ class CurrentWeatherAlertPresenter
                         configuredAlerts.alerts.forEach { alert ->
                             val apiResult =
                                 weatherRepository.getDailyForecast(
-                                    latitude = alert.lat,
-                                    longitude = alert.lon,
+                                    // Québec+City,+QC/@46.8570237,-71.5097202,11z
+                                    latitude = 46.8570237,
+                                    longitude = -71.5097202,
+//                                    latitude = alert.lat,
+//                                    longitude = alert.lon,
                                     apiKey = BuildConfig.WEATHER_API_KEY,
                                 )
 
@@ -129,12 +143,14 @@ class CurrentWeatherAlertPresenter
                                         AlertTileData(
                                             category = "${alert.alertCategory}",
                                             threshold = "${alert.threshold} ${alert.alertCategory.unit}",
-                                            currentStatus = "Tomorrow: ${
+                                            currentStatus = "${
                                                 if (alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
                                                     snowStatus
                                                 } else {
                                                     rainStatus
                                                 }} ${alert.alertCategory.unit}",
+                                            // Wrong logic btw, fix later
+                                            isAlertActive = alert.threshold <= snowStatus || alert.threshold <= rainStatus,
                                         ),
                                     )
                                 }
@@ -277,7 +293,19 @@ fun AlertTileItem(
                     if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 8.dp else 4.dp,
                     label = "card-elevation",
                 ).value
-            AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
+            AlertListItem(
+                data = alertTileData,
+                cardElevation = cardElevation,
+                icon =
+                    if (alertTileData.category ==
+                        WeatherAlertCategory.SNOW_FALL.name
+                    ) {
+                        WeatherAlertCategory.SNOW_FALL.icon()
+                    } else {
+                        WeatherAlertCategory.RAIN_FALL.icon()
+                    },
+            )
+            // AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
         },
     )
 }
@@ -312,6 +340,7 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     }
 }
 
+// Older card, evaluating if this should be used or `ListItem`
 @Composable
 fun AlertTile(
     data: AlertTileData,
@@ -352,6 +381,126 @@ fun AlertTile(
                 textAlign = TextAlign.Center,
             )
         }
+    }
+}
+
+// ChatGPT suggested item - evaluating if this should be used or `ListItem`
+@Composable
+fun AlertItem(
+    data: AlertTileData,
+    cardElevation: Dp,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        elevation = CardDefaults.cardElevation(cardElevation),
+        shape = RoundedCornerShape(12.dp),
+    ) {
+        Row(
+            modifier =
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(48.dp),
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Column(
+                modifier = Modifier.weight(1f),
+            ) {
+                Text(
+                    text = data.category,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Text(
+                    text = "Threshold: ${data.threshold}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Text(
+                    text = "Tomorrow: ${data.currentStatus}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.secondary,
+                )
+            }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+    }
+}
+
+@Composable
+fun AlertListItem(
+    data: AlertTileData,
+    cardElevation: Dp,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+) {
+    Card(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        elevation = CardDefaults.cardElevation(cardElevation),
+        shape = RoundedCornerShape(12.dp),
+    ) {
+        val colors: ListItemColors =
+            if (data.isAlertActive) {
+                ListItemDefaults.colors(
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                )
+            } else {
+                ListItemDefaults.colors()
+            }
+        ListItem(
+            headlineContent = { Text(data.category, style = MaterialTheme.typography.titleMedium) },
+            supportingContent = {
+                Column {
+                    Text("Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
+                    Text("Tomorrow: ${data.currentStatus}", style = MaterialTheme.typography.bodyLarge)
+                }
+            },
+            colors = colors,
+            leadingContent = {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(48.dp),
+                )
+            },
+            modifier = Modifier.padding(0.dp),
+        )
+    }
+}
+
+@Composable
+fun AnimatedAlertItemBackground(isAlertActive: Boolean) {
+    val backgroundColor by animateColorAsState(
+        targetValue = if (isAlertActive) Color.Red else Color.White,
+        animationSpec = tween(durationMillis = 500),
+        label = "alert-pulse-animation",
+    )
+    Box(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(backgroundColor),
+    ) {
+        // Content here
     }
 }
 
@@ -403,8 +552,8 @@ fun AlertTileEnhanced(
 fun CurrentWeatherAlertsPreview() {
     val sampleTiles =
         listOf(
-            AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm"),
-            AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm"),
+            AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm", false),
+            AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm", true),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
 }
