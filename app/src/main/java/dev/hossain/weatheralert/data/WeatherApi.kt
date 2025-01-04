@@ -9,7 +9,7 @@ interface WeatherApi {
     suspend fun getDailyForecast(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-        @Query("exclude") exclude: String = "current,minutely,hourly",
+        @Query("exclude") exclude: String = "current,minutely",
         @Query("units") units: String = "metric",
         @Query("appid") apiKey: String,
     ): ApiResult<WeatherForecast, Unit>

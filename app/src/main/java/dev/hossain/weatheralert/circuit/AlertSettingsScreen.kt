@@ -139,10 +139,10 @@ class AlertSettingsPresenter
                                                     WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
                                                     WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
                                                 },
-                                            // Use Toronto coordinates for now
+                                            // Use Oshawa coordinates for now (Oshawa,+ON/@43.9483273,-78.9607511)
                                             // https://github.com/hossain-khan/android-weather-alert/issues/30
-                                            lat = 43.7,
-                                            lon = 79.42,
+                                            lat = 43.9483273,
+                                            lon = -78.9607511,
                                         ),
                                 ),
                             )
