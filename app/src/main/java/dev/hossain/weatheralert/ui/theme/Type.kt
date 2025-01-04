@@ -16,7 +16,7 @@ val provider =
 val bodyFontFamily =
     FontFamily(
         Font(
-            googleFont = GoogleFont("Lato"),
+            googleFont = GoogleFont("Fira Code"),
             fontProvider = provider,
         ),
     )
@@ -24,7 +24,7 @@ val bodyFontFamily =
 val displayFontFamily =
     FontFamily(
         Font(
-            googleFont = GoogleFont("Lato"),
+            googleFont = GoogleFont("Fira Code"),
             fontProvider = provider,
         ),
     )
