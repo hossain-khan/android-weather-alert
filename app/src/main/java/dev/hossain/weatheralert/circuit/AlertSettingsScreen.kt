@@ -1,35 +1,51 @@
 package dev.hossain.weatheralert.circuit
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
@@ -90,8 +106,12 @@ class AlertSettingsPresenter
             val scope = rememberCoroutineScope()
             var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
             var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
+            val context = LocalContext.current
 
-            return AlertSettingsScreen.State(updatedSnowThreshold, updatedRainThreshold) { event ->
+            return AlertSettingsScreen.State(
+                snowThreshold = updatedSnowThreshold,
+                rainThreshold = updatedRainThreshold,
+            ) { event ->
                 when (event) {
                     is AlertSettingsScreen.Event.RainThresholdChanged -> {
                         updatedRainThreshold = event.value
@@ -228,6 +248,8 @@ fun AlertSettingsScreen(
                     }
                 }
 
+                NotificationPermissionStatusUi()
+
                 Button(
                     onClick = {
                         state.eventSink(
@@ -246,6 +268,82 @@ fun AlertSettingsScreen(
         }
     }
 }
+
+/**
+ * Composable function to display the UI for notification permission status.
+ * It handles the permission request and updates the UI based on the permission status.
+ */
+@Composable
+fun NotificationPermissionStatusUi() {
+    val context = LocalContext.current
+    var permissionGranted by remember { mutableStateOf(hasNotificationPermission(context)) }
+    var labelText by remember { mutableStateOf("") }
+
+    LaunchedEffect(permissionGranted) {
+        labelText = if (permissionGranted) "Notification status" else "Turn on notification?"
+    }
+
+    val permissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            if (isGranted) {
+                // Permission granted, proceed with notifications
+                permissionGranted = true
+                labelText = "Notification status"
+            } else {
+                // Permission denied, handle accordingly
+                permissionGranted = false
+                labelText = "Denied notification permission"
+            }
+        }
+
+    if (requiresNotificationPermission()) {
+        when {
+            hasNotificationPermission(context) -> {
+                // Permission already granted, proceed with notifications
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(text = labelText)
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        tint = MaterialTheme.colorScheme.secondary,
+                        contentDescription = null,
+                    )
+                }
+            }
+            else -> {
+                // Request the permission
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(text = labelText)
+                    Switch(
+                        checked = permissionGranted,
+                        onCheckedChange = { permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS) },
+                    )
+                }
+            }
+        }
+    }
+}
+
+private fun requiresNotificationPermission() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+
+private fun hasNotificationPermission(context: Context) =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS,
+        ) == PackageManager.PERMISSION_GRANTED
+    } else {
+        true
+    }
 
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
