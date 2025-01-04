@@ -7,7 +7,7 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 testCore = "1.6.1"
-coroutinesTest = "1.8.1"
+coroutinesTest = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.12.01"
@@ -151,7 +151,7 @@ moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-code
 eithernet = { group = "com.slack.eithernet", name = "eithernet", version.ref = "eithernet" }
 eithernet-integration-retrofit = { group = "com.slack.eithernet", name = "eithernet-integration-retrofit", version.ref = "eithernet" }
 
-robolectric = { group = "org.robolectric", name = "robolectric", version = "4.12.2" }
+robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
