@@ -73,7 +73,7 @@ data class HourlyForecast(
     @Json(name = "dew_point") val dewPoint: Double,
     @Json(name = "uvi") val uvi: Double,
     @Json(name = "clouds") val clouds: Int,
-    @Json(name = "visibility") val visibility: Int,
+    @Json(name = "visibility") val visibility: Int? = null,
     @Json(name = "wind_speed") val windSpeed: Double,
     @Json(name = "wind_deg") val windDeg: Int,
     @Json(name = "wind_gust") val windGust: Double,
