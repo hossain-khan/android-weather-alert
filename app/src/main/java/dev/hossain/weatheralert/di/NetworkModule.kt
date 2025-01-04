@@ -9,7 +9,7 @@ import dagger.Provides
 import dev.hossain.weatheralert.data.WeatherApi
 import okhttp3.Cache
 import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,9 +19,9 @@ import java.io.File
 @Module
 @ContributesTo(AppScope::class)
 object NetworkModule {
-    // Test backdoor to allow setting base URL using mock server
+    // Unit test backdoor to allow setting base URL using mock server
     // By default, it's set weather service base URL.
-    internal var baseUrl: HttpUrl = "https://api.openweathermap.org/".toHttpUrlOrNull()!!
+    internal var baseUrl: HttpUrl = "https://api.openweathermap.org/".toHttpUrl()
 
     @Provides
     fun provideOkHttpClient(
