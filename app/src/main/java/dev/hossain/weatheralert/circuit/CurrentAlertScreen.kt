@@ -127,18 +127,16 @@ class CurrentWeatherAlertPresenter
                         configuredAlerts.alerts.forEach { alert ->
                             val apiResult =
                                 weatherRepository.getDailyForecast(
-                                    // Québec+City,+QC/@46.8570237,-71.5097202,11z
-                                    latitude = 46.8570237,
-                                    longitude = -71.5097202,
-//                                    latitude = alert.lat,
-//                                    longitude = alert.lon,
+                                    latitude = alert.lat,
+                                    longitude = alert.lon,
                                     apiKey = BuildConfig.WEATHER_API_KEY,
                                 )
 
                             when (apiResult) {
                                 is ApiResult.Success -> {
-                                    val snowStatus = apiResult.value.daily[1].snowVolume ?: 0.0
-                                    val rainStatus = apiResult.value.daily[1].rainVolume ?: 0.0
+                                    val weatherForecast = apiResult.value
+                                    val snowStatus = weatherForecast.totalSnowVolume
+                                    val rainStatus = weatherForecast.daily[1].rainVolume ?: 0.0
                                     alertTileData.add(
                                         AlertTileData(
                                             category = "${alert.alertCategory}",

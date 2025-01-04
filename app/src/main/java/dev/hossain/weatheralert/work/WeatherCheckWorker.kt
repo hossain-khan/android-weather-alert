@@ -43,9 +43,9 @@ class WeatherCheckWorker
             // Fetch forecast
             val forecastApiResult =
                 weatherRepository.getDailyForecast(
-                    // Use Toronto coordinates for now
-                    latitude = 43.7,
-                    longitude = -79.42,
+                    // Use Oshawa coordinates for now 43°55'24.0"N+78°53'49.9"W/@43.9233409,-78.899766
+                    latitude = 43.9233409,
+                    longitude = -78.899766,
                     apiKey = BuildConfig.WEATHER_API_KEY,
                 )
 

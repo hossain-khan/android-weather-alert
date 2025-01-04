@@ -8,6 +8,7 @@ import dev.hossain.weatheralert.di.NetworkModule
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -41,6 +42,11 @@ class WeatherRepositoryTest {
         weatherRepository = WeatherRepositoryImpl(weatherApi)
     }
 
+    @After
+    fun tearDown() {
+        mockWebServer.shutdown()
+    }
+
     @Test
     fun testGetDailyForecast() =
         runTest {
@@ -62,12 +68,100 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
-                    latitude = 46.8570237,
-                    longitude = -71.5097202,
+                    latitude = 0.0,
+                    longitude = -0.0,
                     apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast = (result as ApiResult.Success).value
             assertEquals(0, forecast.daily.size)
         }
+
+    @Test
+    fun `given weather response for chicago - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-chicago.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertEquals(8, forecast.daily.size)
+        }
+
+    @Test
+    fun `given weather response for cancun - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-cancun.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertEquals(8, forecast.daily.size)
+        }
+
+    @Test
+    fun `given weather response for toronto - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-toronto-warning.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertEquals(8, forecast.daily.size)
+        }
+
+    @Test
+    fun `given weather response for oshawa with hourly data - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-hourly-snow-oshawa.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertEquals(8, forecast.daily.size)
+            assertEquals(48, forecast.hourly.size)
+        }
+
+    // Helper method to load JSON from resources
+    private fun loadJsonFromResources(fileName: String): String {
+        val classLoader = javaClass.classLoader
+        val inputStream = classLoader?.getResourceAsStream(fileName)
+        return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+    }
 }
