@@ -68,8 +68,8 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
-                    latitude = 46.8570237,
-                    longitude = -71.5097202,
+                    latitude = 0.0,
+                    longitude = -0.0,
                     apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)

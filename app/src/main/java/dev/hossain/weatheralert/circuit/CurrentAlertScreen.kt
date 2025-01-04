@@ -127,11 +127,8 @@ class CurrentWeatherAlertPresenter
                         configuredAlerts.alerts.forEach { alert ->
                             val apiResult =
                                 weatherRepository.getDailyForecast(
-                                    // Québec+City,+QC/@46.8570237,-71.5097202,11z
-                                    latitude = 46.8570237,
-                                    longitude = -71.5097202,
-//                                    latitude = alert.lat,
-//                                    longitude = alert.lon,
+                                    latitude = alert.lat,
+                                    longitude = alert.lon,
                                     apiKey = BuildConfig.WEATHER_API_KEY,
                                 )
 
