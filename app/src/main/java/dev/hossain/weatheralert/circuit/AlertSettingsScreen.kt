@@ -146,8 +146,10 @@ class AlertSettingsPresenter
                                         ),
                                 ),
                             )
+
+                            // Finally after saving, navigate back
+                            navigator.pop()
                         }
-                        navigator.pop()
                     }
                 }
             }
