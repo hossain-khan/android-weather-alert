@@ -8,6 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dev.hossain.weatheralert.data.WeatherApi
 import okhttp3.Cache
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,7 +19,9 @@ import java.io.File
 @Module
 @ContributesTo(AppScope::class)
 object NetworkModule {
-    private const val BASE_URL = "https://api.openweathermap.org/"
+    // Test backdoor to allow setting base URL using mock server
+    // By default, it's set weather service base URL.
+    internal var baseUrl: HttpUrl = "https://api.openweathermap.org/".toHttpUrlOrNull()!!
 
     @Provides
     fun provideOkHttpClient(
@@ -43,7 +47,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit
             .Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(ApiResultConverterFactory)
             .addCallAdapterFactory(ApiResultCallAdapterFactory)
             .addConverterFactory(MoshiConverterFactory.create())
