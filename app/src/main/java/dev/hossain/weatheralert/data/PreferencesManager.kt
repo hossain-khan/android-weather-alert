@@ -8,11 +8,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.hossain.weatheralert.data.UserPreferences.savedAlerts
 import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * Manages user preferences using DataStore.
+ *
+ * @see <a href="https://developer.android.com/topic/libraries/architecture/datastore">DataStore</a>
+ */
 class PreferencesManager
     @Inject
     constructor(
@@ -22,40 +26,6 @@ class PreferencesManager
 
         private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         private val jsonAdapter: JsonAdapter<ConfiguredAlerts> = moshi.adapter(ConfiguredAlerts::class.java)
-
-        suspend fun currentSnowThreshold(): Float =
-            dataStore.data
-                .map { prefs ->
-                    prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
-                }.first()
-
-        suspend fun currentRainThreshold(): Float =
-            dataStore.data
-                .map { prefs ->
-                    prefs[UserPreferences.rainThreshold] ?: DEFAULT_RAIN_THRESHOLD
-                }.first()
-
-        val snowThreshold: Flow<Float> =
-            dataStore.data.map { prefs ->
-                prefs[UserPreferences.snowThreshold] ?: DEFAULT_SNOW_THRESHOLD
-            }
-
-        val rainThreshold: Flow<Float> =
-            dataStore.data.map { prefs ->
-                prefs[UserPreferences.rainThreshold] ?: DEFAULT_RAIN_THRESHOLD
-            }
-
-        suspend fun updateSnowThreshold(value: Float) {
-            dataStore.edit { prefs ->
-                prefs[UserPreferences.snowThreshold] = value
-            }
-        }
-
-        suspend fun updateRainThreshold(value: Float) {
-            dataStore.edit { prefs ->
-                prefs[UserPreferences.rainThreshold] = value
-            }
-        }
 
         val userConfiguredAlerts: Flow<ConfiguredAlerts> =
             dataStore.data.map { prefs ->

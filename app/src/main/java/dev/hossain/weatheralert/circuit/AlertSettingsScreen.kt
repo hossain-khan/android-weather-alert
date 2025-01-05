@@ -123,9 +123,6 @@ class AlertSettingsPresenter
                     is AlertSettingsScreen.Event.SaveSettingsClicked -> {
                         Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
                         scope.launch {
-                            preferencesManager.updateRainThreshold(event.rainThreshold)
-                            preferencesManager.updateSnowThreshold(event.snowThreshold)
-
                             val configuredAlerts: ConfiguredAlerts = preferencesManager.userConfiguredAlerts.first()
                             Timber.d("Current alerts: ${configuredAlerts.alerts}")
 
