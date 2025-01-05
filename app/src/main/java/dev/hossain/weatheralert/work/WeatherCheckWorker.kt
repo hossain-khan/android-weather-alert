@@ -1,9 +1,10 @@
 package dev.hossain.weatheralert.work
 
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.core.app.NotificationCompat
-import androidx.datastore.preferences.core.edit
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
@@ -12,9 +13,9 @@ import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherAlertKeys
+import dev.hossain.weatheralert.data.WeatherAlert
+import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
-import dev.hossain.weatheralert.data.weatherAlertDataStore
 import kotlinx.coroutines.flow.first
 import timber.log.Timber
 
@@ -37,66 +38,106 @@ class WeatherCheckWorker
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
-            val snowThreshold = preferencesManager.snowThreshold.first()
-            val rainThreshold = preferencesManager.rainThreshold.first()
+            val userConfiguredAlerts = preferencesManager.userConfiguredAlerts.first().alerts
 
-            // Fetch forecast
-            val forecastApiResult =
-                weatherRepository.getDailyForecast(
-                    // Use Oshawa coordinates for now 43°55'24.0"N+78°53'49.9"W/@43.9233409,-78.899766
-                    latitude = 43.9233409,
-                    longitude = -78.899766,
-                    apiKey = BuildConfig.WEATHER_API_KEY,
-                )
+            if (userConfiguredAlerts.isEmpty()) {
+                Timber.d("No user configured alerts found.")
+                return Result.success()
+            }
 
-            when (forecastApiResult) {
-                is ApiResult.Success -> {
-                    // Check if thresholds are exceeded
-                    val snowTomorrow = forecastApiResult.value.daily[1].snowVolume ?: 0.0 // Example: Snow forecast for tomorrow
-                    val rainTomorrow = forecastApiResult.value.daily[1].rainVolume ?: 0.0 // Example: Rain forecast for tomorrow
+            userConfiguredAlerts.forEach { configuredAlert: WeatherAlert ->
+                // Fetch forecast
+                val forecastApiResult =
+                    weatherRepository.getDailyForecast(
+                        latitude = configuredAlert.lat,
+                        longitude = configuredAlert.lon,
+                        apiKey = BuildConfig.WEATHER_API_KEY,
+                    )
 
-                    if (snowTomorrow > snowThreshold || rainTomorrow > rainThreshold) {
-                        // Trigger a rich notification
-                        triggerNotification(snowTomorrow, rainTomorrow, snowThreshold, rainThreshold)
+                when (forecastApiResult) {
+                    is ApiResult.Success -> {
+                        // Check if thresholds are exceeded
+                        val snowTomorrow = forecastApiResult.value.totalSnowVolume
+                        val rainTomorrow = forecastApiResult.value.daily[1].rainVolume ?: 0.0
 
-                        val snowAlert = "Tomorrow: $snowTomorrow cm"
-                        val rainAlert = "Tomorrow: $rainTomorrow mm"
-                        saveWeatherAlertsToDataStore(context, snowAlert, rainAlert)
+                        when (configuredAlert.alertCategory) {
+                            WeatherAlertCategory.SNOW_FALL -> {
+                                if (snowTomorrow > configuredAlert.threshold) {
+                                    triggerNotification(
+                                        configuredAlert.alertCategory,
+                                        snowTomorrow,
+                                        configuredAlert.threshold,
+                                    )
+                                }
+                            }
+                            WeatherAlertCategory.RAIN_FALL -> {
+                                if (rainTomorrow > configuredAlert.threshold) {
+                                    // Trigger a rich notification
+                                    triggerNotification(
+                                        configuredAlert.alertCategory,
+                                        rainTomorrow,
+                                        configuredAlert.threshold,
+                                    )
+                                }
+                            }
+                        }
+                        return Result.success()
                     }
 
-                    return Result.success()
-                }
-                is ApiResult.Failure.HttpFailure -> {
-                    return Result.retry()
-                }
-                is ApiResult.Failure.ApiFailure -> {
-                    return Result.failure()
-                }
-                is ApiResult.Failure.NetworkFailure -> {
-                    return Result.retry()
-                }
-                is ApiResult.Failure.UnknownFailure -> {
-                    return Result.failure()
+                    is ApiResult.Failure.HttpFailure -> {
+                        return Result.retry()
+                    }
+
+                    is ApiResult.Failure.ApiFailure -> {
+                        return Result.failure()
+                    }
+
+                    is ApiResult.Failure.NetworkFailure -> {
+                        return Result.retry()
+                    }
+
+                    is ApiResult.Failure.UnknownFailure -> {
+                        return Result.failure()
+                    }
                 }
             }
+            return Result.success()
         }
 
         private fun triggerNotification(
-            snowTomorrow: Double,
-            rainTomorrow: Double,
-            snowThreshold: Float,
-            rainThreshold: Float,
+            alertCategory: WeatherAlertCategory,
+            currentValue: Double,
+            thresholdValue: Float,
         ) {
-            Timber.d("Triggering notification for snow: $snowTomorrow, rain: $rainTomorrow")
+            Timber.d("Triggering notification for $alertCategory value: $currentValue, limit: $thresholdValue")
 
             val notificationText =
                 buildString {
-                    if (snowTomorrow > snowThreshold) append("Snowfall: $snowTomorrow cm\n")
-                    if (rainTomorrow > rainThreshold) append("Rainfall: $rainTomorrow mm")
+                    append("Configured weather alert threshold exceeded.\n")
+                    when (alertCategory) {
+                        WeatherAlertCategory.SNOW_FALL -> {
+                            append("Snowfall: $currentValue cm\n")
+                        }
+                        WeatherAlertCategory.RAIN_FALL -> {
+                            append("Rainfall: $currentValue mm\n")
+                        }
+                    }
                 }
 
             val notificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            val intent =
+                context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+            val pendingIntent =
+                PendingIntent.getActivity(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+                )
 
             val notification =
                 NotificationCompat
@@ -106,19 +147,10 @@ class WeatherCheckWorker
                     .setContentText(notificationText)
                     .setStyle(NotificationCompat.BigTextStyle().bigText(notificationText))
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
                     .build()
 
             notificationManager.notify(1, notification)
-        }
-
-        private suspend fun saveWeatherAlertsToDataStore(
-            context: Context,
-            snowAlert: String,
-            rainAlert: String,
-        ) {
-            context.weatherAlertDataStore.edit { preferences ->
-                preferences[WeatherAlertKeys.SNOW_ALERT] = snowAlert
-                preferences[WeatherAlertKeys.RAIN_ALERT] = rainAlert
-            }
         }
     }
