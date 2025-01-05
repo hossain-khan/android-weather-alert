@@ -2,6 +2,7 @@ package dev.hossain.weatheralert.data
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
+import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
@@ -94,6 +95,8 @@ class WeatherRepositoryTest {
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(33.44)
+            assertThat(forecast.lon).isEqualTo(-94.04)
             assertEquals(8, forecast.daily.size)
         }
 
@@ -114,6 +117,8 @@ class WeatherRepositoryTest {
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(21.1619)
+            assertThat(forecast.lon).isEqualTo(-86.8515)
             assertEquals(8, forecast.daily.size)
         }
 
@@ -134,6 +139,8 @@ class WeatherRepositoryTest {
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(43.7)
+            assertThat(forecast.lon).isEqualTo(-79.42)
             assertEquals(8, forecast.daily.size)
         }
 
@@ -154,6 +161,30 @@ class WeatherRepositoryTest {
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(43.9319)
+            assertThat(forecast.lon).isEqualTo(-78.851)
+            assertEquals(8, forecast.daily.size)
+            assertEquals(48, forecast.hourly.size)
+        }
+    @Test
+    fun `given weather response for kansas - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-kansas-snowing.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(38.4685)
+            assertThat(forecast.lon).isEqualTo(-100.9596)
             assertEquals(8, forecast.daily.size)
             assertEquals(48, forecast.hourly.size)
         }
