@@ -11,7 +11,6 @@ interface WeatherRepository {
     suspend fun getDailyForecast(
         latitude: Double,
         longitude: Double,
-        apiKey: String,
     ): ApiResult<WeatherForecast, Unit>
 }
 
@@ -22,11 +21,16 @@ interface WeatherRepository {
 class WeatherRepositoryImpl
     @Inject
     constructor(
+        private val apiKey: ApiKey,
         private val api: WeatherApi,
     ) : WeatherRepository {
         override suspend fun getDailyForecast(
             latitude: Double,
             longitude: Double,
-            apiKey: String,
-        ): ApiResult<WeatherForecast, Unit> = api.getDailyForecast(latitude = latitude, longitude = longitude, apiKey = apiKey)
+        ): ApiResult<WeatherForecast, Unit> =
+            api.getDailyForecast(
+                apiKey = apiKey.key,
+                latitude = latitude,
+                longitude = longitude,
+            )
     }

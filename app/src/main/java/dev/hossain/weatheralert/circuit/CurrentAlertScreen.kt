@@ -74,7 +74,6 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -129,7 +128,6 @@ class CurrentWeatherAlertPresenter
                                 weatherRepository.getDailyForecast(
                                     latitude = alert.lat,
                                     longitude = alert.lon,
-                                    apiKey = BuildConfig.WEATHER_API_KEY,
                                 )
 
                             when (apiResult) {
