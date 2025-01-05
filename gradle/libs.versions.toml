@@ -3,6 +3,7 @@ agp = "8.7.3"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
+junitKtx = "1.2.1"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -74,6 +75,7 @@ kotlinter = "5.0.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }

@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.circuitx.effects)
     implementation(libs.circuitx.gestureNav)
     implementation(libs.circuitx.overlays)
+    implementation(libs.androidx.junit.ktx)
     ksp(libs.circuit.codegen)
 
     implementation(libs.timber)
