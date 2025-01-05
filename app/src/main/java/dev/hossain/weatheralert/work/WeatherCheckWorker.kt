@@ -10,7 +10,6 @@ import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlert
@@ -51,7 +50,6 @@ class WeatherCheckWorker
                     weatherRepository.getDailyForecast(
                         latitude = configuredAlert.lat,
                         longitude = configuredAlert.lon,
-                        apiKey = BuildConfig.WEATHER_API_KEY,
                     )
 
                 when (forecastApiResult) {
