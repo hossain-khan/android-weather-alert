@@ -134,9 +134,9 @@ class CurrentWeatherAlertPresenter
 
                             when (apiResult) {
                                 is ApiResult.Success -> {
-                                    val weatherForecast = apiResult.value
-                                    val snowStatus = weatherForecast.totalSnowVolume
-                                    val rainStatus = weatherForecast.daily[1].rainVolume ?: 0.0
+                                    val forecastData = apiResult.value
+                                    val snowStatus = forecastData.snow.nextDaySnow
+                                    val rainStatus = forecastData.rain.nextDayRain
                                     alertTileData.add(
                                         AlertTileData(
                                             category = "${alert.alertCategory}",
