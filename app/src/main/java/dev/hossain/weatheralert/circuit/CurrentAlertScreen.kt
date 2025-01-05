@@ -6,6 +6,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +26,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -59,6 +59,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -74,6 +75,7 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -222,12 +224,34 @@ fun CurrentWeatherAlerts(
                             .fillMaxSize()
                             .padding(padding),
                 ) {
-                    AlertTileGrid(
-                        tiles = state.tiles,
-                        eventSink = state.eventSink,
-                    )
+                    if (state.tiles.isEmpty()) {
+                        EmptyAlertState()
+                    } else {
+                        AlertTileGrid(
+                            tiles = state.tiles,
+                            eventSink = state.eventSink,
+                        )
+                    }
                 }
             },
+        )
+    }
+}
+
+@Composable
+fun EmptyAlertState() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.hiking_direction),
+            contentDescription = "No alerts configured.",
+        )
+        Text(
+            text = "No custom weather alerts configured.",
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 }
@@ -552,4 +576,13 @@ fun CurrentWeatherAlertsPreview() {
             AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm", true),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+fun EmptyStatePreview() {
+    WeatherAlertAppTheme {
+        EmptyAlertState()
+    }
 }
