@@ -10,7 +10,6 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -74,7 +73,7 @@ class WeatherRepositoryTest {
                 )
             assert(result is ApiResult.Success)
             val forecast = (result as ApiResult.Success).value
-            assertEquals(0, forecast.daily.size)
+            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(0.0)
         }
 
     @Test
@@ -92,10 +91,9 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(33.44)
-            assertThat(forecast.lon).isEqualTo(-94.04)
-            assertEquals(8, forecast.daily.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(33.44)
+            assertThat(forecast.longitude).isEqualTo(-94.04)
         }
 
     @Test
@@ -113,10 +111,9 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(21.1619)
-            assertThat(forecast.lon).isEqualTo(-86.8515)
-            assertEquals(8, forecast.daily.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(21.1619)
+            assertThat(forecast.longitude).isEqualTo(-86.8515)
         }
 
     @Test
@@ -134,10 +131,9 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(43.7)
-            assertThat(forecast.lon).isEqualTo(-79.42)
-            assertEquals(8, forecast.daily.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(43.7)
+            assertThat(forecast.longitude).isEqualTo(-79.42)
         }
 
     @Test
@@ -155,11 +151,9 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(43.9319)
-            assertThat(forecast.lon).isEqualTo(-78.851)
-            assertEquals(8, forecast.daily.size)
-            assertEquals(48, forecast.hourly.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(43.9319)
+            assertThat(forecast.longitude).isEqualTo(-78.851)
         }
 
     @Test
@@ -177,11 +171,9 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(38.4685)
-            assertThat(forecast.lon).isEqualTo(-100.9596)
-            assertEquals(8, forecast.daily.size)
-            assertEquals(48, forecast.hourly.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(38.4685)
+            assertThat(forecast.longitude).isEqualTo(-100.9596)
         }
 
     @Test
@@ -199,11 +191,29 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: WeatherForecast = (result as ApiResult.Success).value
-            assertThat(forecast.lat).isEqualTo(38.6289)
-            assertThat(forecast.lon).isEqualTo(-90.2546)
-            assertEquals(8, forecast.daily.size)
-            assertEquals(48, forecast.hourly.size)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(38.6289)
+            assertThat(forecast.longitude).isEqualTo(-90.2546)
+        }
+
+    @Test
+    fun `given weather response for yazoo city mississippi - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-yazoo-city-mississippi-raining.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                )
+            assert(result is ApiResult.Success)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(32.864)
+            assertThat(forecast.longitude).isEqualTo(-90.43)
         }
 
     // Helper method to load JSON from resources

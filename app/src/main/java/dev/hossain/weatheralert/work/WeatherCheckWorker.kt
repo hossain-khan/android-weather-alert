@@ -55,8 +55,8 @@ class WeatherCheckWorker
                 when (forecastApiResult) {
                     is ApiResult.Success -> {
                         // Check if thresholds are exceeded
-                        val snowTomorrow = forecastApiResult.value.totalSnowVolume
-                        val rainTomorrow = forecastApiResult.value.daily[1].rainVolume ?: 0.0
+                        val snowTomorrow = forecastApiResult.value.snow.dailyCumulativeSnow
+                        val rainTomorrow = forecastApiResult.value.rain.nextDayRain
 
                         when (configuredAlert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {

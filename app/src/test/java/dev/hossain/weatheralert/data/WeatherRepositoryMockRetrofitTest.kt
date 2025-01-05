@@ -1,11 +1,11 @@
 package dev.hossain.weatheralert.data
 
+import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
@@ -68,7 +68,7 @@ class WeatherRepositoryMockRetrofitTest {
                 )
             assert(result is ApiResult.Success)
             val forecast = (result as ApiResult.Success).value
-            assertEquals(0, forecast.daily.size)
+            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(0.0)
         }
 
     class MockWeatherApi(
