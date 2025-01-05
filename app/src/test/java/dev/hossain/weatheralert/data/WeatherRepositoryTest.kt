@@ -166,6 +166,7 @@ class WeatherRepositoryTest {
             assertEquals(8, forecast.daily.size)
             assertEquals(48, forecast.hourly.size)
         }
+
     @Test
     fun `given weather response for kansas - provides success response with parsed data`() =
         runTest {
@@ -185,6 +186,29 @@ class WeatherRepositoryTest {
             val forecast: WeatherForecast = (result as ApiResult.Success).value
             assertThat(forecast.lat).isEqualTo(38.4685)
             assertThat(forecast.lon).isEqualTo(-100.9596)
+            assertEquals(8, forecast.daily.size)
+            assertEquals(48, forecast.hourly.size)
+        }
+
+    @Test
+    fun `given weather response for St Louis Missouri - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-st-louis-missouri-heavy-snow.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    latitude = 0.0,
+                    longitude = -0.0,
+                    apiKey = "test_api_key",
+                )
+            assert(result is ApiResult.Success)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(38.6289)
+            assertThat(forecast.lon).isEqualTo(-90.2546)
             assertEquals(8, forecast.daily.size)
             assertEquals(48, forecast.hourly.size)
         }
