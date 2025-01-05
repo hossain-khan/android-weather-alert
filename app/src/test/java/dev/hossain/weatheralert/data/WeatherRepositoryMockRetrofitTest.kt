@@ -55,7 +55,7 @@ class WeatherRepositoryMockRetrofitTest {
 
         behaviorDelegate = mockRetrofit.create(WeatherApi::class.java)
         val mockWeatherApi = MockWeatherApi(behaviorDelegate)
-        weatherRepository = WeatherRepositoryImpl(mockWeatherApi)
+        weatherRepository = WeatherRepositoryImpl(ApiKeyImpl(), mockWeatherApi)
     }
 
     @Test
@@ -65,7 +65,6 @@ class WeatherRepositoryMockRetrofitTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast = (result as ApiResult.Success).value
@@ -76,11 +75,11 @@ class WeatherRepositoryMockRetrofitTest {
         private val delegate: BehaviorDelegate<WeatherApi>,
     ) : WeatherApi {
         override suspend fun getDailyForecast(
+            apiKey: String,
             latitude: Double,
             longitude: Double,
             exclude: String,
             units: String,
-            apiKey: String,
         ): ApiResult<WeatherForecast, Unit> {
             val result =
                 ApiResult.success(
@@ -93,7 +92,7 @@ class WeatherRepositoryMockRetrofitTest {
                     ),
                 )
 
-            return delegate.returningResponse(result).getDailyForecast(latitude, longitude, apiKey = apiKey)
+            return delegate.returningResponse(result).getDailyForecast("key", latitude, longitude)
         }
     }
 }

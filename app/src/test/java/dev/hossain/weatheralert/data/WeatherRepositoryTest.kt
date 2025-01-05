@@ -40,7 +40,7 @@ class WeatherRepositoryTest {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
 
-        weatherRepository = WeatherRepositoryImpl(weatherApi)
+        weatherRepository = WeatherRepositoryImpl(ApiKeyImpl(), weatherApi)
     }
 
     @After
@@ -71,7 +71,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast = (result as ApiResult.Success).value
@@ -91,7 +90,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
@@ -113,7 +111,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
@@ -135,7 +132,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
@@ -157,7 +153,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
@@ -180,7 +175,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
@@ -203,7 +197,6 @@ class WeatherRepositoryTest {
                 weatherRepository.getDailyForecast(
                     latitude = 0.0,
                     longitude = -0.0,
-                    apiKey = "test_api_key",
                 )
             assert(result is ApiResult.Success)
             val forecast: WeatherForecast = (result as ApiResult.Success).value
