@@ -12,8 +12,29 @@ import kotlinx.parcelize.Parcelize
 const val DEFAULT_SNOW_THRESHOLD = 5.0f // cm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
 
+/**
+ * Weather forecast data.
+ *
+ * Sample JSON:
+ * ```json
+ * {
+ *   "lat": 38.4685,
+ *   "lon": -100.9596,
+ *   "timezone": "America/Chicago",
+ *   "timezone_offset": -21600,
+ *   "current": {},
+ *   "hourly": [],
+ *   "daily": [],
+ *   "alerts": []
+ * }
+ * ```
+ */
 @JsonClass(generateAdapter = true)
 data class WeatherForecast(
+    val lat: Double,
+    val lon: Double,
+    val timezone: String,
+    @Json(name = "timezone_offset") val timezoneOffset: Int,
     val hourly: List<HourlyForecast> = emptyList(),
     val daily: List<DailyForecast> = emptyList(),
 ) {

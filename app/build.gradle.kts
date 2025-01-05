@@ -116,7 +116,7 @@ dependencies {
     ksp(libs.moshi.kotlin.codegen)
 
     // Navigation Compose
-    implementation(libs.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.anvil.annotations)
     implementation(libs.anvil.annotations.optional)
@@ -134,6 +134,7 @@ dependencies {
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.work.testing)
+    testImplementation(libs.google.truth)
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.okhttp.mock.webserver)

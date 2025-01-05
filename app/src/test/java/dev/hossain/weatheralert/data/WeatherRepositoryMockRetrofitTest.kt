@@ -85,6 +85,10 @@ class WeatherRepositoryMockRetrofitTest {
             val result =
                 ApiResult.success(
                     WeatherForecast(
+                        lat = latitude,
+                        lon = longitude,
+                        timezone = "America/Toronto",
+                        timezoneOffset = -18000,
                         daily = emptyList(),
                     ),
                 )
