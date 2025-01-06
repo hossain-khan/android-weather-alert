@@ -76,6 +76,10 @@ eithernet = "2.0.0"
 # https://github.com/pinterest/ktlint
 kotlinter = "5.0.1"
 
+# Room Database
+# https://developer.android.com/training/data-storage/room
+roomDb = "2.6.1"
+
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -101,6 +105,13 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "workManager" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+
+# Room Database
+# https://developer.android.com/training/data-storage/room
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomDb" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomDb" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomDb" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "roomDb" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "googleTruth" }
@@ -165,6 +176,8 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+room = { id = "androidx.room", version.ref = "roomDb" }
 
 # Add @Parcelize support
 # https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize

@@ -62,7 +62,6 @@ kapt {
 }
 
 dependencies {
-    // App dependencies
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)
@@ -73,6 +72,10 @@ dependencies {
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.material.icons.extended)
+
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     implementation(libs.circuit.codegen.annotations)
     implementation(libs.circuit.foundation)
@@ -124,7 +127,9 @@ dependencies {
     implementation(libs.eithernet)
     implementation(libs.eithernet.integration.retrofit)
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Testing
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
@@ -140,6 +145,7 @@ dependencies {
     testImplementation(libs.okhttp.mock.webserver)
     testImplementation(libs.retrofit.mock.server)
     testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.room.testing)
 }
 
 ksp {
