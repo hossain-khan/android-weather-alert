@@ -127,7 +127,9 @@ dependencies {
     implementation(libs.eithernet)
     implementation(libs.eithernet.integration.retrofit)
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Testing
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
