@@ -16,9 +16,9 @@ import com.slack.circuit.foundation.NavigableCircuitContent
 import com.slack.circuit.foundation.rememberCircuitNavigator
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecoration
 import com.squareup.anvil.annotations.ContributesMultibinding
-import dev.hossain.weatheralert.circuit.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import javax.inject.Inject
 
