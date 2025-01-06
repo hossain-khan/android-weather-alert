@@ -174,6 +174,7 @@ class WeatherRepositoryTest {
             val forecast: ForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(38.4685)
             assertThat(forecast.longitude).isEqualTo(-100.9596)
+            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(1.2499999999999998)
         }
 
     @Test
@@ -194,6 +195,7 @@ class WeatherRepositoryTest {
             val forecast: ForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(38.6289)
             assertThat(forecast.longitude).isEqualTo(-90.2546)
+            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(27.23)
         }
 
     @Test
@@ -214,6 +216,7 @@ class WeatherRepositoryTest {
             val forecast: ForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(32.864)
             assertThat(forecast.longitude).isEqualTo(-90.43)
+            assertThat(forecast.rain.dailyCumulativeRain).isEqualTo(8.85)
         }
 
     // Helper method to load JSON from resources

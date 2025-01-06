@@ -38,8 +38,11 @@ data class WeatherForecast(
     val hourly: List<HourlyForecast> = emptyList(),
     val daily: List<DailyForecast> = emptyList(),
 ) {
-    val totalSnowVolume: Double
+    val totalHourlySnowVolume: Double
         get() = hourly.sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 }
+
+    val totalHourlyRainVolume: Double
+        get() = hourly.sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 }
 }
 
 @JsonClass(generateAdapter = true)
@@ -80,6 +83,9 @@ data class DailyForecast(
  *   "pop": 1,
  *   "snow": {
  *     "1h": 0.35
+ *   },
+ *   "rain": {
+ *     "1h": 4.86
  *   }
  * }
  * ```
@@ -101,11 +107,39 @@ data class HourlyForecast(
     @Json(name = "weather") val weather: List<WeatherDescription>,
     @Json(name = "pop") val pop: Double,
     @Json(name = "snow") val snow: SnowVolume? = null,
+    @Json(name = "rain") val rain: RainVolume? = null,
 )
 
+/**
+ * Snow volume data.
+ *
+ * Sample JSON:
+ * ```json
+ * "snow":
+ * {
+ *   "1h": 0.35
+ * }
+ * ```
+ */
 @JsonClass(generateAdapter = true)
 data class SnowVolume(
     @Json(name = "1h") val snowVolumeInAnHour: Double,
+)
+
+/**
+ * Rain volume data.
+ *
+ * Sample JSON:
+ * ```json
+ * "rain":
+ * {
+ *   "1h": 2.29
+ * }
+ * ```
+ */
+@JsonClass(generateAdapter = true)
+data class RainVolume(
+    @Json(name = "1h") val rainVolumeInAnHour: Double,
 )
 
 @JsonClass(generateAdapter = true)

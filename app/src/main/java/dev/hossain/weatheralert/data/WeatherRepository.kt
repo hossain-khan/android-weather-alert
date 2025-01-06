@@ -53,13 +53,13 @@ class WeatherRepositoryImpl
                 longitude = weatherForecast.lon,
                 snow =
                     Snow(
-                        dailyCumulativeSnow = weatherForecast.totalSnowVolume,
+                        dailyCumulativeSnow = weatherForecast.totalHourlySnowVolume,
                         nextDaySnow = weatherForecast.daily.firstOrNull()?.snowVolume ?: 0.0,
                         weeklyCumulativeSnow = 0.0,
                     ),
                 rain =
                     Rain(
-                        dailyCumulativeRain = 0.0,
+                        dailyCumulativeRain = weatherForecast.totalHourlyRainVolume,
                         nextDayRain = weatherForecast.daily.firstOrNull()?.rainVolume ?: 0.0,
                         weeklyCumulativeRain = 0.0,
                     ),
