@@ -1,4 +1,4 @@
-package dev.hossain.weatheralert.circuit
+package dev.hossain.weatheralert.ui.addalert
 
 import android.Manifest
 import android.content.Context
@@ -116,6 +116,7 @@ class AlertSettingsPresenter
                     is AlertSettingsScreen.Event.RainThresholdChanged -> {
                         updatedRainThreshold = event.value
                     }
+
                     is AlertSettingsScreen.Event.SnowThresholdChanged -> {
                         updatedSnowThreshold = event.value
                     }
@@ -123,7 +124,8 @@ class AlertSettingsPresenter
                     is AlertSettingsScreen.Event.SaveSettingsClicked -> {
                         Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
                         scope.launch {
-                            val configuredAlerts: ConfiguredAlerts = preferencesManager.userConfiguredAlerts.first()
+                            val configuredAlerts: ConfiguredAlerts =
+                                preferencesManager.userConfiguredAlerts.first()
                             Timber.d("Current alerts: ${configuredAlerts.alerts}")
 
                             preferencesManager.updateUserConfiguredAlerts(
@@ -224,7 +226,11 @@ fun AlertSettingsScreen(
                                 Slider(
                                     value = state.snowThreshold,
                                     onValueChange = {
-                                        state.eventSink(AlertSettingsScreen.Event.SnowThresholdChanged(it))
+                                        state.eventSink(
+                                            AlertSettingsScreen.Event.SnowThresholdChanged(
+                                                it,
+                                            ),
+                                        )
                                     },
                                     valueRange = 1f..20f,
                                 )
@@ -240,7 +246,11 @@ fun AlertSettingsScreen(
                                 Slider(
                                     value = state.rainThreshold,
                                     onValueChange = {
-                                        state.eventSink(AlertSettingsScreen.Event.RainThresholdChanged(it))
+                                        state.eventSink(
+                                            AlertSettingsScreen.Event.RainThresholdChanged(
+                                                it,
+                                            ),
+                                        )
                                     },
                                     valueRange = 1f..20f,
                                 )

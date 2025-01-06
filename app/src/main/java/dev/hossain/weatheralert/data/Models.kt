@@ -179,10 +179,12 @@ data class WeatherDescription(
 
 @Parcelize
 data class AlertTileData constructor(
+    val lat: Double,
+    val lon: Double,
     /**
      * e.g., "Snowfall", "Rainfall"
      */
-    val category: String,
+    val category: WeatherAlertCategory,
     /**
      * e.g., "5 cm", "10 mm"
      */
