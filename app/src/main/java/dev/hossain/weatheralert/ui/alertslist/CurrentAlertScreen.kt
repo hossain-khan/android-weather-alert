@@ -187,7 +187,11 @@ class CurrentWeatherAlertPresenter
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
-                            preferencesManager.removeUserConfiguredAlert(event.item.lat, event.item.lon)
+                            preferencesManager.removeUserConfiguredAlert(
+                                alertCategory = event.item.category,
+                                lat = event.item.lat,
+                                lon = event.item.lon,
+                            )
                         }
                     }
                 }

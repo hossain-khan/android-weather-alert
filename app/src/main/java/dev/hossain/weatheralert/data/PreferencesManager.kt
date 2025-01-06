@@ -62,11 +62,12 @@ class PreferencesManager
          * Removes user configured alert for given latitude and longitude.
          */
         suspend fun removeUserConfiguredAlert(
+            alertCategory: WeatherAlertCategory,
             lat: Double,
             lon: Double,
         ) {
             val currentAlerts = userConfiguredAlerts.first().alerts.toMutableList()
-            currentAlerts.removeAll { it.lat == lat && it.lon == lon }
+            currentAlerts.removeAll { it.lat == lat && it.lon == lon && it.alertCategory == alertCategory }
             updateUserConfiguredAlerts(ConfiguredAlerts(currentAlerts))
         }
     }
