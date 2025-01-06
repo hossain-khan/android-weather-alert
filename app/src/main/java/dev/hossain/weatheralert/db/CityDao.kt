@@ -29,4 +29,13 @@ interface CityDao {
 
     @Query("SELECT * FROM cities WHERE city LIKE '%' || :searchQuery || '%' OR country LIKE '%' || :searchQuery || '%' ORDER BY city ASC")
     fun searchCities(searchQuery: String): Flow<List<City>>
+
+    @Query("SELECT * FROM cities WHERE city_ascii LIKE '%' || :searchQuery || '%' ORDER BY city ASC")
+    fun searchCitiesByName(searchQuery: String): Flow<List<City>>
+
+    @Query("SELECT * FROM cities WHERE city_ascii LIKE '%' || :searchQuery || '%' ORDER BY city ASC LIMIT :limit")
+    fun searchCitiesByName(
+        searchQuery: String,
+        limit: Int,
+    ): Flow<List<City>>
 }
