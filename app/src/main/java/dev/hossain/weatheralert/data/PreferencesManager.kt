@@ -8,6 +8,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.hossain.weatheralert.data.UserPreferences.savedAlerts
 import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
 import javax.inject.Inject
@@ -49,5 +50,23 @@ class PreferencesManager
             dataStore.edit { prefs ->
                 prefs[savedAlerts] = json
             }
+        }
+
+        suspend fun clearUserConfiguredAlerts() {
+            dataStore.edit { prefs ->
+                prefs.remove(savedAlerts)
+            }
+        }
+
+        /**
+         * Removes user configured alert for given latitude and longitude.
+         */
+        suspend fun removeUserConfiguredAlert(
+            lat: Double,
+            lon: Double,
+        ) {
+            val currentAlerts = userConfiguredAlerts.first().alerts.toMutableList()
+            currentAlerts.removeAll { it.lat == lat && it.lon == lon }
+            updateUserConfiguredAlerts(ConfiguredAlerts(currentAlerts))
         }
     }

@@ -87,6 +87,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 import java.util.Locale
@@ -121,6 +122,7 @@ class CurrentWeatherAlertPresenter
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
+            val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
 
             LaunchedEffect(Unit) {
@@ -142,6 +144,8 @@ class CurrentWeatherAlertPresenter
                                     val rainStatus = forecastData.rain.nextDayRain
                                     alertTileData.add(
                                         AlertTileData(
+                                            lat = alert.lat,
+                                            lon = alert.lon,
                                             category = alert.alertCategory,
                                             threshold = "%.2f %s".format(Locale.getDefault(), alert.threshold, alert.alertCategory.unit),
                                             currentStatus =
@@ -179,11 +183,12 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
-                        // TODO - use repository to remove alert later
-                        // For testing this is good to do locally.
                         val updatedTiles = weatherTiles.toMutableList()
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
+                        scope.launch {
+                            preferencesManager.removeUserConfiguredAlert(event.item.lat, event.item.lon)
+                        }
                     }
                 }
             }
@@ -584,8 +589,22 @@ fun AlertTileEnhanced(
 fun CurrentWeatherAlertsPreview() {
     val sampleTiles =
         listOf(
-            AlertTileData(WeatherAlertCategory.SNOW_FALL, "5 cm", "Tomorrow: 7 cm", false),
-            AlertTileData(WeatherAlertCategory.RAIN_FALL, "10 mm", "Tomorrow: 12 mm", true),
+            AlertTileData(
+                lat = 0.0,
+                lon = 0.0,
+                category = WeatherAlertCategory.SNOW_FALL,
+                threshold = "5 cm",
+                currentStatus = "Tomorrow: 7 cm",
+                isAlertActive = false,
+            ),
+            AlertTileData(
+                lat = 0.0,
+                lon = 0.0,
+                category = WeatherAlertCategory.RAIN_FALL,
+                threshold = "10 mm",
+                currentStatus = "Tomorrow: 12 mm",
+                isAlertActive = true,
+            ),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
 }

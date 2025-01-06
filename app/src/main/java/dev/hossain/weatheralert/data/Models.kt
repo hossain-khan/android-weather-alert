@@ -179,6 +179,8 @@ data class WeatherDescription(
 
 @Parcelize
 data class AlertTileData constructor(
+    val lat: Double,
+    val lon: Double,
     /**
      * e.g., "Snowfall", "Rainfall"
      */
