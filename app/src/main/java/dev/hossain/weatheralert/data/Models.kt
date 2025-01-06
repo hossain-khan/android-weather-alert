@@ -182,7 +182,7 @@ data class AlertTileData constructor(
     /**
      * e.g., "Snowfall", "Rainfall"
      */
-    val category: String,
+    val category: WeatherAlertCategory,
     /**
      * e.g., "5 cm", "10 mm"
      */

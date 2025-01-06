@@ -60,6 +60,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -88,6 +89,7 @@ import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.map
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
+import java.util.Locale
 
 @Parcelize
 data class CurrentWeatherAlertScreen(
@@ -140,14 +142,18 @@ class CurrentWeatherAlertPresenter
                                     val rainStatus = forecastData.rain.nextDayRain
                                     alertTileData.add(
                                         AlertTileData(
-                                            category = "${alert.alertCategory}",
-                                            threshold = "${alert.threshold} ${alert.alertCategory.unit}",
-                                            currentStatus = "${
-                                                if (alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
-                                                    snowStatus
-                                                } else {
-                                                    rainStatus
-                                                }} ${alert.alertCategory.unit}",
+                                            category = alert.alertCategory,
+                                            threshold = "%.2f %s".format(Locale.getDefault(), alert.threshold, alert.alertCategory.unit),
+                                            currentStatus =
+                                                "%.2f %s".format(
+                                                    Locale.getDefault(),
+                                                    if (alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
+                                                        snowStatus
+                                                    } else {
+                                                        rainStatus
+                                                    },
+                                                    alert.alertCategory.unit,
+                                                ),
                                             // Wrong logic btw, fix later
                                             isAlertActive = alert.threshold <= snowStatus || alert.threshold <= rainStatus,
                                         ),
@@ -201,7 +207,6 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     WeatherAlertAppTheme {
-        val scope = rememberCoroutineScope()
         val snackbarHostState = remember { SnackbarHostState() }
 
         Scaffold(
@@ -317,14 +322,7 @@ fun AlertTileItem(
             AlertListItem(
                 data = alertTileData,
                 cardElevation = cardElevation,
-                icon =
-                    if (alertTileData.category ==
-                        WeatherAlertCategory.SNOW_FALL.name
-                    ) {
-                        WeatherAlertCategory.SNOW_FALL.icon()
-                    } else {
-                        WeatherAlertCategory.RAIN_FALL.icon()
-                    },
+                icon = alertTileData.category.icon(),
             )
             // AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
         },
@@ -383,7 +381,7 @@ fun AlertTile(
             verticalArrangement = Arrangement.SpaceEvenly,
         ) {
             Text(
-                text = data.category,
+                text = data.category.name,
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center,
             )
@@ -439,7 +437,7 @@ fun AlertItem(
                 modifier = Modifier.weight(1f),
             ) {
                 Text(
-                    text = data.category,
+                    text = data.category.name,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                 )
@@ -474,7 +472,7 @@ fun AlertListItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -487,11 +485,24 @@ fun AlertListItem(
                 ListItemDefaults.colors()
             }
         ListItem(
-            headlineContent = { Text(data.category, style = MaterialTheme.typography.titleMedium) },
+            headlineContent = {
+                Text(
+                    text =
+                        when (data.category) {
+                            WeatherAlertCategory.SNOW_FALL -> "Snowfall"
+                            WeatherAlertCategory.RAIN_FALL -> "Rainfall"
+                        },
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+            },
             supportingContent = {
                 Column {
-                    Text("Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
-                    Text("Tomorrow: ${data.currentStatus}", style = MaterialTheme.typography.bodyLarge)
+                    Text(text = "Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
+                    Text(
+                        text = "Tomorrow: ${data.currentStatus}",
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.Bold,
+                    )
                 }
             },
             colors = colors,
@@ -573,8 +584,8 @@ fun AlertTileEnhanced(
 fun CurrentWeatherAlertsPreview() {
     val sampleTiles =
         listOf(
-            AlertTileData("Snowfall", "5 cm", "Tomorrow: 7 cm", false),
-            AlertTileData("Rainfall", "10 mm", "Tomorrow: 12 mm", true),
+            AlertTileData(WeatherAlertCategory.SNOW_FALL, "5 cm", "Tomorrow: 7 cm", false),
+            AlertTileData(WeatherAlertCategory.RAIN_FALL, "10 mm", "Tomorrow: 12 mm", true),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
 }
