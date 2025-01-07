@@ -6,6 +6,7 @@ import com.squareup.anvil.annotations.ContributesTo
 import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.Module
 import dagger.Provides
+import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.CityDao
 
@@ -24,4 +25,7 @@ object DatabaseModule {
 
     @Provides
     fun provideCityDao(database: AppDatabase): CityDao = database.cityDao()
+
+    @Provides
+    fun provideAlertDao(database: AppDatabase): AlertDao = database.alertDao()
 }

@@ -64,16 +64,14 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherAlert
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -151,25 +149,17 @@ class AlertSettingsPresenter
                     is AlertSettingsScreen.Event.SaveSettingsClicked -> {
                         Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
                         scope.launch {
-                            val configuredAlerts: ConfiguredAlerts =
-                                preferencesManager.userConfiguredAlerts.first()
-                            Timber.d("Current alerts: ${configuredAlerts.alerts}")
-
                             val city = selectedCity ?: throw IllegalStateException("City not selected")
 
-                            preferencesManager.updateUserConfiguredAlerts(
-                                ConfiguredAlerts(
-                                    configuredAlerts.alerts +
-                                        WeatherAlert(
-                                            alertCategory = event.selectedAlertType,
-                                            threshold =
-                                                when (event.selectedAlertType) {
-                                                    WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
-                                                    WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
-                                                },
-                                            lat = city.lat,
-                                            lon = city.lng,
-                                        ),
+                            database.alertDao().insertAlert(
+                                Alert(
+                                    cityId = city.id,
+                                    alertCategory = event.selectedAlertType,
+                                    threshold =
+                                        when (event.selectedAlertType) {
+                                            WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
+                                            WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
+                                        },
                                 ),
                             )
 
