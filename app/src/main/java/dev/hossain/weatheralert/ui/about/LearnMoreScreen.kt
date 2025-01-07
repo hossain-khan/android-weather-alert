@@ -51,7 +51,10 @@ fun LearnMoreAboutAlerts(onDismiss: () -> Unit) {
                     .align(Alignment.CenterHorizontally),
         )
         Text(
-            text = "You can set custom weather alerts for your city.\n\nSet it and forget it. Once set, you will receive a notification when the weather condition matches your criteria.",
+            text =
+                "You can set custom weather alerts for your city." +
+                    "\n\nSet it and forget it. Once set, you will receive a notification " +
+                    "when the weather condition matches your criteria.",
             style = MaterialTheme.typography.bodyLarge,
             modifier =
                 Modifier
