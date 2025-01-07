@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.alertslist
 
-import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -27,6 +26,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.TagFaces
+import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -78,7 +79,6 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
-import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
@@ -97,6 +97,7 @@ data class CurrentWeatherAlertScreen(
 ) : Screen {
     data class State(
         val tiles: List<AlertTileData>,
+        val userMessage: String? = null,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -108,6 +109,8 @@ data class CurrentWeatherAlertScreen(
         data object OnItemClicked : Event()
 
         data object AddNewAlertClicked : Event()
+
+        data object MessageShown : Event()
     }
 }
 
@@ -116,7 +119,6 @@ class CurrentWeatherAlertPresenter
     constructor(
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: CurrentWeatherAlertScreen,
-        private val preferencesManager: PreferencesManager,
         private val weatherRepository: WeatherRepository,
         private val alertDao: AlertDao,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
@@ -124,6 +126,7 @@ class CurrentWeatherAlertPresenter
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
+            var userMessage by remember { mutableStateOf<String?>(null) }
 
             LaunchedEffect(Unit) {
                 val userCityAlerts = alertDao.getAlertsWithCity()
@@ -165,8 +168,11 @@ class CurrentWeatherAlertPresenter
                                             },
                                             alert.alert.alertCategory.unit,
                                         ),
-                                    // Wrong logic btw, fix later
-                                    isAlertActive = alert.alert.threshold <= snowStatus || alert.alert.threshold <= rainStatus,
+                                    isAlertActive =
+                                        when (alert.alert.alertCategory) {
+                                            WeatherAlertCategory.SNOW_FALL -> snowStatus > alert.alert.threshold
+                                            WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
+                                        },
                                 ),
                             )
                         }
@@ -178,7 +184,7 @@ class CurrentWeatherAlertPresenter
                 weatherTiles = alertTileData
             }
 
-            return CurrentWeatherAlertScreen.State(weatherTiles) { event ->
+            return CurrentWeatherAlertScreen.State(weatherTiles, userMessage) { event ->
                 when (event) {
                     CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
@@ -186,12 +192,17 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
+                        userMessage = "Alert for ${event.item.cityInfo} removed."
                         val updatedTiles = weatherTiles.toMutableList()
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
                             alertDao.deleteAlertById(event.item.alertId)
                         }
+                    }
+
+                    CurrentWeatherAlertScreen.Event.MessageShown -> {
+                        userMessage = null
                     }
                 }
             }
@@ -214,9 +225,8 @@ fun CurrentWeatherAlerts(
     state: CurrentWeatherAlertScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
     WeatherAlertAppTheme {
-        val snackbarHostState = remember { SnackbarHostState() }
-
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Weather Alerts") })
@@ -231,12 +241,12 @@ fun CurrentWeatherAlerts(
                 )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
-            content = { padding ->
+            content = { paddingValues ->
                 Column(
                     modifier =
                         modifier
                             .fillMaxSize()
-                            .padding(padding),
+                            .padding(paddingValues),
                 ) {
                     if (state.tiles.isEmpty()) {
                         EmptyAlertState()
@@ -249,6 +259,13 @@ fun CurrentWeatherAlerts(
                 }
             },
         )
+    }
+
+    LaunchedEffect(state.userMessage) {
+        state.userMessage?.let { message ->
+            snackbarHostState.showSnackbar(message)
+            state.eventSink(CurrentWeatherAlertScreen.Event.MessageShown)
+        }
     }
 }
 
@@ -277,7 +294,7 @@ fun AlertTileGrid(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
     ) {
         itemsIndexed(
             items = tiles,
@@ -308,7 +325,6 @@ fun AlertTileItem(
                     SwipeToDismissBoxValue.EndToStart,
                     -> {
                         eventSink(CurrentWeatherAlertScreen.Event.AlertRemoved(currentItem))
-                        Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
                     }
                     SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
                 }
@@ -480,7 +496,7 @@ fun AlertListItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -500,11 +516,12 @@ fun AlertListItem(
                             WeatherAlertCategory.SNOW_FALL -> "Snowfall"
                             WeatherAlertCategory.RAIN_FALL -> "Rainfall"
                         },
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             },
             supportingContent = {
                 Column {
+                    Text(text = "City: ${data.cityInfo}", style = MaterialTheme.typography.bodySmall)
                     Text(text = "Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
                     Text(
                         text = "Tomorrow: ${data.currentStatus}",
@@ -520,6 +537,13 @@ fun AlertListItem(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp),
+                )
+            },
+            trailingContent = {
+                Icon(
+                    imageVector = if (data.isAlertActive) Icons.Default.WarningAmber else Icons.Default.TagFaces,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             },
             modifier = Modifier.padding(0.dp),

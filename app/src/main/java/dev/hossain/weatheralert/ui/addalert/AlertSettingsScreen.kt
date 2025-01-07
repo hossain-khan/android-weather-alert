@@ -33,6 +33,8 @@ import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -202,11 +204,13 @@ fun AlertSettingsScreen(
     state: AlertSettingsScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
     WeatherAlertAppTheme {
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Configure Alerts") })
             },
+            snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { padding ->
             Column(
                 modifier =
