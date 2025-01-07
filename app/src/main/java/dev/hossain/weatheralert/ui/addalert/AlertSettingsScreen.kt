@@ -12,14 +12,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MenuAnchorType.Companion.PrimaryEditable
+import androidx.compose.material3.MenuAnchorType.Companion.SecondaryEditable
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -27,6 +38,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -60,6 +72,9 @@ import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlert
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.db.AppDatabase
+import dev.hossain.weatheralert.db.City
+import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.flow.first
@@ -72,6 +87,8 @@ data class AlertSettingsScreen(
     val requestId: String,
 ) : Screen {
     data class State(
+        val citySearchQuery: String,
+        val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
         val eventSink: (Event) -> Unit,
@@ -91,6 +108,10 @@ data class AlertSettingsScreen(
             val snowThreshold: Float,
             val rainThreshold: Float,
         ) : Event()
+
+        data class SearchQueryChanged(
+            val query: String,
+        ) : Event()
     }
 }
 
@@ -100,15 +121,20 @@ class AlertSettingsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: AlertSettingsScreen,
         private val preferencesManager: PreferencesManager,
+        private val database: AppDatabase,
     ) : Presenter<AlertSettingsScreen.State> {
         @Composable
         override fun present(): AlertSettingsScreen.State {
             val scope = rememberCoroutineScope()
             var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
             var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
+            var searchQuery by remember { mutableStateOf("") }
+            var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
             val context = LocalContext.current
 
             return AlertSettingsScreen.State(
+                citySearchQuery = searchQuery,
+                citySuggestions = suggestions,
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
             ) { event ->
@@ -148,6 +174,15 @@ class AlertSettingsPresenter
 
                             // Finally after saving, navigate back
                             navigator.pop()
+                        }
+                    }
+
+                    is AlertSettingsScreen.Event.SearchQueryChanged -> {
+                        searchQuery = event.query
+                        scope.launch {
+                            database.cityDao().searchCitiesByName(event.query, 20).collect {
+                                suggestions = it
+                            }
                         }
                     }
                 }
@@ -190,6 +225,24 @@ fun AlertSettingsScreen(
                 val selectedAlertCategory: WeatherAlertCategory by remember {
                     derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
                 }
+//                SearchableDropdown(
+//                    query = state.citySearchQuery,
+//                    onQueryChange = {
+//                        state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
+//                    },
+//                    suggestions = state.citySuggestions,
+//                    onSuggestionClick = { },
+//                )
+
+                EditableExposedDropdownMenuSample(
+                    query = state.citySearchQuery,
+                    onQueryChange = {
+                        state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
+                    },
+                    suggestions = state.citySuggestions,
+                    onSuggestionClick = { },
+                )
+
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                     WeatherAlertCategory.entries.forEachIndexed { index, alertCategory ->
                         SegmentedButton(
@@ -343,6 +396,128 @@ fun NotificationPermissionStatusUi() {
     }
 }
 
+@Composable
+fun SearchableDropdown(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    suggestions: List<City>,
+    onSuggestionClick: (City) -> Unit,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column {
+        TextField(
+            value = query,
+            onValueChange = { newValue ->
+                onQueryChange(newValue)
+                expanded = newValue.isNotEmpty() // Show dropdown only if there's input
+            },
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { Text("Search...") },
+            singleLine = true,
+        )
+
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth()
+                // To ensure the DropdownMenu items show under the TextField and do not overtake the whole screen, you can use the DropdownMenu's modifier to set a maximum height. This will limit the height of the dropdown menu and ensure it does not overtake the whole screen.
+                .heightIn(max = 200.dp),
+        ) {
+            suggestions.forEach { city ->
+                DropdownMenuItem(
+                    text = { Text(text = city.city_ascii) },
+                    onClick = {
+                        onSuggestionClick(city)
+                        expanded = false // Close dropdown after selection
+                    },
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EditableExposedDropdownMenuSample(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    suggestions: List<City>,
+    onSuggestionClick: (City) -> Unit,
+) {
+    val textFieldState = rememberTextFieldState()
+
+    // The text that the user inputs into the text field can be used to filter the options.
+    // This sample uses string subsequence matching.
+    val filteredOptions = suggestions
+
+    val (allowExpanded, setExpanded) = remember { mutableStateOf(false) }
+    val expanded = allowExpanded && filteredOptions.isNotEmpty()
+
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = setExpanded,
+    ) {
+//        TextField(
+//            value = "",
+//            onValueChange = { newText ->
+//                // Update the state when the text changes
+//                textFieldState.text = newText
+//            },
+//            // The `menuAnchor` modifier must be passed to the text field to handle
+//            // expanding/collapsing the menu on click. An editable text field has
+//            // the anchor type `PrimaryEditable`.
+//            modifier = Modifier.width(280.dp).menuAnchor(PrimaryEditable),
+//            state = textFieldState,
+//            lineLimits = TextFieldLineLimits.SingleLine,
+//            label = null,// { Text(text = "Label") },
+//            trailingIcon = {
+//                ExposedDropdownMenuDefaults.TrailingIcon(
+//                    expanded = expanded,
+//                    // If the text field is editable, it is recommended to make the
+//                    // trailing icon a `menuAnchor` of type `SecondaryEditable`. This
+//                    // provides a better experience for certain accessibility services
+//                    // to choose a menu option without typing.
+//                    modifier = Modifier.menuAnchor(SecondaryEditable),
+//                )
+//            },
+//            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+//        )
+        TextField(
+            value = textFieldState.text.toString(),
+            onValueChange = { newValue ->
+                textFieldState.setTextAndPlaceCursorAtEnd(newValue)
+                onQueryChange(newValue)
+                setExpanded(newValue.isNotEmpty())
+            },
+            modifier = Modifier.fillMaxWidth().menuAnchor(PrimaryEditable),
+            placeholder = { Text("Search...") },
+            singleLine = true,
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+        )
+        ExposedDropdownMenu(
+            modifier = Modifier.heightIn(max = 280.dp),
+            expanded = expanded,
+            onDismissRequest = { setExpanded(false) },
+        ) {
+            filteredOptions.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(text = option.city_ascii, style = MaterialTheme.typography.bodyLarge) },
+                    onClick = {
+                        textFieldState.setTextAndPlaceCursorAtEnd(option.city_ascii) // option.text?
+                        setExpanded(false)
+                    },
+                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                )
+            }
+        }
+    }
+}
+
+
+
 private fun requiresNotificationPermission() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
 
 private fun hasNotificationPermission(context: Context) =
@@ -360,6 +535,11 @@ private fun hasNotificationPermission(context: Context) =
 @Composable
 fun SettingsScreenPreview() {
     AlertSettingsScreen(
-        AlertSettingsScreen.State(snowThreshold = 5.0f, rainThreshold = 10.0f) {},
+        AlertSettingsScreen.State(
+            citySearchQuery = "",
+            citySuggestions = emptyList(),
+            snowThreshold = 5.0f,
+            rainThreshold = 10.0f
+        ) {},
     )
 }
