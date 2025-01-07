@@ -434,12 +434,12 @@ fun EditableCityInputDropdownMenu(
                 DropdownMenuItem(
                     text = {
                         Column {
-                            Text(text = city.city_ascii, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
-                            Text(text = "${city.city}, ${city.admin_name}, ${city.country}", style = MaterialTheme.typography.bodySmall)
+                            Text(text = city.cityName, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+                            Text(text = "${city.city}, ${city.provStateName}, ${city.country}", style = MaterialTheme.typography.bodySmall)
                         }
                     },
                     onClick = {
-                        textFieldState.setTextAndPlaceCursorAtEnd(city.city_ascii) // city.text?
+                        textFieldState.setTextAndPlaceCursorAtEnd(city.cityName) // city.text?
                         setExpanded(false)
                         onSuggestionClick(city)
                     },

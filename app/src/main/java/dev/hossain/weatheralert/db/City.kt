@@ -1,27 +1,16 @@
 package dev.hossain.weatheralert.db
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
 /**
+ * Represents a city entity of the bundled DB.
  *
- * ```sql
- * CREATE TABLE "cities" (
- * 	"city"	TEXT NOT NULL,
- * 	"city_ascii"	TEXT NOT NULL,
- * 	"lat"	REAL NOT NULL,
- * 	"lng"	REAL NOT NULL,
- * 	"country"	TEXT NOT NULL,
- * 	"iso2"	TEXT NOT NULL,
- * 	"iso3"	TEXT NOT NULL,
- * 	"admin_name"	TEXT,
- * 	"capital"	TEXT,
- * 	"population"	INTEGER,
- * 	"id"	INTEGER NOT NULL,
- * 	PRIMARY KEY("id")
- * )
- * ```
+ * - https://developer.android.com/training/data-storage/room/defining-data
+ *
+ * @see CityDao
  */
 @Entity(
     tableName = "cities",
@@ -33,13 +22,13 @@ import androidx.room.PrimaryKey
 )
 data class City(
     val city: String,
-    val city_ascii: String,
+    @ColumnInfo(name = "city_ascii") val cityName: String,
     val lat: Double,
     val lng: Double,
     val country: String,
     val iso2: String,
     val iso3: String,
-    val admin_name: String?,
+    @ColumnInfo(name = "admin_name") val provStateName: String?,
     val capital: String?,
     val population: Int?,
     @PrimaryKey val id: Int,
