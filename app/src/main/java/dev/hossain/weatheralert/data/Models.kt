@@ -196,6 +196,7 @@ data class AlertTileData constructor(
      */
     val currentStatus: String,
     val isAlertActive: Boolean,
+    val alertNote: String,
 ) : Parcelable
 
 enum class WeatherAlertCategory(

@@ -32,6 +32,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
@@ -86,6 +87,7 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -173,6 +175,7 @@ class CurrentWeatherAlertPresenter
                                             WeatherAlertCategory.SNOW_FALL -> snowStatus > alert.alert.threshold
                                             WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
                                         },
+                                    alertNote = alert.alert.notes,
                                 ),
                             )
                         }
@@ -330,8 +333,8 @@ fun AlertTileItem(
                 }
                 return@rememberSwipeToDismissBoxState true
             },
-            // positional threshold of 25%
-            positionalThreshold = { it * .25f },
+            // positional threshold of 50%
+            positionalThreshold = { it * .50f },
         )
     SwipeToDismissBox(
         state = dismissState,
@@ -357,8 +360,8 @@ fun AlertTileItem(
 fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     val color =
         when (dismissState.dismissDirection) {
-            SwipeToDismissBoxValue.StartToEnd -> Color.Red
-            SwipeToDismissBoxValue.EndToStart -> Color.Red
+            SwipeToDismissBoxValue.StartToEnd -> Color.Red.copy(alpha = 0.5f)
+            SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.5f)
             SwipeToDismissBoxValue.Settled -> Color.Transparent
         }
 
@@ -366,7 +369,7 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
         modifier =
             Modifier
                 .fillMaxSize()
-                .background(color)
+                .background(color, shape = RoundedCornerShape(12.dp))
                 .padding(12.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -528,6 +531,16 @@ fun AlertListItem(
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                     )
+
+                    // Future enhancement - show icon if note is available
+                    // Tap tap icon - expand/collapse note content
+                    if (data.alertNote.isNotEmpty()) {
+                        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                        Text(
+                            text = parseMarkdown(data.alertNote),
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
                 }
             },
             colors = colors,
@@ -625,6 +638,7 @@ fun CurrentWeatherAlertsPreview() {
                 threshold = "5 cm",
                 currentStatus = "Tomorrow: 7 cm",
                 isAlertActive = false,
+                alertNote = "test note",
             ),
             AlertTileData(
                 alertId = 2,
@@ -635,6 +649,7 @@ fun CurrentWeatherAlertsPreview() {
                 threshold = "10 mm",
                 currentStatus = "Tomorrow: 12 mm",
                 isAlertActive = true,
+                alertNote = "test note",
             ),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
