@@ -51,6 +51,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -82,7 +83,6 @@ data class AlertSettingsScreen(
     val requestId: String,
 ) : Screen {
     data class State(
-        val citySearchQuery: String,
         val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
@@ -107,6 +107,10 @@ data class AlertSettingsScreen(
         data class SearchQueryChanged(
             val query: String,
         ) : Event()
+
+        data class OnCitySelected(
+            val city: City,
+        ) : Event()
     }
 }
 
@@ -123,12 +127,10 @@ class AlertSettingsPresenter
             val scope = rememberCoroutineScope()
             var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
             var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
-            var searchQuery by remember { mutableStateOf("") }
             var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
             val context = LocalContext.current
 
             return AlertSettingsScreen.State(
-                citySearchQuery = searchQuery,
                 citySuggestions = suggestions,
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
@@ -173,12 +175,15 @@ class AlertSettingsPresenter
                     }
 
                     is AlertSettingsScreen.Event.SearchQueryChanged -> {
-                        searchQuery = event.query
                         scope.launch {
                             database.cityDao().searchCitiesByName(event.query, 20).collect {
                                 suggestions = it
                             }
                         }
+                    }
+
+                    is AlertSettingsScreen.Event.OnCitySelected -> {
+                        Timber.d("Selected city: ${event.city}")
                     }
                 }
             }
@@ -220,22 +225,15 @@ fun AlertSettingsScreen(
                 val selectedAlertCategory: WeatherAlertCategory by remember {
                     derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
                 }
-//                SearchableDropdown(
-//                    query = state.citySearchQuery,
-//                    onQueryChange = {
-//                        state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
-//                    },
-//                    suggestions = state.citySuggestions,
-//                    onSuggestionClick = { },
-//                )
 
-                EditableExposedDropdownMenuSample(
-                    query = state.citySearchQuery,
+                EditableCityInputDropdownMenu(
                     onQueryChange = {
                         state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
                     },
                     suggestions = state.citySuggestions,
-                    onSuggestionClick = { },
+                    onSuggestionClick = {
+                        state.eventSink(AlertSettingsScreen.Event.OnCitySelected(it))
+                    },
                 )
 
                 SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
@@ -393,8 +391,7 @@ fun NotificationPermissionStatusUi() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditableExposedDropdownMenuSample(
-    query: String,
+fun EditableCityInputDropdownMenu(
     onQueryChange: (String) -> Unit,
     suggestions: List<City>,
     onSuggestionClick: (City) -> Unit,
@@ -435,7 +432,12 @@ fun EditableExposedDropdownMenuSample(
         ) {
             filteredOptions.forEach { city ->
                 DropdownMenuItem(
-                    text = { Text(text = city.city_ascii, style = MaterialTheme.typography.bodyLarge) },
+                    text = {
+                        Column {
+                            Text(text = city.city_ascii, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
+                            Text(text = "${city.city}, ${city.admin_name}, ${city.country}", style = MaterialTheme.typography.bodySmall)
+                        }
+                    },
                     onClick = {
                         textFieldState.setTextAndPlaceCursorAtEnd(city.city_ascii) // city.text?
                         setExpanded(false)
@@ -466,7 +468,6 @@ private fun hasNotificationPermission(context: Context) =
 fun SettingsScreenPreview() {
     AlertSettingsScreen(
         AlertSettingsScreen.State(
-            citySearchQuery = "",
             citySuggestions = emptyList(),
             snowThreshold = 5.0f,
             rainThreshold = 10.0f,
