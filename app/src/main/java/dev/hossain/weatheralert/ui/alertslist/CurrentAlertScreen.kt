@@ -32,6 +32,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
@@ -530,9 +531,12 @@ fun AlertListItem(
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                     )
+
+                    // Future enhancement - show icon if note is available
+                    // Tap tap icon - expand/collapse note content
                     if (data.alertNote.isNotEmpty()) {
+                        HorizontalDivider(Modifier.padding(vertical = 8.dp))
                         Text(
-                            // text = "Note: ${data.alertNote}",
                             text = parseMarkdown(data.alertNote),
                             style = MaterialTheme.typography.bodySmall,
                         )
