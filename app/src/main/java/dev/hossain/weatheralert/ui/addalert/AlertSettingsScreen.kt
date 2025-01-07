@@ -7,6 +7,7 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
@@ -119,6 +121,8 @@ data class AlertSettingsScreen(
         data class OnReminderNotesUpdated(
             val notes: String,
         ) : Event()
+
+        data object GoBack : Event()
     }
 }
 
@@ -196,6 +200,10 @@ class AlertSettingsPresenter
                     is AlertSettingsScreen.Event.OnReminderNotesUpdated -> {
                         reminderNotes = event.notes
                     }
+
+                    AlertSettingsScreen.Event.GoBack -> {
+                        navigator.pop()
+                    }
                 }
             }
         }
@@ -221,7 +229,20 @@ fun AlertSettingsScreen(
     WeatherAlertAppTheme {
         Scaffold(
             topBar = {
-                TopAppBar(title = { Text("Configure Alerts") })
+                TopAppBar(
+                    title = { Text("Configure Alerts") },
+                    navigationIcon = {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back",
+                            modifier = Modifier,
+                        )
+                    },
+                    modifier =
+                        Modifier.padding(start = 8.dp).clickable {
+                            state.eventSink(AlertSettingsScreen.Event.GoBack)
+                        },
+                )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
         ) { padding ->
@@ -229,8 +250,7 @@ fun AlertSettingsScreen(
                 modifier =
                     modifier
                         .fillMaxSize()
-                        .padding(padding)
-                        .padding(24.dp),
+                        .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp),
             ) {
                 val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
@@ -355,7 +375,12 @@ fun ReminderNotesUi(onValueChange: (String) -> Unit) {
         label = { Text("Reminder Notes") },
         modifier = Modifier.fillMaxWidth(),
         supportingText = { Text("ℹ\uFE0F FYI: Some markdown syntax are supported: **bold**, _italic_ and * list-item.") },
-        placeholder = { Text("(Optional) Notes that will show up in the alert notification.") },
+        placeholder = {
+            Text(
+                text = "(Optional) Notes that will show up in the alert notification.",
+                style = MaterialTheme.typography.labelSmall,
+            )
+        },
         singleLine = false,
         minLines = 3,
         maxLines = 5,
