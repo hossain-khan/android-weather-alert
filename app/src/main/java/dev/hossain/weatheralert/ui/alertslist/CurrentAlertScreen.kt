@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.alertslist
 
-import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -78,7 +77,6 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
-import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
@@ -97,6 +95,7 @@ data class CurrentWeatherAlertScreen(
 ) : Screen {
     data class State(
         val tiles: List<AlertTileData>,
+        val userMessage: String? = null,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -108,6 +107,8 @@ data class CurrentWeatherAlertScreen(
         data object OnItemClicked : Event()
 
         data object AddNewAlertClicked : Event()
+
+        data object MessageShown : Event()
     }
 }
 
@@ -116,7 +117,6 @@ class CurrentWeatherAlertPresenter
     constructor(
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: CurrentWeatherAlertScreen,
-        private val preferencesManager: PreferencesManager,
         private val weatherRepository: WeatherRepository,
         private val alertDao: AlertDao,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
@@ -124,6 +124,7 @@ class CurrentWeatherAlertPresenter
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
+            var userMessage by remember { mutableStateOf<String?>(null) }
 
             LaunchedEffect(Unit) {
                 val userCityAlerts = alertDao.getAlertsWithCity()
@@ -178,7 +179,7 @@ class CurrentWeatherAlertPresenter
                 weatherTiles = alertTileData
             }
 
-            return CurrentWeatherAlertScreen.State(weatherTiles) { event ->
+            return CurrentWeatherAlertScreen.State(weatherTiles, userMessage) { event ->
                 when (event) {
                     CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
@@ -186,12 +187,17 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
+                        userMessage = "Alert removed."
                         val updatedTiles = weatherTiles.toMutableList()
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
                             alertDao.deleteAlertById(event.item.alertId)
                         }
+                    }
+
+                    CurrentWeatherAlertScreen.Event.MessageShown -> {
+                        userMessage = null
                     }
                 }
             }
@@ -214,9 +220,8 @@ fun CurrentWeatherAlerts(
     state: CurrentWeatherAlertScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
     WeatherAlertAppTheme {
-        val snackbarHostState = remember { SnackbarHostState() }
-
         Scaffold(
             topBar = {
                 TopAppBar(title = { Text("Weather Alerts") })
@@ -249,6 +254,13 @@ fun CurrentWeatherAlerts(
                 }
             },
         )
+    }
+
+    LaunchedEffect(state.userMessage) {
+        state.userMessage?.let { message ->
+            snackbarHostState.showSnackbar(message)
+            state.eventSink(CurrentWeatherAlertScreen.Event.MessageShown)
+        }
     }
 }
 
@@ -308,7 +320,6 @@ fun AlertTileItem(
                     SwipeToDismissBoxValue.EndToStart,
                     -> {
                         eventSink(CurrentWeatherAlertScreen.Event.AlertRemoved(currentItem))
-                        Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
                     }
                     SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
                 }
