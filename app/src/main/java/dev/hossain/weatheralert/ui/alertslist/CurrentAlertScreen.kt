@@ -330,8 +330,8 @@ fun AlertTileItem(
                 }
                 return@rememberSwipeToDismissBoxState true
             },
-            // positional threshold of 25%
-            positionalThreshold = { it * .25f },
+            // positional threshold of 50%
+            positionalThreshold = { it * .50f },
         )
     SwipeToDismissBox(
         state = dismissState,
@@ -357,8 +357,8 @@ fun AlertTileItem(
 fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     val color =
         when (dismissState.dismissDirection) {
-            SwipeToDismissBoxValue.StartToEnd -> Color.Red
-            SwipeToDismissBoxValue.EndToStart -> Color.Red
+            SwipeToDismissBoxValue.StartToEnd -> Color.Red.copy(alpha = 0.5f)
+            SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.5f)
             SwipeToDismissBoxValue.Settled -> Color.Transparent
         }
 
@@ -366,7 +366,7 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
         modifier =
             Modifier
                 .fillMaxSize()
-                .background(color)
+                .background(color, shape = RoundedCornerShape(12.dp))
                 .padding(12.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
