@@ -26,6 +26,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.TagFaces
+import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -166,8 +168,11 @@ class CurrentWeatherAlertPresenter
                                             },
                                             alert.alert.alertCategory.unit,
                                         ),
-                                    // Wrong logic btw, fix later
-                                    isAlertActive = alert.alert.threshold <= snowStatus || alert.alert.threshold <= rainStatus,
+                                    isAlertActive =
+                                        when (alert.alert.alertCategory) {
+                                            WeatherAlertCategory.SNOW_FALL -> snowStatus > alert.alert.threshold
+                                            WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
+                                        },
                                 ),
                             )
                         }
@@ -187,7 +192,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
-                        userMessage = "Alert removed."
+                        userMessage = "Alert for ${event.item.cityInfo} removed."
                         val updatedTiles = weatherTiles.toMutableList()
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
@@ -236,12 +241,12 @@ fun CurrentWeatherAlerts(
                 )
             },
             snackbarHost = { SnackbarHost(snackbarHostState) },
-            content = { padding ->
+            content = { paddingValues ->
                 Column(
                     modifier =
                         modifier
                             .fillMaxSize()
-                            .padding(padding),
+                            .padding(paddingValues),
                 ) {
                     if (state.tiles.isEmpty()) {
                         EmptyAlertState()
@@ -289,7 +294,7 @@ fun AlertTileGrid(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
     ) {
         itemsIndexed(
             items = tiles,
@@ -491,7 +496,7 @@ fun AlertListItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -511,11 +516,12 @@ fun AlertListItem(
                             WeatherAlertCategory.SNOW_FALL -> "Snowfall"
                             WeatherAlertCategory.RAIN_FALL -> "Rainfall"
                         },
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                 )
             },
             supportingContent = {
                 Column {
+                    Text(text = "City: ${data.cityInfo}", style = MaterialTheme.typography.bodySmall)
                     Text(text = "Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
                     Text(
                         text = "Tomorrow: ${data.currentStatus}",
@@ -531,6 +537,13 @@ fun AlertListItem(
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp),
+                )
+            },
+            trailingContent = {
+                Icon(
+                    imageVector = if (data.isAlertActive) Icons.Default.WarningAmber else Icons.Default.TagFaces,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             },
             modifier = Modifier.padding(0.dp),
