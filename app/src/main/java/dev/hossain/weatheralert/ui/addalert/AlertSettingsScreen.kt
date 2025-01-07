@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -66,6 +67,8 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
+import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.icon
@@ -112,6 +115,10 @@ data class AlertSettingsScreen(
         data class OnCitySelected(
             val city: City,
         ) : Event()
+
+        data class OnReminderNotesUpdated(
+            val notes: String,
+        ) : Event()
     }
 }
 
@@ -126,11 +133,12 @@ class AlertSettingsPresenter
         @Composable
         override fun present(): AlertSettingsScreen.State {
             val scope = rememberCoroutineScope()
-            var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
-            var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
+            var updatedSnowThreshold by remember { mutableFloatStateOf(DEFAULT_SNOW_THRESHOLD) }
+            var updatedRainThreshold by remember { mutableFloatStateOf(DEFAULT_RAIN_THRESHOLD) }
             var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
             var isSaveButtonEnabled by remember { mutableStateOf(false) }
             var selectedCity: City? by remember { mutableStateOf(null) }
+            var reminderNotes: String = ""
             val context = LocalContext.current
 
             return AlertSettingsScreen.State(
@@ -162,6 +170,7 @@ class AlertSettingsPresenter
                                             WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
                                             WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
                                         },
+                                    notes = reminderNotes,
                                 ),
                             )
 
@@ -182,6 +191,10 @@ class AlertSettingsPresenter
                         Timber.d("Selected city: ${event.city}")
                         selectedCity = event.city
                         isSaveButtonEnabled = true
+                    }
+
+                    is AlertSettingsScreen.Event.OnReminderNotesUpdated -> {
+                        reminderNotes = event.notes
                     }
                 }
             }
@@ -306,6 +319,10 @@ fun AlertSettingsScreen(
 
                 NotificationPermissionStatusUi()
 
+                ReminderNotesUi {
+                    state.eventSink(AlertSettingsScreen.Event.OnReminderNotesUpdated(it))
+                }
+
                 Button(
                     enabled = state.isAllInputValid,
                     onClick = {
@@ -324,6 +341,25 @@ fun AlertSettingsScreen(
             }
         }
     }
+}
+
+@Composable
+fun ReminderNotesUi(onValueChange: (String) -> Unit) {
+    var reminderNotes by remember { mutableStateOf("") }
+    OutlinedTextField(
+        value = reminderNotes,
+        onValueChange = {
+            reminderNotes = it
+            onValueChange(it)
+        },
+        label = { Text("Reminder Notes") },
+        modifier = Modifier.fillMaxWidth(),
+        supportingText = { Text("ℹ\uFE0F FYI: Some markdown syntax are supported: **bold**, _italic_ and * list-item.") },
+        placeholder = { Text("(Optional) Notes that will show up in the alert notification.") },
+        singleLine = false,
+        minLines = 3,
+        maxLines = 5,
+    )
 }
 
 /**
@@ -347,7 +383,7 @@ fun NotificationPermissionStatusUi() {
             if (isGranted) {
                 // Permission granted, proceed with notifications
                 permissionGranted = true
-                labelText = "Notification status"
+                labelText = "Notification permission granted"
             } else {
                 // Permission denied, handle accordingly
                 permissionGranted = false
@@ -420,11 +456,16 @@ fun EditableCityInputDropdownMenu(
             // The `menuAnchor` modifier must be passed to the text field to handle
             // expanding/collapsing the menu on click. An editable text field has
             // the anchor type `PrimaryEditable`.
-            modifier = Modifier.fillMaxWidth().menuAnchor(PrimaryEditable),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .menuAnchor(PrimaryEditable),
             label = { Text("City") },
             placeholder = { Text("Search...") },
             singleLine = true,
-            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            // Commented because of grey tint color in the box
+            // colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            leadingIcon = { Icon(Icons.Default.LocationCity, contentDescription = null) },
         )
         ExposedDropdownMenu(
             modifier = Modifier.heightIn(max = 280.dp),
