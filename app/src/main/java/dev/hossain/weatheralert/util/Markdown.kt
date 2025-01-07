@@ -5,49 +5,65 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 
 /**
- * Parses basic markdown-like syntax to [AnnotatedString].
+ * Parses very basic markdown text to [AnnotatedString].
  */
-fun parseMarkdown(markdown: String): AnnotatedString {
-    // Match **bold**
-    val boldRegex = "\\*\\*(.*?)\\*\\*".toRegex()
-    // Match *italic* or _italic_
-    val italicRegex = "(\\*|_)(.*?)\\1".toRegex()
-    // Match list items
-    val listRegex = "^(?:\\*|-|\\d+\\.) (.*)".toRegex(RegexOption.MULTILINE)
-
-    return buildAnnotatedString {
-        var currentIndex = 0
-
-        // Function to process matches
-        fun processMatch(
-            match: MatchResult,
-            style: SpanStyle,
-        ) {
-            append(markdown.substring(currentIndex, match.range.first)) // Append text before match
-            pushStyle(style)
-            // Append styled match content
-            append(match.groups[2]!!.value)
-            pop()
-            currentIndex = match.range.last + 1
+fun parseMarkdown(markdown: String): AnnotatedString =
+    buildAnnotatedString {
+        val lines = markdown.lines()
+        for (line in lines) {
+            var currentIndex = 0
+            while (currentIndex < line.length) {
+                when {
+                    line.startsWith("- ", currentIndex) -> {
+                        // List item
+                        append("• ")
+                        currentIndex += 2
+                    }
+                    line.startsWith("* ", currentIndex) -> {
+                        // List item
+                        append("• ")
+                        currentIndex += 2
+                    }
+                    line.startsWith("**", currentIndex) -> {
+                        // Bold text
+                        val endIndex = line.indexOf("**", currentIndex + 2)
+                        if (endIndex != -1) {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(line.substring(currentIndex + 2, endIndex))
+                            }
+                            currentIndex = endIndex + 2
+                        } else {
+                            append(line.substring(currentIndex))
+                            currentIndex = line.length
+                        }
+                    }
+                    line.startsWith("_", currentIndex) -> {
+                        // Italic text
+                        val endIndex = line.indexOf("_", currentIndex + 1)
+                        if (endIndex != -1) {
+                            withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
+                                append(line.substring(currentIndex + 1, endIndex))
+                            }
+                            currentIndex = endIndex + 1
+                        } else {
+                            append(line.substring(currentIndex))
+                            currentIndex = line.length
+                        }
+                    }
+                    else -> {
+                        // Regular text or mixed styles
+                        val nextSpecialChar =
+                            listOf(line.indexOf("**", currentIndex), line.indexOf("_", currentIndex))
+                                .filter { it != -1 }
+                                .minOrNull() ?: line.length
+                        append(line.substring(currentIndex, nextSpecialChar))
+                        currentIndex = nextSpecialChar
+                    }
+                }
+            }
+            append("\n")
         }
-
-        // Handle list items
-        listRegex.findAll(markdown).forEach { match ->
-            // Add a bullet point
-            append("• ${match.groups[1]!!.value}\n")
-            currentIndex = match.range.last + 1
-        }
-
-        // Reset index after processing lists
-        currentIndex = 0
-
-        // Process bold and italic in order
-        boldRegex.findAll(markdown).forEach { processMatch(it, SpanStyle(fontWeight = FontWeight.Bold)) }
-        italicRegex.findAll(markdown).forEach { processMatch(it, SpanStyle(fontStyle = FontStyle.Italic)) }
-
-        // Append remaining text
-        append(markdown.substring(currentIndex))
     }
-}

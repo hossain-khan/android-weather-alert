@@ -86,6 +86,7 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -173,6 +174,7 @@ class CurrentWeatherAlertPresenter
                                             WeatherAlertCategory.SNOW_FALL -> snowStatus > alert.alert.threshold
                                             WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
                                         },
+                                    alertNote = alert.alert.notes,
                                 ),
                             )
                         }
@@ -528,6 +530,13 @@ fun AlertListItem(
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                     )
+                    if (data.alertNote.isNotEmpty()) {
+                        Text(
+                            // text = "Note: ${data.alertNote}",
+                            text = parseMarkdown(data.alertNote),
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
                 }
             },
             colors = colors,
@@ -625,6 +634,7 @@ fun CurrentWeatherAlertsPreview() {
                 threshold = "5 cm",
                 currentStatus = "Tomorrow: 7 cm",
                 isAlertActive = false,
+                alertNote = "test note",
             ),
             AlertTileData(
                 alertId = 2,
@@ -635,6 +645,7 @@ fun CurrentWeatherAlertsPreview() {
                 threshold = "10 mm",
                 currentStatus = "Tomorrow: 12 mm",
                 isAlertActive = true,
+                alertNote = "test note",
             ),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
