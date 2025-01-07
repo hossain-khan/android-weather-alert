@@ -7,8 +7,8 @@ import androidx.work.WorkerParameters
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.work.WeatherCheckWorker
 
 // Anvil module to contribute the WorkerFactory
@@ -17,7 +17,7 @@ import dev.hossain.weatheralert.work.WeatherCheckWorker
 object WorkerModule {
     @Provides
     fun provideWorkerFactory(
-        preferencesManager: PreferencesManager,
+        alertDao: AlertDao,
         weatherRepository: WeatherRepository,
     ): WorkerFactory =
         object : WorkerFactory() {
@@ -35,7 +35,7 @@ object WorkerModule {
                         WeatherCheckWorker(
                             context = appContext,
                             params = workerParameters,
-                            preferencesManager = preferencesManager,
+                            alertDao = alertDao,
                             weatherRepository = weatherRepository,
                         )
                     else -> null

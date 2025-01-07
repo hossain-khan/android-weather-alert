@@ -9,7 +9,14 @@ import androidx.room.RoomDatabase
  *
  * - https://developer.android.com/training/data-storage/room
  */
-@Database(entities = [City::class], version = 1)
+@Database(
+    entities = [City::class, Alert::class],
+    version = 1,
+    exportSchema = true,
+    autoMigrations = [],
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cityDao(): CityDao
+
+    abstract fun alertDao(): AlertDao
 }

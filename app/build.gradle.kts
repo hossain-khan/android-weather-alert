@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.anvil)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.androidx.room)
 }
 
 android {
@@ -54,6 +55,11 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    room {
+        // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
+        schemaDirectory("$projectDir/schemas")
     }
 }
 

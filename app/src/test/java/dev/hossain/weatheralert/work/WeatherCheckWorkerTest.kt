@@ -1,12 +1,14 @@
 package dev.hossain.weatheralert.work
 
 import android.content.Context
+import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
-import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
 import kotlinx.coroutines.runBlocking
@@ -18,6 +20,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
@@ -29,11 +32,12 @@ class WeatherCheckWorkerTest {
 
     private lateinit var testWorkerFactory: TestWorkerFactory
 
+    private lateinit var db: AppDatabase
+
     @Inject
     lateinit var weatherRepository: WeatherRepository
 
-    @Inject
-    lateinit var preferencesManager: PreferencesManager
+    private lateinit var alertDao: AlertDao
 
     @Before
     fun setUp() {
@@ -41,14 +45,25 @@ class WeatherCheckWorkerTest {
         mockWebServer.start(60000)
         NetworkModule.baseUrl = mockWebServer.url("/")
 
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        db =
+            Room
+                .inMemoryDatabaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                ).build()
+        alertDao = db.alertDao()
+
         injectTestClass()
 
-        testWorkerFactory = TestWorkerFactory(preferencesManager, weatherRepository)
+        testWorkerFactory = TestWorkerFactory(alertDao, weatherRepository)
     }
 
     @After
+    @Throws(IOException::class)
     fun tearDown() {
         mockWebServer.shutdown()
+        db.close()
     }
 
     @Test

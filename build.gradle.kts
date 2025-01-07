@@ -28,4 +28,8 @@ plugins {
     // Project: https://github.com/square/anvil
     // Also see: https://github.com/ZacSweers/anvil/blob/main/FORK.md
     alias(libs.plugins.anvil) apply false
+
+    // Room Gradle Plugin
+    // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
+    alias(libs.plugins.androidx.room) apply false
 }

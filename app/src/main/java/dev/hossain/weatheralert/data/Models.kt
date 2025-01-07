@@ -179,6 +179,8 @@ data class WeatherDescription(
 
 @Parcelize
 data class AlertTileData constructor(
+    val alertId: Int,
+    val cityInfo: String,
     val lat: Double,
     val lon: Double,
     /**
@@ -194,10 +196,6 @@ data class AlertTileData constructor(
      */
     val currentStatus: String,
     val isAlertActive: Boolean,
-    val uuid: String =
-        java.util.UUID
-            .randomUUID()
-            .toString(),
 ) : Parcelable
 
 enum class WeatherAlertCategory(
@@ -213,20 +211,6 @@ internal fun WeatherAlertCategory.icon(): ImageVector =
         WeatherAlertCategory.SNOW_FALL -> Icons.Outlined.AcUnit
         WeatherAlertCategory.RAIN_FALL -> Icons.Outlined.Umbrella
     }
-
-@JsonClass(generateAdapter = true)
-data class WeatherAlert(
-    val alertCategory: WeatherAlertCategory,
-    val threshold: Float,
-    val lat: Double,
-    val lon: Double,
-    val cityName: String = "",
-)
-
-@JsonClass(generateAdapter = true)
-data class ConfiguredAlerts(
-    val alerts: List<WeatherAlert>,
-)
 
 data class ForecastData(
     val cityName: String = "",

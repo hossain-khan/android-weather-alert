@@ -78,15 +78,14 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
-import dev.hossain.weatheralert.data.ConfiguredAlerts
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -119,6 +118,7 @@ class CurrentWeatherAlertPresenter
         @Assisted private val screen: CurrentWeatherAlertScreen,
         private val preferencesManager: PreferencesManager,
         private val weatherRepository: WeatherRepository,
+        private val alertDao: AlertDao,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
@@ -126,53 +126,56 @@ class CurrentWeatherAlertPresenter
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
 
             LaunchedEffect(Unit) {
-                preferencesManager.userConfiguredAlerts
-                    .map { configuredAlerts: ConfiguredAlerts ->
-                        Timber.d("Found ${configuredAlerts.alerts.size} configuredAlerts.")
-                        val alertTileData = mutableListOf<AlertTileData>()
-                        configuredAlerts.alerts.forEach { alert ->
-                            val apiResult =
-                                weatherRepository.getDailyForecast(
-                                    latitude = alert.lat,
-                                    longitude = alert.lon,
-                                )
+                val userCityAlerts = alertDao.getAlertsWithCity()
+                Timber.d("Found ${userCityAlerts.size} userCityAlerts.")
 
-                            when (apiResult) {
-                                is ApiResult.Success -> {
-                                    val forecastData = apiResult.value
-                                    val snowStatus = forecastData.snow.nextDaySnow
-                                    val rainStatus = forecastData.rain.nextDayRain
-                                    alertTileData.add(
-                                        AlertTileData(
-                                            lat = alert.lat,
-                                            lon = alert.lon,
-                                            category = alert.alertCategory,
-                                            threshold = "%.2f %s".format(Locale.getDefault(), alert.threshold, alert.alertCategory.unit),
-                                            currentStatus =
-                                                "%.2f %s".format(
-                                                    Locale.getDefault(),
-                                                    if (alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
-                                                        snowStatus
-                                                    } else {
-                                                        rainStatus
-                                                    },
-                                                    alert.alertCategory.unit,
-                                                ),
-                                            // Wrong logic btw, fix later
-                                            isAlertActive = alert.threshold <= snowStatus || alert.threshold <= rainStatus,
+                val alertTileData = mutableListOf<AlertTileData>()
+                userCityAlerts.forEach { alert ->
+                    val apiResult =
+                        weatherRepository.getDailyForecast(
+                            latitude = alert.city.lat,
+                            longitude = alert.city.lng,
+                        )
+
+                    when (apiResult) {
+                        is ApiResult.Success -> {
+                            val forecastData = apiResult.value
+                            val snowStatus = forecastData.snow.nextDaySnow
+                            val rainStatus = forecastData.rain.nextDayRain
+                            alertTileData.add(
+                                AlertTileData(
+                                    alertId = alert.alert.id,
+                                    cityInfo = alert.city.cityName,
+                                    lat = alert.city.lat,
+                                    lon = alert.city.lng,
+                                    category = alert.alert.alertCategory,
+                                    threshold =
+                                        "%.2f %s".format(
+                                            Locale.getDefault(),
+                                            alert.alert.threshold,
+                                            alert.alert.alertCategory.unit,
                                         ),
-                                    )
-                                }
-                                is ApiResult.Failure -> {
-                                    Timber.d("Error fetching weather data: ${apiResult.exceptionOrNull()}")
-                                }
-                            }
+                                    currentStatus =
+                                        "%.2f %s".format(
+                                            Locale.getDefault(),
+                                            if (alert.alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
+                                                snowStatus
+                                            } else {
+                                                rainStatus
+                                            },
+                                            alert.alert.alertCategory.unit,
+                                        ),
+                                    // Wrong logic btw, fix later
+                                    isAlertActive = alert.alert.threshold <= snowStatus || alert.alert.threshold <= rainStatus,
+                                ),
+                            )
                         }
-                        alertTileData
-                    }.collect { tileData: List<AlertTileData> ->
-                        Timber.d("Found weather data: ${tileData.size} items.")
-                        weatherTiles = tileData
+                        is ApiResult.Failure -> {
+                            Timber.d("Error fetching weather data: ${apiResult.exceptionOrNull()}")
+                        }
                     }
+                }
+                weatherTiles = alertTileData
             }
 
             return CurrentWeatherAlertScreen.State(weatherTiles) { event ->
@@ -187,11 +190,7 @@ class CurrentWeatherAlertPresenter
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
-                            preferencesManager.removeUserConfiguredAlert(
-                                alertCategory = event.item.category,
-                                lat = event.item.lat,
-                                lon = event.item.lon,
-                            )
+                            alertDao.deleteAlertById(event.item.alertId)
                         }
                     }
                 }
@@ -282,7 +281,7 @@ fun AlertTileGrid(
     ) {
         itemsIndexed(
             items = tiles,
-            key = { _, item -> item.uuid },
+            key = { _, item -> item.alertId },
         ) { _, alertTileData ->
             AlertTileItem(
                 alertTileData = alertTileData,
@@ -594,6 +593,8 @@ fun CurrentWeatherAlertsPreview() {
     val sampleTiles =
         listOf(
             AlertTileData(
+                alertId = 1,
+                cityInfo = "Dhaka, Bangladesh",
                 lat = 0.0,
                 lon = 0.0,
                 category = WeatherAlertCategory.SNOW_FALL,
@@ -602,6 +603,8 @@ fun CurrentWeatherAlertsPreview() {
                 isAlertActive = false,
             ),
             AlertTileData(
+                alertId = 2,
+                cityInfo = "New York, USA",
                 lat = 0.0,
                 lon = 0.0,
                 category = WeatherAlertCategory.RAIN_FALL,

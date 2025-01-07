@@ -11,11 +11,9 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherAlert
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
-import kotlinx.coroutines.flow.first
+import dev.hossain.weatheralert.db.AlertDao
 import timber.log.Timber
 
 /**
@@ -31,25 +29,25 @@ class WeatherCheckWorker
     constructor(
         @Assisted private val context: Context,
         @Assisted params: WorkerParameters,
-        private val preferencesManager: PreferencesManager,
+        private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
-            val userConfiguredAlerts = preferencesManager.userConfiguredAlerts.first().alerts
+            val userConfiguredAlerts = alertDao.getAlertsWithCity()
 
             if (userConfiguredAlerts.isEmpty()) {
                 Timber.d("No user configured alerts found.")
                 return Result.success()
             }
 
-            userConfiguredAlerts.forEach { configuredAlert: WeatherAlert ->
+            userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
                 val forecastApiResult =
                     weatherRepository.getDailyForecast(
-                        latitude = configuredAlert.lat,
-                        longitude = configuredAlert.lon,
+                        latitude = configuredAlert.city.lat,
+                        longitude = configuredAlert.city.lng,
                     )
 
                 when (forecastApiResult) {
@@ -76,23 +74,23 @@ class WeatherCheckWorker
                                 }
                             }
 
-                        when (configuredAlert.alertCategory) {
+                        when (configuredAlert.alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {
-                                if (snowTomorrow > configuredAlert.threshold) {
+                                if (snowTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
-                                        configuredAlert.alertCategory,
+                                        configuredAlert.alert.alertCategory,
                                         snowTomorrow,
-                                        configuredAlert.threshold,
+                                        configuredAlert.alert.threshold,
                                     )
                                 }
                             }
                             WeatherAlertCategory.RAIN_FALL -> {
-                                if (rainTomorrow > configuredAlert.threshold) {
+                                if (rainTomorrow > configuredAlert.alert.threshold) {
                                     // Trigger a rich notification
                                     triggerNotification(
-                                        configuredAlert.alertCategory,
+                                        configuredAlert.alert.alertCategory,
                                         rainTomorrow,
-                                        configuredAlert.threshold,
+                                        configuredAlert.alert.threshold,
                                     )
                                 }
                             }
