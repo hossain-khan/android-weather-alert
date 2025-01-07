@@ -7,6 +7,11 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Data Access Object (DAO) for [City] entity.
+ *
+ * - https://developer.android.com/training/data-storage/room
+ */
 @Dao
 interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

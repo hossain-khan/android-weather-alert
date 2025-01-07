@@ -23,6 +23,10 @@ private val LightColorScheme =
         tertiary = Pink40,
     )
 
+/**
+ * Custom theme for the app.
+ * - See [M3 components](https://m3.material.io/components)
+ */
 @Composable
 fun WeatherAlertAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
