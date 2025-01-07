@@ -86,6 +86,7 @@ data class AlertSettingsScreen(
         val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
+        val isAllInputValid: Boolean,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -128,12 +129,15 @@ class AlertSettingsPresenter
             var updatedSnowThreshold by remember { mutableFloatStateOf(0f) }
             var updatedRainThreshold by remember { mutableFloatStateOf(0f) }
             var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
+            var isSaveButtonEnabled by remember { mutableStateOf(false) }
+            var selectedCity: City? by remember { mutableStateOf(null) }
             val context = LocalContext.current
 
             return AlertSettingsScreen.State(
                 citySuggestions = suggestions,
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
+                isAllInputValid = isSaveButtonEnabled,
             ) { event ->
                 when (event) {
                     is AlertSettingsScreen.Event.RainThresholdChanged -> {
@@ -151,6 +155,8 @@ class AlertSettingsPresenter
                                 preferencesManager.userConfiguredAlerts.first()
                             Timber.d("Current alerts: ${configuredAlerts.alerts}")
 
+                            val city = selectedCity ?: throw IllegalStateException("City not selected")
+
                             preferencesManager.updateUserConfiguredAlerts(
                                 ConfiguredAlerts(
                                     configuredAlerts.alerts +
@@ -161,10 +167,8 @@ class AlertSettingsPresenter
                                                     WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
                                                     WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
                                                 },
-                                            // Use Oshawa coordinates for now 43°55'24.0"N+78°53'49.9"W/@43.9233409,-78.899766
-                                            // https://github.com/hossain-khan/android-weather-alert/issues/30
-                                            lat = 43.9233409,
-                                            lon = -78.899766,
+                                            lat = city.lat,
+                                            lon = city.lng,
                                         ),
                                 ),
                             )
@@ -184,6 +188,8 @@ class AlertSettingsPresenter
 
                     is AlertSettingsScreen.Event.OnCitySelected -> {
                         Timber.d("Selected city: ${event.city}")
+                        selectedCity = event.city
+                        isSaveButtonEnabled = true
                     }
                 }
             }
@@ -307,6 +313,7 @@ fun AlertSettingsScreen(
                 NotificationPermissionStatusUi()
 
                 Button(
+                    enabled = state.isAllInputValid,
                     onClick = {
                         state.eventSink(
                             AlertSettingsScreen.Event.SaveSettingsClicked(
@@ -471,6 +478,7 @@ fun SettingsScreenPreview() {
             citySuggestions = emptyList(),
             snowThreshold = 5.0f,
             rainThreshold = 10.0f,
+            isAllInputValid = true,
         ) {},
     )
 }
