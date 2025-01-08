@@ -14,7 +14,6 @@ import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
-import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.util.HttpPingSender
 import timber.log.Timber
 
@@ -34,6 +33,8 @@ class WeatherCheckWorker
         private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
     ) : CoroutineWorker(context, params) {
+        private val httpPingSender = HttpPingSender(context)
+
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
@@ -44,7 +45,8 @@ class WeatherCheckWorker
                 return Result.success()
             }
 
-            sendWorkerRunningPing(userConfiguredAlerts)
+            val stringBuilder = StringBuilder()
+            stringBuilder.append("Alerts:${userConfiguredAlerts.size}, ")
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -81,6 +83,12 @@ class WeatherCheckWorker
                             }
 
                         Timber.d("Snow: $snowTomorrow, Rain: $rainTomorrow")
+
+                        stringBuilder.append("${configuredAlert.city.cityName} - ")
+                        stringBuilder.append("Snow: $snowTomorrow, Rain: $rainTomorrow, ")
+                        stringBuilder.append("Threshold: ${configuredAlert.alert.threshold}, ")
+                        stringBuilder.append("Category: ${configuredAlert.alert.alertCategory}")
+
                         when (configuredAlert.alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {
                                 if (snowTomorrow > configuredAlert.alert.threshold) {
@@ -121,13 +129,14 @@ class WeatherCheckWorker
                     }
                 }
             }
+            sendWorkerRunningPing(stringBuilder.toString())
             return Result.success()
         }
 
-        private fun sendWorkerRunningPing(userConfiguredAlerts: List<UserCityAlert>) {
-            HttpPingSender(context).sendPingToDevice(
+        private fun sendWorkerRunningPing(message: String) {
+            httpPingSender.sendPingToDevice(
                 pingUUID = "55ac31ff-5893-4e89-bcef-8a854bfb1e9c",
-                extraMessage = "[Alerts:${userConfiguredAlerts.size}]",
+                extraMessage = "[$message]",
             )
         }
 
