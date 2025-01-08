@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.work.Configuration
 import androidx.work.WorkerFactory
 import dev.hossain.weatheralert.di.AppComponent
-import dev.hossain.weatheralert.notification.createNotificationChannel
-import dev.hossain.weatheralert.work.scheduleWeatherAlerts
+import dev.hossain.weatheralert.notification.createAppNotificationChannel
+import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import jakarta.inject.Inject
 import timber.log.Timber
 
@@ -41,8 +41,8 @@ class WeatherAlertApp :
             Timber.plant(Timber.DebugTree())
         }
 
-        createNotificationChannel(context = this)
-        scheduleWeatherAlerts(context = this)
+        createAppNotificationChannel(context = this)
+        scheduleWeatherAlertsWork(context = this)
 
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
     }
