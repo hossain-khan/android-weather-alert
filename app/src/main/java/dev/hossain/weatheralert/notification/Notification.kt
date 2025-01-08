@@ -8,6 +8,7 @@ import android.graphics.drawable.Icon
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
@@ -46,10 +47,10 @@ internal fun triggerNotification(
             append("About ")
             when (alertCategory) {
                 WeatherAlertCategory.SNOW_FALL -> {
-                    append("$currentValue cm snowfall expected.")
+                    append("${currentValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)} snowfall expected.")
                 }
                 WeatherAlertCategory.RAIN_FALL -> {
-                    append("$currentValue mm rainfall expected.")
+                    append("${currentValue.formatUnit(WeatherAlertCategory.RAIN_FALL.unit)} rainfall expected.")
                 }
             }
         }
@@ -60,13 +61,19 @@ internal fun triggerNotification(
             when (alertCategory) {
                 WeatherAlertCategory.SNOW_FALL -> {
                     append(
-                        "$cityName is forecasted to receive $currentValue cm of snowfall within the next 24 hours, surpassing your configured threshold of $thresholdValue cm.",
+                        "$cityName is forecasted to receive ${currentValue.formatUnit(
+                            WeatherAlertCategory.SNOW_FALL.unit,
+                        )} of snowfall within the next 24 hours, ",
                     )
+                    append("surpassing your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)}.")
                 }
                 WeatherAlertCategory.RAIN_FALL -> {
                     append(
-                        "$cityName is forecasted to receive $currentValue mm of rainfall within the next 24 hours, surpassing your configured threshold of $thresholdValue mm.",
+                        "$cityName is forecasted to receive ${currentValue.formatUnit(
+                            WeatherAlertCategory.RAIN_FALL.unit,
+                        )} of rainfall within the next 24 hours, ",
                     )
+                    append("surpassing your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.RAIN_FALL.unit)}.")
                 }
             }
             if (reminderNotes.isNotBlank()) {

@@ -35,9 +35,9 @@ class HttpPingSender(
         val versionName = packageInfo.versionName
 
         // Add user agent with app name, version, and device info
-        // Example: `KA/1.6 (Android 14, API 34, samsung SM-S911W)`
+        // Example: `WAlert/1.6 (Android 14, API 34, samsung SM-S911W) [Alerts:3]`
         val userAgent =
-            "KA/$versionName (Android ${android.os.Build.VERSION.RELEASE}, " +
+            "WAlert/$versionName (Android ${android.os.Build.VERSION.RELEASE}, " +
                 "API ${android.os.Build.VERSION.SDK_INT}, ${android.os.Build.MANUFACTURER} " +
                 "${android.os.Build.MODEL}) $extraMessage"
 
