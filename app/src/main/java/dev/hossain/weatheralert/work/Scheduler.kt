@@ -15,11 +15,14 @@ import java.util.concurrent.TimeUnit
 fun scheduleWeatherAlerts(context: Context) {
     val weatherWorker =
         PeriodicWorkRequestBuilder<WeatherCheckWorker>(
-            6,
-            TimeUnit.HOURS, // Check every 6 hours
+            // Check every N hours
+            repeatInterval = 6,
+            repeatIntervalTimeUnit = TimeUnit.HOURS,
         ).setConstraints(
             Constraints
                 .Builder()
+                .setRequiresBatteryNotLow(true)
+                .setRequiresCharging(false)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build(),
         ).build()
