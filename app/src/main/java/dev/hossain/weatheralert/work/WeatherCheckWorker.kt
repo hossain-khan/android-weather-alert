@@ -95,6 +95,8 @@ class WeatherCheckWorker
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = snowTomorrow,
                                         thresholdValue = configuredAlert.alert.threshold,
+                                        cityName = configuredAlert.city.city,
+                                        reminderNotes = configuredAlert.alert.notes,
                                     )
                                 }
                             }
@@ -107,6 +109,8 @@ class WeatherCheckWorker
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = rainTomorrow,
                                         thresholdValue = configuredAlert.alert.threshold,
+                                        cityName = configuredAlert.city.city,
+                                        reminderNotes = configuredAlert.alert.notes,
                                     )
                                 }
                             }

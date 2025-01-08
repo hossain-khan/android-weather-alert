@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Icon
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
@@ -11,6 +12,8 @@ import timber.log.Timber
 
 /**
  * Triggers a notification with the given content.
+ *
+ * See https://developer.android.com/develop/ui/views/notifications/build-notification
  */
 internal fun triggerNotification(
     context: Context,
@@ -19,19 +22,55 @@ internal fun triggerNotification(
     alertCategory: WeatherAlertCategory,
     currentValue: Double,
     thresholdValue: Float,
+    cityName: String,
+    reminderNotes: String,
 ) {
     Timber.d("Triggering notification for $alertCategory value: $currentValue, limit: $thresholdValue")
 
-    val notificationText =
+    val notificationTitleText =
         buildString {
-            append("Configured weather alert threshold exceeded.\n")
             when (alertCategory) {
                 WeatherAlertCategory.SNOW_FALL -> {
-                    append("Snowfall: $currentValue cm\n")
+                    append("Snow Alert")
                 }
                 WeatherAlertCategory.RAIN_FALL -> {
-                    append("Rainfall: $currentValue mm\n")
+                    append("Rain Alert")
                 }
+            }
+            append(" - $cityName")
+        }
+
+    val notificationShortText =
+        buildString {
+            append("About ")
+            when (alertCategory) {
+                WeatherAlertCategory.SNOW_FALL -> {
+                    append("$currentValue cm snowfall expected.")
+                }
+                WeatherAlertCategory.RAIN_FALL -> {
+                    append("$currentValue mm rainfall expected.")
+                }
+            }
+        }
+
+    val notificationLongDescription =
+        buildString {
+            append("Your custom weather alert has been activated.\n")
+            when (alertCategory) {
+                WeatherAlertCategory.SNOW_FALL -> {
+                    append(
+                        "$cityName is forecasted to receive $currentValue cm of snowfall within the next 24 hours, surpassing your configured threshold of $thresholdValue cm.",
+                    )
+                }
+                WeatherAlertCategory.RAIN_FALL -> {
+                    append(
+                        "$cityName is forecasted to receive $currentValue mm of rainfall within the next 24 hours, surpassing your configured threshold of $thresholdValue mm.",
+                    )
+                }
+            }
+            if (reminderNotes.isNotBlank()) {
+                append("\n―――――――――――――――――\n")
+                append("Reminder Notes:\n$reminderNotes")
             }
         }
 
@@ -54,9 +93,10 @@ internal fun triggerNotification(
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.weather_alert_icon)
-            .setContentTitle("Weather Alert")
-            .setContentText(notificationText)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(notificationText))
+            .setContentTitle(notificationTitleText)
+            .setContentText(notificationShortText)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(notificationLongDescription))
+            .setLargeIcon(Icon.createWithResource(context, R.drawable.winter_snowflake))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
@@ -74,8 +114,10 @@ internal fun debugNotification(context: Context) {
         context = context,
         notificationId = 1,
         notificationTag = "debug",
-        alertCategory = WeatherAlertCategory.SNOW_FALL,
+        alertCategory = WeatherAlertCategory.RAIN_FALL,
         currentValue = 10.0,
         thresholdValue = 5.0f,
+        cityName = "Toronto",
+        reminderNotes = "* Charge batteries\n* Check tire pressure\n* Order Groceries",
     )
 }
