@@ -23,10 +23,13 @@ class HttpPingSender(
         pingUUID: String,
         extraMessage: String = "",
     ) {
-        sendHttpPing("https://hc-ping.com/$pingUUID")
+        sendHttpPing("https://hc-ping.com/$pingUUID", extraMessage)
     }
 
-    private fun sendHttpPing(pingUrl: String) {
+    private fun sendHttpPing(
+        pingUrl: String,
+        extraMessage: String,
+    ) {
         // Get app current version
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
         val versionName = packageInfo.versionName
@@ -36,7 +39,7 @@ class HttpPingSender(
         val userAgent =
             "KA/$versionName (Android ${android.os.Build.VERSION.RELEASE}, " +
                 "API ${android.os.Build.VERSION.SDK_INT}, ${android.os.Build.MANUFACTURER} " +
-                "${android.os.Build.MODEL})"
+                "${android.os.Build.MODEL}) $extraMessage"
 
         val request =
             Request
