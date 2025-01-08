@@ -3,7 +3,6 @@ package dev.hossain.weatheralert.di
 import android.content.Context
 import androidx.room.Room
 import com.squareup.anvil.annotations.ContributesTo
-import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.Module
 import dagger.Provides
 import dev.hossain.weatheralert.db.AlertDao
@@ -13,15 +12,14 @@ import dev.hossain.weatheralert.db.CityForecastDao
 
 @Module
 @ContributesTo(AppScope::class)
-object DatabaseModule {
+object TestDatabaseModule {
     @Provides
-    @SingleIn(AppScope::class)
-    fun provideDatabase(
+    fun provideInMemoryDatabase(
         @ApplicationContext context: Context,
     ): AppDatabase =
         Room
-            .databaseBuilder(context, AppDatabase::class.java, "app.db")
-            .createFromAsset("alertapp.db")
+            .inMemoryDatabaseBuilder(context, AppDatabase::class.java)
+            .allowMainThreadQueries()
             .build()
 
     @Provides

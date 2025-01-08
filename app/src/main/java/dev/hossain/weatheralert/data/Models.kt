@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
+import java.util.UUID
 
 const val DEFAULT_SNOW_THRESHOLD = 5.0f // cm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
@@ -37,13 +38,7 @@ data class WeatherForecast(
     @Json(name = "timezone_offset") val timezoneOffset: Int,
     val hourly: List<HourlyForecast> = emptyList(),
     val daily: List<DailyForecast> = emptyList(),
-) {
-    val totalHourlySnowVolume: Double
-        get() = hourly.sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 }
-
-    val totalHourlyRainVolume: Double
-        get() = hourly.sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 }
-}
+)
 
 @JsonClass(generateAdapter = true)
 data class DailyForecast(
@@ -197,6 +192,7 @@ data class AlertTileData constructor(
     val currentStatus: String,
     val isAlertActive: Boolean,
     val alertNote: String,
+    val uuid: String = UUID.randomUUID().toString(),
 ) : Parcelable
 
 enum class WeatherAlertCategory(
@@ -214,7 +210,6 @@ internal fun WeatherAlertCategory.icon(): ImageVector =
     }
 
 data class ForecastData(
-    val cityName: String = "",
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
     val snow: Snow = Snow(),

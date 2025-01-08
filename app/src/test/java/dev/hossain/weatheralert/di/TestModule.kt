@@ -11,6 +11,8 @@ import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherRepositoryImpl
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.TimeUtil
+import dev.hossain.weatheralert.util.TimeUtilImpl
 
 @Module
 @ContributesTo(AppScope::class)
@@ -20,6 +22,9 @@ interface TestModule {
 
     @Binds
     fun bindApiKey(impl: ApiKeyImpl): ApiKey
+
+    @Binds
+    fun bindTimeUtil(impl: TimeUtilImpl): TimeUtil
 
     companion object {
         @Provides

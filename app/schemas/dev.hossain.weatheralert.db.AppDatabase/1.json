@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5e0c6ae7f7bc696c6afe487c53cbaec5",
+    "identityHash": "37e2d8e2c2786cd908e6d488788299ec",
     "entities": [
       {
         "tableName": "cities",
@@ -155,12 +155,80 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "city_forecasts",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`forecast_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `cityId` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `dailyCumulativeSnow` REAL NOT NULL, `nextDaySnow` REAL NOT NULL, `dailyCumulativeRain` REAL NOT NULL, `nextDayRain` REAL NOT NULL, `created_at` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "forecastId",
+            "columnName": "forecast_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cityId",
+            "columnName": "cityId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dailyCumulativeSnow",
+            "columnName": "dailyCumulativeSnow",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextDaySnow",
+            "columnName": "nextDaySnow",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dailyCumulativeRain",
+            "columnName": "dailyCumulativeRain",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextDayRain",
+            "columnName": "nextDayRain",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "forecast_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5e0c6ae7f7bc696c6afe487c53cbaec5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '37e2d8e2c2786cd908e6d488788299ec')"
     ]
   }
 }
