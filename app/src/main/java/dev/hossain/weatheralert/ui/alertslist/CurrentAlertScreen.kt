@@ -138,6 +138,7 @@ class CurrentWeatherAlertPresenter
                 userCityAlerts.forEach { alert ->
                     val apiResult =
                         weatherRepository.getDailyForecast(
+                            cityId = alert.city.id,
                             latitude = alert.city.lat,
                             longitude = alert.city.lng,
                         )
@@ -301,7 +302,7 @@ fun AlertTileGrid(
     ) {
         itemsIndexed(
             items = tiles,
-            key = { _, item -> item.alertId },
+            key = { _, item -> item.uuid },
         ) { _, alertTileData ->
             AlertTileItem(
                 alertTileData = alertTileData,

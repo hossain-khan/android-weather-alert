@@ -9,6 +9,7 @@ import dagger.Provides
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.CityDao
+import dev.hossain.weatheralert.db.CityForecastDao
 
 @Module
 @ContributesTo(AppScope::class)
@@ -28,4 +29,7 @@ object DatabaseModule {
 
     @Provides
     fun provideAlertDao(database: AppDatabase): AlertDao = database.alertDao()
+
+    @Provides
+    fun provideCityForecastDao(database: AppDatabase): CityForecastDao = database.forecastDao()
 }
