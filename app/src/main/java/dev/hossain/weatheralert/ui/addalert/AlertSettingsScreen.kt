@@ -78,7 +78,6 @@ import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
-import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -226,138 +225,136 @@ fun AlertSettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    WeatherAlertAppTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Configure Alerts") },
-                    navigationIcon = {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Go back",
-                            modifier = Modifier,
-                        )
-                    },
-                    modifier =
-                        Modifier.padding(start = 8.dp).clickable {
-                            state.eventSink(AlertSettingsScreen.Event.GoBack)
-                        },
-                )
-            },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-        ) { padding ->
-            Column(
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Configure Alerts") },
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Go back",
+                        modifier = Modifier,
+                    )
+                },
                 modifier =
-                    modifier
-                        .fillMaxSize()
-                        .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(24.dp),
-            ) {
-                val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
-                var selectedIndex: Int by remember { mutableIntStateOf(0) }
-                val selectedAlertCategory: WeatherAlertCategory by remember {
-                    derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
-                }
-
-                EditableCityInputDropdownMenu(
-                    onQueryChange = {
-                        state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
+                    Modifier.padding(start = 8.dp).clickable {
+                        state.eventSink(AlertSettingsScreen.Event.GoBack)
                     },
-                    suggestions = state.citySuggestions,
-                    onSuggestionClick = {
-                        state.eventSink(AlertSettingsScreen.Event.OnCitySelected(it))
-                    },
-                )
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { padding ->
+        Column(
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+        ) {
+            val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
+            var selectedIndex: Int by remember { mutableIntStateOf(0) }
+            val selectedAlertCategory: WeatherAlertCategory by remember {
+                derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
+            }
 
-                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-                    WeatherAlertCategory.entries.forEachIndexed { index, alertCategory ->
-                        SegmentedButton(
-                            shape =
-                                SegmentedButtonDefaults.itemShape(
-                                    index = index,
-                                    count = WeatherAlertCategory.entries.size,
-                                ),
-                            icon = {
-                                SegmentedButtonDefaults.Icon(active = index in checkedList) {
-                                    Icon(
-                                        imageVector = alertCategory.icon(),
-                                        contentDescription = null,
-                                        modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
-                                    )
-                                }
-                            },
-                            onClick = { selectedIndex = index },
-                            selected = index == selectedIndex,
-                        ) { Text(alertCategory.label) }
-                    }
-                }
+            EditableCityInputDropdownMenu(
+                onQueryChange = {
+                    state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
+                },
+                suggestions = state.citySuggestions,
+                onSuggestionClick = {
+                    state.eventSink(AlertSettingsScreen.Event.OnCitySelected(it))
+                },
+            )
 
-                Crossfade(targetState = selectedIndex, label = "threshold-slider") { thresholdIndex ->
-                    when (thresholdIndex) {
-                        0 ->
-                            Column {
-                                // Snow Threshold Slider
-                                Text(
-                                    text = "Snowfall Threshold: ${"%.1f".format(
-                                        state.snowThreshold,
-                                    )} ${WeatherAlertCategory.SNOW_FALL.unit}",
-                                )
-                                Slider(
-                                    value = state.snowThreshold,
-                                    onValueChange = {
-                                        state.eventSink(
-                                            AlertSettingsScreen.Event.SnowThresholdChanged(
-                                                it,
-                                            ),
-                                        )
-                                    },
-                                    valueRange = 1f..20f,
-                                )
-                            }
-                        1 ->
-                            Column {
-                                // Rain Threshold Slider
-                                Text(
-                                    text = "Rainfall Threshold: ${"%.1f".format(
-                                        state.rainThreshold,
-                                    )} ${WeatherAlertCategory.RAIN_FALL.unit}",
-                                )
-                                Slider(
-                                    value = state.rainThreshold,
-                                    onValueChange = {
-                                        state.eventSink(
-                                            AlertSettingsScreen.Event.RainThresholdChanged(
-                                                it,
-                                            ),
-                                        )
-                                    },
-                                    valueRange = 1f..20f,
-                                )
-                            }
-                    }
-                }
-
-                NotificationPermissionStatusUi()
-
-                ReminderNotesUi {
-                    state.eventSink(AlertSettingsScreen.Event.OnReminderNotesUpdated(it))
-                }
-
-                Button(
-                    enabled = state.isAllInputValid,
-                    onClick = {
-                        state.eventSink(
-                            AlertSettingsScreen.Event.SaveSettingsClicked(
-                                selectedAlertType = selectedAlertCategory,
-                                snowThreshold = state.snowThreshold,
-                                rainThreshold = state.rainThreshold,
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                WeatherAlertCategory.entries.forEachIndexed { index, alertCategory ->
+                    SegmentedButton(
+                        shape =
+                            SegmentedButtonDefaults.itemShape(
+                                index = index,
+                                count = WeatherAlertCategory.entries.size,
                             ),
-                        )
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Add Alert Settings")
+                        icon = {
+                            SegmentedButtonDefaults.Icon(active = index in checkedList) {
+                                Icon(
+                                    imageVector = alertCategory.icon(),
+                                    contentDescription = null,
+                                    modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
+                                )
+                            }
+                        },
+                        onClick = { selectedIndex = index },
+                        selected = index == selectedIndex,
+                    ) { Text(alertCategory.label) }
                 }
+            }
+
+            Crossfade(targetState = selectedIndex, label = "threshold-slider") { thresholdIndex ->
+                when (thresholdIndex) {
+                    0 ->
+                        Column {
+                            // Snow Threshold Slider
+                            Text(
+                                text = "Snowfall Threshold: ${"%.1f".format(
+                                    state.snowThreshold,
+                                )} ${WeatherAlertCategory.SNOW_FALL.unit}",
+                            )
+                            Slider(
+                                value = state.snowThreshold,
+                                onValueChange = {
+                                    state.eventSink(
+                                        AlertSettingsScreen.Event.SnowThresholdChanged(
+                                            it,
+                                        ),
+                                    )
+                                },
+                                valueRange = 1f..20f,
+                            )
+                        }
+                    1 ->
+                        Column {
+                            // Rain Threshold Slider
+                            Text(
+                                text = "Rainfall Threshold: ${"%.1f".format(
+                                    state.rainThreshold,
+                                )} ${WeatherAlertCategory.RAIN_FALL.unit}",
+                            )
+                            Slider(
+                                value = state.rainThreshold,
+                                onValueChange = {
+                                    state.eventSink(
+                                        AlertSettingsScreen.Event.RainThresholdChanged(
+                                            it,
+                                        ),
+                                    )
+                                },
+                                valueRange = 1f..20f,
+                            )
+                        }
+                }
+            }
+
+            NotificationPermissionStatusUi()
+
+            ReminderNotesUi {
+                state.eventSink(AlertSettingsScreen.Event.OnReminderNotesUpdated(it))
+            }
+
+            Button(
+                enabled = state.isAllInputValid,
+                onClick = {
+                    state.eventSink(
+                        AlertSettingsScreen.Event.SaveSettingsClicked(
+                            selectedAlertType = selectedAlertCategory,
+                            snowThreshold = state.snowThreshold,
+                            rainThreshold = state.rainThreshold,
+                        ),
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Add Alert Settings")
             }
         }
     }

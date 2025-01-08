@@ -39,6 +39,7 @@ import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SwipeToDismissBox
@@ -85,6 +86,7 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.parseMarkdown
@@ -100,6 +102,7 @@ data class CurrentWeatherAlertScreen(
     data class State(
         val tiles: List<AlertTileData>,
         val userMessage: String? = null,
+        val isNetworkUnavailable: Boolean = false,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -123,12 +126,14 @@ class CurrentWeatherAlertPresenter
         @Assisted private val screen: CurrentWeatherAlertScreen,
         private val weatherRepository: WeatherRepository,
         private val alertDao: AlertDao,
+        private val networkMonitor: NetworkMonitor,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
             var userMessage by remember { mutableStateOf<String?>(null) }
+            var isNetworkUnavailable by remember { mutableStateOf(false) }
 
             LaunchedEffect(Unit) {
                 val userCityAlerts = alertDao.getAlertsWithCity()
@@ -188,7 +193,18 @@ class CurrentWeatherAlertPresenter
                 weatherTiles = alertTileData
             }
 
-            return CurrentWeatherAlertScreen.State(weatherTiles, userMessage) { event ->
+            LaunchedEffect(Unit) {
+                // Start monitoring network
+                networkMonitor.isConnected.collect { isConnected ->
+                    isNetworkUnavailable = !isConnected
+                }
+            }
+
+            return CurrentWeatherAlertScreen.State(
+                tiles = weatherTiles,
+                userMessage = userMessage,
+                isNetworkUnavailable = isNetworkUnavailable,
+            ) { event ->
                 when (event) {
                     CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
@@ -230,45 +246,52 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    WeatherAlertAppTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(title = { Text("Weather Alerts") })
-            },
-            floatingActionButton = {
-                ExtendedFloatingActionButton(
-                    onClick = {
-                        state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
-                    },
-                    text = { Text("Add Alert") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text("Weather Alerts") })
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = {
+                    state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
+                },
+                text = { Text("Add Alert") },
+                icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { paddingValues ->
+        Column(
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+        ) {
+            if (state.tiles.isEmpty()) {
+                EmptyAlertState()
+            } else {
+                AlertTileGrid(
+                    tiles = state.tiles,
+                    eventSink = state.eventSink,
                 )
-            },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            content = { paddingValues ->
-                Column(
-                    modifier =
-                        modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                ) {
-                    if (state.tiles.isEmpty()) {
-                        EmptyAlertState()
-                    } else {
-                        AlertTileGrid(
-                            tiles = state.tiles,
-                            eventSink = state.eventSink,
-                        )
-                    }
-                }
-            },
-        )
+            }
+        }
     }
-
     LaunchedEffect(state.userMessage) {
         state.userMessage?.let { message ->
             snackbarHostState.showSnackbar(message)
             state.eventSink(CurrentWeatherAlertScreen.Event.MessageShown)
+        }
+    }
+
+    LaunchedEffect(state.isNetworkUnavailable) {
+        if (state.isNetworkUnavailable) {
+            snackbarHostState.showSnackbar(
+                message = "ⓘ Network is unavailable.",
+                duration = SnackbarDuration.Indefinite,
+            )
+        } else {
+            snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
 }
