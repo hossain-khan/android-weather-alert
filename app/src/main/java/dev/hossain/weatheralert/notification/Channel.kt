@@ -4,12 +4,19 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 
-fun createNotificationChannel(context: Context) {
+internal const val NOTIFICATION_CHANNEL_ID = "weather_alerts_channel"
+
+/**
+ * Creates a notification channel for weather alerts app.
+ *
+ * @param context The context to use for creating the notification channel.
+ */
+fun createAppNotificationChannel(context: Context) {
     val name = "Weather Alerts"
     val descriptionText = "Notifications for weather thresholds"
     val importance = NotificationManager.IMPORTANCE_HIGH
     val channel =
-        NotificationChannel("weather_alerts", name, importance).apply {
+        NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
             description = descriptionText
         }
     val notificationManager: NotificationManager =
