@@ -14,12 +14,17 @@ import dev.hossain.weatheralert.data.WeatherAlertCategory
     tableName = "alerts",
     foreignKeys = [
         ForeignKey(
+            // The referenced entity
             entity = City::class,
+            // `"id"`: Column in the referenced table
             parentColumns = ["id"],
+            // `"city_id"`: Column in the current table
             childColumns = ["city_id"],
+            // Optional: cascade delete related alerts if a city is deleted
             onDelete = ForeignKey.CASCADE,
         ),
     ],
+    // Index for performance on foreign key queries (required for foreign key)
     indices = [Index(value = ["city_id"])],
 )
 data class Alert(
