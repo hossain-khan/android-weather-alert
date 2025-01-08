@@ -89,11 +89,11 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
-import java.util.Locale
 
 @Parcelize
 data class CurrentWeatherAlertScreen(
@@ -160,22 +160,13 @@ class CurrentWeatherAlertPresenter
                                     lat = alert.city.lat,
                                     lon = alert.city.lng,
                                     category = alert.alert.alertCategory,
-                                    threshold =
-                                        "%.2f %s".format(
-                                            Locale.getDefault(),
-                                            alert.alert.threshold,
-                                            alert.alert.alertCategory.unit,
-                                        ),
+                                    threshold = alert.alert.threshold.formatUnit(alert.alert.alertCategory.unit),
                                     currentStatus =
-                                        "%.2f %s".format(
-                                            Locale.getDefault(),
-                                            if (alert.alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
-                                                snowStatus
-                                            } else {
-                                                rainStatus
-                                            },
-                                            alert.alert.alertCategory.unit,
-                                        ),
+                                        if (alert.alert.alertCategory == WeatherAlertCategory.SNOW_FALL) {
+                                            snowStatus.formatUnit(alert.alert.alertCategory.unit)
+                                        } else {
+                                            rainStatus.formatUnit(alert.alert.alertCategory.unit)
+                                        },
                                     isAlertActive =
                                         when (alert.alert.alertCategory) {
                                             WeatherAlertCategory.SNOW_FALL -> snowStatus > alert.alert.threshold
@@ -673,7 +664,7 @@ fun CurrentWeatherAlertsPreview() {
                 threshold = "10 mm",
                 currentStatus = "Tomorrow: 12 mm",
                 isAlertActive = true,
-                alertNote = "test note",
+                alertNote = "Note when alert is reached.\n* Charge batteries\n* Get car in **garage**",
             ),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
