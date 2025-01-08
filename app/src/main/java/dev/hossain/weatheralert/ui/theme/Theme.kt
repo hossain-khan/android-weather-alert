@@ -26,6 +26,8 @@ private val LightColorScheme =
 /**
  * Custom theme for the app.
  * - See [M3 components](https://m3.material.io/components)
+ * - See [Android M3 Components](https://developer.android.com/develop/ui/compose/components)
+ * - See [Material color tool](https://m3.material.io/styles/color/system/overview)
  */
 @Composable
 fun WeatherAlertAppTheme(
