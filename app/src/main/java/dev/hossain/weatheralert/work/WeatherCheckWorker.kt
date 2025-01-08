@@ -1,19 +1,15 @@
 package dev.hossain.weatheralert.work
 
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.notification.triggerNotification
 import dev.hossain.weatheralert.util.HttpPingSender
 import timber.log.Timber
 
@@ -93,18 +89,24 @@ class WeatherCheckWorker
                             WeatherAlertCategory.SNOW_FALL -> {
                                 if (snowTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
-                                        configuredAlert.alert.alertCategory,
-                                        snowTomorrow,
-                                        configuredAlert.alert.threshold,
+                                        context = context,
+                                        notificationId = configuredAlert.alert.id,
+                                        notificationTag = configuredAlert.toNotificationTag(),
+                                        alertCategory = configuredAlert.alert.alertCategory,
+                                        currentValue = snowTomorrow,
+                                        thresholdValue = configuredAlert.alert.threshold,
                                     )
                                 }
                             }
                             WeatherAlertCategory.RAIN_FALL -> {
                                 if (rainTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
-                                        configuredAlert.alert.alertCategory,
-                                        rainTomorrow,
-                                        configuredAlert.alert.threshold,
+                                        context = context,
+                                        notificationId = configuredAlert.alert.id,
+                                        notificationTag = configuredAlert.toNotificationTag(),
+                                        alertCategory = configuredAlert.alert.alertCategory,
+                                        currentValue = rainTomorrow,
+                                        thresholdValue = configuredAlert.alert.threshold,
                                     )
                                 }
                             }
@@ -138,55 +140,5 @@ class WeatherCheckWorker
                 pingUUID = "55ac31ff-5893-4e89-bcef-8a854bfb1e9c",
                 extraMessage = "[$message]",
             )
-        }
-
-        private fun triggerNotification(
-            alertCategory: WeatherAlertCategory,
-            currentValue: Double,
-            thresholdValue: Float,
-        ) {
-            Timber.d("Triggering notification for $alertCategory value: $currentValue, limit: $thresholdValue")
-
-            val notificationText =
-                buildString {
-                    append("Configured weather alert threshold exceeded.\n")
-                    when (alertCategory) {
-                        WeatherAlertCategory.SNOW_FALL -> {
-                            append("Snowfall: $currentValue cm\n")
-                        }
-                        WeatherAlertCategory.RAIN_FALL -> {
-                            append("Rainfall: $currentValue mm\n")
-                        }
-                    }
-                }
-
-            val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-            val intent =
-                context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                }
-            val pendingIntent =
-                PendingIntent.getActivity(
-                    context,
-                    0,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-                )
-
-            val notification =
-                NotificationCompat
-                    .Builder(context, "weather_alerts")
-                    .setSmallIcon(R.drawable.weather_alert_icon) // Replace with your icon
-                    .setContentTitle("Weather Alert")
-                    .setContentText(notificationText)
-                    .setStyle(NotificationCompat.BigTextStyle().bigText(notificationText))
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true)
-                    .build()
-
-            notificationManager.notify(1, notification)
         }
     }

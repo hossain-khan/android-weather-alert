@@ -12,14 +12,17 @@ import java.util.concurrent.TimeUnit
  * Enqueue weather check worker to run in background using WorkManager.
  * - https://developer.android.com/topic/libraries/architecture/workmanager
  */
-fun scheduleWeatherAlerts(context: Context) {
+fun scheduleWeatherAlertsWork(context: Context) {
     val weatherWorker =
         PeriodicWorkRequestBuilder<WeatherCheckWorker>(
-            6,
-            TimeUnit.HOURS, // Check every 6 hours
+            // Check every N hours
+            repeatInterval = 6,
+            repeatIntervalTimeUnit = TimeUnit.HOURS,
         ).setConstraints(
             Constraints
                 .Builder()
+                .setRequiresBatteryNotLow(true)
+                .setRequiresCharging(false)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build(),
         ).build()
