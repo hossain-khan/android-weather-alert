@@ -67,3 +67,40 @@ fun parseMarkdown(markdown: String): AnnotatedString =
             append("\n")
         }
     }
+
+/**
+ * Strips markdown basic syntax except list items. This is the opposite of [parseMarkdown].
+ * This is useful to show notes in the notification without any markdown syntax
+ * which is not supported by Android notification surface.
+ *
+ * @param textWithMarkdownSyntax The markdown text to be stripped.
+ * @return A text with markdown syntax removed from the source [textWithMarkdownSyntax].
+ * @see parseMarkdown
+ */
+internal fun stripMarkdownSyntax(textWithMarkdownSyntax: String): String {
+    val lines = textWithMarkdownSyntax.lines()
+    val stringBuilder = StringBuilder()
+
+    for (line in lines) {
+        when {
+            line.startsWith("- ") || line.startsWith("* ") -> {
+                // List item, strip markdown but keep the list item
+                val strippedLine =
+                    line
+                        .replace(Regex("\\*\\*([^*]+)\\*\\*"), "$1") // Remove bold text
+                        .replace(Regex("_([^_]+)_"), "$1") // Remove italic text
+                stringBuilder.append(strippedLine).append("\n")
+            }
+            else -> {
+                // Remove other markdown syntax
+                val strippedLine =
+                    line
+                        .replace(Regex("\\*\\*([^*]+)\\*\\*"), "$1") // Remove bold text
+                        .replace(Regex("_([^_]+)_"), "$1") // Remove italic text
+                stringBuilder.append(strippedLine).append("\n")
+            }
+        }
+    }
+
+    return stringBuilder.toString().trim()
+}
