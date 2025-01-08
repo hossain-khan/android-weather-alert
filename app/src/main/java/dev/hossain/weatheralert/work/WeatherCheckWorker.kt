@@ -53,6 +53,7 @@ class WeatherCheckWorker
                         cityId = configuredAlert.city.id,
                         latitude = configuredAlert.city.lat,
                         longitude = configuredAlert.city.lng,
+                        skipCache = true,
                     )
 
                 when (forecastApiResult) {

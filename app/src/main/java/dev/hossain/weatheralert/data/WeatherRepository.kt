@@ -9,13 +9,24 @@ import timber.log.Timber
 import javax.inject.Inject
 
 /**
- * Repository for weather data.
+ * Repository for weather data that caches and provides weather forecast data.
  */
 interface WeatherRepository {
+    /**
+     * Provides the daily weather forecast for a given city either from
+     * cache or network based on data freshness or [skipCache] value.
+     *
+     * @param cityId The ID of the city from the database.
+     * @param latitude The latitude of the city.
+     * @param longitude The longitude of the city.
+     * @param skipCache Whether to skip the cache and fetch fresh data.
+     * @return An [ApiResult] containing the [ForecastData] or an error.
+     */
     suspend fun getDailyForecast(
         cityId: Int,
         latitude: Double,
         longitude: Double,
+        skipCache: Boolean = false,
     ): ApiResult<ForecastData, Unit>
 }
 
@@ -35,14 +46,15 @@ class WeatherRepositoryImpl
             cityId: Int,
             latitude: Double,
             longitude: Double,
+            skipCache: Boolean,
         ): ApiResult<ForecastData, Unit> {
             val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
 
-            return if (cityForecast != null && !timeUtil.isOlderThan24Hours(cityForecast.createdAt)) {
-                Timber.d("Using cached forecast data for cityId: $cityId")
+            return if (skipCache.not() && cityForecast != null && !timeUtil.isOlderThan24Hours(cityForecast.createdAt)) {
+                Timber.d("Using cached forecast data for cityId: %s, skipCache: %s", cityId, skipCache)
                 ApiResult.success(convertToForecastData(cityForecast))
             } else {
-                Timber.d("Fetching forecast data from network for cityId: $cityId")
+                Timber.d("Fetching forecast data from network for cityId %s, skipCache: %s", cityId, skipCache)
                 loadForecastFromNetwork(latitude, longitude, cityId)
             }
         }
@@ -61,17 +73,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = convertToForecastData(apiResult.value)
-                    cityForecastDao.insertCityForecast(
-                        CityForecast(
-                            cityId = cityId,
-                            latitude = convertToForecastData.latitude,
-                            longitude = convertToForecastData.longitude,
-                            dailyCumulativeSnow = convertToForecastData.snow.dailyCumulativeSnow,
-                            nextDaySnow = convertToForecastData.snow.nextDaySnow,
-                            dailyCumulativeRain = convertToForecastData.rain.dailyCumulativeRain,
-                            nextDayRain = convertToForecastData.rain.nextDayRain,
-                        ),
-                    )
+                    cacheCityForecastData(cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -81,6 +83,23 @@ class WeatherRepositoryImpl
             }
         }
 
+        private suspend fun cacheCityForecastData(
+            cityId: Int,
+            convertToForecastData: ForecastData,
+        ) {
+            cityForecastDao.insertCityForecast(
+                CityForecast(
+                    cityId = cityId,
+                    latitude = convertToForecastData.latitude,
+                    longitude = convertToForecastData.longitude,
+                    dailyCumulativeSnow = convertToForecastData.snow.dailyCumulativeSnow,
+                    nextDaySnow = convertToForecastData.snow.nextDaySnow,
+                    dailyCumulativeRain = convertToForecastData.rain.dailyCumulativeRain,
+                    nextDayRain = convertToForecastData.rain.nextDayRain,
+                ),
+            )
+        }
+
         private fun convertToForecastData(weatherForecast: WeatherForecast): ForecastData {
             // Convert `WeatherForecast` to `ForecastData`
             return ForecastData(
@@ -88,14 +107,24 @@ class WeatherRepositoryImpl
                 longitude = weatherForecast.lon,
                 snow =
                     Snow(
-                        dailyCumulativeSnow = weatherForecast.hourly.sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
-                        nextDaySnow = weatherForecast.daily.firstOrNull()?.snowVolume ?: 0.0,
+                        dailyCumulativeSnow =
+                            weatherForecast.hourly
+                                .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
+                        nextDaySnow =
+                            weatherForecast.daily
+                                .firstOrNull()
+                                ?.snowVolume ?: 0.0,
                         weeklyCumulativeSnow = 0.0,
                     ),
                 rain =
                     Rain(
-                        dailyCumulativeRain = weatherForecast.hourly.sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
-                        nextDayRain = weatherForecast.daily.firstOrNull()?.rainVolume ?: 0.0,
+                        dailyCumulativeRain =
+                            weatherForecast.hourly
+                                .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
+                        nextDayRain =
+                            weatherForecast.daily
+                                .firstOrNull()
+                                ?.rainVolume ?: 0.0,
                         weeklyCumulativeRain = 0.0,
                     ),
             )
