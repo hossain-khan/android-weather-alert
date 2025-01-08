@@ -8,6 +8,7 @@ import android.graphics.drawable.Icon
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
 /**
@@ -70,7 +71,7 @@ internal fun triggerNotification(
             }
             if (reminderNotes.isNotBlank()) {
                 append("\n―――――――――――――――――\n")
-                append("Reminder Notes:\n$reminderNotes")
+                append("Reminder Notes:\n${stripMarkdownSyntax(reminderNotes)}")
             }
         }
 

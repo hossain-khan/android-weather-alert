@@ -85,21 +85,21 @@ class MarkdownTest {
     fun testStripMarkdownExceptLists_boldText() {
         val markdown = "This is **bold** text."
         val expected = "This is bold text."
-        assertEquals(expected, stripMarkdownExceptLists(markdown))
+        assertEquals(expected, stripMarkdownSyntax(markdown))
     }
 
     @Test
     fun testStripMarkdownExceptLists_italicText() {
         val markdown = "This is _italic_ text."
         val expected = "This is italic text."
-        assertEquals(expected, stripMarkdownExceptLists(markdown))
+        assertEquals(expected, stripMarkdownSyntax(markdown))
     }
 
     @Test
     fun testStripMarkdownExceptLists_listItems() {
         val markdown = "- List item 1\n* List item 2\nNormal text"
         val expected = "- List item 1\n* List item 2\nNormal text"
-        assertEquals(expected, stripMarkdownExceptLists(markdown))
+        assertEquals(expected, stripMarkdownSyntax(markdown))
     }
 
     @Test
@@ -116,7 +116,7 @@ class MarkdownTest {
             - Bold item
             Italic item followed by some text.
             """.trimIndent()
-        assertEquals(expected, stripMarkdownExceptLists(multilineMarkdown))
+        assertEquals(expected, stripMarkdownSyntax(multilineMarkdown))
     }
 
     @Test
@@ -139,6 +139,6 @@ class MarkdownTest {
             
             Finally, you should help your neighbors if needed.
             """.trimIndent()
-        assertEquals(expected, stripMarkdownExceptLists(multilineMarkdown))
+        assertEquals(expected, stripMarkdownSyntax(multilineMarkdown))
     }
 }

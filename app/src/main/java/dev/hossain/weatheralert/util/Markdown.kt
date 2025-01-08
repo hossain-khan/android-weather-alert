@@ -69,14 +69,15 @@ fun parseMarkdown(markdown: String): AnnotatedString =
     }
 
 /**
- * Strips markdown syntax except list items.
+ * Strips markdown basic syntax except list items. This is the opposite of [parseMarkdown].
  * This is useful to show notes in the notification without any markdown syntax
  * which is not supported by Android notification surface.
  *
  * @param textWithMarkdownSyntax The markdown text to be stripped.
  * @return A text with markdown syntax removed from the source [textWithMarkdownSyntax].
+ * @see parseMarkdown
  */
-internal fun stripMarkdownExceptLists(textWithMarkdownSyntax: String): String {
+internal fun stripMarkdownSyntax(textWithMarkdownSyntax: String): String {
     val lines = textWithMarkdownSyntax.lines()
     val stringBuilder = StringBuilder()
 
