@@ -16,4 +16,6 @@ data class UserCityAlert(
         entityColumn = "cityId",
     )
     val alert: Alert,
-)
+) {
+    fun toNotificationTag(): String = "${city.id}_${alert.id}_${alert.alertCategory.name}"
+}
