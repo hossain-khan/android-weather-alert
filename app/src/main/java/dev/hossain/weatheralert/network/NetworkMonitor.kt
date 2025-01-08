@@ -11,6 +11,7 @@ import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
+import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
 /**
@@ -29,21 +30,34 @@ class NetworkMonitor
         private val _isConnected = MutableStateFlow(false)
         val isConnected: StateFlow<Boolean> get() = _isConnected
 
+        // Tracks active networks and their capabilities
+        private val activeNetworks = ConcurrentHashMap<Network, NetworkCapabilities>()
+
         private val networkCallback =
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    Timber.d("Network available: $network")
-                    _isConnected.value = true
+                    val capabilities = connectivityManager.getNetworkCapabilities(network)
+                    if (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                        activeNetworks[network] = capabilities
+                        updateNetworkStatus()
+                    }
                 }
 
                 override fun onLost(network: Network) {
-                    Timber.d("Network lost: $network")
-                    _isConnected.value = false
+                    activeNetworks.remove(network)
+                    updateNetworkStatus()
                 }
 
-                override fun onUnavailable() {
-                    Timber.d("Network unavailable")
-                    _isConnected.value = false
+                override fun onCapabilitiesChanged(
+                    network: Network,
+                    capabilities: NetworkCapabilities,
+                ) {
+                    if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                        activeNetworks[network] = capabilities
+                    } else {
+                        activeNetworks.remove(network)
+                    }
+                    updateNetworkStatus()
                 }
             }
 
@@ -58,5 +72,10 @@ class NetworkMonitor
 
         fun stopMonitoring() {
             connectivityManager.unregisterNetworkCallback(networkCallback)
+        }
+
+        private fun updateNetworkStatus() {
+            Timber.d("Is connected: ${activeNetworks.isNotEmpty()}. Active networks: ${activeNetworks.size}")
+            _isConnected.value = activeNetworks.isNotEmpty()
         }
     }
