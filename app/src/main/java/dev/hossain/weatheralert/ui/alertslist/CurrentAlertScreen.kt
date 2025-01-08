@@ -136,7 +136,7 @@ class CurrentWeatherAlertPresenter
             var isNetworkUnavailable by remember { mutableStateOf(false) }
 
             LaunchedEffect(Unit) {
-                val userCityAlerts = alertDao.getAlertsWithCity()
+                val userCityAlerts = alertDao.getAllAlertsWithCities()
                 Timber.d("Found ${userCityAlerts.size} userCityAlerts.")
 
                 val alertTileData = mutableListOf<AlertTileData>()

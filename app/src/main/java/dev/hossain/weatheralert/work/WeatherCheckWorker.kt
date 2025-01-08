@@ -34,7 +34,7 @@ class WeatherCheckWorker
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
-            val userConfiguredAlerts = alertDao.getAlertsWithCity()
+            val userConfiguredAlerts = alertDao.getAllAlertsWithCities()
 
             if (userConfiguredAlerts.isEmpty()) {
                 Timber.d("No user configured alerts found.")
