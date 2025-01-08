@@ -192,17 +192,27 @@ data class AlertTileData constructor(
     val currentStatus: String,
     val isAlertActive: Boolean,
     val alertNote: String,
+    /**
+     * Unique identifier for the alert item in the lazy column.
+     * Added to avoid app crashing due to duplicate keys.
+     */
     val uuid: String = UUID.randomUUID().toString(),
 ) : Parcelable
 
 enum class WeatherAlertCategory(
     val label: String,
+    /**
+     * 🛑 THIS IS A BIG MESS. Fix it in the app. ⚠️
+     * - https://github.com/hossain-khan/android-weather-alert/issues/60
+     */
     val unit: String,
 ) {
     SNOW_FALL("Snow", "cm"),
     RAIN_FALL("Rain", "mm"),
 }
 
+// ⚠️ Icon should be imported instead
+// See https://github.com/hossain-khan/android-weather-alert/issues/31
 internal fun WeatherAlertCategory.icon(): ImageVector =
     when (this) {
         WeatherAlertCategory.SNOW_FALL -> Icons.Outlined.AcUnit
