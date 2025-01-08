@@ -24,6 +24,12 @@ interface CityForecastDao {
     @Query("SELECT * FROM city_forecasts WHERE forecast_id = :forecastId")
     suspend fun getCityForecastById(forecastId: Int): CityForecast?
 
-    @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId")
+    /**
+     * Get latest forecast for a city.
+     *
+     * In future, we may have to cleanup the table to keep only latest forecast for each city.
+     * However, this is not required for now.
+     */
+    @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastsByCityId(cityId: Int): List<CityForecast>
 }
