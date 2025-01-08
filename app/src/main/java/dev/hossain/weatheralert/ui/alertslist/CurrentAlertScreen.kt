@@ -230,41 +230,37 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    WeatherAlertAppTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(title = { Text("Weather Alerts") })
-            },
-            floatingActionButton = {
-                ExtendedFloatingActionButton(
-                    onClick = {
-                        state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
-                    },
-                    text = { Text("Add Alert") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+    Scaffold(
+        topBar = {
+            TopAppBar(title = { Text("Weather Alerts") })
+        },
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = {
+                    state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
+                },
+                text = { Text("Add Alert") },
+                icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+            )
+        },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+    ) { paddingValues ->
+        Column(
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+        ) {
+            if (state.tiles.isEmpty()) {
+                EmptyAlertState()
+            } else {
+                AlertTileGrid(
+                    tiles = state.tiles,
+                    eventSink = state.eventSink,
                 )
-            },
-            snackbarHost = { SnackbarHost(snackbarHostState) },
-            content = { paddingValues ->
-                Column(
-                    modifier =
-                        modifier
-                            .fillMaxSize()
-                            .padding(paddingValues),
-                ) {
-                    if (state.tiles.isEmpty()) {
-                        EmptyAlertState()
-                    } else {
-                        AlertTileGrid(
-                            tiles = state.tiles,
-                            eventSink = state.eventSink,
-                        )
-                    }
-                }
-            },
-        )
+            }
+        }
     }
-
     LaunchedEffect(state.userMessage) {
         state.userMessage?.let { message ->
             snackbarHostState.showSnackbar(message)
