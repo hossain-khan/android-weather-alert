@@ -14,6 +14,8 @@ import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.UserCityAlert
+import dev.hossain.weatheralert.util.HttpPingSender
 import timber.log.Timber
 
 /**
@@ -41,6 +43,8 @@ class WeatherCheckWorker
                 Timber.d("No user configured alerts found.")
                 return Result.success()
             }
+
+            sendWorkerRunningPing(userConfiguredAlerts)
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -74,6 +78,7 @@ class WeatherCheckWorker
                                 }
                             }
 
+                        Timber.d("Snow: $snowTomorrow, Rain: $rainTomorrow")
                         when (configuredAlert.alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {
                                 if (snowTomorrow > configuredAlert.alert.threshold) {
@@ -86,7 +91,6 @@ class WeatherCheckWorker
                             }
                             WeatherAlertCategory.RAIN_FALL -> {
                                 if (rainTomorrow > configuredAlert.alert.threshold) {
-                                    // Trigger a rich notification
                                     triggerNotification(
                                         configuredAlert.alert.alertCategory,
                                         rainTomorrow,
@@ -116,6 +120,13 @@ class WeatherCheckWorker
                 }
             }
             return Result.success()
+        }
+
+        private fun sendWorkerRunningPing(userConfiguredAlerts: List<UserCityAlert>) {
+            HttpPingSender(context).sendPingToDevice(
+                pingUUID = "55ac31ff-5893-4e89-bcef-8a854bfb1e9c",
+                extraMessage = "[Alerts:${userConfiguredAlerts.size}]",
+            )
         }
 
         private fun triggerNotification(

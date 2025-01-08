@@ -44,6 +44,6 @@ class WeatherAlertApp :
         createNotificationChannel(context = this)
         scheduleWeatherAlerts(context = this)
 
-        // debugNotification(context = this)
+        // dev.hossain.weatheralert.notification.debugNotification(context = this)
     }
 }
