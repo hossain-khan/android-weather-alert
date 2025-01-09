@@ -43,4 +43,10 @@ interface CityDao {
         searchQuery: String,
         limit: Int,
     ): Flow<List<City>>
+
+    @Query("SELECT * FROM cities WHERE city_ascii LIKE :searchQuery || '%' ORDER BY city ASC LIMIT :limit")
+    fun searchCitiesByNameStartingWith(
+        searchQuery: String,
+        limit: Int,
+    ): Flow<List<City>>
 }

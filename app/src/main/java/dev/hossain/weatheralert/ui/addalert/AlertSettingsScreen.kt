@@ -184,9 +184,14 @@ class AlertSettingsPresenter
 
                     is AlertSettingsScreen.Event.SearchQueryChanged -> {
                         scope.launch {
-                            database.cityDao().searchCitiesByName(event.query, 20).collect {
-                                suggestions = it
-                            }
+                            database
+                                .cityDao()
+                                .searchCitiesByNameStartingWith(
+                                    searchQuery = event.query,
+                                    limit = 20,
+                                ).collect {
+                                    suggestions = it
+                                }
                         }
                     }
 
