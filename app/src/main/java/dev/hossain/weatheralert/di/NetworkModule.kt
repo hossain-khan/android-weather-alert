@@ -6,7 +6,7 @@ import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dev.hossain.weatheralert.data.WeatherApi
+import dev.hossain.weatheralert.api.WeatherApi
 import okhttp3.Cache
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl

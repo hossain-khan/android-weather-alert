@@ -309,7 +309,7 @@ fun AlertSettingsScreen(
                                         ),
                                     )
                                 },
-                                valueRange = 1f..20f,
+                                valueRange = 10f..100f,
                             )
                         }
                     1 ->
@@ -329,7 +329,7 @@ fun AlertSettingsScreen(
                                         ),
                                     )
                                 },
-                                valueRange = 1f..20f,
+                                valueRange = 1f..50f,
                             )
                         }
                 }
