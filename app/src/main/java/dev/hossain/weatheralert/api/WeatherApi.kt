@@ -7,6 +7,11 @@ import retrofit2.http.Query
 /**
  * OpenWeatherMap API for weather forecast.
  *
+ * Free tier:
+ * - 60 calls/minute
+ * - 1,000 API calls/day
+ * - 1,000,000 calls/month
+ *
  * See:
  * - [Weather units](https://openweathermap.org/weather-data)
  * - [One Call API](https://openweathermap.org/api/one-call-3)
