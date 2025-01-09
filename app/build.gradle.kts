@@ -11,6 +11,8 @@ plugins {
     alias(libs.plugins.anvil)
     alias(libs.plugins.kotlinter)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 // Creates a variable called keystorePropertiesFile, and initializes it to the keystore.properties file.
@@ -161,6 +163,10 @@ dependencies {
 
     implementation(libs.eithernet)
     implementation(libs.eithernet.integration.retrofit)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Testing
