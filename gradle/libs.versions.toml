@@ -38,7 +38,7 @@ ksp = "2.1.0-1.0.29"
 anvil = "0.4.0"
 
 # https://dagger.dev/dev-guide/ksp
-dagger = "2.54"
+dagger = "2.55"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
 googleFonts = "1.7.6"
