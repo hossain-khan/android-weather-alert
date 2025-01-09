@@ -32,11 +32,11 @@ data class WeatherForecast(
 
 @JsonClass(generateAdapter = true)
 data class DailyForecast(
-    @Json(name = "dt") val date: Long, // Unix timestamp
+    @Json(name = "dt") val date: Long,
     @Json(name = "temp") val temperature: Temperature,
     @Json(name = "weather") val weather: List<WeatherDescription>,
-    @Json(name = "rain") val rainVolume: Double?, // mm (nullable)
-    @Json(name = "snow") val snowVolume: Double?, // cm (nullable)
+    @Json(name = "rain") val rainVolume: Double?,
+    @Json(name = "snow") val snowVolume: Double?,
 )
 
 /**

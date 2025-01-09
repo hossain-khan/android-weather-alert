@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
-const val DEFAULT_SNOW_THRESHOLD = 5.0f // cm
+const val DEFAULT_SNOW_THRESHOLD = 20.0f // mm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
 
 @Parcelize
@@ -37,7 +37,16 @@ enum class WeatherAlertCategory(
      */
     val unit: String,
 ) {
-    SNOW_FALL("Snow", "cm"),
+    /**
+     * Precipitation volume	standard=mm, imperial=mm and metric=mm
+     * - https://openweathermap.org/weather-data
+     */
+    SNOW_FALL("Snow", "mm"),
+
+    /**
+     * Precipitation volume	standard=mm, imperial=mm and metric=mm
+     * - https://openweathermap.org/weather-data
+     */
     RAIN_FALL("Rain", "mm"),
 }
 
