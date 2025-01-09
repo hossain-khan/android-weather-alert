@@ -235,6 +235,31 @@ class WeatherRepositoryTest {
             assertThat(forecast.rain.dailyCumulativeRain).isEqualTo(8.85)
         }
 
+    @Test
+    fun `given weather response for aachen-nw-de city - provides success response with parsed data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-aachen-nw-de-heavy-snow.json")),
+            )
+
+            val result =
+                weatherRepository.getDailyForecast(
+                    cityId = 1,
+                    latitude = 0.0,
+                    longitude = -0.0,
+                )
+            assert(result is ApiResult.Success)
+            val forecast: ForecastData = (result as ApiResult.Success).value
+            assertThat(forecast.latitude).isEqualTo(50.7756)
+            assertThat(forecast.longitude).isEqualTo(6.0836)
+            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(20.249999999999996)
+            assertThat(forecast.snow.nextDaySnow).isEqualTo(20.01)
+            assertThat(forecast.rain.dailyCumulativeRain).isEqualTo(5.9)
+            assertThat(forecast.rain.nextDayRain).isEqualTo(5.9)
+        }
+
     // Helper method to load JSON from resources
     private fun loadJsonFromResources(fileName: String): String {
         val classLoader = javaClass.classLoader

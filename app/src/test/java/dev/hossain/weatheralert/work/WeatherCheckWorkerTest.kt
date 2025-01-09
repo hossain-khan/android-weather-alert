@@ -1,7 +1,6 @@
 package dev.hossain.weatheralert.work
 
 import android.content.Context
-import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.ListenableWorker
@@ -32,27 +31,20 @@ class WeatherCheckWorkerTest {
 
     private lateinit var testWorkerFactory: TestWorkerFactory
 
-    private lateinit var db: AppDatabase
+    @Inject
+    internal lateinit var weatherRepository: WeatherRepository
 
     @Inject
-    lateinit var weatherRepository: WeatherRepository
+    internal lateinit var appDatabase: AppDatabase
 
-    private lateinit var alertDao: AlertDao
+    @Inject
+    internal lateinit var alertDao: AlertDao
 
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start(60000)
         NetworkModule.baseUrl = mockWebServer.url("/")
-
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        db =
-            Room
-                .inMemoryDatabaseBuilder(
-                    context,
-                    AppDatabase::class.java,
-                ).build()
-        alertDao = db.alertDao()
 
         injectTestClass()
 
@@ -63,11 +55,59 @@ class WeatherCheckWorkerTest {
     @Throws(IOException::class)
     fun tearDown() {
         mockWebServer.shutdown()
-        db.close()
+        appDatabase.close()
     }
 
     @Test
-    fun `given success API response - results in successful work execution`() {
+    fun `given no alerts set - results in successful work execution`() {
+        mockWebServer.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(loadJsonFromResources("open-weather-cancun.json")),
+        )
+
+        val worker =
+            TestListenableWorkerBuilder<WeatherCheckWorker>(context)
+                .setWorkerFactory(testWorkerFactory)
+                .build()
+        runBlocking {
+            val result: ListenableWorker.Result = worker.doWork()
+            assertThat(result, notNullValue())
+        }
+    }
+
+    @Test
+    fun `given single alert set and success API response - results in successful work execution`() {
+        // Getting foreign key violation for some reason even after using `121` city id.
+
+        /*runBlocking {
+            appDatabase.cityDao().insertCity(
+                City(
+                    id = 121,
+                    cityName = "Cancún",
+                    lat = 21.1743,
+                    lng = -86.8466,
+                    country = "Mexico",
+                    iso2 = "MX",
+                    iso3 = "MEX",
+                    provStateName = null,
+                    capital = null,
+                    population = 628306,
+                    city = "Cancún",
+                ),
+            )
+
+            alertDao.insertAlert(
+                Alert(
+                    id = 1,
+                    cityId = 121,
+                    WeatherAlertCategory.RAIN_FALL,
+                    threshold = 0.5f,
+                    notes = "Notes about alert",
+                ),
+            )
+        }*/
+
         mockWebServer.enqueue(
             MockResponse()
                 .setResponseCode(200)

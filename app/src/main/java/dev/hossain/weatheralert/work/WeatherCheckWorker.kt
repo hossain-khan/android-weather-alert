@@ -34,7 +34,7 @@ class WeatherCheckWorker
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
-            val userConfiguredAlerts = alertDao.getAlertsWithCity()
+            val userConfiguredAlerts = alertDao.getAllAlertsWithCities()
 
             if (userConfiguredAlerts.isEmpty()) {
                 Timber.d("No user configured alerts found.")
@@ -115,7 +115,6 @@ class WeatherCheckWorker
                                 }
                             }
                         }
-                        return Result.success()
                     }
 
                     is ApiResult.Failure.HttpFailure -> {
@@ -135,7 +134,10 @@ class WeatherCheckWorker
                     }
                 }
             }
+
+            // If early return didn't happen, then send ping with all alerts
             sendWorkerRunningPing(stringBuilder.toString())
+
             return Result.success()
         }
 

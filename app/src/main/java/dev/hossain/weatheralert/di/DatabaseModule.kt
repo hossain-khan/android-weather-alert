@@ -22,6 +22,7 @@ object DatabaseModule {
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
             .createFromAsset("alertapp.db")
+            .fallbackToDestructiveMigration()
             .build()
 
     @Provides

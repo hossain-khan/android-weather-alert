@@ -20,6 +20,7 @@ object TestDatabaseModule {
         Room
             .inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
 
     @Provides

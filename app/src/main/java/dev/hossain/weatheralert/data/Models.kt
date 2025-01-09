@@ -178,17 +178,8 @@ data class AlertTileData constructor(
     val cityInfo: String,
     val lat: Double,
     val lon: Double,
-    /**
-     * e.g., "Snowfall", "Rainfall"
-     */
     val category: WeatherAlertCategory,
-    /**
-     * e.g., "5 cm", "10 mm"
-     */
     val threshold: String,
-    /**
-     * e.g., "Tomorrow: 7 cm", "Tomorrow: 15 mm"
-     */
     val currentStatus: String,
     val isAlertActive: Boolean,
     val alertNote: String,

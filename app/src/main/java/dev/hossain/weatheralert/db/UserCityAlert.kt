@@ -6,16 +6,18 @@ import androidx.room.Relation
 /**
  * Represents a user's city with alert.
  *
+ * - https://developer.android.com/training/data-storage/room/relationships/one-to-many
+ *
  * @see City
  * @see Alert
  */
 data class UserCityAlert(
-    @Embedded val city: City,
+    @Embedded val alert: Alert,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "cityId",
+        parentColumn = "city_id",
+        entityColumn = "id",
     )
-    val alert: Alert,
+    val city: City,
 ) {
     fun toNotificationTag(): String = "${city.id}_${alert.id}_${alert.alertCategory.name}"
 }
