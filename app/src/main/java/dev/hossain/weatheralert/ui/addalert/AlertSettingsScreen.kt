@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,6 +29,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType.Companion.PrimaryEditable
 import androidx.compose.material3.OutlinedTextField
@@ -38,6 +40,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -66,18 +69,22 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
 import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -91,6 +98,8 @@ data class AlertSettingsScreen(
         val snowThreshold: Float,
         val rainThreshold: Float,
         val isAllInputValid: Boolean,
+        val isApiCallInProgress: Boolean,
+        val snackbarData: SnackbarData? = null,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -125,6 +134,12 @@ data class AlertSettingsScreen(
     }
 }
 
+data class SnackbarData(
+    val message: String,
+    val actionLabel: String? = null,
+    val action: () -> Unit,
+)
+
 class AlertSettingsPresenter
     @AssistedInject
     constructor(
@@ -132,6 +147,7 @@ class AlertSettingsPresenter
         @Assisted private val screen: AlertSettingsScreen,
         private val preferencesManager: PreferencesManager,
         private val database: AppDatabase,
+        private val weatherRepository: WeatherRepository,
     ) : Presenter<AlertSettingsScreen.State> {
         @Composable
         override fun present(): AlertSettingsScreen.State {
@@ -140,7 +156,9 @@ class AlertSettingsPresenter
             var updatedRainThreshold by remember { mutableFloatStateOf(DEFAULT_RAIN_THRESHOLD) }
             var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
             var isSaveButtonEnabled by remember { mutableStateOf(false) }
+            var isApiCallInProgress by remember { mutableStateOf(false) }
             var selectedCity: City? by remember { mutableStateOf(null) }
+            var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
             var reminderNotes: String = ""
             val context = LocalContext.current
 
@@ -149,6 +167,8 @@ class AlertSettingsPresenter
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
                 isAllInputValid = isSaveButtonEnabled,
+                isApiCallInProgress = isApiCallInProgress,
+                snackbarData = snackbarData,
             ) { event ->
                 when (event) {
                     is AlertSettingsScreen.Event.RainThresholdChanged -> {
@@ -161,32 +181,108 @@ class AlertSettingsPresenter
 
                     is AlertSettingsScreen.Event.SaveSettingsClicked -> {
                         Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
+                        isApiCallInProgress = true
+                        isSaveButtonEnabled = false
+
                         scope.launch {
+                            // ❌ Wrong, should show toast message instead that you must select from dropdown
                             val city = selectedCity ?: throw IllegalStateException("City not selected")
 
-                            database.alertDao().insertAlert(
-                                Alert(
-                                    cityId = city.id,
-                                    alertCategory = event.selectedAlertType,
-                                    threshold =
-                                        when (event.selectedAlertType) {
-                                            WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
-                                            WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
-                                        },
-                                    notes = reminderNotes,
-                                ),
-                            )
+                            delay(2000) // Simulate API call delay
 
-                            // Finally after saving, navigate back
-                            navigator.pop()
+                            val dailyForecast =
+                                weatherRepository.getDailyForecast(
+                                    cityId = city.id,
+                                    latitude = city.lat,
+                                    longitude = city.lng,
+                                    skipCache = true,
+                                )
+                            when (dailyForecast) {
+                                is ApiResult.Success -> {
+                                    database.alertDao().insertAlert(
+                                        Alert(
+                                            cityId = city.id,
+                                            alertCategory = event.selectedAlertType,
+                                            threshold =
+                                                when (event.selectedAlertType) {
+                                                    WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
+                                                    WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
+                                                },
+                                            notes = reminderNotes,
+                                        ),
+                                    )
+
+                                    // Finally after saving, navigate back
+                                    navigator.pop()
+                                }
+                                is ApiResult.Failure.ApiFailure -> {
+                                    isApiCallInProgress = false
+                                    snackbarData =
+                                        SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
+                                }
+                                is ApiResult.Failure.HttpFailure -> {
+                                    isApiCallInProgress = false
+                                    when (dailyForecast.code) {
+                                        WeatherApi.ERROR_HTTP_UNAUTHORIZED -> {
+                                            snackbarData =
+                                                SnackbarData(
+                                                    message =
+                                                        "The weather API is is likely exhausted or not active. " +
+                                                            "Please add your own API key.",
+                                                    actionLabel = "Add Key",
+                                                ) {
+                                                    // TODO - go to add api key screen
+                                                    navigator.pop()
+                                                }
+                                        }
+                                        WeatherApi.ERROR_HTTP_NOT_FOUND -> {
+                                            snackbarData =
+                                                SnackbarData(
+                                                    message =
+                                                        "Weather API is unable to find forecast for the city you have selected. " +
+                                                            "Please try different nearby city.",
+                                                ) {}
+                                        }
+                                        WeatherApi.ERROR_HTTP_TOO_MANY_REQUESTS -> {
+                                            snackbarData =
+                                                SnackbarData(
+                                                    message = "This public API key rate limit exceed. Please add your own API key.",
+                                                    actionLabel = "Add Key",
+                                                ) {
+                                                    // TODO - go to add api key screen
+                                                    navigator.pop()
+                                                }
+                                        }
+                                        else -> {
+                                            snackbarData =
+                                                SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
+                                        }
+                                    }
+                                }
+                                is ApiResult.Failure.NetworkFailure -> {
+                                    isApiCallInProgress = false
+                                    snackbarData =
+                                        SnackbarData(message = "Network error. Please check your internet connection.") {}
+                                }
+                                is ApiResult.Failure.UnknownFailure -> {
+                                    isApiCallInProgress = false
+                                    snackbarData =
+                                        SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
+                                }
+                            }
                         }
                     }
 
                     is AlertSettingsScreen.Event.SearchQueryChanged -> {
                         scope.launch {
-                            database.cityDao().searchCitiesByName(event.query, 20).collect {
-                                suggestions = it
-                            }
+                            database
+                                .cityDao()
+                                .searchCitiesByNameStartingWith(
+                                    searchQuery = event.query,
+                                    limit = 20,
+                                ).collect {
+                                    suggestions = it
+                                }
                         }
                     }
 
@@ -194,6 +290,7 @@ class AlertSettingsPresenter
                         Timber.d("Selected city: ${event.city}")
                         selectedCity = event.city
                         isSaveButtonEnabled = true
+                        snackbarData = null
                     }
 
                     is AlertSettingsScreen.Event.OnReminderNotesUpdated -> {
@@ -201,6 +298,7 @@ class AlertSettingsPresenter
                     }
 
                     AlertSettingsScreen.Event.GoBack -> {
+                        snackbarData = null
                         navigator.pop()
                     }
                 }
@@ -237,9 +335,11 @@ fun AlertSettingsScreen(
                     )
                 },
                 modifier =
-                    Modifier.padding(start = 8.dp).clickable {
-                        state.eventSink(AlertSettingsScreen.Event.GoBack)
-                    },
+                    Modifier
+                        .padding(start = 8.dp)
+                        .clickable {
+                            state.eventSink(AlertSettingsScreen.Event.GoBack)
+                        },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -255,6 +355,11 @@ fun AlertSettingsScreen(
             var selectedIndex: Int by remember { mutableIntStateOf(0) }
             val selectedAlertCategory: WeatherAlertCategory by remember {
                 derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }
+            }
+
+            AnimatedVisibility(visible = state.isApiCallInProgress) {
+                // Show loading indicator when API call is in progress
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
 
             EditableCityInputDropdownMenu(
@@ -356,6 +461,25 @@ fun AlertSettingsScreen(
             ) {
                 Text("Add Alert Settings")
             }
+        }
+    }
+
+    LaunchedEffect(state.snackbarData) {
+        val data = state.snackbarData
+        if (data != null) {
+            val snackbarResult = snackbarHostState.showSnackbar(data.message, data.actionLabel)
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {
+                    Timber.d("Snackbar dismissed")
+                }
+
+                SnackbarResult.ActionPerformed -> {
+                    data.action()
+                }
+            }
+        } else {
+            Timber.d("Snackbar data is null - hide")
+            snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
 }
@@ -536,6 +660,7 @@ fun SettingsScreenPreview() {
             snowThreshold = 5.0f,
             rainThreshold = 10.0f,
             isAllInputValid = true,
+            isApiCallInProgress = true,
         ) {},
     )
 }
