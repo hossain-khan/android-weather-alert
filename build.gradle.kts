@@ -32,4 +32,10 @@ plugins {
     // Room Gradle Plugin
     // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
     alias(libs.plugins.androidx.room) apply false
+
+    alias(libs.plugins.google.services) apply false
+
+    // Firebase Crashlytics Gradle plugin
+    // https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
+    alias(libs.plugins.firebase.crashlytics) apply false
 }

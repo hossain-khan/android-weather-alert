@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.3"
+firebaseBom = "33.7.0"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -104,6 +105,9 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "workManager" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 
 # Room Database
@@ -195,4 +199,8 @@ anvil = { id = "dev.zacsweers.anvil", version.ref = "anvil" }
 # https://github.com/pinterest/ktlint
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
 
+# Google Services plugin
+google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+# https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 
