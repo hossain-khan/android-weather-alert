@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
@@ -10,6 +11,25 @@ plugins {
     alias(libs.plugins.anvil)
     alias(libs.plugins.kotlinter)
     alias(libs.plugins.androidx.room)
+}
+
+// Creates a variable called keystorePropertiesFile, and initializes it to the keystore.properties file.
+// https://developer.android.com/build/gradle-tips#remove-private-signing-information-from-your-project
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initializes a new Properties() object called keystoreProperties.
+val keystoreProperties = Properties()
+
+// Loads the keystore.properties file into the keystoreProperties object.
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+} else {
+    // For CI builds, use debug cert to pass it.
+    // https://developer.android.com/studio/publish/app-signing#debug-mode
+    keystoreProperties["keyAlias"] = "androiddebugkey"
+    keystoreProperties["keyPassword"] = "android"
+    keystoreProperties["storeFile"] = "../keystore/debug.keystore"
+    keystoreProperties["storePassword"] = "android"
 }
 
 android {
@@ -40,6 +60,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
         }
     }
 
