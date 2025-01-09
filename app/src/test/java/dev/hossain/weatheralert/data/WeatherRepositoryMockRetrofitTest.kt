@@ -6,6 +6,7 @@ import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.util.TimeUtil

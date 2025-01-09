@@ -1,4 +1,4 @@
-package dev.hossain.weatheralert.data
+package dev.hossain.weatheralert.api
 
 import com.slack.eithernet.ApiResult
 import retrofit2.http.GET
