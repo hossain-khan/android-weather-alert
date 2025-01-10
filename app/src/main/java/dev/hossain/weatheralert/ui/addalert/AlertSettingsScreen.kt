@@ -86,7 +86,6 @@ import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -183,8 +182,6 @@ class AlertSettingsPresenter
                         scope.launch {
                             // ❌ Wrong, should show toast message instead that you must select from dropdown
                             val city = selectedCity ?: throw IllegalStateException("City not selected")
-
-                            delay(2000) // Simulate API call delay
 
                             val dailyForecast =
                                 weatherRepository.getDailyForecast(
