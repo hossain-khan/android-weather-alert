@@ -186,3 +186,21 @@ data class WeatherOverview(
     @Json(name = "units") val units: String,
     @Json(name = "weather_overview") val weatherOverview: String,
 )
+
+/**
+ * Possible error response from the API.
+ *
+ * Sample JSON response:
+ * ```json
+ * {
+ *   "cod": 429,
+ *   "message": "Your account is temporary blocked due to exceeding of requests limitation of your subscription type. Please choose the proper subscription https://openweathermap.org/price"
+ * }
+ * ```
+ */
+@JsonClass(generateAdapter = true)
+data class ErrorResponse(
+    val cod: Int?,
+    val code: Int?,
+    val message: String,
+)

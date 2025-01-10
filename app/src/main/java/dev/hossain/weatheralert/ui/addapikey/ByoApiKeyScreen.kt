@@ -133,9 +133,15 @@ class BringYourOwnApiKeyPresenter
                                         }
                                 }
                                 is ApiResult.Failure -> {
+                                    var serverMessage = ""
+                                    if (result is ApiResult.Failure.HttpFailure) {
+                                        result.error?.message?.let {
+                                            serverMessage = "\n⚠️ API message: $it"
+                                        }
+                                    }
                                     snackbarData =
                                         SnackbarData(
-                                            message = "Invalid API key. Please double check and try again.",
+                                            message = "Invalid API key. Please double check and try again.$serverMessage",
                                             actionLabel = "Okay",
                                         ) {
                                             snackbarData = null
@@ -216,7 +222,11 @@ fun BringYourOwnApiKeyScreen(
                 Image(
                     painter = painterResource(id = R.drawable.clouds),
                     contentDescription = "City",
-                    modifier = Modifier.size(96.dp).align(Alignment.TopStart).padding(start = 24.dp),
+                    modifier =
+                        Modifier
+                            .size(96.dp)
+                            .align(Alignment.TopStart)
+                            .padding(start = 24.dp),
                 )
             }
 
