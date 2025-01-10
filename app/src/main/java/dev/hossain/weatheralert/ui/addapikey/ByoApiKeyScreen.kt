@@ -1,7 +1,6 @@
 package dev.hossain.weatheralert.ui.addapikey
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +15,7 @@ import androidx.compose.material.icons.filled.Key
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -179,14 +179,14 @@ fun BringYourOwnApiKeyScreen(
             TopAppBar(
                 title = { Text("Your API Key") },
                 navigationIcon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Go back",
-                        modifier =
-                            Modifier.clickable {
-                                state.eventSink(BringYourOwnApiKeyScreen.Event.GoBack)
-                            },
-                    )
+                    IconButton(onClick = {
+                        state.eventSink(BringYourOwnApiKeyScreen.Event.GoBack)
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back",
+                        )
+                    }
                 },
             )
         },

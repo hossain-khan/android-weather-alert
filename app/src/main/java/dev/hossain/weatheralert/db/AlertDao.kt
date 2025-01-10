@@ -26,6 +26,12 @@ interface AlertDao {
     @Update
     suspend fun updateAlert(alert: Alert)
 
+    @Query("UPDATE alerts SET notes = :notes WHERE id = :alertId")
+    suspend fun updateAlertNote(
+        alertId: Int,
+        notes: String,
+    )
+
     @Delete
     suspend fun deleteAlert(alert: Alert)
 
