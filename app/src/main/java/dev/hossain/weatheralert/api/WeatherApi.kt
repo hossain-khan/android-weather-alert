@@ -65,4 +65,11 @@ interface WeatherApi {
         @Query("exclude") exclude: String = "current,minutely",
         @Query("units") units: String = UNIT_METRIC,
     ): ApiResult<WeatherForecast, Unit>
+
+    @GET("data/3.0/onecall/overview")
+    suspend fun getWeatherOverview(
+        @Query("appid") apiKey: String,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
+    ): ApiResult<WeatherOverview, Unit>
 }

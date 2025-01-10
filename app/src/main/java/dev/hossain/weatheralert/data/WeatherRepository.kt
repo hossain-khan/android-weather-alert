@@ -66,7 +66,28 @@ class WeatherRepositoryImpl
             }
         }
 
-        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit> = ApiResult.success(true)
+        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit> {
+            api
+                .getWeatherOverview(
+                    apiKey = apiKey,
+                    // Use New York City coordinates for basic API key validation.
+                    latitude = 40.7235827,
+                    longitude = -73.985626,
+                ).let { apiResult ->
+                    return when (apiResult) {
+                        is ApiResult.Success -> ApiResult.success(true)
+                        is ApiResult.Failure.ApiFailure -> ApiResult.apiFailure(apiResult.error)
+                        is ApiResult.Failure.HttpFailure ->
+                            ApiResult.httpFailure(
+                                apiResult.code,
+                                apiResult.error,
+                            )
+
+                        is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
+                        is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                    }
+                }
+        }
 
         private suspend fun loadForecastFromNetwork(
             latitude: Double,

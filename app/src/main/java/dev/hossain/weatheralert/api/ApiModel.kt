@@ -161,3 +161,28 @@ data class WeatherDescription(
     val description: String,
     val icon: String,
 )
+
+/**
+ * Weather overview data, currently used for API key validation only.
+ *
+ * Sample JSON:
+ * ```json
+ * {
+ *   "lat": 51.509865,
+ *   "lon": -11.8092,
+ *   "tz": "-01:00",
+ *   "date": "2025-01-10",
+ *   "units": "standard",
+ *   "weather_overview": "The current weather is overcast with a temperature of 282K and a real feel of 276K."
+ * }
+ * ```
+ */
+@JsonClass(generateAdapter = true)
+data class WeatherOverview(
+    @Json(name = "lat") val latitude: Double,
+    @Json(name = "lon") val longitude: Double,
+    @Json(name = "tz") val timezone: String,
+    @Json(name = "date") val date: String,
+    @Json(name = "units") val units: String,
+    @Json(name = "weather_overview") val weatherOverview: String,
+)

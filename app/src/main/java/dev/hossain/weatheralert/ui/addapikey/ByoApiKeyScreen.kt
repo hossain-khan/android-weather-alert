@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -55,6 +56,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.di.AppScope
@@ -94,6 +96,7 @@ class BringYourOwnApiKeyPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: BringYourOwnApiKeyScreen,
         private val weatherRepository: WeatherRepository,
+        private val preferencesManager: PreferencesManager,
     ) : Presenter<BringYourOwnApiKeyScreen.State> {
         @Composable
         override fun present(): BringYourOwnApiKeyScreen.State {
@@ -122,13 +125,21 @@ class BringYourOwnApiKeyPresenter
                             isApiCallInProgress = false
                             when (result) {
                                 is ApiResult.Success -> {
+                                    Timber.d("API key is valid - saving to preferences.")
+                                    preferencesManager.saveUserApiKey(apiKey)
                                     snackbarData =
-                                        SnackbarData("API key is valid") {
+                                        SnackbarData("✔️API key is valid and saved.", "Continue") {
                                             navigator.pop()
                                         }
                                 }
                                 is ApiResult.Failure -> {
-                                    snackbarData = SnackbarData("Invalid API key. Please try again.") {}
+                                    snackbarData =
+                                        SnackbarData(
+                                            message = "Invalid API key. Please double check and try again.",
+                                            actionLabel = "Okay",
+                                        ) {
+                                            snackbarData = null
+                                        }
                                 }
                             }
                         }
@@ -195,6 +206,7 @@ fun BringYourOwnApiKeyScreen(
                 style = MaterialTheme.typography.bodyLarge,
             )
 
+            // Image with clouds and servers for visual appeal.
             Box(modifier = Modifier.fillMaxWidth()) {
                 Image(
                     painter = painterResource(id = R.drawable.servers),
@@ -208,31 +220,7 @@ fun BringYourOwnApiKeyScreen(
                 )
             }
 
-            val annotatedLinkString =
-                buildAnnotatedString {
-                    append("Visit ")
-                    withLink(
-                        LinkAnnotation.Url(
-                            url = "https://openweathermap.org/api",
-                            styles =
-                                TextLinkStyles(
-                                    style = SpanStyle(color = MaterialTheme.colorScheme.primary),
-                                    hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
-                                ),
-                            linkInteractionListener = {
-                                // on click...
-                                if (!clicked) uriHandler.openUri("https://openweathermap.org/api")
-                                clicked = true
-                            },
-                        ),
-                    ) {
-                        withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                            append("openweathermap.org")
-                        }
-                    }
-                    append(" to get your API key.")
-                }
-            Text(text = annotatedLinkString)
+            OpenWeatherMapLinkedText(clicked, uriHandler)
 
             OutlinedTextField(
                 value = state.apiKey,
@@ -293,6 +281,39 @@ fun BringYourOwnApiKeyScreen(
             snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
+}
+
+@Composable
+private fun OpenWeatherMapLinkedText(
+    clicked: Boolean,
+    uriHandler: UriHandler,
+) {
+    var clicked1 = clicked
+    val annotatedLinkString =
+        buildAnnotatedString {
+            append("Visit ")
+            withLink(
+                LinkAnnotation.Url(
+                    url = "https://openweathermap.org/api",
+                    styles =
+                        TextLinkStyles(
+                            style = SpanStyle(color = MaterialTheme.colorScheme.primary),
+                            hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
+                        ),
+                    linkInteractionListener = {
+                        // on click...
+                        if (!clicked1) uriHandler.openUri("https://openweathermap.org/api")
+                        clicked1 = true
+                    },
+                ),
+            ) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+                    append("openweathermap.org")
+                }
+            }
+            append(" to get your API key.")
+        }
+    Text(text = annotatedLinkString)
 }
 
 @Preview(showBackground = true, name = "Light Mode")
