@@ -5,6 +5,7 @@ import androidx.work.Configuration
 import androidx.work.WorkerFactory
 import dev.hossain.weatheralert.di.AppComponent
 import dev.hossain.weatheralert.notification.createAppNotificationChannel
+import dev.hossain.weatheralert.util.CrashlyticsTree
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import jakarta.inject.Inject
 import timber.log.Timber
@@ -37,13 +38,21 @@ class WeatherAlertApp :
         super.onCreate()
         appComponent.inject(this)
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
+        installLoggingTree()
 
         createAppNotificationChannel(context = this)
         scheduleWeatherAlertsWork(context = this)
 
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
+    }
+
+    private fun installLoggingTree() {
+        if (BuildConfig.DEBUG) {
+            // Plant a debug tree for development builds
+            Timber.plant(Timber.DebugTree())
+        } else {
+            // Plant the custom Crashlytics tree for production builds
+            Timber.plant(CrashlyticsTree())
+        }
     }
 }
