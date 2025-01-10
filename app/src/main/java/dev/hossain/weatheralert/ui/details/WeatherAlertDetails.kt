@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -64,6 +66,8 @@ data class WeatherAlertDetailsScreen(
             val note: String,
         ) : Event()
 
+        data object DeleteAlert : Event()
+
         data object SaveNote : Event()
 
         data object GoBack : Event()
@@ -110,6 +114,13 @@ class WeatherAlertDetailsPresenter
                     WeatherAlertDetailsScreen.Event.GoBack -> {
                         navigator.pop()
                     }
+
+                    WeatherAlertDetailsScreen.Event.DeleteAlert -> {
+                        scope.launch {
+                            alertDao.deleteAlertById(screen.alertId)
+                            navigator.pop()
+                        }
+                    }
                 }
             }
         }
@@ -145,6 +156,16 @@ fun WeatherAlertDetailsScreen(
                             },
                     )
                 },
+                actions = {
+                    IconButton(onClick = {
+                        state.eventSink(WeatherAlertDetailsScreen.Event.DeleteAlert)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete alert",
+                        )
+                    }
+                },
             )
         },
     ) { padding ->
@@ -152,8 +173,7 @@ fun WeatherAlertDetailsScreen(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(padding)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             val alert = state.alertConfig
