@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
@@ -578,7 +579,7 @@ fun EditableCityInputDropdownMenu(
     suggestions: List<City>,
     onSuggestionClick: (City) -> Unit,
 ) {
-    val textFieldState = rememberTextFieldState()
+    val textFieldState: TextFieldState = rememberTextFieldState()
 
     // The text that the user inputs into the text field can be used to filter the options.
     // This sample uses string subsequence matching.
@@ -626,7 +627,7 @@ fun EditableCityInputDropdownMenu(
                         }
                     },
                     onClick = {
-                        textFieldState.setTextAndPlaceCursorAtEnd(city.cityName) // city.text?
+                        textFieldState.setTextAndPlaceCursorAtEnd(city.cityName)
                         setExpanded(false)
                         onSuggestionClick(city)
                     },
