@@ -7,6 +7,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -88,6 +89,7 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
+import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
@@ -111,7 +113,9 @@ data class CurrentWeatherAlertScreen(
             val item: AlertTileData,
         ) : Event()
 
-        data object OnItemClicked : Event()
+        data class OnItemClicked(
+            val alertId: Int,
+        ) : Event()
 
         data object AddNewAlertClicked : Event()
 
@@ -197,7 +201,11 @@ class CurrentWeatherAlertPresenter
                 isNetworkUnavailable = isNetworkUnavailable,
             ) { event ->
                 when (event) {
-                    CurrentWeatherAlertScreen.Event.OnItemClicked -> TODO()
+                    is CurrentWeatherAlertScreen.Event.OnItemClicked -> {
+                        Timber.d("Alert item clicked with id: ${event.alertId}")
+                        navigator.goTo(WeatherAlertDetailsScreen(event.alertId))
+                    }
+
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
                         navigator.goTo(AlertSettingsScreen("add-new-alert"))
                     }
@@ -321,7 +329,12 @@ fun AlertTileGrid(
             AlertTileItem(
                 alertTileData = alertTileData,
                 eventSink = eventSink,
-                modifier = Modifier.animateItem(),
+                modifier =
+                    Modifier
+                        .animateItem()
+                        .clickable {
+                            eventSink(CurrentWeatherAlertScreen.Event.OnItemClicked(alertTileData.alertId))
+                        },
             )
         }
     }
