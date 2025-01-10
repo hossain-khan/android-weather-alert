@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.details
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -103,6 +102,7 @@ class WeatherAlertDetailsPresenter
             ) { event ->
                 when (event) {
                     is WeatherAlertDetailsScreen.Event.EditNoteChanged -> {
+                        isEditingNote = true
                         alertNote = event.note
                     }
                     WeatherAlertDetailsScreen.Event.SaveNote -> {
@@ -147,14 +147,14 @@ fun WeatherAlertDetailsScreen(
             TopAppBar(
                 title = { Text("Alert Details") },
                 navigationIcon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Go back",
-                        modifier =
-                            Modifier.clickable {
-                                state.eventSink(WeatherAlertDetailsScreen.Event.GoBack)
-                            },
-                    )
+                    IconButton(
+                        onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.GoBack) },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back",
+                        )
+                    }
                 },
                 actions = {
                     IconButton(onClick = {
