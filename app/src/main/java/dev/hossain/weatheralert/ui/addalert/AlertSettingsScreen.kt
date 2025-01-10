@@ -209,12 +209,16 @@ class AlertSettingsPresenter
                                     navigator.pop()
                                 }
                                 is ApiResult.Failure.ApiFailure -> {
+                                    Timber.w("API error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                 }
                                 is ApiResult.Failure.HttpFailure -> {
+                                    Timber.w("HTTP error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     when (dailyForecast.code) {
                                         WeatherApi.ERROR_HTTP_UNAUTHORIZED -> {
                                             snackbarData =
@@ -251,12 +255,16 @@ class AlertSettingsPresenter
                                     }
                                 }
                                 is ApiResult.Failure.NetworkFailure -> {
+                                    Timber.e(dailyForecast.error, "Network error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Network error. Please check your internet connection.") {}
                                 }
                                 is ApiResult.Failure.UnknownFailure -> {
+                                    Timber.e(dailyForecast.error, "Unknown failure, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                 }
