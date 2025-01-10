@@ -606,7 +606,7 @@ fun EditableCityInputDropdownMenu(
                     .fillMaxWidth()
                     .menuAnchor(PrimaryEditable),
             label = { Text("City") },
-            placeholder = { Text("Search...") },
+            placeholder = { Text("Search and select city...") },
             singleLine = true,
             // Commented because of grey tint color in the box
             // colors = ExposedDropdownMenuDefaults.textFieldColors(),
