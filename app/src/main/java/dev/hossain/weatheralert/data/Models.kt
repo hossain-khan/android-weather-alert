@@ -76,3 +76,9 @@ data class Rain(
     val nextDayRain: Double = 0.0,
     val weeklyCumulativeRain: Double = 0.0,
 )
+
+data class SnackbarData(
+    val message: String,
+    val actionLabel: String? = null,
+    val action: () -> Unit,
+)

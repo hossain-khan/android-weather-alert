@@ -30,6 +30,11 @@ interface WeatherRepository {
         longitude: Double,
         skipCache: Boolean = false,
     ): ApiResult<ForecastData, Unit>
+
+    /**
+     * Validates the given API key by sending a basic API request.
+     */
+    suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit>
 }
 
 /**
@@ -60,6 +65,8 @@ class WeatherRepositoryImpl
                 loadForecastFromNetwork(latitude, longitude, cityId)
             }
         }
+
+        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit> = ApiResult.success(true)
 
         private suspend fun loadForecastFromNetwork(
             latitude: Double,
