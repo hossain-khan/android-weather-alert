@@ -43,7 +43,7 @@ android {
         minSdk = 30
         targetSdk = 35
         versionCode = 3
-        versionName = "1.3"
+        versionName = "1.2"
 
         // Read API key from local.properties
         val apiKey: String =
