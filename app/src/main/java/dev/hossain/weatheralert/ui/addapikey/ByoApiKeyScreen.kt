@@ -323,7 +323,7 @@ private fun OpenWeatherMapLinkedText(
                     append("openweathermap.org")
                 }
             }
-            append(" to get your API key for '")
+            append(" to get your free API key for '")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
                 append("One Call API 3.0")
             }
