@@ -5,7 +5,6 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -63,7 +62,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -80,7 +78,6 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -90,7 +87,6 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
-import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
@@ -292,24 +288,6 @@ fun CurrentWeatherAlerts(
         } else {
             snackbarHostState.currentSnackbarData?.dismiss()
         }
-    }
-}
-
-@Composable
-fun EmptyAlertState() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.hiking_direction),
-            contentDescription = "No alerts configured.",
-        )
-        Text(
-            text = "No custom weather alerts configured.",
-            style = MaterialTheme.typography.bodySmall,
-        )
     }
 }
 
@@ -681,13 +659,4 @@ fun CurrentWeatherAlertsPreview() {
             ),
         )
     CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
-}
-
-@Preview(showBackground = true, name = "Light Mode")
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
-@Composable
-fun EmptyStatePreview() {
-    WeatherAlertAppTheme {
-        EmptyAlertState()
-    }
 }
