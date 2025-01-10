@@ -7,14 +7,14 @@ import androidx.datastore.preferences.preferencesDataStore
 /**
  * Extension property to create a DataStore instance with the name "weather_alerts".
  */
-val Context.dataStore by preferencesDataStore("weather_alerts")
+val Context.dataStore by preferencesDataStore("weather_alerts_prefs")
 
 /**
  * Object to hold user preference keys for the weather alert application.
  */
 object UserPreferences {
     /**
-     * Key for storing the configured user alerts as a JSON string.
+     * Key for storing user provided API key.
      */
-    val savedAlerts = stringPreferencesKey("configured_user_alerts")
+    val userApiKey = stringPreferencesKey("user_byo_api_key")
 }

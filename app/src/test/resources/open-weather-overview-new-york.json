@@ -1,0 +1,10 @@
+{
+  "X-API-URL": "https://api.openweathermap.org/data/3.0/onecall/overview?lon=-73.985626&lat=40.7235827&appid=123",
+  "X-REQUEST-DATE": "2025-01-09",
+  "lat": 40.7235827,
+  "lon": -73.985626,
+  "tz": "-05:00",
+  "date": "2025-01-09",
+  "units": "standard",
+  "weather_overview": "The current weather in our area is quite chilly with a temperature of 271K (which is equivalent to -2\u00b0C). The wind speed is at 11 meter/sec, with gusts reaching up to 18 meter/sec, so it's quite breezy out there. The sky is clear with no clouds in sight, and visibility is at 10000 meters. The humidity is at 61%, so it's a bit on the dry side. The overall weather conditions are quite favorable for outdoor activities, but be sure to bundle up and brace yourself for the brisk winds. Stay warm and enjoy the clear skies!"
+}

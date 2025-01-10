@@ -77,6 +77,7 @@ import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
 import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
@@ -84,7 +85,7 @@ import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
-import kotlinx.coroutines.delay
+import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -134,12 +135,6 @@ data class AlertSettingsScreen(
     }
 }
 
-data class SnackbarData(
-    val message: String,
-    val actionLabel: String? = null,
-    val action: () -> Unit,
-)
-
 class AlertSettingsPresenter
     @AssistedInject
     constructor(
@@ -188,8 +183,6 @@ class AlertSettingsPresenter
                             // ❌ Wrong, should show toast message instead that you must select from dropdown
                             val city = selectedCity ?: throw IllegalStateException("City not selected")
 
-                            delay(2000) // Simulate API call delay
-
                             val dailyForecast =
                                 weatherRepository.getDailyForecast(
                                     cityId = city.id,
@@ -231,8 +224,7 @@ class AlertSettingsPresenter
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    // TODO - go to add api key screen
-                                                    navigator.pop()
+                                                    navigator.goTo(BringYourOwnApiKeyScreen("add-key"))
                                                 }
                                         }
                                         WeatherApi.ERROR_HTTP_NOT_FOUND -> {
@@ -249,8 +241,7 @@ class AlertSettingsPresenter
                                                     message = "This public API key rate limit exceed. Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    // TODO - go to add api key screen
-                                                    navigator.pop()
+                                                    navigator.goTo(BringYourOwnApiKeyScreen("add-key"))
                                                 }
                                         }
                                         else -> {

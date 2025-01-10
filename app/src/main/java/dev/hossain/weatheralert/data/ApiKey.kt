@@ -22,10 +22,15 @@ interface ApiKey {
 @ContributesBinding(AppScope::class)
 class ApiKeyImpl
     @Inject
-    constructor() : ApiKey {
+    constructor(
+        private val preferencesManager: PreferencesManager,
+    ) : ApiKey {
         /**
          * Retrieves the API key from the build configuration.
          */
         override val key: String
-            get() = BuildConfig.WEATHER_API_KEY
+            get() {
+                // Check if user has provided their own API key.
+                return preferencesManager.savedApiKey ?: BuildConfig.WEATHER_API_KEY
+            }
     }

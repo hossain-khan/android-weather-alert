@@ -30,6 +30,11 @@ interface WeatherRepository {
         longitude: Double,
         skipCache: Boolean = false,
     ): ApiResult<ForecastData, Unit>
+
+    /**
+     * Validates the given API key by sending a basic API request.
+     */
+    suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit>
 }
 
 /**
@@ -59,6 +64,29 @@ class WeatherRepositoryImpl
                 Timber.d("Fetching forecast data from network for cityId %s, skipCache: %s", cityId, skipCache)
                 loadForecastFromNetwork(latitude, longitude, cityId)
             }
+        }
+
+        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit> {
+            api
+                .getWeatherOverview(
+                    apiKey = apiKey,
+                    // Use New York City coordinates for basic API key validation.
+                    latitude = 40.7235827,
+                    longitude = -73.985626,
+                ).let { apiResult ->
+                    return when (apiResult) {
+                        is ApiResult.Success -> ApiResult.success(true)
+                        is ApiResult.Failure.ApiFailure -> ApiResult.apiFailure(apiResult.error)
+                        is ApiResult.Failure.HttpFailure ->
+                            ApiResult.httpFailure(
+                                apiResult.code,
+                                apiResult.error,
+                            )
+
+                        is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
+                        is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                    }
+                }
         }
 
         private suspend fun loadForecastFromNetwork(

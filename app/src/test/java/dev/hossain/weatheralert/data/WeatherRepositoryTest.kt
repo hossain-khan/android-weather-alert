@@ -39,6 +39,9 @@ class WeatherRepositoryTest {
     @Inject
     lateinit var timeUtil: TimeUtil
 
+    @Inject
+    lateinit var preferencesManager: PreferencesManager
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
@@ -48,7 +51,13 @@ class WeatherRepositoryTest {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
 
-        weatherRepository = WeatherRepositoryImpl(ApiKeyImpl(), weatherApi, cityForecastDao, timeUtil)
+        weatherRepository =
+            WeatherRepositoryImpl(
+                apiKey = ApiKeyImpl(preferencesManager = preferencesManager),
+                api = weatherApi,
+                cityForecastDao = cityForecastDao,
+                timeUtil = timeUtil,
+            )
     }
 
     @After

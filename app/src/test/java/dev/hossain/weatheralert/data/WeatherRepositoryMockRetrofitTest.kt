@@ -8,6 +8,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.api.WeatherForecast
+import dev.hossain.weatheralert.api.WeatherOverview
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.util.TimeUtil
@@ -44,6 +45,9 @@ class WeatherRepositoryMockRetrofitTest {
     @Inject
     lateinit var timeUtil: TimeUtil
 
+    @Inject
+    lateinit var preferencesManager: PreferencesManager
+
     @Before
     fun setUp() {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
@@ -77,7 +81,13 @@ class WeatherRepositoryMockRetrofitTest {
 
         behaviorDelegate = mockRetrofit.create(WeatherApi::class.java)
         val mockWeatherApi = MockWeatherApi(behaviorDelegate)
-        weatherRepository = WeatherRepositoryImpl(ApiKeyImpl(), mockWeatherApi, cityForecastDao, timeUtil)
+        weatherRepository =
+            WeatherRepositoryImpl(
+                apiKey = ApiKeyImpl(preferencesManager),
+                api = mockWeatherApi,
+                cityForecastDao = cityForecastDao,
+                timeUtil = timeUtil,
+            )
     }
 
     @Test
@@ -117,5 +127,24 @@ class WeatherRepositoryMockRetrofitTest {
 
             return delegate.returningResponse(result).getDailyForecast("key", latitude, longitude)
         }
+
+        override suspend fun getWeatherOverview(
+            apiKey: String,
+            latitude: Double,
+            longitude: Double,
+        ): ApiResult<WeatherOverview, Unit> =
+            delegate
+                .returningResponse(
+                    ApiResult.success(
+                        WeatherOverview(
+                            latitude = latitude,
+                            longitude = longitude,
+                            timezone = "America/Toronto",
+                            date = "2021-09-01",
+                            units = "metric",
+                            weatherOverview = "Weather overview for location",
+                        ),
+                    ),
+                ).getWeatherOverview("key", latitude, longitude)
     }
 }
