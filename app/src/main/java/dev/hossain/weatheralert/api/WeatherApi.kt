@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.api
 
 import com.slack.eithernet.ApiResult
+import com.slack.eithernet.DecodeErrorBody
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -31,6 +32,14 @@ interface WeatherApi {
          * - You are using a Free subscription and try requesting data available in other subscriptions .
          *   For example, 16 days/daily forecast API, any historical weather data, Weather maps 2.0, etc).
          *   Please, check your subscription in your personal account.
+         *
+         * Sample JSON response:
+         * ```json
+         * {
+         *   "cod": 401,
+         *   "message": "Please note that using One Call 3.0 requires a separate subscription to the One Call by Call plan. Learn more here https://openweathermap.org/price. If you have a valid subscription to the One Call by Call plan, but still receive this error, then please see https://openweathermap.org/faq#error401 for more info."
+         * }
+         * ```
          */
         internal const val ERROR_HTTP_UNAUTHORIZED = 401
 
@@ -53,6 +62,14 @@ interface WeatherApi {
          *   per minute (surpassing the limit of your subscription). To avoid this situation,
          *   please consider upgrading to a subscription plan that meets your needs or reduce the
          *   number of API calls in accordance with the limits.
+         *
+         * Sample JSON response:
+         * ```json
+         * {
+         *   "cod": 429,
+         *   "message": "Your account is temporary blocked due to exceeding of requests limitation of your subscription type. Please choose the proper subscription https://openweathermap.org/price"
+         * }
+         * ```
          */
         internal const val ERROR_HTTP_TOO_MANY_REQUESTS = 429
     }
@@ -66,10 +83,12 @@ interface WeatherApi {
         @Query("units") units: String = UNIT_METRIC,
     ): ApiResult<WeatherForecast, Unit>
 
+    // https://github.com/slackhq/EitherNet?tab=readme-ov-file#decoding-error-bodies
+    @DecodeErrorBody
     @GET("data/3.0/onecall/overview")
     suspend fun getWeatherOverview(
         @Query("appid") apiKey: String,
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
-    ): ApiResult<WeatherOverview, Unit>
+    ): ApiResult<WeatherOverview, ErrorResponse>
 }

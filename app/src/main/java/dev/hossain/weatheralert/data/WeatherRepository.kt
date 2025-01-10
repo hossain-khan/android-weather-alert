@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.data
 import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
+import dev.hossain.weatheralert.api.ErrorResponse
 import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.api.WeatherForecast
 import dev.hossain.weatheralert.db.CityForecast
@@ -34,7 +35,7 @@ interface WeatherRepository {
     /**
      * Validates the given API key by sending a basic API request.
      */
-    suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit>
+    suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, ErrorResponse>
 }
 
 /**
@@ -66,7 +67,7 @@ class WeatherRepositoryImpl
             }
         }
 
-        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, Unit> {
+        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, ErrorResponse> {
             api
                 .getWeatherOverview(
                     apiKey = apiKey,
