@@ -20,7 +20,7 @@ import retrofit2.http.Query
  * - [Weather units](https://openweathermap.org/weather-data)
  * - [One Call API](https://openweathermap.org/api/one-call-3)
  */
-interface WeatherApi {
+interface OpenWeatherService {
     companion object {
         // Units of measurement - `standard`, `metric`, and `imperial` units are available.
         // However, `metric` as baseline and conversion will be used later if needed.

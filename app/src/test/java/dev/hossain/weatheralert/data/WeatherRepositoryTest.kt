@@ -15,7 +15,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.OpenWeatherService
 import org.robolectric.RobolectricTestRunner
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class WeatherRepositoryTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     @Inject
-    lateinit var weatherApi: WeatherApi
+    lateinit var openWeatherService: OpenWeatherService
 
     @Inject
     lateinit var cityForecastDao: CityForecastDao
@@ -54,7 +54,7 @@ class WeatherRepositoryTest {
         weatherRepository =
             WeatherRepositoryImpl(
                 apiKey = ApiKeyImpl(preferencesManager = preferencesManager),
-                api = weatherApi,
+                api = openWeatherService,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
             )
