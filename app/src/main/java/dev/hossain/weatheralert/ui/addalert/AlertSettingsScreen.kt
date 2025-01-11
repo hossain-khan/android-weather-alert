@@ -76,7 +76,7 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.api.WeatherApi
+import org.openweathermap.api.WeatherApi
 import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
 import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager

@@ -1,7 +1,10 @@
-package dev.hossain.weatheralert.api
+package org.openweathermap.api
 
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.DecodeErrorBody
+import org.openweathermap.api.model.ErrorResponse
+import org.openweathermap.api.model.WeatherForecast
+import org.openweathermap.api.model.WeatherOverview
 import retrofit2.http.GET
 import retrofit2.http.Query
 

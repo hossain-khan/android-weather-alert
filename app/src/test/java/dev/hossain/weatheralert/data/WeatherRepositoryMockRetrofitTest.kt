@@ -6,10 +6,10 @@ import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import dev.hossain.weatheralert.api.ErrorResponse
-import dev.hossain.weatheralert.api.WeatherApi
-import dev.hossain.weatheralert.api.WeatherForecast
-import dev.hossain.weatheralert.api.WeatherOverview
+import org.openweathermap.api.model.ErrorResponse
+import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.model.WeatherForecast
+import org.openweathermap.api.model.WeatherOverview
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.util.TimeUtil
