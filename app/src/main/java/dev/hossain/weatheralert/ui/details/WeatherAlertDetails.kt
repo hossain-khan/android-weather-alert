@@ -187,7 +187,6 @@ fun WeatherAlertDetailsScreen(
                     .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding())
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
-
         ) {
             val alert = state.alertConfig
             val city = state.cityInfo
@@ -211,7 +210,15 @@ fun WeatherAlertDetailsScreen(
                                 WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
                             )
                         },
-                        label = { Text("Edit Note") },
+                        label = {
+                            Text(
+                                if (state.alertNote.isEmpty()) {
+                                    "Add reminder note"
+                                } else {
+                                    "Edit reminder note"
+                                },
+                            )
+                        },
                         modifier = Modifier.fillMaxWidth(),
                     )
                     OutlinedButton(
@@ -231,7 +238,13 @@ fun WeatherAlertDetailsScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text("Edit Note")
+                        Text(
+                            if (state.alertNote.isEmpty()) {
+                                "Add Note"
+                            } else {
+                                "Edit Note"
+                            },
+                        )
                     }
                 }
             }
