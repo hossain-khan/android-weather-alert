@@ -62,7 +62,7 @@ class PreferencesManager
          * Retrieves the active weather service based on user preference.
          * If user has not selected any service, it will return the default service.
          * @see defaultWeatherService
-         * @see selectWeatherService
+         * @see saveWeatherService
          */
         val activeWeatherService: Flow<WeatherService> =
             dataStore.data
@@ -88,7 +88,7 @@ class PreferencesManager
         /**
          * @see activeWeatherService
          */
-        suspend fun selectWeatherService(service: WeatherService) {
+        suspend fun saveWeatherService(service: WeatherService) {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[UserPreferences.weatherServiceKey] = service.name
             }

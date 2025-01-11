@@ -51,6 +51,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import timber.log.Timber
 
 @Parcelize
 data class UserSettingsScreen(
@@ -84,6 +85,7 @@ class UserSettingsPresenter
 
             LaunchedEffect(Unit) {
                 preferencesManager.activeWeatherService.collect { service ->
+                    Timber.d("Active weather service from preferences: $service")
                     selectedService = service
                 }
             }
@@ -93,9 +95,10 @@ class UserSettingsPresenter
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
+                        Timber.d("Selected weather service: ${event.service}")
                         selectedService = event.service
                         scope.launch {
-                            preferencesManager.selectWeatherService(event.service)
+                            preferencesManager.saveWeatherService(event.service)
                         }
                     }
                     UserSettingsScreen.Event.GoBack -> {
@@ -144,13 +147,14 @@ fun UserSettingsScreen(
                 modifier
                     .fillMaxSize()
                     .padding(padding)
+                    .padding(horizontal = 16.dp)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                text = "Select your preferred weather service:",
+                text = "Select your preferred weather API service:",
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.padding(8.dp),
             )
             RadioButtonGroup(
                 selectedService = state.selectedService,
