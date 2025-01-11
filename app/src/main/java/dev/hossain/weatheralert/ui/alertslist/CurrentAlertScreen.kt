@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.TagFaces
 import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Card
@@ -34,6 +35,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -87,6 +89,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
@@ -116,6 +119,8 @@ data class CurrentWeatherAlertScreen(
         data object AddNewAlertClicked : Event()
 
         data object MessageShown : Event()
+
+        data object SettingsClicked : Event()
     }
 }
 
@@ -222,6 +227,10 @@ class CurrentWeatherAlertPresenter
                     CurrentWeatherAlertScreen.Event.MessageShown -> {
                         userMessage = null
                     }
+
+                    CurrentWeatherAlertScreen.Event.SettingsClicked -> {
+                        navigator.goTo(UserSettingsScreen("settings"))
+                    }
                 }
             }
         }
@@ -246,7 +255,19 @@ fun CurrentWeatherAlerts(
     val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Weather Alerts") })
+            TopAppBar(
+                title = { Text("Weather Alerts") },
+                actions = {
+                    IconButton(onClick = {
+                        state.eventSink(CurrentWeatherAlertScreen.Event.SettingsClicked)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Delete alert",
+                        )
+                    }
+                },
+            )
         },
         floatingActionButton = {
             ExtendedFloatingActionButton(
