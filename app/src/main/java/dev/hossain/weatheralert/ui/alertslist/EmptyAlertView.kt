@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.ui.alertslist
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,9 +21,9 @@ import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 
 @Composable
-fun EmptyAlertState() {
+fun EmptyAlertState(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -71,6 +72,8 @@ fun EmptyAlertState() {
 @Composable
 fun EmptyStatePreview() {
     WeatherAlertAppTheme {
-        EmptyAlertState()
+        EmptyAlertState(
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        )
     }
 }
