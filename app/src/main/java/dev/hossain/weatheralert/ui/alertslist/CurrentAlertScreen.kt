@@ -87,7 +87,7 @@ import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
-import dev.hossain.weatheralert.ui.addalert.AlertSettingsScreen
+import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.util.formatUnit
@@ -211,7 +211,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
-                        navigator.goTo(AlertSettingsScreen("add-new-alert"))
+                        navigator.goTo(AddNewWeatherAlertScreen("add-new-alert"))
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
