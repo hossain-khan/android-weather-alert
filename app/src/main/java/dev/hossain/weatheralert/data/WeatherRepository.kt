@@ -5,6 +5,7 @@ import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
+import io.tomorrow.api.TomorrowIoService
 import org.openweathermap.api.OpenWeatherService
 import org.openweathermap.api.model.ErrorResponse
 import org.openweathermap.api.model.WeatherForecast
@@ -46,7 +47,8 @@ class WeatherRepositoryImpl
     @Inject
     constructor(
         private val apiKey: ApiKey,
-        private val api: OpenWeatherService,
+        private val openWeatherService: OpenWeatherService,
+        private val tomorrowIoService: TomorrowIoService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
     ) : WeatherRepository {
@@ -68,7 +70,7 @@ class WeatherRepositoryImpl
         }
 
         override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, ErrorResponse> {
-            api
+            openWeatherService
                 .getWeatherOverview(
                     apiKey = apiKey,
                     // Use New York City coordinates for basic API key validation.
@@ -96,7 +98,7 @@ class WeatherRepositoryImpl
             cityId: Int,
         ): ApiResult<ForecastData, Unit> {
             val apiResult =
-                api.getDailyForecast(
+                openWeatherService.getDailyForecast(
                     apiKey = apiKey.key,
                     latitude = latitude,
                     longitude = longitude,

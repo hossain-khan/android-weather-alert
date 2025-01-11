@@ -6,6 +6,7 @@ import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
+import io.tomorrow.api.TomorrowIoService
 import okhttp3.Cache
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -55,5 +56,12 @@ object NetworkModule {
             .build()
 
     @Provides
-    fun provideWeatherApi(retrofit: Retrofit): OpenWeatherService = retrofit.create(OpenWeatherService::class.java)
+    fun provideOpenWeatherService(retrofit: Retrofit): OpenWeatherService =
+        retrofit
+            .create(OpenWeatherService::class.java)
+
+    @Provides
+    fun provideTomorrowIoService(retrofit: Retrofit): TomorrowIoService =
+        retrofit
+            .create(TomorrowIoService::class.java)
 }
