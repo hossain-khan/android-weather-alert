@@ -53,7 +53,8 @@ class WeatherRepositoryTest {
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start(60000)
-        NetworkModule.baseUrl = mockWebServer.url("/")
+        NetworkModule.openWeatherBaseUrl = mockWebServer.url("/")
+        NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
