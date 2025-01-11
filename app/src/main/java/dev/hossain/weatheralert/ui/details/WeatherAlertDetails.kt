@@ -273,7 +273,7 @@ fun CityInfoUi(
                             .align(Alignment.TopEnd),
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(city.city, style = MaterialTheme.typography.headlineSmall)
+                    Text(city.city, style = MaterialTheme.typography.titleLarge)
                     Text(
                         "${city.provStateName ?: ""}, ${city.iso3}",
                         style = MaterialTheme.typography.bodyLarge,
