@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.settings
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -47,10 +45,10 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -222,34 +220,6 @@ fun RadioButtonGroup(
         }
     }
 }
-
-/**
- * Internal config to show logo with right sizing and description for each weather service.
- */
-private data class WeatherServiceLogoConfig(
-    @DrawableRes val logoResId: Int,
-    val logoWidth: Dp,
-    val logoHeight: Dp,
-    val description: String,
-)
-
-private fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
-    when (this) {
-        WeatherService.OPEN_WEATHER_MAP ->
-            WeatherServiceLogoConfig(
-                logoResId = R.drawable.openweather_logo,
-                logoWidth = 100.dp,
-                logoHeight = 50.dp,
-                description = "Free API service with larger usage limits. However, requires credit card to activate free API subscription.",
-            )
-        WeatherService.TOMORROW_IO ->
-            WeatherServiceLogoConfig(
-                logoResId = R.drawable.tomorrow_io_logo,
-                logoWidth = 120.dp,
-                logoHeight = 30.dp,
-                description = "Free API service with accurate data but limited usage limits. No credit card required.",
-            )
-    }
 
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
