@@ -17,9 +17,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CheckCircle
@@ -348,7 +350,8 @@ fun AlertSettingsScreen(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp),
+                    .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp)
+                    .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }

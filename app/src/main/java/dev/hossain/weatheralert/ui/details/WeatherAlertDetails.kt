@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -182,7 +184,8 @@ fun WeatherAlertDetailsScreen(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding()),
+                    .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding())
+                    .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             val alert = state.alertConfig
@@ -207,7 +210,15 @@ fun WeatherAlertDetailsScreen(
                                 WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
                             )
                         },
-                        label = { Text("Edit Note") },
+                        label = {
+                            Text(
+                                if (state.alertNote.isEmpty()) {
+                                    "Add reminder note"
+                                } else {
+                                    "Edit reminder note"
+                                },
+                            )
+                        },
                         modifier = Modifier.fillMaxWidth(),
                     )
                     OutlinedButton(
@@ -227,7 +238,13 @@ fun WeatherAlertDetailsScreen(
                         },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text("Edit Note")
+                        Text(
+                            if (state.alertNote.isEmpty()) {
+                                "Add Note"
+                            } else {
+                                "Edit Note"
+                            },
+                        )
                     }
                 }
             }
@@ -363,6 +380,8 @@ fun WeatherAlertNoteUi(
                     Text(
                         text = text,
                         style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
                     )
                 }
             }
