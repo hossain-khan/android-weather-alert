@@ -1,4 +1,4 @@
-package io.tomorrow.api
+package org.openweathermap.api
 
 import com.slack.eithernet.integration.retrofit.ApiResultCallAdapterFactory
 import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
@@ -8,12 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
- * Builder for [TomorrowIoService] for testing.
+ * Builder for [OpenWeatherService] for testing.
  */
-object TomorrowIoServiceBuilder {
+object OpenWeatherServiceBuilder {
     private val okHttpClient = OkHttpClient.Builder().build()
 
-    fun provideTomorrowIoService(baseUrl: HttpUrl): TomorrowIoService {
+    fun provideService(baseUrl: HttpUrl): OpenWeatherService {
         val retrofit =
             Retrofit
                 .Builder()
@@ -24,6 +24,6 @@ object TomorrowIoServiceBuilder {
                 .client(okHttpClient)
                 .build()
 
-        return retrofit.create(TomorrowIoService::class.java)
+        return retrofit.create(OpenWeatherService::class.java)
     }
 }

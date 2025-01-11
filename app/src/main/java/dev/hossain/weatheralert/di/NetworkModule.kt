@@ -11,7 +11,7 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.OpenWeatherService
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
@@ -55,5 +55,5 @@ object NetworkModule {
             .build()
 
     @Provides
-    fun provideWeatherApi(retrofit: Retrofit): WeatherApi = retrofit.create(WeatherApi::class.java)
+    fun provideWeatherApi(retrofit: Retrofit): OpenWeatherService = retrofit.create(OpenWeatherService::class.java)
 }

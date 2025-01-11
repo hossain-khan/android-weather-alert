@@ -5,7 +5,7 @@ import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
-import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.OpenWeatherService
 import org.openweathermap.api.model.ErrorResponse
 import org.openweathermap.api.model.WeatherForecast
 import timber.log.Timber
@@ -39,14 +39,14 @@ interface WeatherRepository {
 }
 
 /**
- * Implementation of [WeatherRepository] that uses [WeatherApi] to fetch weather data.
+ * Implementation of [WeatherRepository] that uses [OpenWeatherService] to fetch weather data.
  */
 @ContributesBinding(AppScope::class)
 class WeatherRepositoryImpl
     @Inject
     constructor(
         private val apiKey: ApiKey,
-        private val api: WeatherApi,
+        private val api: OpenWeatherService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
     ) : WeatherRepository {

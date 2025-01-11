@@ -14,7 +14,7 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.OpenWeatherService
 import org.openweathermap.api.model.ErrorResponse
 import org.openweathermap.api.model.WeatherForecast
 import org.openweathermap.api.model.WeatherOverview
@@ -35,7 +35,7 @@ import javax.inject.Inject
 @RunWith(RobolectricTestRunner::class)
 class WeatherRepositoryMockRetrofitTest {
     private lateinit var mockRetrofit: MockRetrofit
-    private lateinit var behaviorDelegate: BehaviorDelegate<WeatherApi>
+    private lateinit var behaviorDelegate: BehaviorDelegate<OpenWeatherService>
     private lateinit var weatherRepository: WeatherRepository
 
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -80,8 +80,8 @@ class WeatherRepositoryMockRetrofitTest {
                 .networkBehavior(networkBehavior)
                 .build()
 
-        behaviorDelegate = mockRetrofit.create(WeatherApi::class.java)
-        val mockWeatherApi = MockWeatherApi(behaviorDelegate)
+        behaviorDelegate = mockRetrofit.create(OpenWeatherService::class.java)
+        val mockWeatherApi = MockOpenWeatherService(behaviorDelegate)
         weatherRepository =
             WeatherRepositoryImpl(
                 apiKey = ApiKeyImpl(preferencesManager),
@@ -105,9 +105,9 @@ class WeatherRepositoryMockRetrofitTest {
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(0.0)
         }
 
-    class MockWeatherApi(
-        private val delegate: BehaviorDelegate<WeatherApi>,
-    ) : WeatherApi {
+    class MockOpenWeatherService(
+        private val delegate: BehaviorDelegate<OpenWeatherService>,
+    ) : OpenWeatherService {
         override suspend fun getDailyForecast(
             apiKey: String,
             latitude: Double,

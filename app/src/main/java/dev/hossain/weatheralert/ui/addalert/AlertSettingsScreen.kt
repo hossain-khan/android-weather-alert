@@ -90,7 +90,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
-import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.OpenWeatherService
 import timber.log.Timber
 
 @Parcelize
@@ -223,7 +223,7 @@ class AlertSettingsPresenter
                                     isApiCallInProgress = false
                                     isSaveButtonEnabled = true
                                     when (dailyForecast.code) {
-                                        WeatherApi.ERROR_HTTP_UNAUTHORIZED -> {
+                                        OpenWeatherService.ERROR_HTTP_UNAUTHORIZED -> {
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
@@ -234,7 +234,7 @@ class AlertSettingsPresenter
                                                     navigator.goTo(BringYourOwnApiKeyScreen("add-key"))
                                                 }
                                         }
-                                        WeatherApi.ERROR_HTTP_NOT_FOUND -> {
+                                        OpenWeatherService.ERROR_HTTP_NOT_FOUND -> {
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
@@ -242,7 +242,7 @@ class AlertSettingsPresenter
                                                             "Please try different nearby city.",
                                                 ) {}
                                         }
-                                        WeatherApi.ERROR_HTTP_TOO_MANY_REQUESTS -> {
+                                        OpenWeatherService.ERROR_HTTP_TOO_MANY_REQUESTS -> {
                                             snackbarData =
                                                 SnackbarData(
                                                     message = "This public API key rate limit exceed. Please add your own API key.",
