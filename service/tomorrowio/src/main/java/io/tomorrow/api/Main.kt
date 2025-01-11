@@ -1,4 +1,3 @@
 package io.tomorrow.api
 
-class Main {
-}
+class Main
