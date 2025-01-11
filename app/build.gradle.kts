@@ -45,12 +45,17 @@ android {
         versionCode = 4
         versionName = "1.3"
 
-        // Read API key from local.properties
-        val apiKey: String =
+        // Read bundled API key from local.properties
+        val openWeatherApiKey: String =
             project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
-                Properties().apply { load(it) }.getProperty("WEATHER_API_KEY")
+                Properties().apply { load(it) }.getProperty("OPEN_WEATHER_API_KEY")
             } ?: "API_KEY_FROM_local.properties"
-        buildConfigField("String", "WEATHER_API_KEY", "\"$apiKey\"")
+        val tomorrowIoApiKey: String =
+            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+                Properties().apply { load(it) }.getProperty("TOMORROW_IO_API_KEY")
+            } ?: "API_KEY_FROM_local.properties"
+        buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
+        buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

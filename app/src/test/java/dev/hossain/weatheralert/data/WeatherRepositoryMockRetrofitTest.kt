@@ -9,6 +9,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.util.TimeUtil
+import io.tomorrow.api.TomorrowIoService
+import io.tomorrow.api.model.WeatherResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
@@ -35,7 +37,8 @@ import javax.inject.Inject
 @RunWith(RobolectricTestRunner::class)
 class WeatherRepositoryMockRetrofitTest {
     private lateinit var mockRetrofit: MockRetrofit
-    private lateinit var behaviorDelegate: BehaviorDelegate<OpenWeatherService>
+    private lateinit var openWeatherServiceDelegate: BehaviorDelegate<OpenWeatherService>
+    private lateinit var tomorrowIoServiceDelegate: BehaviorDelegate<TomorrowIoService>
     private lateinit var weatherRepository: WeatherRepository
 
     private val context: Context = ApplicationProvider.getApplicationContext()
@@ -48,6 +51,9 @@ class WeatherRepositoryMockRetrofitTest {
 
     @Inject
     lateinit var preferencesManager: PreferencesManager
+
+    @Inject
+    lateinit var activeWeatherService: ActiveWeatherService
 
     @Before
     fun setUp() {
@@ -80,14 +86,18 @@ class WeatherRepositoryMockRetrofitTest {
                 .networkBehavior(networkBehavior)
                 .build()
 
-        behaviorDelegate = mockRetrofit.create(OpenWeatherService::class.java)
-        val mockWeatherApi = MockOpenWeatherService(behaviorDelegate)
+        openWeatherServiceDelegate = mockRetrofit.create(OpenWeatherService::class.java)
+        tomorrowIoServiceDelegate = mockRetrofit.create(TomorrowIoService::class.java)
+        val mockWeatherApi = MockOpenWeatherService(openWeatherServiceDelegate)
+        val mockTomorrowIoAi = MockTomorrowIoService(tomorrowIoServiceDelegate)
         weatherRepository =
             WeatherRepositoryImpl(
                 apiKey = ApiKeyImpl(preferencesManager),
-                api = mockWeatherApi,
+                openWeatherService = mockWeatherApi,
+                tomorrowIoService = mockTomorrowIoAi,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
+                activeWeatherService = activeWeatherService,
             )
     }
 
@@ -147,5 +157,33 @@ class WeatherRepositoryMockRetrofitTest {
                         ),
                     ),
                 ).getWeatherOverview("key", latitude, longitude)
+    }
+
+    class MockTomorrowIoService(
+        private val delegate: BehaviorDelegate<TomorrowIoService>,
+    ) : TomorrowIoService {
+        override suspend fun getWeatherForecast(
+            location: String,
+            apiKey: String,
+        ): ApiResult<WeatherResponse, Unit> {
+            val result =
+                ApiResult.success(
+                    WeatherResponse(
+                        location =
+                            io.tomorrow.api.model.Location(
+                                latitude = 0.0,
+                                longitude = 0.0,
+                            ),
+                        timelines =
+                            io.tomorrow.api.model.Timelines(
+                                minutely = emptyList(),
+                                hourly = emptyList(),
+                                daily = emptyList(),
+                            ),
+                    ),
+                )
+
+            return delegate.returningResponse(result).getWeatherForecast("0.0,0.0", "key")
+        }
     }
 }

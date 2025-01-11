@@ -5,6 +5,8 @@ import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dev.hossain.weatheralert.data.ActiveWeatherService
+import dev.hossain.weatheralert.data.ActiveWeatherServiceImpl
 import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.ApiKeyImpl
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -22,6 +24,9 @@ interface TestModule {
 
     @Binds
     fun bindApiKey(impl: ApiKeyImpl): ApiKey
+
+    @Binds
+    fun bindActiveWeatherService(impl: ActiveWeatherServiceImpl): ActiveWeatherService
 
     @Binds
     fun bindTimeUtil(impl: TimeUtilImpl): TimeUtil

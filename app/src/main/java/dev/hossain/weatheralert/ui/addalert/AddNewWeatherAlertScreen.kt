@@ -8,6 +8,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -62,6 +63,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -82,22 +84,26 @@ import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
+import dev.hossain.weatheralert.ui.serviceConfig
+import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import org.openweathermap.api.OpenWeatherService
 import timber.log.Timber
 
 @Parcelize
-data class AlertSettingsScreen(
+data class AddNewWeatherAlertScreen(
     val requestId: String,
 ) : Screen {
     data class State(
+        val selectedApiService: WeatherService?,
         val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
@@ -138,17 +144,17 @@ data class AlertSettingsScreen(
     }
 }
 
-class AlertSettingsPresenter
+class AddWeatherAlertPresenter
     @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
-        @Assisted private val screen: AlertSettingsScreen,
+        @Assisted private val screen: AddNewWeatherAlertScreen,
         private val preferencesManager: PreferencesManager,
         private val database: AppDatabase,
         private val weatherRepository: WeatherRepository,
-    ) : Presenter<AlertSettingsScreen.State> {
+    ) : Presenter<AddNewWeatherAlertScreen.State> {
         @Composable
-        override fun present(): AlertSettingsScreen.State {
+        override fun present(): AddNewWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
             var updatedSnowThreshold by remember { mutableFloatStateOf(DEFAULT_SNOW_THRESHOLD) }
             var updatedRainThreshold by remember { mutableFloatStateOf(DEFAULT_RAIN_THRESHOLD) }
@@ -156,11 +162,20 @@ class AlertSettingsPresenter
             var isSaveButtonEnabled by remember { mutableStateOf(false) }
             var isApiCallInProgress by remember { mutableStateOf(false) }
             var selectedCity: City? by remember { mutableStateOf(null) }
+            var selectedApiService by remember { mutableStateOf<WeatherService?>(null) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
             var reminderNotes: String = ""
             val context = LocalContext.current
 
-            return AlertSettingsScreen.State(
+            LaunchedEffect(Unit) {
+                preferencesManager.activeWeatherService.collect { service ->
+                    Timber.d("Active weather service from preferences: $service")
+                    selectedApiService = service
+                }
+            }
+
+            return AddNewWeatherAlertScreen.State(
+                selectedApiService = selectedApiService,
                 citySuggestions = suggestions,
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
@@ -169,15 +184,15 @@ class AlertSettingsPresenter
                 snackbarData = snackbarData,
             ) { event ->
                 when (event) {
-                    is AlertSettingsScreen.Event.RainThresholdChanged -> {
+                    is AddNewWeatherAlertScreen.Event.RainThresholdChanged -> {
                         updatedRainThreshold = event.value
                     }
 
-                    is AlertSettingsScreen.Event.SnowThresholdChanged -> {
+                    is AddNewWeatherAlertScreen.Event.SnowThresholdChanged -> {
                         updatedSnowThreshold = event.value
                     }
 
-                    is AlertSettingsScreen.Event.SaveSettingsClicked -> {
+                    is AddNewWeatherAlertScreen.Event.SaveSettingsClicked -> {
                         Timber.d("Save settings clicked: snow=${event.snowThreshold}, rain=${event.rainThreshold}")
                         isApiCallInProgress = true
                         isSaveButtonEnabled = false
@@ -275,7 +290,7 @@ class AlertSettingsPresenter
                         }
                     }
 
-                    is AlertSettingsScreen.Event.SearchQueryChanged -> {
+                    is AddNewWeatherAlertScreen.Event.SearchQueryChanged -> {
                         scope.launch {
                             database
                                 .cityDao()
@@ -288,18 +303,18 @@ class AlertSettingsPresenter
                         }
                     }
 
-                    is AlertSettingsScreen.Event.OnCitySelected -> {
+                    is AddNewWeatherAlertScreen.Event.OnCitySelected -> {
                         Timber.d("Selected city: ${event.city}")
                         selectedCity = event.city
                         isSaveButtonEnabled = true
                         snackbarData = null
                     }
 
-                    is AlertSettingsScreen.Event.OnReminderNotesUpdated -> {
+                    is AddNewWeatherAlertScreen.Event.OnReminderNotesUpdated -> {
                         reminderNotes = event.notes
                     }
 
-                    AlertSettingsScreen.Event.GoBack -> {
+                    AddNewWeatherAlertScreen.Event.GoBack -> {
                         snackbarData = null
                         navigator.pop()
                     }
@@ -307,21 +322,21 @@ class AlertSettingsPresenter
             }
         }
 
-        @CircuitInject(AlertSettingsScreen::class, AppScope::class)
+        @CircuitInject(AddNewWeatherAlertScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
             fun create(
                 navigator: Navigator,
-                screen: AlertSettingsScreen,
-            ): AlertSettingsPresenter
+                screen: AddNewWeatherAlertScreen,
+            ): AddWeatherAlertPresenter
         }
     }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@CircuitInject(AlertSettingsScreen::class, AppScope::class)
+@CircuitInject(AddNewWeatherAlertScreen::class, AppScope::class)
 @Composable
-fun AlertSettingsScreen(
-    state: AlertSettingsScreen.State,
+fun AddNewWeatherAlertScreen(
+    state: AddNewWeatherAlertScreen.State,
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -340,7 +355,7 @@ fun AlertSettingsScreen(
                     Modifier
                         .padding(start = 8.dp)
                         .clickable {
-                            state.eventSink(AlertSettingsScreen.Event.GoBack)
+                            state.eventSink(AddNewWeatherAlertScreen.Event.GoBack)
                         },
             )
         },
@@ -365,13 +380,17 @@ fun AlertSettingsScreen(
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
 
+            state.selectedApiService?.let {
+                CurrentApiServiceStateUi(it)
+            }
+
             EditableCityInputDropdownMenu(
                 onQueryChange = {
-                    state.eventSink(AlertSettingsScreen.Event.SearchQueryChanged(it))
+                    state.eventSink(AddNewWeatherAlertScreen.Event.SearchQueryChanged(it))
                 },
                 suggestions = state.citySuggestions,
                 onSuggestionClick = {
-                    state.eventSink(AlertSettingsScreen.Event.OnCitySelected(it))
+                    state.eventSink(AddNewWeatherAlertScreen.Event.OnCitySelected(it))
                 },
             )
 
@@ -412,7 +431,7 @@ fun AlertSettingsScreen(
                                 value = state.snowThreshold,
                                 onValueChange = {
                                     state.eventSink(
-                                        AlertSettingsScreen.Event.SnowThresholdChanged(
+                                        AddNewWeatherAlertScreen.Event.SnowThresholdChanged(
                                             it,
                                         ),
                                     )
@@ -432,7 +451,7 @@ fun AlertSettingsScreen(
                                 value = state.rainThreshold,
                                 onValueChange = {
                                     state.eventSink(
-                                        AlertSettingsScreen.Event.RainThresholdChanged(
+                                        AddNewWeatherAlertScreen.Event.RainThresholdChanged(
                                             it,
                                         ),
                                     )
@@ -446,14 +465,14 @@ fun AlertSettingsScreen(
             NotificationPermissionStatusUi()
 
             ReminderNotesUi {
-                state.eventSink(AlertSettingsScreen.Event.OnReminderNotesUpdated(it))
+                state.eventSink(AddNewWeatherAlertScreen.Event.OnReminderNotesUpdated(it))
             }
 
             Button(
                 enabled = state.isAllInputValid,
                 onClick = {
                     state.eventSink(
-                        AlertSettingsScreen.Event.SaveSettingsClicked(
+                        AddNewWeatherAlertScreen.Event.SaveSettingsClicked(
                             selectedAlertType = selectedAlertCategory,
                             snowThreshold = state.snowThreshold,
                             rainThreshold = state.rainThreshold,
@@ -484,6 +503,26 @@ fun AlertSettingsScreen(
             Timber.d("Snackbar data is null - hide")
             snackbarHostState.currentSnackbarData?.dismiss()
         }
+    }
+}
+
+@Composable
+private fun CurrentApiServiceStateUi(
+    weatherService: WeatherService,
+    modifier: Modifier = Modifier,
+) {
+    val serviceConfig = weatherService.serviceConfig()
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier,
+    ) {
+        Text("ℹ️ API Service: ", style = MaterialTheme.typography.labelSmall)
+        Image(
+            painter = painterResource(id = serviceConfig.logoResId),
+            // tint = MaterialTheme.colorScheme.secondary,
+            modifier = Modifier.size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
+            contentDescription = "${weatherService.name} logo image",
+        )
     }
 }
 
@@ -656,14 +695,17 @@ private fun hasNotificationPermission(context: Context) =
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
-fun SettingsScreenPreview() {
-    AlertSettingsScreen(
-        AlertSettingsScreen.State(
-            citySuggestions = emptyList(),
-            snowThreshold = 5.0f,
-            rainThreshold = 10.0f,
-            isAllInputValid = true,
-            isApiCallInProgress = true,
-        ) {},
-    )
+private fun AddWeatherAlertScreenPreview() {
+    WeatherAlertAppTheme {
+        AddNewWeatherAlertScreen(
+            AddNewWeatherAlertScreen.State(
+                selectedApiService = WeatherService.OPEN_WEATHER_MAP,
+                citySuggestions = emptyList(),
+                snowThreshold = 5.0f,
+                rainThreshold = 10.0f,
+                isAllInputValid = true,
+                isApiCallInProgress = true,
+            ) {},
+        )
+    }
 }

@@ -8,6 +8,7 @@ import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
 import dev.hossain.weatheralert.util.TimeUtil
+import io.tomorrow.api.TomorrowIoService
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -34,6 +35,9 @@ class WeatherRepositoryTest {
     lateinit var openWeatherService: OpenWeatherService
 
     @Inject
+    lateinit var tomorrowIoService: TomorrowIoService
+
+    @Inject
     lateinit var cityForecastDao: CityForecastDao
 
     @Inject
@@ -42,11 +46,15 @@ class WeatherRepositoryTest {
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
+    @Inject
+    lateinit var activeWeatherService: ActiveWeatherService
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start(60000)
-        NetworkModule.baseUrl = mockWebServer.url("/")
+        NetworkModule.openWeatherBaseUrl = mockWebServer.url("/")
+        NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
@@ -54,9 +62,11 @@ class WeatherRepositoryTest {
         weatherRepository =
             WeatherRepositoryImpl(
                 apiKey = ApiKeyImpl(preferencesManager = preferencesManager),
-                api = openWeatherService,
+                openWeatherService = openWeatherService,
+                tomorrowIoService = tomorrowIoService,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
+                activeWeatherService = activeWeatherService,
             )
     }
 

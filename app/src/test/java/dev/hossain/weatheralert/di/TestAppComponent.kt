@@ -1,14 +1,14 @@
 package dev.hossain.weatheralert.di
 
 import android.content.Context
+import com.squareup.anvil.annotations.optional.SingleIn
 import dagger.BindsInstance
 import dagger.Component
 import dev.hossain.weatheralert.data.WeatherRepositoryMockRetrofitTest
 import dev.hossain.weatheralert.data.WeatherRepositoryTest
 import dev.hossain.weatheralert.work.WeatherCheckWorkerTest
-import javax.inject.Singleton
 
-@Singleton
+@SingleIn(AppScope::class)
 @Component(modules = [NetworkModule::class, TestModule::class, TestDatabaseModule::class])
 interface TestAppComponent {
     fun inject(test: WeatherRepositoryTest)

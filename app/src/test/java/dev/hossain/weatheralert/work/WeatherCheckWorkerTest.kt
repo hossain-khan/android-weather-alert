@@ -44,7 +44,7 @@ class WeatherCheckWorkerTest {
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start(60000)
-        NetworkModule.baseUrl = mockWebServer.url("/")
+        NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
         injectTestClass()
 
@@ -127,7 +127,7 @@ class WeatherCheckWorkerTest {
     // Helper method to inject dependencies
     private fun injectTestClass() {
         context = ApplicationProvider.getApplicationContext()
-        NetworkModule.baseUrl
+        NetworkModule.tomorrowIoBaseUrl
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
     }

@@ -32,6 +32,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,10 +45,10 @@ import com.slack.circuit.runtime.screen.Screen
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -195,11 +196,23 @@ fun RadioButtonGroup(
                         selected = selectedService == service,
                         onClick = { onServiceSelected(service) },
                     )
+
+                    val serviceConfig = service.serviceConfig()
+
                     Column {
                         Image(
-                            painter = painterResource(id = service.logoResId()),
+                            painter = painterResource(id = serviceConfig.logoResId),
                             contentDescription = service.name,
-                            modifier = Modifier.size(120.dp, 50.dp),
+                            modifier =
+                                Modifier.size(
+                                    width = serviceConfig.logoWidth,
+                                    height = serviceConfig.logoHeight,
+                                ),
+                        )
+                        Text(
+                            text = serviceConfig.description,
+                            style = MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.alpha(0.6f).padding(top = 4.dp),
                         )
                     }
                 }
@@ -207,12 +220,6 @@ fun RadioButtonGroup(
         }
     }
 }
-
-fun WeatherService.logoResId(): Int =
-    when (this) {
-        WeatherService.OPEN_WEATHER_MAP -> R.drawable.openweather_logo
-        WeatherService.TOMORROW_IO -> R.drawable.tomorrow_io_logo
-    }
 
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
