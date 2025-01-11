@@ -6,6 +6,7 @@ import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
+import io.tomorrow.api.model.WeatherResponse
 import org.openweathermap.api.OpenWeatherService
 import org.openweathermap.api.model.ErrorResponse
 import org.openweathermap.api.model.WeatherForecast
@@ -51,6 +52,7 @@ class WeatherRepositoryImpl
         private val tomorrowIoService: TomorrowIoService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
+        private val activeWeatherService: ActiveWeatherService,
     ) : WeatherRepository {
         override suspend fun getDailyForecast(
             cityId: Int,
@@ -60,11 +62,20 @@ class WeatherRepositoryImpl
         ): ApiResult<ForecastData, Unit> {
             val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
 
-            return if (skipCache.not() && cityForecast != null && !timeUtil.isOlderThan24Hours(cityForecast.createdAt)) {
+            return if (skipCache.not() &&
+                cityForecast != null &&
+                !timeUtil.isOlderThan24Hours(
+                    cityForecast.createdAt,
+                )
+            ) {
                 Timber.d("Using cached forecast data for cityId: %s, skipCache: %s", cityId, skipCache)
                 ApiResult.success(convertToForecastData(cityForecast))
             } else {
-                Timber.d("Fetching forecast data from network for cityId %s, skipCache: %s", cityId, skipCache)
+                Timber.d(
+                    "Fetching forecast data from network for cityId %s, skipCache: %s",
+                    cityId,
+                    skipCache,
+                )
                 loadForecastFromNetwork(latitude, longitude, cityId)
             }
         }
@@ -97,6 +108,24 @@ class WeatherRepositoryImpl
             longitude: Double,
             cityId: Int,
         ): ApiResult<ForecastData, Unit> {
+            val selectedService = activeWeatherService.selectedService()
+            return when (selectedService) {
+                WeatherService.OPEN_WEATHER_MAP ->
+                    loadForecastUseOpenWeather(
+                        latitude,
+                        longitude,
+                        cityId,
+                    )
+
+                WeatherService.TOMORROW_IO -> loadForecastUseTomorrowIo(latitude, longitude, cityId)
+            }
+        }
+
+        private suspend fun WeatherRepositoryImpl.loadForecastUseOpenWeather(
+            latitude: Double,
+            longitude: Double,
+            cityId: Int,
+        ): ApiResult<ForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
                     apiKey = apiKey.key,
@@ -105,7 +134,30 @@ class WeatherRepositoryImpl
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
-                    val convertToForecastData = convertToForecastData(apiResult.value)
+                    val convertToForecastData = apiResult.value.toForecastData()
+                    cacheCityForecastData(cityId, convertToForecastData)
+                    ApiResult.success(convertToForecastData)
+                }
+
+                is ApiResult.Failure -> {
+                    apiResult
+                }
+            }
+        }
+
+        private suspend fun WeatherRepositoryImpl.loadForecastUseTomorrowIo(
+            latitude: Double,
+            longitude: Double,
+            cityId: Int,
+        ): ApiResult<ForecastData, Unit> {
+            val apiResult =
+                tomorrowIoService.getWeatherForecast(
+                    location = "$latitude,$longitude",
+                    apiKey = apiKey.key,
+                )
+            return when (apiResult) {
+                is ApiResult.Success -> {
+                    val convertToForecastData = apiResult.value.toForecastData()
                     cacheCityForecastData(cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
@@ -133,18 +185,17 @@ class WeatherRepositoryImpl
             )
         }
 
-        private fun convertToForecastData(weatherForecast: WeatherForecast): ForecastData {
-            // Convert `WeatherForecast` to `ForecastData`
-            return ForecastData(
-                latitude = weatherForecast.lat,
-                longitude = weatherForecast.lon,
+        private fun WeatherForecast.toForecastData(): ForecastData =
+            ForecastData(
+                latitude = lat,
+                longitude = lon,
                 snow =
                     Snow(
                         dailyCumulativeSnow =
-                            weatherForecast.hourly
+                            hourly
                                 .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
                         nextDaySnow =
-                            weatherForecast.daily
+                            daily
                                 .firstOrNull()
                                 ?.snowVolume ?: 0.0,
                         weeklyCumulativeSnow = 0.0,
@@ -152,16 +203,15 @@ class WeatherRepositoryImpl
                 rain =
                     Rain(
                         dailyCumulativeRain =
-                            weatherForecast.hourly
+                            hourly
                                 .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
                         nextDayRain =
-                            weatherForecast.daily
+                            daily
                                 .firstOrNull()
                                 ?.rainVolume ?: 0.0,
                         weeklyCumulativeRain = 0.0,
                     ),
             )
-        }
 
         private fun convertToForecastData(cityForecast: CityForecast) =
             ForecastData(
@@ -180,4 +230,36 @@ class WeatherRepositoryImpl
                         weeklyCumulativeRain = 0.0,
                     ),
             )
+
+        private fun WeatherResponse.toForecastData(): ForecastData {
+            // Convert `WeatherResponse` to `ForecastData`
+            return ForecastData(
+                latitude = location.latitude,
+                longitude = location.longitude,
+                snow =
+                    Snow(
+                        dailyCumulativeSnow =
+                            timelines.hourly
+                                .sumOf { it.values.snowDepth ?: 0.0 },
+                        nextDaySnow =
+                            timelines.daily
+                                .firstOrNull()
+                                ?.values
+                                ?.snowAccumulation ?: 0.0,
+                        weeklyCumulativeSnow = 0.0,
+                    ),
+                rain =
+                    Rain(
+                        dailyCumulativeRain =
+                            timelines.hourly
+                                .sumOf { it.values.rainAccumulation ?: 0.0 },
+                        nextDayRain =
+                            timelines.daily
+                                .firstOrNull()
+                                ?.values
+                                ?.rainAccumulation ?: 0.0,
+                        weeklyCumulativeRain = 0.0,
+                    ),
+            )
+        }
     }

@@ -62,6 +62,8 @@ data class WeatherValues(
     @Json(name = "cloudCover") val cloudCover: Double?,
     /** Dew point temperature (°C). */
     @Json(name = "dewPoint") val dewPoint: Double?,
+    /** Evapotranspiration (mm). */
+    @Json(name = "evapotranspiration") val evapotranspiration: Double?,
     /** Freezing rain intensity (mm/hr). */
     @Json(name = "freezingRainIntensity") val freezingRainIntensity: Double?,
     /** Probability of hail occurrence (%). */
@@ -70,14 +72,32 @@ data class WeatherValues(
     @Json(name = "hailSize") val hailSize: Double?,
     /** Relative humidity (%). */
     @Json(name = "humidity") val humidity: Double?,
+    /** Ice accumulation (mm). */
+    @Json(name = "iceAccumulation") val iceAccumulation: Double?,
+    /** Ice accumulation liquid water equivalent (mm). */
+    @Json(name = "iceAccumulationLwe") val iceAccumulationLwe: Double?,
     /** Probability of precipitation (%). */
     @Json(name = "precipitationProbability") val precipitationProbability: Int?,
     /** Surface level pressure (hPa). */
     @Json(name = "pressureSurfaceLevel") val pressureSurfaceLevel: Double?,
+    /** Rain accumulation (mm). */
+    @Json(name = "rainAccumulation") val rainAccumulation: Double?,
+    /** Rain accumulation liquid water equivalent (mm). */
+    @Json(name = "rainAccumulationLwe") val rainAccumulationLwe: Double?,
     /** Rainfall intensity (mm/hr). */
     @Json(name = "rainIntensity") val rainIntensity: Double?,
+    /** Sleet accumulation (mm). */
+    @Json(name = "sleetAccumulation") val sleetAccumulation: Double?,
+    /** Sleet accumulation liquid water equivalent (mm). */
+    @Json(name = "sleetAccumulationLwe") val sleetAccumulationLwe: Double?,
     /** Sleet intensity (mm/hr). */
     @Json(name = "sleetIntensity") val sleetIntensity: Double?,
+    /** Snow accumulation (mm). */
+    @Json(name = "snowAccumulation") val snowAccumulation: Double?,
+    /** Snow accumulation liquid water equivalent (mm). */
+    @Json(name = "snowAccumulationLwe") val snowAccumulationLwe: Double?,
+    /** Snow depth (cm). */
+    @Json(name = "snowDepth") val snowDepth: Double?,
     /** Snowfall intensity (mm/hr). */
     @Json(name = "snowIntensity") val snowIntensity: Double?,
     /** Temperature (°C). */
