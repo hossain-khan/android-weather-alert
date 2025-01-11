@@ -59,7 +59,7 @@ data class WeatherValues(
     /** Cloud ceiling height (km). */
     @Json(name = "cloudCeiling") val cloudCeiling: Double?,
     /** Cloud cover percentage. */
-    @Json(name = "cloudCover") val cloudCover: Int?,
+    @Json(name = "cloudCover") val cloudCover: Double?,
     /** Dew point temperature (°C). */
     @Json(name = "dewPoint") val dewPoint: Double?,
     /** Freezing rain intensity (mm/hr). */
