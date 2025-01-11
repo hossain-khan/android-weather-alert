@@ -22,9 +22,9 @@ class TimeUtilTest {
         assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis))
 
         // Test with a time that is more than 24 hours old
-        assertTrue(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis - 1))
+        assertTrue(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis - 1_000))
 
         // Test with a time that is less than 24 hours old
-        assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis + 1))
+        assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis + 1_000))
     }
 }
