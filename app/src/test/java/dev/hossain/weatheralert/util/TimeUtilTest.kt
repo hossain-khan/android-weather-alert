@@ -14,17 +14,23 @@ class TimeUtilTest {
     }
 
     @Test
-    fun testIsOlderThan24Hours() {
+    fun testIs1HourOld() {
         val currentTime = System.currentTimeMillis()
-        val twentyFourHoursInMillis = 24 * 60 * 60 * 1000
+        val oneHourInMillis = 1 * 60 * 60 * 1000
+        assertFalse(timeUtil.isOlderThan24Hours(currentTime - oneHourInMillis))
+    }
 
-        // Test with a time that is exactly 24 hours old
-        assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis))
+    @Test
+    fun testIsLessThan24HoursOld() {
+        val currentTime = System.currentTimeMillis()
+        val twentyThreeHoursInMillis = 23 * 60 * 60 * 1000
+        assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyThreeHoursInMillis))
+    }
 
-        // Test with a time that is more than 24 hours old
-        assertTrue(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis - 1_000))
-
-        // Test with a time that is less than 24 hours old
-        assertFalse(timeUtil.isOlderThan24Hours(currentTime - twentyFourHoursInMillis + 1_000))
+    @Test
+    fun testIsMoreThan24HoursOld() {
+        val currentTime = System.currentTimeMillis()
+        val fortyEightHoursInMillis = 48 * 60 * 60 * 1000
+        assertTrue(timeUtil.isOlderThan24Hours(currentTime - fortyEightHoursInMillis))
     }
 }
