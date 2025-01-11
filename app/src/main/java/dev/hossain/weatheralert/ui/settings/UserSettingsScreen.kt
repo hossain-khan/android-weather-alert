@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.ui.settings
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,8 +33,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -195,11 +198,23 @@ fun RadioButtonGroup(
                         selected = selectedService == service,
                         onClick = { onServiceSelected(service) },
                     )
+
+                    val serviceConfig = service.serviceConfig()
+
                     Column {
                         Image(
-                            painter = painterResource(id = service.logoResId()),
+                            painter = painterResource(id = serviceConfig.logoResId),
                             contentDescription = service.name,
-                            modifier = Modifier.size(120.dp, 50.dp),
+                            modifier =
+                                Modifier.size(
+                                    width = serviceConfig.logoWidth,
+                                    height = serviceConfig.logoHeight,
+                                ),
+                        )
+                        Text(
+                            text = serviceConfig.description,
+                            style = MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.alpha(0.6f).padding(top = 4.dp),
                         )
                     }
                 }
@@ -208,10 +223,32 @@ fun RadioButtonGroup(
     }
 }
 
-fun WeatherService.logoResId(): Int =
+/**
+ * Internal config to show logo with right sizing and description for each weather service.
+ */
+private data class WeatherServiceLogoConfig(
+    @DrawableRes val logoResId: Int,
+    val logoWidth: Dp,
+    val logoHeight: Dp,
+    val description: String,
+)
+
+private fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
     when (this) {
-        WeatherService.OPEN_WEATHER_MAP -> R.drawable.openweather_logo
-        WeatherService.TOMORROW_IO -> R.drawable.tomorrow_io_logo
+        WeatherService.OPEN_WEATHER_MAP ->
+            WeatherServiceLogoConfig(
+                logoResId = R.drawable.openweather_logo,
+                logoWidth = 100.dp,
+                logoHeight = 50.dp,
+                description = "Free API service with larger usage limits. However, requires credit card to activate free API subscription.",
+            )
+        WeatherService.TOMORROW_IO ->
+            WeatherServiceLogoConfig(
+                logoResId = R.drawable.tomorrow_io_logo,
+                logoWidth = 120.dp,
+                logoHeight = 30.dp,
+                description = "Free API service with accurate data but limited usage limits. No credit card required.",
+            )
     }
 
 @Preview(showBackground = true, name = "Light Mode")
