@@ -8,6 +8,11 @@ import retrofit2.http.Query
 
 /**
  * Retrofit API service for Tomorrow.io weather data.
+ *
+ * Free Tier Limits
+ * - Requests per second: 3
+ * - Requests per hour: 25
+ * - Requests per day: 500
  */
 interface TomorrowIoService {
     /**
