@@ -1,11 +1,12 @@
 package dev.hossain.weatheralert.ui.alertslist
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +21,9 @@ import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 
 @Composable
-fun EmptyAlertState() {
+fun EmptyAlertState(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -34,7 +35,7 @@ fun EmptyAlertState() {
             text = "No custom weather alerts configured.",
             style = MaterialTheme.typography.bodySmall,
         )
-        Box(modifier = Modifier.padding(vertical = 120.dp)) {
+        Column(modifier = Modifier.padding(vertical = 120.dp)) {
             Text(
                 text = "Powered by,",
                 style = MaterialTheme.typography.bodySmall.copy(color = MaterialTheme.colorScheme.tertiary),
@@ -42,13 +43,25 @@ fun EmptyAlertState() {
             )
             Image(
                 painter = painterResource(id = R.drawable.openweather_logo),
-                contentDescription = "Add new alert.",
+                contentDescription = "Open Weather Map Logo",
                 modifier =
                     Modifier
                         // Original: width="176dp" height="79dp"
-                        .padding(top = 24.dp, start = 56.dp)
+                        .padding(top = 16.dp, start = 56.dp)
                         // Reduces intensity by a bit
                         .alpha(0.9f),
+            )
+            Image(
+                painter = painterResource(id = R.drawable.tomorrow_io_logo),
+                modifier =
+                    Modifier
+                        .padding(top = 24.dp, start = 56.dp)
+                        // Original: width="134dp" height="25dp"
+                        // Increase by 30% to match the OpenWeather logo
+                        .size(174.dp, 32.dp)
+                        // Reduces intensity by a bit
+                        .alpha(0.9f),
+                contentDescription = "Tomorrow.io Logo",
             )
         }
     }
@@ -59,6 +72,8 @@ fun EmptyAlertState() {
 @Composable
 fun EmptyStatePreview() {
     WeatherAlertAppTheme {
-        EmptyAlertState()
+        EmptyAlertState(
+            modifier = Modifier.background(MaterialTheme.colorScheme.surface),
+        )
     }
 }
