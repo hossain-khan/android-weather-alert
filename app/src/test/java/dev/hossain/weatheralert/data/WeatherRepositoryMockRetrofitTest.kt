@@ -52,6 +52,9 @@ class WeatherRepositoryMockRetrofitTest {
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
+    @Inject
+    lateinit var activeWeatherService: ActiveWeatherService
+
     @Before
     fun setUp() {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
@@ -94,6 +97,7 @@ class WeatherRepositoryMockRetrofitTest {
                 tomorrowIoService = mockTomorrowIoAi,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
+                activeWeatherService = activeWeatherService,
             )
     }
 

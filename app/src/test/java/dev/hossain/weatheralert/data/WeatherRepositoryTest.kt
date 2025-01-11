@@ -46,6 +46,9 @@ class WeatherRepositoryTest {
     @Inject
     lateinit var preferencesManager: PreferencesManager
 
+    @Inject
+    lateinit var activeWeatherService: ActiveWeatherService
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
@@ -62,6 +65,7 @@ class WeatherRepositoryTest {
                 tomorrowIoService = tomorrowIoService,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
+                activeWeatherService = activeWeatherService,
             )
     }
 
