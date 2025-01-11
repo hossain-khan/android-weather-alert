@@ -204,3 +204,8 @@ google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 # https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 
+# Plugin for Android Libraries
+# https://developer.android.com/studio/projects/android-library
+# https://developer.android.com/build
+android-library = { id = "com.android.library", version.ref = "agp" }
+
