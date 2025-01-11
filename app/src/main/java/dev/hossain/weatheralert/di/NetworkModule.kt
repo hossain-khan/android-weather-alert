@@ -6,12 +6,12 @@ import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import org.openweathermap.api.WeatherApi
 import okhttp3.Cache
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.openweathermap.api.WeatherApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File

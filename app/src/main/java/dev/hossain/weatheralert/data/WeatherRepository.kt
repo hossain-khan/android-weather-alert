@@ -1,13 +1,13 @@
 package dev.hossain.weatheralert.data
 import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
-import org.openweathermap.api.model.ErrorResponse
-import org.openweathermap.api.WeatherApi
-import org.openweathermap.api.model.WeatherForecast
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
+import org.openweathermap.api.WeatherApi
+import org.openweathermap.api.model.ErrorResponse
+import org.openweathermap.api.model.WeatherForecast
 import timber.log.Timber
 import javax.inject.Inject
 

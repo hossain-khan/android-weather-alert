@@ -76,7 +76,6 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import org.openweathermap.api.WeatherApi
 import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
 import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -91,6 +90,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
+import org.openweathermap.api.WeatherApi
 import timber.log.Timber
 
 @Parcelize
