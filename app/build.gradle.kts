@@ -99,6 +99,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":service:tomorrowio"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

@@ -4,6 +4,11 @@ plugins {
     // Project: https://developer.android.com/build
     alias(libs.plugins.android.application) apply false
 
+    // Applies the Android library plugin.
+    // Project: https://developer.android.com/build
+    // https://developer.android.com/studio/projects/android-library
+    alias(libs.plugins.android.library) apply false
+
     // Applies the Kotlin Android plugin.
     // Project: https://kotlinlang.org/docs/android-overview.html
     alias(libs.plugins.kotlin.android) apply false

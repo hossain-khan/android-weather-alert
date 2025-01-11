@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Weather Alert"
 include(":app")
+include(":service:tomorrowio")
