@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
-import dev.hossain.weatheralert.api.WeatherApi
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
@@ -16,6 +15,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.openweathermap.api.WeatherApi
 import org.robolectric.RobolectricTestRunner
 import javax.inject.Inject
 

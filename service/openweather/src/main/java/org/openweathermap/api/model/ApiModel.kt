@@ -1,4 +1,4 @@
-package dev.hossain.weatheralert.api
+package org.openweathermap.api.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

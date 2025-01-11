@@ -1,7 +1,10 @@
-package dev.hossain.weatheralert.api
+package org.openweathermap.api
 
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.DecodeErrorBody
+import org.openweathermap.api.model.ErrorResponse
+import org.openweathermap.api.model.WeatherForecast
+import org.openweathermap.api.model.WeatherOverview
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -41,7 +44,7 @@ interface WeatherApi {
          * }
          * ```
          */
-        internal const val ERROR_HTTP_UNAUTHORIZED = 401
+        const val ERROR_HTTP_UNAUTHORIZED = 401
 
         /**
          * You can get this error when you specified the wrong city name, ZIP-code or city ID.
@@ -53,7 +56,7 @@ interface WeatherApi {
          * correct API requests, please visit the Documentation of a specific API and read
          * the examples of API calls there.
          */
-        internal const val ERROR_HTTP_NOT_FOUND = 404
+        const val ERROR_HTTP_NOT_FOUND = 404
 
         /**
          * You can receive this error in the following cases:
@@ -71,7 +74,7 @@ interface WeatherApi {
          * }
          * ```
          */
-        internal const val ERROR_HTTP_TOO_MANY_REQUESTS = 429
+        const val ERROR_HTTP_TOO_MANY_REQUESTS = 429
     }
 
     @GET("data/3.0/onecall")
