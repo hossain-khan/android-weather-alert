@@ -11,13 +11,13 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.NoteAlt
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -204,26 +204,20 @@ fun WeatherAlertDetailsScreen(
                         value = state.alertNote,
                         onValueChange = {
                             state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(
-                                    it,
-                                ),
+                                WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
                             )
                         },
                         label = { Text("Edit Note") },
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Button(
+                    OutlinedButton(
                         onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text("Save Note")
                     }
                 } else {
-                    Text(
-                        text = "Note: ${state.alertNote}",
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    Button(
+                    OutlinedButton(
                         onClick = {
                             state.eventSink(
                                 WeatherAlertDetailsScreen.Event.EditNoteChanged(
@@ -252,9 +246,9 @@ fun CityInfoUi(
                 .fillMaxWidth(),
     ) {
         Text(
-            text = "Alert Set For",
+            text = "Alert City",
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(bottom = 8.dp),
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
             // modifier = Modifier.align(Alignment.End),
         )
         Card(
@@ -297,7 +291,7 @@ fun WeatherAlertConfigUi(
         Text(
             text = "Alert Configuration",
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(bottom = 8.dp),
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
         )
         Card(
             modifier = modifier.fillMaxWidth(),
@@ -314,7 +308,7 @@ fun WeatherAlertConfigUi(
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "Category: ${alert.alertCategory.label}",
+                        text = "Alert Type: ${alert.alertCategory.label}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
@@ -342,9 +336,9 @@ fun WeatherAlertNoteUi(
                 .fillMaxWidth(),
     ) {
         Text(
-            text = "Alert Configuration",
+            text = "Alert Note",
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(bottom = 8.dp),
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
         )
         Card(
             modifier = modifier.fillMaxWidth(),
