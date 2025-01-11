@@ -146,6 +146,9 @@ class CurrentWeatherAlertPresenter
                             cityId = alert.city.id,
                             latitude = alert.city.lat,
                             longitude = alert.city.lng,
+                            // Load from the cache for reduced API usage
+                            // and for offline usage. DO NOT SKIP CACHE.
+                            skipCache = false,
                         )
 
                     when (apiResult) {
