@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.ui.details
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,12 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.LocationCity
+import androidx.compose.material.icons.filled.NoteAlt
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -25,7 +29,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -38,12 +45,14 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -184,48 +193,31 @@ fun WeatherAlertDetailsScreen(
                 // Add loading indicator
                 CircularProgressIndicator()
             } else {
-                Text(
-                    text = "City: ${city.cityName}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-                Text(
-                    text = "Category: ${alert.alertCategory.name}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-                Text(
-                    text = "Threshold: ${alert.threshold}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-                Text(
-                    text = "Current Status: ${alert.threshold}",
-                    style = MaterialTheme.typography.bodyLarge,
-                )
+                CityInfoUi(city = city)
+
+                WeatherAlertConfigUi(alert = alert)
+
+                WeatherAlertNoteUi(note = state.alertNote)
 
                 if (state.isEditingNote) {
                     OutlinedTextField(
                         value = state.alertNote,
                         onValueChange = {
                             state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(
-                                    it,
-                                ),
+                                WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
                             )
                         },
                         label = { Text("Edit Note") },
                         modifier = Modifier.fillMaxWidth(),
                     )
-                    Button(
+                    OutlinedButton(
                         onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
                         modifier = Modifier.fillMaxWidth(),
                     ) {
                         Text("Save Note")
                     }
                 } else {
-                    Text(
-                        text = "Note: ${state.alertNote}",
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    Button(
+                    OutlinedButton(
                         onClick = {
                             state.eventSink(
                                 WeatherAlertDetailsScreen.Event.EditNoteChanged(
@@ -243,10 +235,145 @@ fun WeatherAlertDetailsScreen(
     }
 }
 
+@Composable
+fun CityInfoUi(
+    city: City,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Alert City",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+            // modifier = Modifier.align(Alignment.End),
+        )
+        Card(
+            modifier =
+                modifier
+                    .fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.LocationCity,
+                    contentDescription = "Alert Category",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(city.city, style = MaterialTheme.typography.titleLarge)
+                    Text(
+                        "${city.provStateName ?: ""}, ${city.iso3}",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherAlertConfigUi(
+    alert: Alert,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Alert Configuration",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = alert.alertCategory.icon(),
+                    contentDescription = "Alert Category",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Alert Type: ${alert.alertCategory.label}",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        text = "Threshold: ${alert.threshold}",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        text = "Current Status: ${alert.threshold}",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherAlertNoteUi(
+    note: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Alert Note",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.NoteAlt,
+                    contentDescription = "Alert Category",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    val text: AnnotatedString =
+                        if (note.isNotEmpty()) {
+                            parseMarkdown(note)
+                        } else {
+                            buildAnnotatedString { append("No note added.") }
+                        }
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                }
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
-fun PreviewWeatherAlertDetailsScreen() {
+private fun PreviewWeatherAlertDetailsScreen() {
     WeatherAlertAppTheme {
         WeatherAlertDetailsScreen(
             state =
@@ -262,7 +389,7 @@ fun PreviewWeatherAlertDetailsScreen() {
                     cityInfo =
                         City(
                             id = 1,
-                            cityName = "Sample City",
+                            cityName = "Salt Lake City",
                             lat = 0.0,
                             lng = 0.0,
                             country = "US",
@@ -271,12 +398,43 @@ fun PreviewWeatherAlertDetailsScreen() {
                             provStateName = "California",
                             capital = "Sacramento",
                             population = 1000000,
-                            city = "Sample City",
+                            city = "Salt Lake City",
                         ),
-                    alertNote = "Sample alert note",
+                    alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
                     eventSink = {},
                 ),
         )
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark Mode",
+)
+@Composable
+private fun CityInfoUiPreview() {
+    WeatherAlertAppTheme {
+        Scaffold { paddingValues ->
+            CityInfoUi(
+                city =
+                    City(
+                        id = 1,
+                        city = "Salt Lake City",
+                        cityName = "Salt Lake City",
+                        lat = 0.0,
+                        lng = 0.0,
+                        country = "US",
+                        iso2 = "US",
+                        iso3 = "USA",
+                        provStateName = "California",
+                        capital = "Sacramento",
+                        population = 1000000,
+                    ),
+                modifier = Modifier.padding(paddingValues),
+            )
+        }
     }
 }

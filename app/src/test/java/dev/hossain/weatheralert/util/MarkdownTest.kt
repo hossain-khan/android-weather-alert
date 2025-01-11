@@ -20,7 +20,7 @@ class MarkdownTest {
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                         append("bold")
                     }
-                    append(" text.\n")
+                    append(" text.")
                 }.toAnnotatedString()
         assertEquals(expected, parseMarkdown(markdown))
     }
@@ -36,7 +36,7 @@ class MarkdownTest {
                     withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
                         append("italic")
                     }
-                    append(" text.\n")
+                    append(" text.")
                 }.toAnnotatedString()
         assertEquals(expected, parseMarkdown(markdown))
     }
@@ -50,7 +50,7 @@ class MarkdownTest {
                 .apply {
                     append("• List item 1\n")
                     append("• List item 2\n")
-                    append("Normal text\n")
+                    append("Normal text")
                 }.toAnnotatedString()
         assertEquals(expected, parseMarkdown(markdown))
     }
@@ -76,7 +76,7 @@ class MarkdownTest {
                     withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
                         append("Italic item")
                     }
-                    append(" followed by some text.\n")
+                    append(" followed by some text.")
                 }.toAnnotatedString()
         assertEquals(expected, parseMarkdown(markdown))
     }

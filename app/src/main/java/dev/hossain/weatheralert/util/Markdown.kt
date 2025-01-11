@@ -13,7 +13,7 @@ import androidx.compose.ui.text.withStyle
 fun parseMarkdown(markdown: String): AnnotatedString =
     buildAnnotatedString {
         val lines = markdown.lines()
-        for (line in lines) {
+        for ((index, line) in lines.withIndex()) {
             var currentIndex = 0
             while (currentIndex < line.length) {
                 when {
@@ -64,7 +64,9 @@ fun parseMarkdown(markdown: String): AnnotatedString =
                     }
                 }
             }
-            append("\n")
+            if (index < lines.size - 1) {
+                append("\n")
+            }
         }
     }
 

@@ -19,12 +19,6 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Install Git LFS
-        run: git lfs install
-
-      - name: Pull LFS files
-        run: git lfs pull
-
       # Automatic gradle caching using `actions/cache@v4`
       # https://github.com/gradle/actions/tree/main/setup-gradle
       - name: Setup Gradle

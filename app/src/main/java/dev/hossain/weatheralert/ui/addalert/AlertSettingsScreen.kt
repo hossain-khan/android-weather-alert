@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material.icons.Icons
@@ -209,12 +210,16 @@ class AlertSettingsPresenter
                                     navigator.pop()
                                 }
                                 is ApiResult.Failure.ApiFailure -> {
+                                    Timber.w("API error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                 }
                                 is ApiResult.Failure.HttpFailure -> {
+                                    Timber.w("HTTP error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     when (dailyForecast.code) {
                                         WeatherApi.ERROR_HTTP_UNAUTHORIZED -> {
                                             snackbarData =
@@ -251,12 +256,16 @@ class AlertSettingsPresenter
                                     }
                                 }
                                 is ApiResult.Failure.NetworkFailure -> {
+                                    Timber.e(dailyForecast.error, "Network error, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Network error. Please check your internet connection.") {}
                                 }
                                 is ApiResult.Failure.UnknownFailure -> {
+                                    Timber.e(dailyForecast.error, "Unknown failure, failed to save alert settings")
                                     isApiCallInProgress = false
+                                    isSaveButtonEnabled = true
                                     snackbarData =
                                         SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                 }
@@ -570,7 +579,7 @@ fun EditableCityInputDropdownMenu(
     suggestions: List<City>,
     onSuggestionClick: (City) -> Unit,
 ) {
-    val textFieldState = rememberTextFieldState()
+    val textFieldState: TextFieldState = rememberTextFieldState()
 
     // The text that the user inputs into the text field can be used to filter the options.
     // This sample uses string subsequence matching.
@@ -598,7 +607,7 @@ fun EditableCityInputDropdownMenu(
                     .fillMaxWidth()
                     .menuAnchor(PrimaryEditable),
             label = { Text("City") },
-            placeholder = { Text("Search...") },
+            placeholder = { Text("Search and select city...") },
             singleLine = true,
             // Commented because of grey tint color in the box
             // colors = ExposedDropdownMenuDefaults.textFieldColors(),
@@ -618,7 +627,7 @@ fun EditableCityInputDropdownMenu(
                         }
                     },
                     onClick = {
-                        textFieldState.setTextAndPlaceCursorAtEnd(city.cityName) // city.text?
+                        textFieldState.setTextAndPlaceCursorAtEnd(city.cityName)
                         setExpanded(false)
                         onSuggestionClick(city)
                     },

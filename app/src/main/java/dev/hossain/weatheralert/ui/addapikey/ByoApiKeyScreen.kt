@@ -41,6 +41,8 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -321,7 +323,11 @@ private fun OpenWeatherMapLinkedText(
                     append("openweathermap.org")
                 }
             }
-            append(" to get your API key.")
+            append(" to get your free API key for '")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
+                append("One Call API 3.0")
+            }
+            append("'.")
         }
     Text(text = annotatedLinkString)
 }
