@@ -49,6 +49,10 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.retrofit.converter.moshi)
 
+    // EitherNet
+    implementation(libs.eithernet)
+    implementation(libs.eithernet.integration.retrofit)
+
     // Moshi
     implementation(libs.moshi.kotlin)
     ksp(libs.moshi.kotlin.codegen)
