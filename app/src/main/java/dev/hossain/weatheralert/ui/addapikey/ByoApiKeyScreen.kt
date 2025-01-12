@@ -66,6 +66,7 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
+import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
@@ -151,7 +152,11 @@ class BringYourOwnApiKeyPresenter
                                     preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
                                         SnackbarData("✔️API key is valid and saved.", "Continue") {
-                                            navigator.pop()
+                                            if (screen.isOriginatedFromError) {
+                                                navigator.pop()
+                                            } else {
+                                                navigator.resetRoot(CurrentWeatherAlertScreen("api-set"))
+                                            }
                                         }
                                 }
                                 is ApiResult.Failure -> {
