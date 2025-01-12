@@ -4,14 +4,13 @@ import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.squareup.anvil.annotations.optional.SingleIn
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.di.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -19,7 +18,6 @@ import javax.inject.Inject
  *
  * @see <a href="https://developer.android.com/topic/libraries/architecture/datastore">DataStore</a>
  */
-@SingleIn(AppScope::class)
 class PreferencesManager
     @Inject
     constructor(
@@ -89,12 +87,15 @@ class PreferencesManager
          */
         val preferredWeatherServiceSync: WeatherService =
             runBlocking {
-                dataStore.data
-                    .map { preferences: Preferences ->
-                        preferences[UserPreferences.preferredWeatherServiceKey]?.let {
-                            WeatherService.valueOf(it)
-                        } ?: defaultWeatherService
-                    }.first()
+                val weatherService =
+                    dataStore.data
+                        .map { preferences: Preferences ->
+                            preferences[UserPreferences.preferredWeatherServiceKey]?.let {
+                                WeatherService.valueOf(it)
+                            } ?: defaultWeatherService
+                        }.first()
+                Timber.d("Returning preferredWeatherServiceSync: $weatherService")
+                return@runBlocking weatherService
             }
 
         /**
