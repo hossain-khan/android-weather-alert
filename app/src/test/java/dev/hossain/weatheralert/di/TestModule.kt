@@ -13,6 +13,8 @@ import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherRepositoryImpl
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.AnalyticsImpl
 import dev.hossain.weatheralert.util.TimeUtil
 import dev.hossain.weatheralert.util.TimeUtilImpl
 
@@ -30,6 +32,9 @@ interface TestModule {
 
     @Binds
     fun bindTimeUtil(impl: TimeUtilImpl): TimeUtil
+
+    @Binds
+    fun bindAnalytics(impl: AnalyticsImpl): Analytics
 
     companion object {
         @Provides

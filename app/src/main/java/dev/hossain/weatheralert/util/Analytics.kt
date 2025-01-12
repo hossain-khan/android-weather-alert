@@ -23,6 +23,8 @@ interface Analytics {
      * @param circuitScreen The screen class to log.
      */
     suspend fun logScreenView(circuitScreen: KClass<out Screen>)
+
+    suspend fun logWorkerJob(alertsCount: Long)
 }
 
 /**
@@ -44,6 +46,12 @@ class AnalyticsImpl
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
                 param(SCREEN_NAME, requireNotNull(circuitScreen.simpleName))
                 param(SCREEN_CLASS, requireNotNull(circuitScreen.qualifiedName))
+            }
+        }
+
+        override suspend fun logWorkerJob(alertsCount: Long) {
+            firebaseAnalytics.logEvent("wa_worker_job") {
+                param("alerts_count", alertsCount)
             }
         }
     }

@@ -10,6 +10,7 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
+import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -40,6 +41,9 @@ class WeatherCheckWorkerTest {
     @Inject
     internal lateinit var alertDao: AlertDao
 
+    @Inject
+    internal lateinit var analytics: Analytics
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
@@ -48,7 +52,12 @@ class WeatherCheckWorkerTest {
 
         injectTestClass()
 
-        testWorkerFactory = TestWorkerFactory(alertDao, weatherRepository)
+        testWorkerFactory =
+            TestWorkerFactory(
+                alertDao = alertDao,
+                weatherRepository = weatherRepository,
+                analytics = analytics,
+            )
     }
 
     @After

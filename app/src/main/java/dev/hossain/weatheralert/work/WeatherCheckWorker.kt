@@ -10,7 +10,8 @@ import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.notification.triggerNotification
-import dev.hossain.weatheralert.util.HttpPingSender
+import dev.hossain.weatheralert.util.Analytics
+import kotlinx.coroutines.delay
 import timber.log.Timber
 
 /**
@@ -28,9 +29,8 @@ class WeatherCheckWorker
         @Assisted params: WorkerParameters,
         private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
+        private val analytics: Analytics,
     ) : CoroutineWorker(context, params) {
-        private val httpPingSender = HttpPingSender(context)
-
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
             // Fetch thresholds from DataStore
@@ -41,8 +41,8 @@ class WeatherCheckWorker
                 return Result.success()
             }
 
-            val stringBuilder = StringBuilder()
-            stringBuilder.append("Alerts:${userConfiguredAlerts.size}, ")
+            // Log worker initiative to ensure the worker is working fine
+            analytics.logWorkerJob(userConfiguredAlerts.size.toLong())
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -79,11 +79,6 @@ class WeatherCheckWorker
                             }
 
                         Timber.d("Snow: $snowTomorrow, Rain: $rainTomorrow")
-
-                        stringBuilder.append("${configuredAlert.city.cityName} - ")
-                        stringBuilder.append("Snow: $snowTomorrow, Rain: $rainTomorrow, ")
-                        stringBuilder.append("Threshold: ${configuredAlert.alert.threshold}, ")
-                        stringBuilder.append("Category: ${configuredAlert.alert.alertCategory}")
 
                         when (configuredAlert.alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {
@@ -133,18 +128,11 @@ class WeatherCheckWorker
                         return Result.failure()
                     }
                 }
+
+                // Before checking next city, delay for 1 second to avoid rate limiting
+                delay(1_000)
             }
 
-            // If early return didn't happen, then send ping with all alerts
-            sendWorkerRunningPing(stringBuilder.toString())
-
             return Result.success()
-        }
-
-        private fun sendWorkerRunningPing(message: String) {
-            httpPingSender.sendPingToDevice(
-                pingUUID = "55ac31ff-5893-4e89-bcef-8a854bfb1e9c",
-                extraMessage = "[$message]",
-            )
         }
     }
