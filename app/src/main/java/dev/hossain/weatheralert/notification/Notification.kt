@@ -111,7 +111,7 @@ internal fun triggerNotification(
     val notification =
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.weather_alert_icon)
+            .setSmallIcon(R.drawable.ic_weather_alert_notification)
             .setContentTitle(notificationTitleText)
             .setContentText(notificationShortText)
             .setStyle(NotificationCompat.BigTextStyle().bigText(notificationLongDescription))
