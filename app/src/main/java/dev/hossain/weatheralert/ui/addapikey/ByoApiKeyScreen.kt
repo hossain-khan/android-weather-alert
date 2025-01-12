@@ -63,7 +63,10 @@ import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -71,9 +74,17 @@ import timber.log.Timber
 
 @Parcelize
 data class BringYourOwnApiKeyScreen(
-    val requestId: String,
+    /**
+     * The service API key is being added for, e.g., OpenWeatherMap, Tomorrow.io, etc.
+     */
+    val weatherApiService: WeatherService,
+    /**
+     * Indicates if API error is received and then user is navigated to this screen.
+     */
+    val isOriginatedFromError: Boolean = false,
 ) : Screen {
     data class State(
+        val weatherService: WeatherService,
         val apiKey: String,
         val isApiKeyValid: Boolean,
         val isApiCallInProgress: Boolean,
@@ -111,6 +122,7 @@ class BringYourOwnApiKeyPresenter
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
 
             return BringYourOwnApiKeyScreen.State(
+                weatherService = screen.weatherApiService,
                 apiKey = apiKey,
                 isApiKeyValid = isApiKeyValid,
                 isApiCallInProgress = isApiCallInProgress,
@@ -180,6 +192,7 @@ fun BringYourOwnApiKeyScreen(
     state: BringYourOwnApiKeyScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val serviceConfig: WeatherServiceLogoConfig = state.weatherService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
     var clicked by remember { mutableStateOf(false) }
     val uriHandler = LocalUriHandler.current
@@ -218,22 +231,7 @@ fun BringYourOwnApiKeyScreen(
             )
 
             // Image with clouds and servers for visual appeal.
-            Box(modifier = Modifier.fillMaxWidth()) {
-                Image(
-                    painter = painterResource(id = R.drawable.servers),
-                    contentDescription = "City",
-                    modifier = Modifier.align(Alignment.Center),
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.clouds),
-                    contentDescription = "City",
-                    modifier =
-                        Modifier
-                            .size(96.dp)
-                            .align(Alignment.TopStart)
-                            .padding(start = 24.dp),
-                )
-            }
+            WeatherServiceImageAsset(serviceConfig)
 
             OpenWeatherMapLinkedText(clicked, uriHandler)
 
@@ -298,12 +296,44 @@ fun BringYourOwnApiKeyScreen(
     }
 }
 
+/**
+ * Visual representation of weather service with clouds and servers.
+ */
+@Composable
+private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceLogoConfig) {
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Image(
+            painter = painterResource(id = R.drawable.servers),
+            contentDescription = "Server Icon Image",
+            modifier = Modifier.align(Alignment.Center),
+        )
+        Image(
+            painter = painterResource(id = R.drawable.clouds),
+            contentDescription = "Clouds Icon",
+            modifier =
+                Modifier
+                    .size(96.dp)
+                    .align(Alignment.TopStart)
+                    .padding(start = 24.dp),
+        )
+        Image(
+            painter = painterResource(id = serviceConfig.logoResId),
+            contentDescription = "Weather service logo",
+            modifier =
+                Modifier
+                    .size(serviceConfig.logoWidth, serviceConfig.logoHeight)
+                    .align(Alignment.TopEnd)
+                    .padding(end = 24.dp),
+        )
+    }
+}
+
 @Composable
 private fun OpenWeatherMapLinkedText(
     clicked: Boolean,
     uriHandler: UriHandler,
 ) {
-    var clicked1 = clicked
+    var clickedUrl = clicked
     val annotatedLinkString =
         buildAnnotatedString {
             append("Visit ")
@@ -317,8 +347,8 @@ private fun OpenWeatherMapLinkedText(
                         ),
                     linkInteractionListener = {
                         // on click...
-                        if (!clicked1) uriHandler.openUri("https://openweathermap.org/api")
-                        clicked1 = true
+                        if (!clickedUrl) uriHandler.openUri("https://openweathermap.org/api")
+                        clickedUrl = true
                     },
                 ),
             ) {
@@ -343,6 +373,7 @@ fun BringYourOwnApiKeyScreenPreview() {
         BringYourOwnApiKeyScreen(
             state =
                 BringYourOwnApiKeyScreen.State(
+                    weatherService = WeatherService.OPEN_WEATHER_MAP,
                     apiKey = "",
                     isApiKeyValid = false,
                     isApiCallInProgress = false,
