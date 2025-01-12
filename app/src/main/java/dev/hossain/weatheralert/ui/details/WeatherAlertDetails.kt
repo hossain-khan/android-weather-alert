@@ -203,12 +203,13 @@ fun WeatherAlertDetailsScreen(
                 },
             )
         },
-    ) { padding ->
+    ) { contentPaddingValues ->
         Column(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding())
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = 24.dp)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
@@ -223,13 +224,13 @@ fun WeatherAlertDetailsScreen(
             } else {
                 CityInfoUi(city = city)
 
-                WeatherAlertConfigUi(alert = alert)
+                WeatherAlertConfigUi(alert = alert, forecast = cityForecast)
 
-                WeatherAlertNoteUi(state)
+                WeatherAlertNoteUi(state = state)
 
-                WeatherAlertUpdateOnUi(cityForecast)
+                WeatherAlertUpdateOnUi(forecast = cityForecast)
 
-                WeatherForecastSourceUi(cityForecast.forecastSourceService)
+                WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService)
             }
         }
     }
@@ -281,6 +282,7 @@ fun CityInfoUi(
 @Composable
 fun WeatherAlertConfigUi(
     alert: Alert,
+    forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -316,7 +318,10 @@ fun WeatherAlertConfigUi(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Current Status: ${alert.threshold}",
+                        text = "Current Status: ${when (alert.alertCategory){
+                            WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow
+                            WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain
+                        }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }

@@ -371,12 +371,13 @@ fun AddNewWeatherAlertScreen(
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { padding ->
+    ) { contentPaddingValues ->
         Column(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(vertical = padding.calculateTopPadding(), horizontal = 24.dp)
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = 24.dp)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
