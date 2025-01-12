@@ -133,9 +133,9 @@ internal fun debugNotification(context: Context) {
         context = context,
         notificationId = 1,
         notificationTag = "debug",
-        alertCategory = WeatherAlertCategory.RAIN_FALL,
-        currentValue = 10.0,
-        thresholdValue = 5.0f,
+        alertCategory = WeatherAlertCategory.SNOW_FALL,
+        currentValue = 30.0,
+        thresholdValue = 15.0f,
         cityName = "Toronto",
         reminderNotes = "* Charge batteries\n* Check tire pressure\n* Order Groceries",
     )
