@@ -33,15 +33,13 @@ class ApiKeyImpl
                 val activeWeatherServiceSync = preferencesManager.preferredWeatherServiceSync
                 return when (activeWeatherServiceSync) {
                     WeatherService.OPEN_WEATHER_MAP -> {
-                        // FIXME - each service need separate key to save
                         // Check if user has provided their own API key.
-                        preferencesManager.savedApiKey ?: BuildConfig.OPEN_WEATHER_API_KEY
+                        preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.OPEN_WEATHER_API_KEY
                     }
 
                     WeatherService.TOMORROW_IO -> {
-                        // FIXME - each service need separate key to save
                         // Check if user has provided their own API key.
-                        preferencesManager.savedApiKey ?: BuildConfig.TOMORROW_IO_API_KEY
+                        preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.TOMORROW_IO_API_KEY
                     }
                 }
             }

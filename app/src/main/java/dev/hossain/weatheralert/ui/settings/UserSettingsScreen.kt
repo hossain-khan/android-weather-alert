@@ -117,7 +117,7 @@ class UserSettingsPresenter
                     }
 
                     UserSettingsScreen.Event.AddServiceApiKey -> {
-                        navigator.goTo(BringYourOwnApiKeyScreen(requestId = "AddService"))
+                        navigator.goTo(BringYourOwnApiKeyScreen(weatherApiService = selectedService))
                     }
                 }
             }

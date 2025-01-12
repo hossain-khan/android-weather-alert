@@ -142,7 +142,7 @@ class BringYourOwnApiKeyPresenter
                             when (result) {
                                 is ApiResult.Success -> {
                                     Timber.d("API key is valid - saving to preferences.")
-                                    preferencesManager.saveUserApiKey(apiKey)
+                                    preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
                                         SnackbarData("✔️API key is valid and saved.", "Continue") {
                                             navigator.pop()

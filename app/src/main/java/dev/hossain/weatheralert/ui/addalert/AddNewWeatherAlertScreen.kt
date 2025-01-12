@@ -246,7 +246,7 @@ class AddWeatherAlertPresenter
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(BringYourOwnApiKeyScreen("add-key"))
+                                                    navigator.goTo(BringYourOwnApiKeyScreen(selectedApiService!!))
                                                 }
                                         }
                                         OpenWeatherService.ERROR_HTTP_NOT_FOUND -> {
@@ -263,7 +263,7 @@ class AddWeatherAlertPresenter
                                                     message = "This public API key rate limit exceed. Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(BringYourOwnApiKeyScreen("add-key"))
+                                                    navigator.goTo(BringYourOwnApiKeyScreen(selectedApiService!!))
                                                 }
                                         }
                                         else -> {
