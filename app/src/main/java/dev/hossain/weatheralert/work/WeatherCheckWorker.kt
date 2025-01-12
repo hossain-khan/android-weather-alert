@@ -133,6 +133,7 @@ class WeatherCheckWorker
                 delay(1_000)
             }
 
+            analytics.logWorkSuccess()
             return Result.success()
         }
     }
