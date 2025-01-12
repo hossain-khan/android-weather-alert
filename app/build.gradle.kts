@@ -184,6 +184,7 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
+    testImplementation(libs.androidx.room.testing)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.work.testing)
@@ -193,7 +194,13 @@ dependencies {
     testImplementation(libs.okhttp.mock.webserver)
     testImplementation(libs.retrofit.mock.server)
     testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.test.mockito.core)
+    testImplementation(libs.test.mockito.inline)
+    testImplementation(libs.test.mockito.kotlin)
+    testImplementation(libs.test.powermock.module.junit4)
+    testImplementation(libs.test.powermock.module.junit4.rule)
+    testImplementation(libs.test.powermock.api.mockito)
+    testImplementation(libs.test.powermock.classloading.xstream)
 }
 
 ksp {

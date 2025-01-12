@@ -3,9 +3,7 @@ package dev.hossain.weatheralert.util
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.logEvent
-import com.google.firebase.ktx.Firebase
 import com.slack.circuit.runtime.screen.Screen
 import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.optional.SingleIn
@@ -41,9 +39,9 @@ interface Analytics {
 @ContributesBinding(AppScope::class)
 class AnalyticsImpl
     @Inject
-    constructor() : Analytics {
-        private val firebaseAnalytics = Firebase.analytics
-
+    constructor(
+        private val firebaseAnalytics: FirebaseAnalytics,
+    ) : Analytics {
         override suspend fun logScreenView(circuitScreen: KClass<out Screen>) {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
                 param(SCREEN_NAME, requireNotNull(circuitScreen.simpleName))
