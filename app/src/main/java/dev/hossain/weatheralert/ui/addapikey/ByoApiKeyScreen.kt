@@ -59,6 +59,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -115,6 +116,7 @@ class BringYourOwnApiKeyPresenter
         @Assisted private val screen: BringYourOwnApiKeyScreen,
         private val weatherRepository: WeatherRepository,
         private val preferencesManager: PreferencesManager,
+        private val apiKeyProvider: ApiKey,
     ) : Presenter<BringYourOwnApiKeyScreen.State> {
         @Composable
         override fun present(): BringYourOwnApiKeyScreen.State {
@@ -135,7 +137,7 @@ class BringYourOwnApiKeyPresenter
                 when (event) {
                     is BringYourOwnApiKeyScreen.Event.ApiKeyChanged -> {
                         apiKey = event.value
-                        isApiKeyValid = apiKey.matches(Regex("^[a-f0-9]{32}\$"))
+                        isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
                     }
 
                     is BringYourOwnApiKeyScreen.Event.SubmitApiKey -> {
