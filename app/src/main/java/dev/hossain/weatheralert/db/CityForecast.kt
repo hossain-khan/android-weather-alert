@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import dev.hossain.weatheralert.data.WeatherService
 
 @Entity(tableName = "city_forecasts")
 data class CityForecast(
@@ -16,6 +17,7 @@ data class CityForecast(
     val nextDaySnow: Double,
     val dailyCumulativeRain: Double,
     val nextDayRain: Double,
+    val forecastSourceService: WeatherService,
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis(),
 )

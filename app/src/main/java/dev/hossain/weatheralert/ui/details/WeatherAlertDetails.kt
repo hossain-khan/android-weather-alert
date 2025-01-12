@@ -1,16 +1,19 @@
 package dev.hossain.weatheralert.ui.details
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.NoteAlt
@@ -34,6 +37,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,6 +53,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
@@ -57,6 +62,7 @@ import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatToDate
@@ -208,8 +214,9 @@ fun WeatherAlertDetailsScreen(
         ) {
             val alert = state.alertConfig
             val city = state.cityInfo
+            val cityForecast = state.cityForecast
 
-            if (alert == null || city == null) {
+            if (alert == null || city == null || cityForecast == null) {
                 Timber.d("Loading alerts info...")
                 // Add loading indicator
                 CircularProgressIndicator()
@@ -220,7 +227,9 @@ fun WeatherAlertDetailsScreen(
 
                 WeatherAlertNoteUi(state)
 
-                WeatherAlertUpdateOnUi(state.cityForecast)
+                WeatherAlertUpdateOnUi(cityForecast)
+
+                WeatherForecastSourceUi(cityForecast.forecastSourceService)
             }
         }
     }
@@ -441,8 +450,58 @@ fun WeatherAlertUpdateOnUi(
                         Text(
                             text = formatToDate(forecast.createdAt),
                             style = MaterialTheme.typography.bodyLarge,
+                            // Extra padding for the icon on the right, to avoid overlap
+                            modifier = Modifier.padding(end = 24.dp),
                         )
                     }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherForecastSourceUi(
+    forecastSourceService: WeatherService,
+    modifier: Modifier = Modifier,
+) {
+    val serviceConfig = forecastSourceService.serviceConfig()
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Forecast Data Source",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.Computer,
+                    contentDescription = "Computer server icon for weather data source",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    // Name is not needed for now, because each service logo itself has text.
+                    /*Text(
+                        text = serviceConfig.serviceName,
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
+                    )*/
+                    Image(
+                        painter = painterResource(id = serviceConfig.logoResId),
+                        contentDescription = "Weather data source icon",
+                        modifier = Modifier.size(width = serviceConfig.logoWidth, height = serviceConfig.logoHeight),
+                    )
                 }
             }
         }

@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.db
 
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
@@ -11,9 +12,10 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [City::class, Alert::class, CityForecast::class],
-    version = 1,
+    version = 2,
     exportSchema = true,
-    autoMigrations = [],
+    // https://developer.android.com/training/data-storage/room/migrating-db-versions
+    autoMigrations = [AutoMigration(from = 1, to = 2)],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cityDao(): CityDao
