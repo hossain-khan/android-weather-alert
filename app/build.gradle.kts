@@ -84,6 +84,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
     kotlinOptions {
         jvmTarget = "17"
     }
@@ -194,9 +200,6 @@ dependencies {
     testImplementation(libs.okhttp.mock.webserver)
     testImplementation(libs.retrofit.mock.server)
     testImplementation(libs.robolectric)
-    testImplementation(libs.test.mockito.core)
-    testImplementation(libs.test.mockito.inline)
-    testImplementation(libs.test.mockito.kotlin)
 }
 
 ksp {

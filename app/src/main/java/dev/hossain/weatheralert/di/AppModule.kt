@@ -1,5 +1,7 @@
 package dev.hossain.weatheralert.di
 
+import android.content.Context
+import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -11,5 +13,10 @@ import dagger.Provides
 @Module
 class AppModule {
     @Provides
-    fun provideFirebaseAnalytics(): FirebaseAnalytics = Firebase.analytics
+    fun provideFirebaseAnalytics(
+        @ApplicationContext context: Context,
+    ): FirebaseAnalytics {
+        FirebaseApp.initializeApp(context)
+        return Firebase.analytics
+    }
 }

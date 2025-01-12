@@ -7,7 +7,6 @@ junit = "4.13.2"
 junitKtx = "1.2.1"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.2.1"
-mockitoVersion = "4.0.0"
 espressoCore = "3.6.1"
 testCore = "1.6.1"
 coroutinesTest = "1.10.1"
@@ -175,10 +174,6 @@ eithernet = { group = "com.slack.eithernet", name = "eithernet", version.ref = "
 eithernet-integration-retrofit = { group = "com.slack.eithernet", name = "eithernet-integration-retrofit", version.ref = "eithernet" }
 
 robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14.1" }
-
-test-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoVersion" }
-test-mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockitoVersion" }
-test-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

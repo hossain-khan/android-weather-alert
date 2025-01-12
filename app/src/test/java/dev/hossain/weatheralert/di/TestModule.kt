@@ -1,7 +1,10 @@
 package dev.hossain.weatheralert.di
 
 import android.content.Context
+import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
@@ -17,7 +20,6 @@ import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.AnalyticsImpl
 import dev.hossain.weatheralert.util.TimeUtil
 import dev.hossain.weatheralert.util.TimeUtilImpl
-import org.mockito.Mockito
 
 @Module
 @ContributesTo(AppScope::class)
@@ -44,6 +46,11 @@ interface TestModule {
         ): PreferencesManager = PreferencesManager(context)
 
         @Provides
-        fun provideFirebaseAnalytics(): FirebaseAnalytics = Mockito.mock(FirebaseAnalytics::class.java)
+        fun provideFirebaseAnalytics(
+            @ApplicationContext context: Context,
+        ): FirebaseAnalytics {
+            FirebaseApp.initializeApp(context)
+            return Firebase.analytics
+        }
     }
 }

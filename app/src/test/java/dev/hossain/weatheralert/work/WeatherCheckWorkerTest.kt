@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.ktx.analytics
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
@@ -135,6 +137,7 @@ class WeatherCheckWorkerTest {
 
     // Helper method to inject dependencies
     private fun injectAndSetupTestClass() {
+        FirebaseApp.initializeApp(context)
         NetworkModule.tomorrowIoBaseUrl
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
