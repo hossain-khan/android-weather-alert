@@ -49,6 +49,7 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -58,6 +59,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -88,6 +90,7 @@ class UserSettingsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: UserSettingsScreen,
         private val preferencesManager: PreferencesManager,
+        private val analytics: Analytics,
     ) : Presenter<UserSettingsScreen.State> {
         @Composable
         override fun present(): UserSettingsScreen.State {
@@ -99,6 +102,10 @@ class UserSettingsPresenter
                     Timber.d("Active weather service from preferences: $service")
                     selectedService = service
                 }
+            }
+
+            LaunchedImpressionEffect {
+                analytics.logScreenView(UserSettingsScreen::class)
             }
 
             return UserSettingsScreen.State(

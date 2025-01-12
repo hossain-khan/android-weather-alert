@@ -43,6 +43,7 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -54,6 +55,7 @@ import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -90,6 +92,7 @@ class WeatherAlertDetailsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: WeatherAlertDetailsScreen,
         private val alertDao: AlertDao,
+        private val analytics: Analytics,
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
         override fun present(): WeatherAlertDetailsScreen.State {
@@ -98,6 +101,11 @@ class WeatherAlertDetailsPresenter
             var alertCity by remember { mutableStateOf<City?>(null) }
             var alertConfig by remember { mutableStateOf<Alert?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
+
+            LaunchedImpressionEffect {
+                analytics.logScreenView(WeatherAlertDetailsScreen::class)
+            }
+
             LaunchedEffect(Unit) {
                 val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId.toInt())
                 alertConfig = alert.alert

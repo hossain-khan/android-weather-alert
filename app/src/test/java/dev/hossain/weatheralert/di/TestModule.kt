@@ -1,6 +1,10 @@
 package dev.hossain.weatheralert.di
 
 import android.content.Context
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
@@ -12,7 +16,8 @@ import dev.hossain.weatheralert.data.ApiKeyImpl
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherRepositoryImpl
-import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.AnalyticsImpl
 import dev.hossain.weatheralert.util.TimeUtil
 import dev.hossain.weatheralert.util.TimeUtilImpl
 
@@ -31,10 +36,21 @@ interface TestModule {
     @Binds
     fun bindTimeUtil(impl: TimeUtilImpl): TimeUtil
 
+    @Binds
+    fun bindAnalytics(impl: AnalyticsImpl): Analytics
+
     companion object {
         @Provides
         fun providePreferencesManager(
             @ApplicationContext context: Context,
         ): PreferencesManager = PreferencesManager(context)
+
+        @Provides
+        fun provideFirebaseAnalytics(
+            @ApplicationContext context: Context,
+        ): FirebaseAnalytics {
+            FirebaseApp.initializeApp(context)
+            return Firebase.analytics
+        }
     }
 }

@@ -2,14 +2,16 @@ package dev.hossain.weatheralert.work
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.ktx.analytics
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
+import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -19,15 +21,16 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 import java.io.IOException
 import javax.inject.Inject
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(RobolectricTestRunner::class)
 class WeatherCheckWorkerTest {
     // Guide @ https://github.com/square/okhttp/tree/master/mockwebserver
     private lateinit var mockWebServer: MockWebServer
 
-    private lateinit var context: Context
+    private val context: Context = ApplicationProvider.getApplicationContext()
 
     private lateinit var testWorkerFactory: TestWorkerFactory
 
@@ -40,15 +43,23 @@ class WeatherCheckWorkerTest {
     @Inject
     internal lateinit var alertDao: AlertDao
 
+    @Inject
+    internal lateinit var analytics: Analytics
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start(60000)
         NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
-        injectTestClass()
+        injectAndSetupTestClass()
 
-        testWorkerFactory = TestWorkerFactory(alertDao, weatherRepository)
+        testWorkerFactory =
+            TestWorkerFactory(
+                alertDao = alertDao,
+                weatherRepository = weatherRepository,
+                analytics = analytics,
+            )
     }
 
     @After
@@ -125,8 +136,8 @@ class WeatherCheckWorkerTest {
     }
 
     // Helper method to inject dependencies
-    private fun injectTestClass() {
-        context = ApplicationProvider.getApplicationContext()
+    private fun injectAndSetupTestClass() {
+        FirebaseApp.initializeApp(context)
         NetworkModule.tomorrowIoBaseUrl
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)

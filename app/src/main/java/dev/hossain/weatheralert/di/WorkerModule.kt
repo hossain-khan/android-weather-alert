@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.WeatherCheckWorker
 
 // Anvil module to contribute the WorkerFactory
@@ -19,6 +20,7 @@ object WorkerModule {
     fun provideWorkerFactory(
         alertDao: AlertDao,
         weatherRepository: WeatherRepository,
+        analytics: Analytics,
     ): WorkerFactory =
         object : WorkerFactory() {
             override fun createWorker(
@@ -37,6 +39,7 @@ object WorkerModule {
                             params = workerParameters,
                             alertDao = alertDao,
                             weatherRepository = weatherRepository,
+                            analytics = analytics,
                         )
                     else -> null
                 }

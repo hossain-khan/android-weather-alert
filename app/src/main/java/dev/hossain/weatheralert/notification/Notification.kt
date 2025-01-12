@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
+import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherAlertCategory
@@ -28,6 +29,16 @@ internal fun triggerNotification(
     reminderNotes: String,
 ) {
     Timber.d("Triggering notification for $alertCategory value: $currentValue, limit: $thresholdValue")
+
+    @DrawableRes val notificationLargeIcon: Int =
+        when (alertCategory) {
+            WeatherAlertCategory.SNOW_FALL -> {
+                R.drawable.winter_snowflake
+            }
+            WeatherAlertCategory.RAIN_FALL -> {
+                R.drawable.cloud_heavy_rain
+            }
+        }
 
     val notificationTitleText =
         buildString {
@@ -100,11 +111,11 @@ internal fun triggerNotification(
     val notification =
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(R.drawable.weather_alert_icon)
+            .setSmallIcon(R.drawable.ic_weather_alert_notification)
             .setContentTitle(notificationTitleText)
             .setContentText(notificationShortText)
             .setStyle(NotificationCompat.BigTextStyle().bigText(notificationLongDescription))
-            .setLargeIcon(Icon.createWithResource(context, R.drawable.winter_snowflake))
+            .setLargeIcon(Icon.createWithResource(context, notificationLargeIcon))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
