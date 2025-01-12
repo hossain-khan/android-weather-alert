@@ -37,7 +37,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -85,6 +84,7 @@ data class BringYourOwnApiKeyScreen(
 ) : Screen {
     data class State(
         val weatherService: WeatherService,
+        val originatedFromApiError: Boolean,
         val apiKey: String,
         val isApiKeyValid: Boolean,
         val isApiCallInProgress: Boolean,
@@ -126,6 +126,7 @@ class BringYourOwnApiKeyPresenter
 
             return BringYourOwnApiKeyScreen.State(
                 weatherService = screen.weatherApiService,
+                originatedFromApiError = screen.isOriginatedFromError,
                 apiKey = apiKey,
                 isApiKeyValid = isApiKeyValid,
                 isApiCallInProgress = isApiCallInProgress,
@@ -197,8 +198,6 @@ fun BringYourOwnApiKeyScreen(
 ) {
     val serviceConfig: WeatherServiceLogoConfig = state.weatherService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
-    var clicked by remember { mutableStateOf(false) }
-    val uriHandler = LocalUriHandler.current
 
     Scaffold(
         topBar = {
@@ -226,17 +225,17 @@ fun BringYourOwnApiKeyScreen(
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            Text(
-                text =
-                    "Unfortunately, API key provided with the app has been exhausted.\n\n" +
-                        "To continue to use this app, you need to provide your own API key from OpenWeatherMap.",
-                style = MaterialTheme.typography.bodyLarge,
-            )
+            if (state.originatedFromApiError) {
+                Text(
+                    text = serviceConfig.apiExhaustedMessage,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
 
             // Image with clouds and servers for visual appeal.
             WeatherServiceImageAsset(serviceConfig)
 
-            OpenWeatherMapLinkedText(clicked, uriHandler)
+            WeatherApiServiceLinkedText(serviceConfig)
 
             OutlinedTextField(
                 value = state.apiKey,
@@ -258,9 +257,7 @@ fun BringYourOwnApiKeyScreen(
                     }
                 },
                 placeholder = { Text("Enter your API key here") },
-                supportingText = {
-                    Text("API key should be 32 characters long and contain only hexadecimal characters.")
-                },
+                supportingText = { Text(serviceConfig.apiFormatGuide) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -332,35 +329,34 @@ private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceLogoConfig) {
 }
 
 @Composable
-private fun OpenWeatherMapLinkedText(
-    clicked: Boolean,
-    uriHandler: UriHandler,
-) {
-    var clickedUrl = clicked
+private fun WeatherApiServiceLinkedText(serviceConfig: WeatherServiceLogoConfig) {
+    var clickedUrl by remember { mutableStateOf(false) }
+    val uriHandler = LocalUriHandler.current
+
     val annotatedLinkString =
         buildAnnotatedString {
             append("Visit ")
             withLink(
                 LinkAnnotation.Url(
-                    url = "https://openweathermap.org/api",
+                    url = serviceConfig.apiServiceUrl,
                     styles =
                         TextLinkStyles(
                             style = SpanStyle(color = MaterialTheme.colorScheme.primary),
                             hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
                         ),
                     linkInteractionListener = {
-                        if (!clickedUrl) uriHandler.openUri("https://openweathermap.org/api")
+                        if (!clickedUrl) uriHandler.openUri(serviceConfig.apiServiceUrl)
                         clickedUrl = true
                     },
                 ),
             ) {
                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                    append("openweathermap.org")
+                    append(serviceConfig.apiServiceUrlLabel)
                 }
             }
             append(" to get your free API key for '")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
-                append("One Call API 3.0")
+                append(serviceConfig.apiServiceProduceName)
             }
             append("'.")
         }
@@ -376,7 +372,8 @@ fun BringYourOwnApiKeyScreenPreview() {
             state =
                 BringYourOwnApiKeyScreen.State(
                     weatherService = WeatherService.OPEN_WEATHER_MAP,
-                    apiKey = "",
+                    originatedFromApiError = true,
+                    apiKey = "123456abcdef123456abcdef123456ab",
                     isApiKeyValid = false,
                     isApiCallInProgress = false,
                     eventSink = {},
