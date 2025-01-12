@@ -28,33 +28,45 @@ class PreferencesManager
         private val dataStore = context.dataStore
         private val defaultWeatherService = WeatherService.OPEN_WEATHER_MAP
 
-        val userApiKey: Flow<String?> =
+        fun userApiKey(service: WeatherService): Flow<String?> =
             dataStore.data
                 .map { preferences: Preferences ->
-                    preferences[UserPreferences.userApiKey]
+                    when (service) {
+                        WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
+                        WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                    }
                 }
 
         /**
          * Retrieves the saved API key from the user preferences in synchronous manner.
          */
-        val savedApiKey: String?
-            get() =
-                runBlocking {
-                    dataStore.data
-                        .map { preferences: Preferences ->
-                            preferences[UserPreferences.userApiKey]
-                        }.firstOrNull()
-                }
+        fun savedApiKey(service: WeatherService): String? =
+            runBlocking {
+                dataStore.data
+                    .map { preferences: Preferences ->
+                        when (service) {
+                            WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
+                            WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                        }
+                    }.firstOrNull()
+            }
 
-        suspend fun saveUserApiKey(apiKey: String) {
+        suspend fun saveUserApiKey(
+            service: WeatherService,
+            apiKey: String,
+        ) {
             dataStore.edit { preferences: MutablePreferences ->
-                preferences[UserPreferences.userApiKey] = apiKey
+                when (service) {
+                    WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey] = apiKey
+                    WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey] = apiKey
+                }
             }
         }
 
-        suspend fun clearUserApiKey() {
+        suspend fun clearUserApiKeys() {
             dataStore.edit { preferences: MutablePreferences ->
-                preferences.remove(UserPreferences.userApiKey)
+                preferences.remove(UserPreferences.openWeatherServiceApiKey)
+                preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
             }
         }
 

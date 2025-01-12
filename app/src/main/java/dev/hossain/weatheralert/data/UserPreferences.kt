@@ -15,9 +15,14 @@ val Context.dataStore by preferencesDataStore("weather_alerts_prefs")
  */
 object UserPreferences {
     /**
-     * Key for storing user provided API key.
+     * Preference key for OpenWeatherMap weather service API key provided by user.
      */
-    val userApiKey = stringPreferencesKey("user_byo_api_key")
+    val openWeatherServiceApiKey = stringPreferencesKey("open_weather_service_api_key")
+
+    /**
+     * Preference key for Tomorrow.io weather service API key provided by user.
+     */
+    val tomorrowIoServiceApiKey = stringPreferencesKey("tomorrow_io_weather_service_api_key")
 
     /**
      * Key for storing user preferred weather service provider.
