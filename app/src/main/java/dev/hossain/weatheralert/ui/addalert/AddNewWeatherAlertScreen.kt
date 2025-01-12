@@ -63,6 +63,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -159,6 +160,7 @@ class AddWeatherAlertPresenter
         @Composable
         override fun present(): AddNewWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
+            val keyboardController = LocalSoftwareKeyboardController.current
             var updatedSnowThreshold by remember { mutableFloatStateOf(DEFAULT_SNOW_THRESHOLD) }
             var updatedRainThreshold by remember { mutableFloatStateOf(DEFAULT_RAIN_THRESHOLD) }
             var suggestions: List<City> by remember { mutableStateOf(emptyList()) }
@@ -168,7 +170,6 @@ class AddWeatherAlertPresenter
             var selectedApiService by remember { mutableStateOf<WeatherService?>(null) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
             var reminderNotes: String = ""
-            val context = LocalContext.current
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherService.collect { service ->
@@ -315,6 +316,9 @@ class AddWeatherAlertPresenter
                         selectedCity = event.city
                         isSaveButtonEnabled = true
                         snackbarData = null
+
+                        // Hide the on-screen keyboard
+                        keyboardController?.hide()
                     }
 
                     is AddNewWeatherAlertScreen.Event.OnReminderNotesUpdated -> {

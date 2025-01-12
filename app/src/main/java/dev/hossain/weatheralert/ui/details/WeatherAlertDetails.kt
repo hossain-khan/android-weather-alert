@@ -489,12 +489,14 @@ fun WeatherForecastSourceUi(
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     // Name is not needed for now, because each service logo itself has text.
+
                     /*Text(
                         text = serviceConfig.serviceName,
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
                         modifier = Modifier.padding(end = 24.dp),
                     )*/
+
                     Image(
                         painter = painterResource(id = serviceConfig.logoResId),
                         contentDescription = "Weather data source icon",
