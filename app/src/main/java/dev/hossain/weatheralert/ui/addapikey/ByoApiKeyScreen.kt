@@ -58,6 +58,7 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -87,8 +88,9 @@ data class BringYourOwnApiKeyScreen(
     data class State(
         val weatherService: WeatherService,
         val originatedFromApiError: Boolean,
-        val apiKey: String,
+        val apiKeyInput: String,
         val isApiKeyValid: Boolean,
+        val isUserProvidedApiKey: Boolean,
         val isApiCallInProgress: Boolean,
         val snackbarData: SnackbarData? = null,
         val eventSink: (Event) -> Unit,
@@ -124,21 +126,40 @@ class BringYourOwnApiKeyPresenter
             val scope = rememberCoroutineScope()
             var apiKey by remember { mutableStateOf("") }
             var isApiKeyValid by remember { mutableStateOf(false) }
+            var isUserProvidedApiKey by remember { mutableStateOf(false) }
             var isApiCallInProgress by remember { mutableStateOf(false) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
+
+            LaunchedEffect(Unit) {
+                // Prepopulates the API key, IFF it was provided by user.
+                apiKeyProvider.key
+                    .takeIf { isUserProvidedApiKey(screen.weatherApiService, it) }
+                    ?.let {
+                        apiKey = it
+                        isUserProvidedApiKey = true
+                        isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
+                    }
+            }
 
             return BringYourOwnApiKeyScreen.State(
                 weatherService = screen.weatherApiService,
                 originatedFromApiError = screen.isOriginatedFromError,
-                apiKey = apiKey,
+                apiKeyInput = apiKey,
                 isApiKeyValid = isApiKeyValid,
+                isUserProvidedApiKey = isUserProvidedApiKey,
                 isApiCallInProgress = isApiCallInProgress,
                 snackbarData = snackbarData,
             ) { event ->
                 when (event) {
                     is BringYourOwnApiKeyScreen.Event.ApiKeyChanged -> {
                         apiKey = event.value
-                        isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
+                        val isValidKey =
+                            apiKeyProvider.isValidKey(screen.weatherApiService, event.value)
+                        isApiKeyValid = isValidKey
+                        if (isValidKey) {
+                            // Update the label if it somehow is reset to build config key
+                            isUserProvidedApiKey = isUserProvidedApiKey(screen.weatherApiService, event.value)
+                        }
                     }
 
                     is BringYourOwnApiKeyScreen.Event.SubmitApiKey -> {
@@ -185,6 +206,19 @@ class BringYourOwnApiKeyPresenter
                 }
             }
         }
+
+        /**
+         * Internal function to check if the API key is provided by user,
+         * then it's used to display in the API input field.
+         */
+        private fun isUserProvidedApiKey(
+            weatherApiService: WeatherService,
+            apiKey: String,
+        ): Boolean =
+            when (weatherApiService) {
+                WeatherService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
+                WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
+            }
 
         @CircuitInject(BringYourOwnApiKeyScreen::class, AppScope::class)
         @AssistedFactory
@@ -245,7 +279,7 @@ fun BringYourOwnApiKeyScreen(
             WeatherApiServiceLinkedText(serviceConfig)
 
             OutlinedTextField(
-                value = state.apiKey,
+                value = state.apiKeyInput,
                 onValueChange = { state.eventSink(BringYourOwnApiKeyScreen.Event.ApiKeyChanged(it)) },
                 label = { Text("API Key") },
                 leadingIcon = {
@@ -264,14 +298,23 @@ fun BringYourOwnApiKeyScreen(
                     }
                 },
                 placeholder = { Text("Enter your API key here") },
-                supportingText = { Text(serviceConfig.apiFormatGuide) },
+                supportingText = {
+                    Text(
+                        text =
+                            if (state.isUserProvidedApiKey) {
+                                "⚡️ Your provided API key is being used for alert service."
+                            } else {
+                                serviceConfig.apiFormatGuide
+                            },
+                    )
+                },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
             )
 
             Button(
                 enabled = state.isApiKeyValid,
-                onClick = { state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKey)) },
+                onClick = { state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKeyInput)) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Save API Key")
@@ -380,8 +423,9 @@ fun BringYourOwnApiKeyScreenPreview() {
                 BringYourOwnApiKeyScreen.State(
                     weatherService = WeatherService.OPEN_WEATHER_MAP,
                     originatedFromApiError = true,
-                    apiKey = "123456abcdef123456abcdef123456ab",
+                    apiKeyInput = "123456abcdef123456abcdef123456ab",
                     isApiKeyValid = false,
+                    isUserProvidedApiKey = true,
                     isApiCallInProgress = false,
                     eventSink = {},
                 ),
