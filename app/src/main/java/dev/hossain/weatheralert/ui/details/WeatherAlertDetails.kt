@@ -419,41 +419,39 @@ fun WeatherAlertNoteUi(
 
 @Composable
 fun WeatherAlertUpdateOnUi(
-    cityForecast: CityForecast?,
+    forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
-    cityForecast?.let { forecast ->
-        Column(
-            modifier =
-                modifier
-                    .fillMaxWidth(),
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Last Update On",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
         ) {
-            Text(
-                text = "Last Update On",
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
-            )
-            Card(
-                modifier = modifier.fillMaxWidth(),
-            ) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    Icon(
-                        imageVector = Icons.Default.CalendarMonth,
-                        contentDescription = "Calendar icon",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier =
-                            Modifier
-                                .padding(16.dp)
-                                .align(Alignment.TopEnd),
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.CalendarMonth,
+                    contentDescription = "Calendar icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = formatToDate(forecast.createdAt),
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
                     )
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = formatToDate(forecast.createdAt),
-                            style = MaterialTheme.typography.bodyLarge,
-                            // Extra padding for the icon on the right, to avoid overlap
-                            modifier = Modifier.padding(end = 24.dp),
-                        )
-                    }
                 }
             }
         }
