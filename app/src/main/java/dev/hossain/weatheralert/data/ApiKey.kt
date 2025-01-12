@@ -30,7 +30,7 @@ class ApiKeyImpl
          */
         override val key: String
             get() {
-                val activeWeatherServiceSync = preferencesManager.activeWeatherServiceSync
+                val activeWeatherServiceSync = preferencesManager.preferredWeatherServiceSync
                 return when (activeWeatherServiceSync) {
                     WeatherService.OPEN_WEATHER_MAP -> {
                         // FIXME - each service need separate key to save

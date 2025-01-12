@@ -74,12 +74,12 @@ class PreferencesManager
          * Retrieves the active weather service based on user preference.
          * If user has not selected any service, it will return the default service.
          * @see defaultWeatherService
-         * @see saveWeatherService
+         * @see savePreferredWeatherService
          */
-        val activeWeatherService: Flow<WeatherService> =
+        val preferredWeatherService: Flow<WeatherService> =
             dataStore.data
                 .map { preferences: Preferences ->
-                    preferences[UserPreferences.weatherServiceKey]?.let {
+                    preferences[UserPreferences.preferredWeatherServiceKey]?.let {
                         WeatherService.valueOf(it)
                     } ?: defaultWeatherService
                 }
@@ -87,22 +87,22 @@ class PreferencesManager
         /**
          * Retrieves the active weather service based on user preference in synchronous manner.
          */
-        val activeWeatherServiceSync: WeatherService =
+        val preferredWeatherServiceSync: WeatherService =
             runBlocking {
                 dataStore.data
                     .map { preferences: Preferences ->
-                        preferences[UserPreferences.weatherServiceKey]?.let {
+                        preferences[UserPreferences.preferredWeatherServiceKey]?.let {
                             WeatherService.valueOf(it)
                         } ?: defaultWeatherService
                     }.first()
             }
 
         /**
-         * @see activeWeatherService
+         * @see preferredWeatherService
          */
-        suspend fun saveWeatherService(service: WeatherService) {
+        suspend fun savePreferredWeatherService(service: WeatherService) {
             dataStore.edit { preferences: MutablePreferences ->
-                preferences[UserPreferences.weatherServiceKey] = service.name
+                preferences[UserPreferences.preferredWeatherServiceKey] = service.name
             }
         }
     }

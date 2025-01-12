@@ -168,7 +168,7 @@ class AddWeatherAlertPresenter
             val context = LocalContext.current
 
             LaunchedEffect(Unit) {
-                preferencesManager.activeWeatherService.collect { service ->
+                preferencesManager.preferredWeatherService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedApiService = service
                 }

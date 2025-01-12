@@ -95,7 +95,7 @@ class UserSettingsPresenter
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
 
             LaunchedEffect(Unit) {
-                preferencesManager.activeWeatherService.collect { service ->
+                preferencesManager.preferredWeatherService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedService = service
                 }
@@ -109,7 +109,7 @@ class UserSettingsPresenter
                         Timber.d("Selected weather service: ${event.service}")
                         selectedService = event.service
                         scope.launch {
-                            preferencesManager.saveWeatherService(event.service)
+                            preferencesManager.savePreferredWeatherService(event.service)
                         }
                     }
                     UserSettingsScreen.Event.GoBack -> {

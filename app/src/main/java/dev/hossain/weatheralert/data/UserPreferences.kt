@@ -27,5 +27,5 @@ object UserPreferences {
     /**
      * Key for storing user preferred weather service provider.
      */
-    val weatherServiceKey = stringPreferencesKey("weather_service_key")
+    val preferredWeatherServiceKey = stringPreferencesKey("user_preferred_weather_service_key")
 }
