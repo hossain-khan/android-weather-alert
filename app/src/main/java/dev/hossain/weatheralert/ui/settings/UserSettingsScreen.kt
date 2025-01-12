@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,8 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
@@ -48,6 +55,7 @@ import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
@@ -68,6 +76,8 @@ data class UserSettingsScreen(
             val service: WeatherService,
         ) : Event()
 
+        data object AddServiceApiKey : Event()
+
         data object GoBack : Event()
     }
 }
@@ -85,7 +95,7 @@ class UserSettingsPresenter
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
 
             LaunchedEffect(Unit) {
-                preferencesManager.activeWeatherService.collect { service ->
+                preferencesManager.preferredWeatherService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedService = service
                 }
@@ -99,11 +109,15 @@ class UserSettingsPresenter
                         Timber.d("Selected weather service: ${event.service}")
                         selectedService = event.service
                         scope.launch {
-                            preferencesManager.saveWeatherService(event.service)
+                            preferencesManager.savePreferredWeatherService(event.service)
                         }
                     }
                     UserSettingsScreen.Event.GoBack -> {
                         navigator.pop()
+                    }
+
+                    UserSettingsScreen.Event.AddServiceApiKey -> {
+                        navigator.goTo(BringYourOwnApiKeyScreen(weatherApiService = selectedService))
                     }
                 }
             }
@@ -162,6 +176,34 @@ fun UserSettingsScreen(
                 onServiceSelected = { service ->
                     state.eventSink(UserSettingsScreen.Event.ServiceSelected(service))
                 },
+            )
+
+            ElevatedButton(
+                onClick = {
+                    state.eventSink(UserSettingsScreen.Event.AddServiceApiKey)
+                },
+                modifier = Modifier.padding(top = 24.dp).align(Alignment.CenterHorizontally),
+            ) {
+                Text("Add API Service Key")
+            }
+            Text(
+                text =
+                    buildAnnotatedString {
+                        append("Use alert service uninterrupted by adding ")
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append("your own")
+                        }
+                        append(" API key for the selected service.")
+                    },
+                style = MaterialTheme.typography.bodySmall,
+                fontSize = 10.sp,
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .alpha(0.6f)
+                        .padding(horizontal = 32.dp)
+                        .fillMaxWidth(),
+                textAlign = TextAlign.Center,
             )
         }
     }

@@ -43,5 +43,5 @@ class ActiveWeatherServiceImpl
     constructor(
         private val preferencesManager: PreferencesManager,
     ) : ActiveWeatherService {
-        override fun selectedService(): WeatherService = preferencesManager.activeWeatherServiceSync
+        override fun selectedService(): WeatherService = preferencesManager.preferredWeatherServiceSync
     }

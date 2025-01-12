@@ -15,6 +15,56 @@ data class WeatherResponse(
 )
 
 /**
+ * Represents the real-time weather response from the Tomorrow.io API.
+ *
+ * Sample JSON:
+ * ```json
+ * {
+ *   "data": {
+ *     "time": "2025-01-12T01:40:00Z",
+ *     "values": {
+ *       "cloudBase": null,
+ *       "cloudCeiling": null,
+ *       "cloudCover": 5,
+ *       "dewPoint": -4.88,
+ *       "freezingRainIntensity": 0,
+ *       "hailProbability": 97.7,
+ *       "hailSize": 4.27,
+ *       "humidity": 88,
+ *       "precipitationProbability": 0,
+ *       "pressureSurfaceLevel": 999.33,
+ *       "rainIntensity": 0,
+ *       "sleetIntensity": 0,
+ *       "snowIntensity": 0,
+ *       "temperature": -3.19,
+ *       "temperatureApparent": -7.02,
+ *       "uvHealthConcern": 0,
+ *       "uvIndex": 0,
+ *       "visibility": 16,
+ *       "weatherCode": 1000,
+ *       "windDirection": 270.38,
+ *       "windGust": 6.5,
+ *       "windSpeed": 2.69
+ *     }
+ *   },
+ *   "location": {
+ *     "lat": 43.653480529785156,
+ *     "lon": -79.3839340209961,
+ *     "name": "Toronto, Golden Horseshoe, Ontario, Canada",
+ *     "type": "administrative"
+ *   }
+ * }
+ * ```
+ */
+@JsonClass(generateAdapter = true)
+data class RealTimeWeatherResponse(
+    /** Data containing the time and weather values. */
+    @Json(name = "data") val data: TimelineData,
+    /** Location details. */
+    @Json(name = "location") val location: Location,
+)
+
+/**
  * Represents the location details.
  */
 @JsonClass(generateAdapter = true)
@@ -118,4 +168,35 @@ data class WeatherValues(
     @Json(name = "windGust") val windGust: Double?,
     /** Wind speed (m/s). */
     @Json(name = "windSpeed") val windSpeed: Double?,
+)
+
+/**
+ * Represents an error response from the Tomorrow.io API.
+ * See [API Reference for Error](https://docs.tomorrow.io/reference/api-errors).
+ *
+ * Sample JSON:
+ * ```json
+ * {
+ *   "code": 429001,
+ *   "type": "Too Many Calls",
+ *   "message": "The request limit for this resource has been reached for the current rate limit window. Wait and retry the operation, or examine your API request volume."
+ * }
+ * ```
+ *
+ * ```json
+ * {
+ *   "code": 401001,
+ *   "type": "Invalid Auth",
+ *   "message": "The method requires authentication but it was not presented or is invalid."
+ * }
+ * ```
+ */
+@JsonClass(generateAdapter = true)
+data class TomorrowIoApiErrorResponse(
+    /** Error code. */
+    @Json(name = "code") val code: Int,
+    /** Error type. */
+    @Json(name = "type") val type: String,
+    /** Error message. */
+    @Json(name = "message") val message: String,
 )

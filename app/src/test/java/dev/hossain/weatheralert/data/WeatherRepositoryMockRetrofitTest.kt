@@ -10,6 +10,8 @@ import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
+import io.tomorrow.api.model.RealTimeWeatherResponse
+import io.tomorrow.api.model.TomorrowIoApiErrorResponse
 import io.tomorrow.api.model.WeatherResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockWebServer
@@ -184,6 +186,62 @@ class WeatherRepositoryMockRetrofitTest {
                 )
 
             return delegate.returningResponse(result).getWeatherForecast("0.0,0.0", "key")
+        }
+
+        override suspend fun getRealTimeWeather(
+            location: String,
+            apiKey: String,
+        ): ApiResult<RealTimeWeatherResponse, TomorrowIoApiErrorResponse> {
+            val result =
+                ApiResult.success(
+                    RealTimeWeatherResponse(
+                        location =
+                            io.tomorrow.api.model.Location(
+                                latitude = 0.0,
+                                longitude = 0.0,
+                            ),
+                        data =
+                            io.tomorrow.api.model.TimelineData(
+                                time = "2021-09-01T00:00:00Z",
+                                values =
+                                    io.tomorrow.api.model.WeatherValues(
+                                        cloudBase = 1.0,
+                                        cloudCeiling = 2.0,
+                                        cloudCover = 50.0,
+                                        dewPoint = 10.0,
+                                        evapotranspiration = 0.5,
+                                        freezingRainIntensity = 0.0,
+                                        hailProbability = 20.0,
+                                        hailSize = 1.0,
+                                        humidity = 80.0,
+                                        iceAccumulation = 0.0,
+                                        iceAccumulationLwe = 0.0,
+                                        precipitationProbability = 30,
+                                        pressureSurfaceLevel = 1013.0,
+                                        rainAccumulation = 5.0,
+                                        rainAccumulationLwe = 5.0,
+                                        rainIntensity = 0.1,
+                                        sleetAccumulation = 0.0,
+                                        sleetAccumulationLwe = 0.0,
+                                        sleetIntensity = 0.0,
+                                        snowAccumulation = 0.0,
+                                        snowAccumulationLwe = 0.0,
+                                        snowDepth = 0.0,
+                                        snowIntensity = 0.0,
+                                        temperature = 25.0,
+                                        temperatureApparent = 27.0,
+                                        uvHealthConcern = 1,
+                                        uvIndex = 5,
+                                        visibility = 10.0,
+                                        weatherCode = 1000,
+                                        windDirection = 180.0,
+                                        windGust = 15.0,
+                                        windSpeed = 10.0,
+                                    ),
+                            ),
+                    ),
+                )
+            return delegate.returningResponse(result).getRealTimeWeather("0.0,0.0", "key")
         }
     }
 }

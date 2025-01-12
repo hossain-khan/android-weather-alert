@@ -8,7 +8,6 @@ import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
 import io.tomorrow.api.model.WeatherResponse
 import org.openweathermap.api.OpenWeatherService
-import org.openweathermap.api.model.ErrorResponse
 import org.openweathermap.api.model.WeatherForecast
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,9 +34,12 @@ interface WeatherRepository {
     ): ApiResult<ForecastData, Unit>
 
     /**
-     * Validates the given API key by sending a basic API request.
+     * Validates the given API key by sending a basic API request for given [weatherService].
      */
-    suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, ErrorResponse>
+    suspend fun isValidApiKey(
+        weatherService: WeatherService,
+        apiKey: String,
+    ): ApiResult<Boolean, String>
 }
 
 /**
@@ -80,27 +82,57 @@ class WeatherRepositoryImpl
             }
         }
 
-        override suspend fun isValidApiKey(apiKey: String): ApiResult<Boolean, ErrorResponse> {
-            openWeatherService
-                .getWeatherOverview(
-                    apiKey = apiKey,
-                    // Use New York City coordinates for basic API key validation.
-                    latitude = 40.7235827,
-                    longitude = -73.985626,
-                ).let { apiResult ->
-                    return when (apiResult) {
-                        is ApiResult.Success -> ApiResult.success(true)
-                        is ApiResult.Failure.ApiFailure -> ApiResult.apiFailure(apiResult.error)
-                        is ApiResult.Failure.HttpFailure ->
-                            ApiResult.httpFailure(
-                                apiResult.code,
-                                apiResult.error,
-                            )
+        override suspend fun isValidApiKey(
+            weatherService: WeatherService,
+            apiKey: String,
+        ): ApiResult<Boolean, String> {
+            when (weatherService) {
+                WeatherService.OPEN_WEATHER_MAP -> {
+                    openWeatherService
+                        .getWeatherOverview(
+                            apiKey = apiKey,
+                            // Use New York City coordinates for basic API key validation.
+                            latitude = 40.7235827,
+                            longitude = -73.985626,
+                        ).let { apiResult ->
+                            return when (apiResult) {
+                                is ApiResult.Success -> ApiResult.success(true)
+                                is ApiResult.Failure.ApiFailure -> {
+                                    ApiResult.apiFailure(apiResult.error?.message ?: "Unknown API error")
+                                }
+                                is ApiResult.Failure.HttpFailure ->
+                                    ApiResult.httpFailure(
+                                        apiResult.code,
+                                        apiResult.error?.message,
+                                    )
 
-                        is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
-                        is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
-                    }
+                                is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
+                                is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                            }
+                        }
                 }
+                WeatherService.TOMORROW_IO -> {
+                    tomorrowIoService
+                        .getRealTimeWeather(
+                            apiKey = apiKey,
+                            // Use Chicago City for basic API key validation.
+                            location = "chicago",
+                        ).let { apiResult ->
+                            return when (apiResult) {
+                                is ApiResult.Success -> ApiResult.success(true)
+                                is ApiResult.Failure.ApiFailure -> ApiResult.apiFailure(apiResult.error?.message ?: "Unknown API error")
+                                is ApiResult.Failure.HttpFailure ->
+                                    ApiResult.httpFailure(
+                                        apiResult.code,
+                                        apiResult.error?.message,
+                                    )
+
+                                is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
+                                is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                            }
+                        }
+                }
+            }
         }
 
         private suspend fun loadForecastFromNetwork(

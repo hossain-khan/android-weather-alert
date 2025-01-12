@@ -37,7 +37,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -59,11 +58,17 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
+import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -71,11 +76,21 @@ import timber.log.Timber
 
 @Parcelize
 data class BringYourOwnApiKeyScreen(
-    val requestId: String,
+    /**
+     * The service API key is being added for, e.g., OpenWeatherMap, Tomorrow.io, etc.
+     */
+    val weatherApiService: WeatherService,
+    /**
+     * Indicates if API error is received and then user is navigated to this screen.
+     */
+    val isOriginatedFromError: Boolean = false,
 ) : Screen {
     data class State(
-        val apiKey: String,
+        val weatherService: WeatherService,
+        val originatedFromApiError: Boolean,
+        val apiKeyInput: String,
         val isApiKeyValid: Boolean,
+        val isUserProvidedApiKey: Boolean,
         val isApiCallInProgress: Boolean,
         val snackbarData: SnackbarData? = null,
         val eventSink: (Event) -> Unit,
@@ -94,6 +109,9 @@ data class BringYourOwnApiKeyScreen(
     }
 }
 
+/**
+ * Presenter for [BringYourOwnApiKeyScreen].
+ */
 class BringYourOwnApiKeyPresenter
     @AssistedInject
     constructor(
@@ -101,45 +119,71 @@ class BringYourOwnApiKeyPresenter
         @Assisted private val screen: BringYourOwnApiKeyScreen,
         private val weatherRepository: WeatherRepository,
         private val preferencesManager: PreferencesManager,
+        private val apiKeyProvider: ApiKey,
     ) : Presenter<BringYourOwnApiKeyScreen.State> {
         @Composable
         override fun present(): BringYourOwnApiKeyScreen.State {
             val scope = rememberCoroutineScope()
             var apiKey by remember { mutableStateOf("") }
             var isApiKeyValid by remember { mutableStateOf(false) }
+            var isUserProvidedApiKey by remember { mutableStateOf(false) }
             var isApiCallInProgress by remember { mutableStateOf(false) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
 
+            LaunchedEffect(Unit) {
+                // Prepopulates the API key, IFF it was provided by user.
+                apiKeyProvider.key
+                    .takeIf { isUserProvidedApiKey(screen.weatherApiService, it) }
+                    ?.let {
+                        apiKey = it
+                        isUserProvidedApiKey = true
+                        isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
+                    }
+            }
+
             return BringYourOwnApiKeyScreen.State(
-                apiKey = apiKey,
+                weatherService = screen.weatherApiService,
+                originatedFromApiError = screen.isOriginatedFromError,
+                apiKeyInput = apiKey,
                 isApiKeyValid = isApiKeyValid,
+                isUserProvidedApiKey = isUserProvidedApiKey,
                 isApiCallInProgress = isApiCallInProgress,
                 snackbarData = snackbarData,
             ) { event ->
                 when (event) {
                     is BringYourOwnApiKeyScreen.Event.ApiKeyChanged -> {
                         apiKey = event.value
-                        isApiKeyValid = apiKey.matches(Regex("^[a-f0-9]{32}\$"))
+                        val isValidKey =
+                            apiKeyProvider.isValidKey(screen.weatherApiService, event.value)
+                        isApiKeyValid = isValidKey
+                        if (isValidKey) {
+                            // Update the label if it somehow is reset to build config key
+                            isUserProvidedApiKey = isUserProvidedApiKey(screen.weatherApiService, event.value)
+                        }
                     }
 
                     is BringYourOwnApiKeyScreen.Event.SubmitApiKey -> {
                         isApiCallInProgress = true
                         scope.launch {
-                            val result = weatherRepository.isValidApiKey(apiKey)
+                            val result = weatherRepository.isValidApiKey(screen.weatherApiService, apiKey)
                             isApiCallInProgress = false
                             when (result) {
                                 is ApiResult.Success -> {
                                     Timber.d("API key is valid - saving to preferences.")
-                                    preferencesManager.saveUserApiKey(apiKey)
+                                    preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
                                         SnackbarData("✔️API key is valid and saved.", "Continue") {
-                                            navigator.pop()
+                                            if (screen.isOriginatedFromError) {
+                                                navigator.pop()
+                                            } else {
+                                                navigator.resetRoot(CurrentWeatherAlertScreen("api-set"))
+                                            }
                                         }
                                 }
                                 is ApiResult.Failure -> {
                                     var serverMessage = ""
                                     if (result is ApiResult.Failure.HttpFailure) {
-                                        result.error?.message?.let {
+                                        result.error?.let {
                                             serverMessage = "\n⚠️ API message: $it"
                                         }
                                     }
@@ -163,6 +207,19 @@ class BringYourOwnApiKeyPresenter
             }
         }
 
+        /**
+         * Internal function to check if the API key is provided by user,
+         * then it's used to display in the API input field.
+         */
+        private fun isUserProvidedApiKey(
+            weatherApiService: WeatherService,
+            apiKey: String,
+        ): Boolean =
+            when (weatherApiService) {
+                WeatherService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
+                WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
+            }
+
         @CircuitInject(BringYourOwnApiKeyScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
@@ -180,9 +237,8 @@ fun BringYourOwnApiKeyScreen(
     state: BringYourOwnApiKeyScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val serviceConfig: WeatherServiceLogoConfig = state.weatherService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
-    var clicked by remember { mutableStateOf(false) }
-    val uriHandler = LocalUriHandler.current
 
     Scaffold(
         topBar = {
@@ -210,35 +266,20 @@ fun BringYourOwnApiKeyScreen(
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            Text(
-                text =
-                    "Unfortunately, API key provided with the app has been exhausted.\n\n" +
-                        "To continue to use this app, you need to provide your own API key from OpenWeatherMap.",
-                style = MaterialTheme.typography.bodyLarge,
-            )
-
-            // Image with clouds and servers for visual appeal.
-            Box(modifier = Modifier.fillMaxWidth()) {
-                Image(
-                    painter = painterResource(id = R.drawable.servers),
-                    contentDescription = "City",
-                    modifier = Modifier.align(Alignment.Center),
-                )
-                Image(
-                    painter = painterResource(id = R.drawable.clouds),
-                    contentDescription = "City",
-                    modifier =
-                        Modifier
-                            .size(96.dp)
-                            .align(Alignment.TopStart)
-                            .padding(start = 24.dp),
+            if (state.originatedFromApiError) {
+                Text(
+                    text = serviceConfig.apiExhaustedMessage,
+                    style = MaterialTheme.typography.bodyLarge,
                 )
             }
 
-            OpenWeatherMapLinkedText(clicked, uriHandler)
+            // Image with clouds and servers for visual appeal.
+            WeatherServiceImageAsset(serviceConfig)
+
+            WeatherApiServiceLinkedText(serviceConfig)
 
             OutlinedTextField(
-                value = state.apiKey,
+                value = state.apiKeyInput,
                 onValueChange = { state.eventSink(BringYourOwnApiKeyScreen.Event.ApiKeyChanged(it)) },
                 label = { Text("API Key") },
                 leadingIcon = {
@@ -258,7 +299,14 @@ fun BringYourOwnApiKeyScreen(
                 },
                 placeholder = { Text("Enter your API key here") },
                 supportingText = {
-                    Text("API key should be 32 characters long and contain only hexadecimal characters.")
+                    Text(
+                        text =
+                            if (state.isUserProvidedApiKey) {
+                                "⚡️ Your provided API key is being used for alert service."
+                            } else {
+                                serviceConfig.apiFormatGuide
+                            },
+                    )
                 },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth(),
@@ -266,7 +314,7 @@ fun BringYourOwnApiKeyScreen(
 
             Button(
                 enabled = state.isApiKeyValid,
-                onClick = { state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKey)) },
+                onClick = { state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKeyInput)) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Save API Key")
@@ -298,37 +346,67 @@ fun BringYourOwnApiKeyScreen(
     }
 }
 
+/**
+ * Visual representation of weather service with clouds and servers.
+ */
 @Composable
-private fun OpenWeatherMapLinkedText(
-    clicked: Boolean,
-    uriHandler: UriHandler,
-) {
-    var clicked1 = clicked
+private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceLogoConfig) {
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Image(
+            painter = painterResource(id = R.drawable.servers),
+            contentDescription = "Server Icon Image",
+            modifier = Modifier.align(Alignment.Center),
+        )
+        Image(
+            painter = painterResource(id = R.drawable.clouds),
+            contentDescription = "Clouds Icon",
+            modifier =
+                Modifier
+                    .size(96.dp)
+                    .align(Alignment.TopStart)
+                    .padding(start = 24.dp),
+        )
+        Image(
+            painter = painterResource(id = serviceConfig.logoResId),
+            contentDescription = "Weather service logo",
+            modifier =
+                Modifier
+                    .size(serviceConfig.logoWidth, serviceConfig.logoHeight)
+                    .align(Alignment.TopEnd)
+                    .padding(end = 24.dp),
+        )
+    }
+}
+
+@Composable
+private fun WeatherApiServiceLinkedText(serviceConfig: WeatherServiceLogoConfig) {
+    var clickedUrl by remember { mutableStateOf(false) }
+    val uriHandler = LocalUriHandler.current
+
     val annotatedLinkString =
         buildAnnotatedString {
             append("Visit ")
             withLink(
                 LinkAnnotation.Url(
-                    url = "https://openweathermap.org/api",
+                    url = serviceConfig.apiServiceUrl,
                     styles =
                         TextLinkStyles(
                             style = SpanStyle(color = MaterialTheme.colorScheme.primary),
                             hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
                         ),
                     linkInteractionListener = {
-                        // on click...
-                        if (!clicked1) uriHandler.openUri("https://openweathermap.org/api")
-                        clicked1 = true
+                        if (!clickedUrl) uriHandler.openUri(serviceConfig.apiServiceUrl)
+                        clickedUrl = true
                     },
                 ),
             ) {
                 withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
-                    append("openweathermap.org")
+                    append(serviceConfig.apiServiceUrlLabel)
                 }
             }
             append(" to get your free API key for '")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
-                append("One Call API 3.0")
+                append(serviceConfig.apiServiceProduceName)
             }
             append("'.")
         }
@@ -343,8 +421,11 @@ fun BringYourOwnApiKeyScreenPreview() {
         BringYourOwnApiKeyScreen(
             state =
                 BringYourOwnApiKeyScreen.State(
-                    apiKey = "",
+                    weatherService = WeatherService.OPEN_WEATHER_MAP,
+                    originatedFromApiError = true,
+                    apiKeyInput = "123456abcdef123456abcdef123456ab",
                     isApiKeyValid = false,
+                    isUserProvidedApiKey = true,
                     isApiCallInProgress = false,
                     eventSink = {},
                 ),
