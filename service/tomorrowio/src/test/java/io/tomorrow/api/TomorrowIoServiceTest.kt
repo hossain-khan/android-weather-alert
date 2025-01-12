@@ -2,6 +2,8 @@ package io.tomorrow.api
 
 import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
+import io.tomorrow.api.model.RealTimeWeatherResponse
+import io.tomorrow.api.model.TomorrowIoApiErrorResponse
 import io.tomorrow.api.model.WeatherResponse
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -83,6 +85,58 @@ class TomorrowIoServiceTest {
             assertThat(forecast.timelines.minutely).hasSize(60)
             assertThat(forecast.timelines.hourly).hasSize(120)
             assertThat(forecast.timelines.daily).hasSize(7)
+        }
+
+    @Test
+    fun `given realtime response for toronto city - parses data properly`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("tomorrow-io-realtime-data-toronto.json")),
+            )
+
+            val result =
+                tomorrowIoService.getRealTimeWeather(
+                    location = "toronto",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val realtimeForecast: RealTimeWeatherResponse = (result as ApiResult.Success).value
+            assertThat(realtimeForecast.location.latitude).isEqualTo(43.653480529785156)
+            assertThat(realtimeForecast.location.longitude).isEqualTo(-79.3839340209961)
+            assertThat(realtimeForecast.data.time).isEqualTo("2025-01-12T01:40:00Z")
+        }
+
+    @Test
+    fun `given realtime response that errors out - parses error body properly`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(429)
+                    .setBody(
+                        """
+                        {
+                          "code": 429001,
+                          "type": "Too Many Calls",
+                          "message": "The request limit for this resource has been reached."
+                        }
+                        """.trimIndent(),
+                    ),
+            )
+
+            val result =
+                tomorrowIoService.getRealTimeWeather(
+                    location = "toronto",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Failure::class.java)
+            val apiErrorResponse: TomorrowIoApiErrorResponse = (result as ApiResult.Failure.HttpFailure).error!!
+            assertThat(apiErrorResponse.code).isEqualTo(429001)
+            assertThat(apiErrorResponse.type).isEqualTo("Too Many Calls")
+            assertThat(apiErrorResponse.message).isEqualTo("The request limit for this resource has been reached.")
         }
 
     // Helper method to load JSON from resources
