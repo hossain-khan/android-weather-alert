@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.NoteAlt
@@ -52,10 +53,13 @@ import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
+import dev.hossain.weatheralert.db.CityForecast
+import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -68,6 +72,7 @@ data class WeatherAlertDetailsScreen(
     data class State(
         val alertConfig: Alert?,
         val cityInfo: City?,
+        val cityForecast: CityForecast?,
         val alertNote: String,
         val isEditingNote: Boolean,
         val eventSink: (Event) -> Unit,
@@ -92,6 +97,7 @@ class WeatherAlertDetailsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: WeatherAlertDetailsScreen,
         private val alertDao: AlertDao,
+        private val cityForecastDao: CityForecastDao,
         private val analytics: Analytics,
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
@@ -100,6 +106,7 @@ class WeatherAlertDetailsPresenter
             var alertNote by remember { mutableStateOf("") }
             var alertCity by remember { mutableStateOf<City?>(null) }
             var alertConfig by remember { mutableStateOf<Alert?>(null) }
+            var cityForecast by remember { mutableStateOf<CityForecast?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
 
             LaunchedImpressionEffect {
@@ -107,15 +114,18 @@ class WeatherAlertDetailsPresenter
             }
 
             LaunchedEffect(Unit) {
-                val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId.toInt())
+                val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
+                val forecast = cityForecastDao.getCityForecastsByCityId(alert.city.id)
                 alertConfig = alert.alert
                 alertNote = alert.alert.notes
                 alertCity = alert.city
+                cityForecast = forecast.firstOrNull()
             }
 
             return WeatherAlertDetailsScreen.State(
                 alertConfig = alertConfig,
                 cityInfo = alertCity,
+                cityForecast = cityForecast,
                 alertNote = alertNote,
                 isEditingNote = isEditingNote,
             ) { event ->
@@ -209,6 +219,8 @@ fun WeatherAlertDetailsScreen(
                 WeatherAlertConfigUi(alert = alert)
 
                 WeatherAlertNoteUi(state)
+
+                WeatherAlertUpdateOnUi(state.cityForecast)
             }
         }
     }
@@ -396,6 +408,47 @@ fun WeatherAlertNoteUi(
     }
 }
 
+@Composable
+fun WeatherAlertUpdateOnUi(
+    cityForecast: CityForecast?,
+    modifier: Modifier = Modifier,
+) {
+    cityForecast?.let { forecast ->
+        Column(
+            modifier =
+                modifier
+                    .fillMaxWidth(),
+        ) {
+            Text(
+                text = "Last Update On",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+            )
+            Card(
+                modifier = modifier.fillMaxWidth(),
+            ) {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        imageVector = Icons.Default.CalendarMonth,
+                        contentDescription = "Calendar icon",
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier =
+                            Modifier
+                                .padding(16.dp)
+                                .align(Alignment.TopEnd),
+                    )
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = formatToDate(forecast.createdAt),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
@@ -426,6 +479,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             population = 1000000,
                             city = "Salt Lake City",
                         ),
+                    cityForecast = null,
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
                     eventSink = {},
