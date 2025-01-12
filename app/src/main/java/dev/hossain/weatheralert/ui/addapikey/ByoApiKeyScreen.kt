@@ -346,7 +346,6 @@ private fun OpenWeatherMapLinkedText(
                             hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
                         ),
                     linkInteractionListener = {
-                        // on click...
                         if (!clickedUrl) uriHandler.openUri("https://openweathermap.org/api")
                         clickedUrl = true
                     },
