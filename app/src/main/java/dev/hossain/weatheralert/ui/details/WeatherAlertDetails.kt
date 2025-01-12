@@ -15,11 +15,11 @@ import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -208,53 +208,7 @@ fun WeatherAlertDetailsScreen(
 
                 WeatherAlertConfigUi(alert = alert)
 
-                WeatherAlertNoteUi(note = state.alertNote)
-
-                if (state.isEditingNote) {
-                    OutlinedTextField(
-                        value = state.alertNote,
-                        onValueChange = {
-                            state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
-                            )
-                        },
-                        label = {
-                            Text(
-                                if (state.alertNote.isEmpty()) {
-                                    "Add reminder note"
-                                } else {
-                                    "Edit reminder note"
-                                },
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    OutlinedButton(
-                        onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text("Save Note")
-                    }
-                } else {
-                    OutlinedButton(
-                        onClick = {
-                            state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(
-                                    state.alertNote,
-                                ),
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(
-                            if (state.alertNote.isEmpty()) {
-                                "Add Note"
-                            } else {
-                                "Edit Note"
-                            },
-                        )
-                    }
-                }
+                WeatherAlertNoteUi(state)
             }
         }
     }
@@ -352,7 +306,7 @@ fun WeatherAlertConfigUi(
 
 @Composable
 fun WeatherAlertNoteUi(
-    note: String,
+    state: WeatherAlertDetailsScreen.State,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -380,8 +334,8 @@ fun WeatherAlertNoteUi(
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     val text: AnnotatedString =
-                        if (note.isNotEmpty()) {
-                            parseMarkdown(note)
+                        if (state.alertNote.isNotEmpty()) {
+                            parseMarkdown(state.alertNote)
                         } else {
                             buildAnnotatedString { append("No note added.") }
                         }
@@ -389,8 +343,53 @@ fun WeatherAlertNoteUi(
                         text = text,
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
-                        modifier = Modifier.padding(end = 24.dp),
+                        modifier = Modifier.padding(end = 24.dp, bottom = 8.dp),
                     )
+                    if (state.isEditingNote) {
+                        OutlinedTextField(
+                            value = state.alertNote,
+                            onValueChange = {
+                                state.eventSink(
+                                    WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
+                                )
+                            },
+                            label = {
+                                Text(
+                                    if (state.alertNote.isEmpty()) {
+                                        "Add reminder note"
+                                    } else {
+                                        "Edit reminder note"
+                                    },
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                        ElevatedButton(
+                            onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text("Save Note")
+                        }
+                    } else {
+                        ElevatedButton(
+                            onClick = {
+                                state.eventSink(
+                                    WeatherAlertDetailsScreen.Event.EditNoteChanged(
+                                        state.alertNote,
+                                    ),
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(
+                                if (state.alertNote.isEmpty()) {
+                                    "Add Note"
+                                } else {
+                                    "Edit Note"
+                                },
+                            )
+                        }
+                    }
                 }
             }
         }
