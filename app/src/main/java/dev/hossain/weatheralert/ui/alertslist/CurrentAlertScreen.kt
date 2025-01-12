@@ -75,6 +75,7 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuitx.effects.LaunchedImpressionEffect
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
@@ -90,6 +91,7 @@ import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
+import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
@@ -132,6 +134,7 @@ class CurrentWeatherAlertPresenter
         private val weatherRepository: WeatherRepository,
         private val alertDao: AlertDao,
         private val networkMonitor: NetworkMonitor,
+        private val analytics: Analytics,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
@@ -139,6 +142,10 @@ class CurrentWeatherAlertPresenter
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
             var userMessage by remember { mutableStateOf<String?>(null) }
             var isNetworkUnavailable by remember { mutableStateOf(false) }
+
+            LaunchedImpressionEffect {
+                analytics.logScreenView(CurrentWeatherAlertScreen::class)
+            }
 
             LaunchedEffect(Unit) {
                 val userCityAlerts = alertDao.getAllAlertsWithCities()

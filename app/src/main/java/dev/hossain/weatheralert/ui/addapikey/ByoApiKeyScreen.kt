@@ -54,6 +54,7 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
+import com.slack.circuitx.effects.LaunchedImpressionEffect
 import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -70,6 +71,7 @@ import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -120,6 +122,7 @@ class BringYourOwnApiKeyPresenter
         private val weatherRepository: WeatherRepository,
         private val preferencesManager: PreferencesManager,
         private val apiKeyProvider: ApiKey,
+        private val analytics: Analytics,
     ) : Presenter<BringYourOwnApiKeyScreen.State> {
         @Composable
         override fun present(): BringYourOwnApiKeyScreen.State {
@@ -139,6 +142,10 @@ class BringYourOwnApiKeyPresenter
                         isUserProvidedApiKey = true
                         isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
                     }
+            }
+
+            LaunchedImpressionEffect {
+                analytics.logScreenView(BringYourOwnApiKeyScreen::class)
             }
 
             return BringYourOwnApiKeyScreen.State(
