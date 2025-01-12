@@ -105,6 +105,9 @@ data class BringYourOwnApiKeyScreen(
     }
 }
 
+/**
+ * Presenter for [BringYourOwnApiKeyScreen].
+ */
 class BringYourOwnApiKeyPresenter
     @AssistedInject
     constructor(
@@ -137,7 +140,7 @@ class BringYourOwnApiKeyPresenter
                     is BringYourOwnApiKeyScreen.Event.SubmitApiKey -> {
                         isApiCallInProgress = true
                         scope.launch {
-                            val result = weatherRepository.isValidApiKey(apiKey)
+                            val result = weatherRepository.isValidApiKey(screen.weatherApiService, apiKey)
                             isApiCallInProgress = false
                             when (result) {
                                 is ApiResult.Success -> {
@@ -151,7 +154,7 @@ class BringYourOwnApiKeyPresenter
                                 is ApiResult.Failure -> {
                                     var serverMessage = ""
                                     if (result is ApiResult.Failure.HttpFailure) {
-                                        result.error?.message?.let {
+                                        result.error?.let {
                                             serverMessage = "\n⚠️ API message: $it"
                                         }
                                     }
