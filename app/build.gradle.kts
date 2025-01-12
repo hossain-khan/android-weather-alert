@@ -197,10 +197,6 @@ dependencies {
     testImplementation(libs.test.mockito.core)
     testImplementation(libs.test.mockito.inline)
     testImplementation(libs.test.mockito.kotlin)
-    testImplementation(libs.test.powermock.module.junit4)
-    testImplementation(libs.test.powermock.module.junit4.rule)
-    testImplementation(libs.test.powermock.api.mockito)
-    testImplementation(libs.test.powermock.classloading.xstream)
 }
 
 ksp {

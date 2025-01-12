@@ -8,8 +8,6 @@ junitKtx = "1.2.1"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.2.1"
 mockitoVersion = "4.0.0"
-# https://github.com/robolectric/robolectric/wiki/Using-PowerMock
-powermockVersion = "1.6.6"
 espressoCore = "3.6.1"
 testCore = "1.6.1"
 coroutinesTest = "1.10.1"
@@ -181,13 +179,6 @@ robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14
 test-mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoVersion" }
 test-mockito-inline = { group = "org.mockito", name = "mockito-inline", version.ref = "mockitoVersion" }
 test-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoVersion" }
-
-# https://github.com/robolectric/robolectric/wiki/Using-PowerMock
-test-powermock-module-junit4 = { group = "org.powermock", name = "powermock-module-junit4", version.ref = "powermockVersion" }
-test-powermock-module-junit4-rule = { group = "org.powermock", name = "powermock-module-junit4-rule", version.ref = "powermockVersion" }
-test-powermock-api-mockito = { group = "org.powermock", name = "powermock-api-mockito", version.ref = "powermockVersion" }
-test-powermock-classloading-xstream = { group = "org.powermock", name = "powermock-classloading-xstream", version.ref = "powermockVersion" }
-
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
