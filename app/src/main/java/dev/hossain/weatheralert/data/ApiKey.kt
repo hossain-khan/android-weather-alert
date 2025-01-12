@@ -13,6 +13,18 @@ interface ApiKey {
      * The API key as a string.
      */
     val key: String
+
+    /**
+     * Checks if the provided API key is valid for the given weather service.
+     *
+     * @param weatherService The weather service for which the API key is being validated.
+     * @param apiKey The API key to validate.
+     * @return `true` if the API key is valid, `false` otherwise.
+     */
+    fun isValidKey(
+        weatherService: WeatherService,
+        apiKey: String,
+    ): Boolean
 }
 
 /**
@@ -41,6 +53,19 @@ class ApiKeyImpl
                         // Check if user has provided their own API key.
                         preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.TOMORROW_IO_API_KEY
                     }
+                }
+            }
+
+        override fun isValidKey(
+            weatherService: WeatherService,
+            apiKey: String,
+        ): Boolean =
+            when (weatherService) {
+                WeatherService.OPEN_WEATHER_MAP -> {
+                    apiKey.matches(Regex("^[a-f0-9]{32}\$"))
+                }
+                WeatherService.TOMORROW_IO -> {
+                    apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
                 }
             }
     }
