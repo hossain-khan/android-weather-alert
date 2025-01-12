@@ -1,25 +1,29 @@
 package dev.hossain.weatheralert.ui.details
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,6 +37,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,14 +53,19 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
+import dev.hossain.weatheralert.db.CityForecast
+import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -68,6 +78,7 @@ data class WeatherAlertDetailsScreen(
     data class State(
         val alertConfig: Alert?,
         val cityInfo: City?,
+        val cityForecast: CityForecast?,
         val alertNote: String,
         val isEditingNote: Boolean,
         val eventSink: (Event) -> Unit,
@@ -92,6 +103,7 @@ class WeatherAlertDetailsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: WeatherAlertDetailsScreen,
         private val alertDao: AlertDao,
+        private val cityForecastDao: CityForecastDao,
         private val analytics: Analytics,
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
@@ -100,6 +112,7 @@ class WeatherAlertDetailsPresenter
             var alertNote by remember { mutableStateOf("") }
             var alertCity by remember { mutableStateOf<City?>(null) }
             var alertConfig by remember { mutableStateOf<Alert?>(null) }
+            var cityForecast by remember { mutableStateOf<CityForecast?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
 
             LaunchedImpressionEffect {
@@ -107,15 +120,18 @@ class WeatherAlertDetailsPresenter
             }
 
             LaunchedEffect(Unit) {
-                val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId.toInt())
+                val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
+                val forecast = cityForecastDao.getCityForecastsByCityId(alert.city.id)
                 alertConfig = alert.alert
                 alertNote = alert.alert.notes
                 alertCity = alert.city
+                cityForecast = forecast.firstOrNull()
             }
 
             return WeatherAlertDetailsScreen.State(
                 alertConfig = alertConfig,
                 cityInfo = alertCity,
+                cityForecast = cityForecast,
                 alertNote = alertNote,
                 isEditingNote = isEditingNote,
             ) { event ->
@@ -187,74 +203,34 @@ fun WeatherAlertDetailsScreen(
                 },
             )
         },
-    ) { padding ->
+    ) { contentPaddingValues ->
         Column(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(horizontal = 24.dp, vertical = padding.calculateTopPadding())
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = 24.dp)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             val alert = state.alertConfig
             val city = state.cityInfo
+            val cityForecast = state.cityForecast
 
-            if (alert == null || city == null) {
+            if (alert == null || city == null || cityForecast == null) {
                 Timber.d("Loading alerts info...")
                 // Add loading indicator
                 CircularProgressIndicator()
             } else {
                 CityInfoUi(city = city)
 
-                WeatherAlertConfigUi(alert = alert)
+                WeatherAlertConfigUi(alert = alert, forecast = cityForecast)
 
-                WeatherAlertNoteUi(note = state.alertNote)
+                WeatherAlertNoteUi(state = state)
 
-                if (state.isEditingNote) {
-                    OutlinedTextField(
-                        value = state.alertNote,
-                        onValueChange = {
-                            state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
-                            )
-                        },
-                        label = {
-                            Text(
-                                if (state.alertNote.isEmpty()) {
-                                    "Add reminder note"
-                                } else {
-                                    "Edit reminder note"
-                                },
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                    OutlinedButton(
-                        onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text("Save Note")
-                    }
-                } else {
-                    OutlinedButton(
-                        onClick = {
-                            state.eventSink(
-                                WeatherAlertDetailsScreen.Event.EditNoteChanged(
-                                    state.alertNote,
-                                ),
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    ) {
-                        Text(
-                            if (state.alertNote.isEmpty()) {
-                                "Add Note"
-                            } else {
-                                "Edit Note"
-                            },
-                        )
-                    }
-                }
+                WeatherAlertUpdateOnUi(forecast = cityForecast)
+
+                WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService)
             }
         }
     }
@@ -306,6 +282,7 @@ fun CityInfoUi(
 @Composable
 fun WeatherAlertConfigUi(
     alert: Alert,
+    forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -341,7 +318,10 @@ fun WeatherAlertConfigUi(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Current Status: ${alert.threshold}",
+                        text = "Current Status: ${when (alert.alertCategory){
+                            WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow
+                            WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain
+                        }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -352,7 +332,7 @@ fun WeatherAlertConfigUi(
 
 @Composable
 fun WeatherAlertNoteUi(
-    note: String,
+    state: WeatherAlertDetailsScreen.State,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -380,8 +360,8 @@ fun WeatherAlertNoteUi(
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     val text: AnnotatedString =
-                        if (note.isNotEmpty()) {
-                            parseMarkdown(note)
+                        if (state.alertNote.isNotEmpty()) {
+                            parseMarkdown(state.alertNote)
                         } else {
                             buildAnnotatedString { append("No note added.") }
                         }
@@ -389,7 +369,143 @@ fun WeatherAlertNoteUi(
                         text = text,
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp, bottom = 8.dp),
+                    )
+                    if (state.isEditingNote) {
+                        OutlinedTextField(
+                            value = state.alertNote,
+                            onValueChange = {
+                                state.eventSink(
+                                    WeatherAlertDetailsScreen.Event.EditNoteChanged(note = it),
+                                )
+                            },
+                            label = {
+                                Text(
+                                    if (state.alertNote.isEmpty()) {
+                                        "Add reminder note"
+                                    } else {
+                                        "Edit reminder note"
+                                    },
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                        ElevatedButton(
+                            onClick = { state.eventSink(WeatherAlertDetailsScreen.Event.SaveNote) },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text("Save Note")
+                        }
+                    } else {
+                        ElevatedButton(
+                            onClick = {
+                                state.eventSink(
+                                    WeatherAlertDetailsScreen.Event.EditNoteChanged(
+                                        state.alertNote,
+                                    ),
+                                )
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(
+                                if (state.alertNote.isEmpty()) {
+                                    "Add Note"
+                                } else {
+                                    "Edit Note"
+                                },
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherAlertUpdateOnUi(
+    forecast: CityForecast,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Last Update On",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.CalendarMonth,
+                    contentDescription = "Calendar icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = formatToDate(forecast.createdAt),
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
                         modifier = Modifier.padding(end = 24.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherForecastSourceUi(
+    forecastSourceService: WeatherService,
+    modifier: Modifier = Modifier,
+) {
+    val serviceConfig = forecastSourceService.serviceConfig()
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Forecast Data Source",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    imageVector = Icons.Default.Computer,
+                    contentDescription = "Computer server icon for weather data source",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    // Name is not needed for now, because each service logo itself has text.
+
+                    /*Text(
+                        text = serviceConfig.serviceName,
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
+                    )*/
+
+                    Image(
+                        painter = painterResource(id = serviceConfig.logoResId),
+                        contentDescription = "Weather data source icon",
+                        modifier = Modifier.size(width = serviceConfig.logoWidth, height = serviceConfig.logoHeight),
                     )
                 }
             }
@@ -427,6 +543,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             population = 1000000,
                             city = "Salt Lake City",
                         ),
+                    cityForecast = null,
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
                     eventSink = {},

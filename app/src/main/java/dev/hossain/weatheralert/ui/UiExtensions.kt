@@ -10,6 +10,10 @@ import dev.hossain.weatheralert.data.WeatherService
  * Internal config to show logo with right sizing and description for each weather service.
  */
 internal data class WeatherServiceLogoConfig(
+    /**
+     * Can be used to display name of the service.
+     */
+    val serviceName: String,
     @DrawableRes val logoResId: Int,
     val logoWidth: Dp,
     val logoHeight: Dp,
@@ -37,6 +41,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
     when (this) {
         WeatherService.OPEN_WEATHER_MAP ->
             WeatherServiceLogoConfig(
+                serviceName = "OpenWeather",
                 logoResId = R.drawable.openweather_logo,
                 logoWidth = 100.dp,
                 logoHeight = 50.dp,
@@ -51,6 +56,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
             )
         WeatherService.TOMORROW_IO ->
             WeatherServiceLogoConfig(
+                serviceName = "Tomorrow.io",
                 logoResId = R.drawable.tomorrow_io_logo,
                 logoWidth = 120.dp,
                 logoHeight = 30.dp,

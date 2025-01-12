@@ -146,6 +146,7 @@ class WeatherRepositoryImpl
             return when (selectedService) {
                 WeatherService.OPEN_WEATHER_MAP -> {
                     loadForecastUseOpenWeather(
+                        weatherService = selectedService,
                         latitude = latitude,
                         longitude = longitude,
                         cityId = cityId,
@@ -154,6 +155,7 @@ class WeatherRepositoryImpl
 
                 WeatherService.TOMORROW_IO -> {
                     loadForecastUseTomorrowIo(
+                        weatherService = selectedService,
                         latitude = latitude,
                         longitude = longitude,
                         cityId = cityId,
@@ -163,6 +165,7 @@ class WeatherRepositoryImpl
         }
 
         private suspend fun WeatherRepositoryImpl.loadForecastUseOpenWeather(
+            weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
             cityId: Int,
@@ -176,7 +179,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = apiResult.value.toForecastData()
-                    cacheCityForecastData(cityId, convertToForecastData)
+                    cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -187,6 +190,7 @@ class WeatherRepositoryImpl
         }
 
         private suspend fun WeatherRepositoryImpl.loadForecastUseTomorrowIo(
+            weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
             cityId: Int,
@@ -199,7 +203,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = apiResult.value.toForecastData()
-                    cacheCityForecastData(cityId, convertToForecastData)
+                    cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -210,6 +214,7 @@ class WeatherRepositoryImpl
         }
 
         private suspend fun cacheCityForecastData(
+            weatherService: WeatherService,
             cityId: Int,
             convertToForecastData: ForecastData,
         ) {
@@ -222,6 +227,7 @@ class WeatherRepositoryImpl
                     nextDaySnow = convertToForecastData.snow.nextDaySnow,
                     dailyCumulativeRain = convertToForecastData.rain.dailyCumulativeRain,
                     nextDayRain = convertToForecastData.rain.nextDayRain,
+                    forecastSourceService = weatherService,
                 ),
             )
         }
