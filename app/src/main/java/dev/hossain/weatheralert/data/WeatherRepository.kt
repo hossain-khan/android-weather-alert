@@ -20,6 +20,8 @@ interface WeatherRepository {
      * Provides the daily weather forecast for a given city either from
      * cache or network based on data freshness or [skipCache] value.
      *
+     * **NOTE:** The weather data is loaded using [ActiveWeatherService] automatically.
+     *
      * @param cityId The ID of the city from the database.
      * @param latitude The latitude of the city.
      * @param longitude The longitude of the city.
@@ -142,14 +144,21 @@ class WeatherRepositoryImpl
         ): ApiResult<ForecastData, Unit> {
             val selectedService = activeWeatherService.selectedService()
             return when (selectedService) {
-                WeatherService.OPEN_WEATHER_MAP ->
+                WeatherService.OPEN_WEATHER_MAP -> {
                     loadForecastUseOpenWeather(
-                        latitude,
-                        longitude,
-                        cityId,
+                        latitude = latitude,
+                        longitude = longitude,
+                        cityId = cityId,
                     )
+                }
 
-                WeatherService.TOMORROW_IO -> loadForecastUseTomorrowIo(latitude, longitude, cityId)
+                WeatherService.TOMORROW_IO -> {
+                    loadForecastUseTomorrowIo(
+                        latitude = latitude,
+                        longitude = longitude,
+                        cityId = cityId,
+                    )
+                }
             }
         }
 
