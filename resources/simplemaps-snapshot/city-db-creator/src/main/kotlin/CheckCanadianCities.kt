@@ -12,8 +12,13 @@ import kotlin.time.measureTime
  */
 fun main() {
     val elapsed = measureTime {
-        //executeCityMatch()
-        debugCityMatching()
+        // Total Canadian cities: 1737 and matches: 466
+        executeCityMatch()
+
+        //debugCityMatching()
+
+        // Total Canadian cities: 1737 and Collision matches: 444
+        //findIdCollision()
     }
 
     // debugCityMatching - Time elapsed: 3.672165291s
@@ -55,6 +60,8 @@ private fun debugCityMatching() {
                         - - - - - - - - - - - - - - - - - - - - - - - -
                     """.trimIndent() + "\n")
 
+                    println("CSV City: ${csvCity["city"]}, ${csvCity["province_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB City: $city, state: $province, Lat: $lat, Lng: $lng, Country: $country")
+
                     didFindMatch = true
                 }
             }
@@ -87,12 +94,11 @@ private fun executeCityMatch() {
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
-            //stmt.bindText(1, city["city_ascii"]!!)
             while (stmt.step()) {
                 if (stmt.getText(0).toInt() > 0) {
                     totalMatches++
                 }
-                println("City: ${city["city"]}, Province: ${city["province_id"]} - Count: ${stmt.getText(0)}")
+                println("ID: ${city["id"]} City: ${city["city"]}, Province: ${city["province_id"]} - Count: ${stmt.getText(0)}")
             }
         }
     }
@@ -101,6 +107,44 @@ private fun executeCityMatch() {
 
     databaseConnection.close()
 }
+
+
+
+private fun findIdCollision() {
+    val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
+    val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
+    databaseConnection.prepare(countSql).use { stmt ->
+        while (stmt.step()) {
+            println("Total DB records: ${stmt.getText(0)}")
+        }
+    }
+
+    val canadianCities = getCanadianCities()
+    val totalCanadianCities = canadianCities.size
+    var totalCollisionMatches = 0
+    // For each canadian city, check if the id matches with world cities
+    // Total Canadian cities: 1737 and Collision matches: 444
+    canadianCities.forEach { city ->
+        val citySql = """
+            SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES
+            WHERE id = ${city["id"]!!.toLong()} AND iso3 = '$CANADA_COUNTRY_CODE'
+        """.trimIndent()
+
+        databaseConnection.prepare(citySql).use { stmt ->
+            while (stmt.step()) {
+                if (stmt.getText(0).toInt() > 0) {
+                    totalCollisionMatches++
+                }
+                println("City: ${city["city"]}, Province: ${city["province_id"]} - Count: ${stmt.getText(0)}")
+            }
+        }
+    }
+
+    println("Total Canadian cities: $totalCanadianCities and Collision matches: $totalCollisionMatches")
+
+    databaseConnection.close()
+}
+
 
 /**
  * Loads Canadian cities from CSV file.

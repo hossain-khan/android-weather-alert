@@ -5,6 +5,22 @@ import dev.hossain.citydb.config.CSV_WORLD_CITIES
 import java.io.File
 import kotlin.time.measureTime
 
+/**
+ * CREATE TABLE "cities" (
+ *    "city" TEXT NOT NULL,
+ *    "city_ascii" TEXT NOT NULL,
+ *    "lat" REAL NOT NULL,
+ *    "lng" REAL NOT NULL,
+ *    "country" TEXT NOT NULL,
+ *    "iso2" TEXT NOT NULL,
+ *    "iso3" TEXT NOT NULL,
+ *    "admin_name" TEXT,
+ *    "capital" TEXT,
+ *    "population" INTEGER,
+ *    "id" INTEGER NOT NULL,
+ * PRIMARY KEY("id")
+ * )
+ */
 fun main() {
     val elapsed = measureTime {
         // getWorldCities()
