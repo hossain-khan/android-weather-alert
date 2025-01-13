@@ -23,6 +23,7 @@ fun main() {
 
     // addMissingCanadianCities - Time elapsed: 4.278676250s
     // addMissingUsaCities - Time elapsed: 1m 32.431552958s
+    // Both tasks - Time elapsed: 1m 37.289867708s
     println("Time elapsed: $elapsed")
 }
 
