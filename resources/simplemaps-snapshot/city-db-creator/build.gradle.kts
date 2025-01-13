@@ -20,6 +20,9 @@ dependencies {
     // androidx.sqlite:sqlite-bundled
     implementation("androidx.sqlite:sqlite-bundled:$sqliteVersion")
 
+    // https://github.com/jsoizo/kotlin-csv
+    implementation("com.jsoizo:kotlin-csv-jvm:1.10.0")
+
 
     testImplementation(kotlin("test"))
 }

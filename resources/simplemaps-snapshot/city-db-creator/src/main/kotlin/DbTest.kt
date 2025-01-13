@@ -3,9 +3,13 @@ package dev.hossain.citydb
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
 import androidx.sqlite.use
+import dev.hossain.citydb.config.DB_FILE_NAME_TODO_TEST
 
+/**
+ * Source: https://developer.android.com/kotlin/multiplatform/sqlite#sqlite_driver_apis
+ */
 fun main() {
-    val databaseConnection = BundledSQLiteDriver().open("db/todos.db")
+    val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_TODO_TEST)
     databaseConnection.execSQL(
         "CREATE TABLE IF NOT EXISTS Todo (id INTEGER PRIMARY KEY, content TEXT)"
     )
