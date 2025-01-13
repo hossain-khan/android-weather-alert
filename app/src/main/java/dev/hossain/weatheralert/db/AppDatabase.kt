@@ -12,7 +12,7 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [City::class, Alert::class, CityForecast::class],
-    version = 2,
+    version = 3,
     exportSchema = true,
     // https://developer.android.com/training/data-storage/room/migrating-db-versions
     autoMigrations = [AutoMigration(from = 1, to = 2)],
