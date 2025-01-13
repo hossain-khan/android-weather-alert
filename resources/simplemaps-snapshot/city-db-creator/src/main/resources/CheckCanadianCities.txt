@@ -1,0 +1,3278 @@
+Total records: 47868
+CSV City: Toronto, Ontario 43.7417 -79.3733 matched with DB 
+City: Toronto, state: Ontario, Lat: 43.7417, Lng: -79.3733, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Montréal, Quebec 45.5089 -73.5617 matched with DB 
+City: Montreal, state: Quebec, Lat: 45.5089, Lng: -73.5617, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Vancouver, British Columbia 49.2500 -123.1000 matched with DB 
+City: Vancouver, state: British Columbia, Lat: 49.25, Lng: -123.1, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Calgary, Alberta 51.0500 -114.0667 matched with DB 
+City: Calgary, state: Alberta, Lat: 51.05, Lng: -114.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Edmonton, Alberta 53.5344 -113.4903 matched with DB 
+City: Edmonton, state: Alberta, Lat: 53.5344, Lng: -113.4903, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Ottawa, Ontario 45.4247 -75.6950 matched with DB 
+City: Ottawa, state: Ontario, Lat: 45.4247, Lng: -75.695, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Winnipeg, Manitoba 49.8844 -97.1464 matched with DB 
+City: Winnipeg, state: Manitoba, Lat: 49.8844, Lng: -97.1464, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Quebec City, Quebec 46.8139 -71.2081 matched with DB 
+City: Quebec City, state: Quebec, Lat: 46.8139, Lng: -71.2081, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hamilton, Ontario 43.2567 -79.8692 matched with DB 
+City: Hamilton, state: Ontario, Lat: 43.2567, Lng: -79.8692, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mississauga, Ontario 43.6000 -79.6500 matched with DB 
+City: Mississauga, state: Ontario, Lat: 43.6, Lng: -79.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brampton, Ontario 43.6833 -79.7667 matched with DB 
+City: Brampton, state: Ontario, Lat: 43.6833, Lng: -79.7667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Surrey, British Columbia 49.1900 -122.8489 matched with DB 
+City: Surrey, state: British Columbia, Lat: 49.19, Lng: -122.8489, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kitchener, Ontario 43.4186 -80.4728 matched with DB 
+City: Kitchener, state: Ontario, Lat: 43.4186, Lng: -80.4728, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Halifax, Nova Scotia 44.6475 -63.5906 matched with DB 
+City: Halifax, state: Nova Scotia, Lat: 44.6475, Lng: -63.5906, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Laval, Quebec 45.5833 -73.7500 matched with DB 
+City: Laval, state: Quebec, Lat: 45.5833, Lng: -73.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: London, Ontario 42.9836 -81.2497 matched with DB 
+City: London, state: Ontario, Lat: 42.9836, Lng: -81.2497, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Victoria, British Columbia 48.4283 -123.3647 matched with DB 
+City: Victoria, state: British Columbia, Lat: 48.4283, Lng: -123.3647, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Markham, Ontario 43.8767 -79.2633 matched with DB 
+City: Markham, state: Ontario, Lat: 43.8767, Lng: -79.2633, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Oshawa, Ontario 43.9000 -78.8500 matched with DB 
+City: Oshawa, state: Ontario, Lat: 43.9, Lng: -78.85, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Vaughan, Ontario 43.8333 -79.5000 matched with DB 
+City: Vaughan, state: Ontario, Lat: 43.8333, Lng: -79.5, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Windsor, Ontario 42.2833 -83.0000 matched with DB 
+City: Windsor, state: Ontario, Lat: 42.2833, Lng: -83.0, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Gatineau, Quebec 45.4833 -75.6500 matched with DB 
+City: Gatineau, state: Quebec, Lat: 45.4833, Lng: -75.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saskatoon, Saskatchewan 52.1333 -106.6833 matched with DB 
+City: Saskatoon, state: Saskatchewan, Lat: 52.1333, Lng: -106.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Longueuil, Quebec 45.5333 -73.5167 matched with DB 
+City: Longueuil, state: Quebec, Lat: 45.5333, Lng: -73.5167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Burnaby, British Columbia 49.2667 -122.9667 matched with DB 
+City: Burnaby, state: British Columbia, Lat: 49.2667, Lng: -122.9667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Catharines, Ontario 43.1833 -79.2333 matched with DB 
+City: St. Catharines, state: Ontario, Lat: 43.1833, Lng: -79.2333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Regina, Saskatchewan 50.4547 -104.6067 matched with DB 
+City: Regina, state: Saskatchewan, Lat: 50.4547, Lng: -104.6067, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Oakville, Ontario 43.4500 -79.6833 matched with DB 
+City: Oakville, state: Ontario, Lat: 43.45, Lng: -79.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Richmond, British Columbia 49.1667 -123.1333 matched with DB 
+City: Richmond, state: British Columbia, Lat: 49.1667, Lng: -123.1333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Richmond Hill, Ontario 43.8667 -79.4333 matched with DB 
+City: Richmond Hill, state: Ontario, Lat: 43.8667, Lng: -79.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Burlington, Ontario 43.3167 -79.8000 matched with DB 
+City: Burlington, state: Ontario, Lat: 43.3167, Lng: -79.8, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. John's, Newfoundland and Labrador 47.4817 -52.7971 matched with DB 
+City: St. John's, state: Newfoundland and Labrador, Lat: 47.4817, Lng: -52.7971, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kelowna, British Columbia 49.8881 -119.4956 matched with DB 
+City: Kelowna, state: British Columbia, Lat: 49.8881, Lng: -119.4956, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sherbrooke, Quebec 45.4000 -71.9000 matched with DB 
+City: Sherbrooke, state: Quebec, Lat: 45.4, Lng: -71.9, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sudbury, Ontario 46.4900 -81.0100 matched with DB 
+City: Sudbury, state: Ontario, Lat: 46.49, Lng: -81.01, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Barrie, Ontario 44.3711 -79.6769 matched with DB 
+City: Barrie, state: Ontario, Lat: 44.3711, Lng: -79.6769, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Abbotsford, British Columbia 49.0500 -122.3167 matched with DB 
+City: Abbotsford, state: British Columbia, Lat: 49.05, Lng: -122.3167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lévis, Quebec 46.8000 -71.1833 matched with DB 
+City: Levis, state: Quebec, Lat: 46.8, Lng: -71.1833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Coquitlam, British Columbia 49.2839 -122.7919 matched with DB 
+City: Coquitlam, state: British Columbia, Lat: 49.2839, Lng: -122.7919, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saguenay, Quebec 48.4167 -71.0667 matched with DB 
+City: Saguenay, state: Quebec, Lat: 48.4167, Lng: -71.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Guelph, Ontario 43.5500 -80.2500 matched with DB 
+City: Guelph, state: Ontario, Lat: 43.55, Lng: -80.25, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Trois-Rivières, Quebec 46.3500 -72.5500 matched with DB 
+City: Trois-Rivieres, state: Quebec, Lat: 46.35, Lng: -72.55, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Whitby, Ontario 43.8833 -78.9417 matched with DB 
+City: Whitby, state: Ontario, Lat: 43.8833, Lng: -78.9417, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cambridge, Ontario 43.3972 -80.3114 matched with DB 
+City: Cambridge, state: Ontario, Lat: 43.3972, Lng: -80.3114, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Milton, Ontario 43.5083 -79.8833 matched with DB 
+City: Milton, state: Ontario, Lat: 43.5083, Lng: -79.8833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Ajax, Ontario 43.8583 -79.0364 matched with DB 
+City: Ajax, state: Ontario, Lat: 43.8583, Lng: -79.0364, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Waterloo, Ontario 43.4667 -80.5167 matched with DB 
+City: Waterloo, state: Ontario, Lat: 43.4667, Lng: -80.5167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Terrebonne, Quebec 45.7000 -73.6333 matched with DB 
+City: Terrebonne, state: Quebec, Lat: 45.7, Lng: -73.6333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Moncton, New Brunswick 46.1328 -64.7714 matched with DB 
+City: Moncton, state: New Brunswick, Lat: 46.1328, Lng: -64.7714, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saanich, British Columbia 48.4840 -123.3810 matched with DB 
+City: Saanich, state: British Columbia, Lat: 48.484, Lng: -123.381, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: White Rock, British Columbia 49.0250 -122.8028 matched with DB 
+City: White Rock, state: British Columbia, Lat: 49.025, Lng: -122.8028, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Thunder Bay, Ontario 48.3822 -89.2461 matched with DB 
+City: Thunder Bay, state: Ontario, Lat: 48.3822, Lng: -89.2461, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Delta, British Columbia 49.0847 -123.0586 matched with DB 
+City: Delta, state: British Columbia, Lat: 49.0847, Lng: -123.0586, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Nanaimo, British Columbia 49.1642 -123.9364 matched with DB 
+City: Nanaimo, state: British Columbia, Lat: 49.1642, Lng: -123.9364, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brantford, Ontario 43.1667 -80.2500 matched with DB 
+City: Brantford, state: Ontario, Lat: 43.1667, Lng: -80.25, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Chatham, Ontario 42.4229 -82.1324 matched with DB 
+City: Chatham, state: New Brunswick, Lat: 47.0443, Lng: -65.3781, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+CSV City: Chatham, Ontario 42.4229 -82.1324 matched with DB 
+City: Chatham, state: Ontario, Lat: 42.4229, Lng: -82.1324, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Clarington, Ontario 43.9350 -78.6083 matched with DB 
+City: Clarington, state: Ontario, Lat: 43.935, Lng: -78.6083, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Jérôme, Quebec 45.7833 -74.0000 matched with DB 
+City: Saint-Jerome, state: Quebec, Lat: 45.7833, Lng: -74.0, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Red Deer, Alberta 52.2681 -113.8111 matched with DB 
+City: Red Deer, state: Alberta, Lat: 52.2681, Lng: -113.8111, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pickering, Ontario 43.8354 -79.0890 matched with DB 
+City: Pickering, state: Ontario, Lat: 43.8354, Lng: -79.089, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lethbridge, Alberta 49.6942 -112.8328 matched with DB 
+City: Lethbridge, state: Alberta, Lat: 49.6942, Lng: -112.8328, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kamloops, British Columbia 50.6761 -120.3408 matched with DB 
+City: Kamloops, state: British Columbia, Lat: 50.6761, Lng: -120.3408, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Jean-sur-Richelieu, Quebec 45.3167 -73.2667 matched with DB 
+City: Saint-Jean-sur-Richelieu, state: Quebec, Lat: 45.3167, Lng: -73.2667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Niagara Falls, Ontario 43.0600 -79.1067 matched with DB 
+City: Niagara Falls, state: Ontario, Lat: 43.06, Lng: -79.1067, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cape Breton, Nova Scotia 46.1389 -60.1931 matched with DB 
+City: Cape Breton, state: Nova Scotia, Lat: 46.1389, Lng: -60.1931, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Chilliwack, British Columbia 49.1577 -121.9509 matched with DB 
+City: Chilliwack, state: British Columbia, Lat: 49.1577, Lng: -121.9509, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brossard, Quebec 45.4667 -73.4500 matched with DB 
+City: Brossard, state: Quebec, Lat: 45.4667, Lng: -73.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Maple Ridge, British Columbia 49.2167 -122.6000 matched with DB 
+City: Maple Ridge, state: British Columbia, Lat: 49.2167, Lng: -122.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Newmarket, Ontario 44.0500 -79.4667 matched with DB 
+City: Newmarket, state: Ontario, Lat: 44.05, Lng: -79.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Repentigny, Quebec 45.7333 -73.4667 matched with DB 
+City: Repentigny, state: Quebec, Lat: 45.7333, Lng: -73.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Peterborough, Ontario 44.3000 -78.3167 matched with DB 
+City: Peterborough, state: Ontario, Lat: 44.3, Lng: -78.3167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Drummondville, Quebec 45.8833 -72.4833 matched with DB 
+City: Drummondville, state: Quebec, Lat: 45.8833, Lng: -72.4833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kawartha Lakes, Ontario 44.3500 -78.7500 matched with DB 
+City: Kawartha Lakes, state: Ontario, Lat: 44.35, Lng: -78.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: New Westminster, British Columbia 49.2069 -122.9111 matched with DB 
+City: New Westminster, state: British Columbia, Lat: 49.2069, Lng: -122.9111, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Prince George, British Columbia 53.9169 -122.7494 matched with DB 
+City: Prince George, state: British Columbia, Lat: 53.9169, Lng: -122.7494, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Caledon, Ontario 43.8667 -79.8667 matched with DB 
+City: Caledon, state: Ontario, Lat: 43.8667, Lng: -79.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Châteauguay, Quebec 45.3800 -73.7500 matched with DB 
+City: Chateauguay, state: Quebec, Lat: 45.38, Lng: -73.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Belleville, Ontario 44.1667 -77.3833 matched with DB 
+City: Belleville, state: Ontario, Lat: 44.1667, Lng: -77.3833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Airdrie, Alberta 51.2917 -114.0144 matched with DB 
+City: Airdrie, state: Alberta, Lat: 51.2917, Lng: -114.0144, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sarnia, Ontario 42.9994 -82.3089 matched with DB 
+City: Sarnia, state: Ontario, Lat: 42.9994, Lng: -82.3089, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wood Buffalo, Alberta 57.6042 -111.3284 matched with DB 
+City: Wood Buffalo, state: Alberta, Lat: 57.6042, Lng: -111.3284, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sault Ste. Marie, Ontario 46.5333 -84.3500 matched with DB 
+City: Sault Ste. Marie, state: Ontario, Lat: 46.5333, Lng: -84.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint John, New Brunswick 45.2806 -66.0761 matched with DB 
+City: Saint John, state: New Brunswick, Lat: 45.2806, Lng: -66.0761, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Welland, Ontario 42.9833 -79.2333 matched with DB 
+City: Welland, state: Ontario, Lat: 42.9833, Lng: -79.2333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Granby, Quebec 45.4000 -72.7333 matched with DB 
+City: Granby, state: Quebec, Lat: 45.4, Lng: -72.7333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Albert, Alberta 53.6303 -113.6258 matched with DB 
+City: St. Albert, state: Alberta, Lat: 53.6303, Lng: -113.6258, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Fredericton, New Brunswick 45.9636 -66.6431 matched with DB 
+City: Fredericton, state: New Brunswick, Lat: 45.9636, Lng: -66.6431, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Grande Prairie, Alberta 55.1708 -118.7947 matched with DB 
+City: Grande Prairie, state: Alberta, Lat: 55.1708, Lng: -118.7947, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Medicine Hat, Alberta 50.0417 -110.6775 matched with DB 
+City: Medicine Hat, state: Alberta, Lat: 50.0417, Lng: -110.6775, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Halton Hills, Ontario 43.6300 -79.9500 matched with DB 
+City: Halton Hills, state: Ontario, Lat: 43.63, Lng: -79.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Aurora, Ontario 44.0000 -79.4667 matched with DB 
+City: Aurora, state: Ontario, Lat: 44.0, Lng: -79.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Port Coquitlam, British Columbia 49.2625 -122.7811 matched with DB 
+City: Port Coquitlam, state: British Columbia, Lat: 49.2625, Lng: -122.7811, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mirabel, Quebec 45.6500 -74.0833 matched with DB 
+City: Mirabel, state: Quebec, Lat: 45.65, Lng: -74.0833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Blainville, Quebec 45.6700 -73.8800 matched with DB 
+City: Blainville, state: Quebec, Lat: 45.67, Lng: -73.88, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lac-Brome, Quebec 45.2167 -72.5167 matched with DB 
+City: Lac-Brome, state: Quebec, Lat: 45.2167, Lng: -72.5167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Vancouver, British Columbia 49.3201967175102 -123.069940224484 matched with DB 
+City: North Vancouver, state: British Columbia, Lat: 49.3202, Lng: -123.0699, Country: CAN (Matches - state: true lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Hyacinthe, Quebec 45.6167 -72.9500 matched with DB 
+City: Saint-Hyacinthe, state: Quebec, Lat: 45.6167, Lng: -72.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Beloeil, Quebec 45.5667 -73.2000 matched with DB 
+City: Beloeil, state: Quebec, Lat: 45.5667, Lng: -73.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Bay, Ontario 46.3000 -79.4500 matched with DB 
+City: North Bay, state: Ontario, Lat: 46.3, Lng: -79.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Charlottetown, Prince Edward Island 46.2403 -63.1347 matched with DB 
+City: Charlottetown, state: Prince Edward Island, Lat: 46.2403, Lng: -63.1347, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Vernon, British Columbia 50.2670 -119.2720 matched with DB 
+City: Vernon, state: British Columbia, Lat: 50.267, Lng: -119.272, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brandon, Manitoba 49.8483 -99.9500 matched with DB 
+City: Brandon, state: Manitoba, Lat: 49.8483, Lng: -99.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mascouche, Quebec 45.7500 -73.6000 matched with DB 
+City: Mascouche, state: Quebec, Lat: 45.75, Lng: -73.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stouffville, Ontario 43.9667 -79.2500 matched with DB 
+City: Stouffville, state: Ontario, Lat: 43.9667, Lng: -79.25, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Shawinigan, Quebec 46.5667 -72.7500 matched with DB 
+City: Shawinigan, state: Quebec, Lat: 46.5667, Lng: -72.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Joliette, Quebec 46.0167 -73.4500 matched with DB 
+City: Joliette, state: Quebec, Lat: 46.0167, Lng: -73.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rimouski, Quebec 48.4500 -68.5300 matched with DB 
+City: Rimouski, state: Quebec, Lat: 48.45, Lng: -68.53, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Courtenay, British Columbia 49.6878 -124.9944 matched with DB 
+City: Courtenay, state: British Columbia, Lat: 49.6878, Lng: -124.9944, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Dollard-des-Ormeaux, Quebec 45.4833 -73.8167 matched with DB 
+City: Dollard-des-Ormeaux, state: Quebec, Lat: 45.4833, Lng: -73.8167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cornwall, Ontario 45.0275 -74.7400 matched with DB 
+City: Cornwall, state: Ontario, Lat: 45.0275, Lng: -74.74, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Victoriaville, Quebec 46.0500 -71.9667 matched with DB 
+City: Victoriaville, state: Quebec, Lat: 46.05, Lng: -71.9667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Georgina, Ontario 44.3000 -79.4333 matched with DB 
+City: Georgina, state: Ontario, Lat: 44.3, Lng: -79.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Woodstock, Ontario 43.1306 -80.7467 matched with DB 
+City: Woodstock, state: Ontario, Lat: 43.1306, Lng: -80.7467, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Langford Station, British Columbia 48.4506 -123.5058 matched with DB 
+City: Langford Station, state: British Columbia, Lat: 48.4506, Lng: -123.5058, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Quinte West, Ontario 44.1833 -77.5667 matched with DB 
+City: Quinte West, state: Ontario, Lat: 44.1833, Lng: -77.5667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Thomas, Ontario 42.7750 -81.1833 matched with DB 
+City: St. Thomas, state: Ontario, Lat: 42.775, Lng: -81.1833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Eustache, Quebec 45.5700 -73.9000 matched with DB 
+City: Saint-Eustache, state: Quebec, Lat: 45.57, Lng: -73.9, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: West Vancouver, British Columbia 49.3667 -123.1667 matched with DB 
+City: West Vancouver, state: British Columbia, Lat: 49.3667, Lng: -123.1667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: New Tecumseth, Ontario 44.0833 -79.7500 matched with DB 
+City: New Tecumseth, state: Ontario, Lat: 44.0833, Lng: -79.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Innisfil, Ontario 44.3000 -79.5833 matched with DB 
+City: Innisfil, state: Ontario, Lat: 44.3, Lng: -79.5833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Vaudreuil-Dorion, Quebec 45.4000 -74.0333 matched with DB 
+City: Vaudreuil-Dorion, state: Quebec, Lat: 45.4, Lng: -74.0333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bradford West Gwillimbury, Ontario 44.1333 -79.6333 matched with DB 
+City: Bradford West Gwillimbury, state: Ontario, Lat: 44.1333, Lng: -79.6333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Salaberry-de-Valleyfield, Quebec 45.2500 -74.1300 matched with DB 
+City: Salaberry-de-Valleyfield, state: Quebec, Lat: 45.25, Lng: -74.13, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rouyn-Noranda, Quebec 48.2333 -79.0167 matched with DB 
+City: Rouyn-Noranda, state: Quebec, Lat: 48.2333, Lng: -79.0167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Boucherville, Quebec 45.6000 -73.4500 matched with DB 
+City: Boucherville, state: Quebec, Lat: 45.6, Lng: -73.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mission, British Columbia 49.1337 -122.3112 matched with DB 
+City: Mission, state: British Columbia, Lat: 49.1337, Lng: -122.3112, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Timmins, Ontario 48.4667 -81.3333 matched with DB 
+City: Timmins, state: Ontario, Lat: 48.4667, Lng: -81.3333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lakeshore, Ontario 42.2399 -82.6511 matched with DB 
+City: Lakeshore, state: Ontario, Lat: 42.2399, Lng: -82.6511, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brant, Ontario 43.1167 -80.3667 matched with DB 
+City: Brant, state: Ontario, Lat: 43.1167, Lng: -80.3667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Spruce Grove, Alberta 53.5450 -113.9008 matched with DB 
+City: Spruce Grove, state: Alberta, Lat: 53.545, Lng: -113.9008, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Campbell River, British Columbia 50.0244 -125.2475 matched with DB 
+City: Campbell River, state: British Columbia, Lat: 50.0244, Lng: -125.2475, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Prince Albert, Saskatchewan 53.2000 -105.7500 matched with DB 
+City: Prince Albert, state: Saskatchewan, Lat: 53.2, Lng: -105.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Penticton, British Columbia 49.4911 -119.5886 matched with DB 
+City: Penticton, state: British Columbia, Lat: 49.4911, Lng: -119.5886, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sorel-Tracy, Quebec 46.0333 -73.1167 matched with DB 
+City: Sorel-Tracy, state: Quebec, Lat: 46.0333, Lng: -73.1167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: East Kelowna, British Columbia 49.8625 -119.5833 matched with DB 
+City: East Kelowna, state: British Columbia, Lat: 49.8625, Lng: -119.5833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Leamington, Ontario 42.0667 -82.5833 matched with DB 
+City: Leamington, state: Ontario, Lat: 42.0667, Lng: -82.5833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: East Gwillimbury, Ontario 44.1333 -79.4167 matched with DB 
+City: East Gwillimbury, state: Ontario, Lat: 44.1333, Lng: -79.4167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Côte-Saint-Luc, Quebec 45.4687 -73.6673 matched with DB 
+City: Cote-Saint-Luc, state: Quebec, Lat: 45.4687, Lng: -73.6673, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Orangeville, Ontario 43.9167 -80.1167 matched with DB 
+City: Orangeville, state: Ontario, Lat: 43.9167, Lng: -80.1167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Leduc, Alberta 53.2594 -113.5492 matched with DB 
+City: Leduc, state: Alberta, Lat: 53.2594, Lng: -113.5492, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Moose Jaw, Saskatchewan 50.3933 -105.5519 matched with DB 
+City: Moose Jaw, state: Saskatchewan, Lat: 50.3933, Lng: -105.5519, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Port Moody, British Columbia 49.2831 -122.8317 matched with DB 
+City: Port Moody, state: British Columbia, Lat: 49.2831, Lng: -122.8317, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pointe-Claire, Quebec 45.4500 -73.8167 matched with DB 
+City: Pointe-Claire, state: Quebec, Lat: 45.45, Lng: -73.8167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Orillia, Ontario 44.6000 -79.4167 matched with DB 
+City: Orillia, state: Ontario, Lat: 44.6, Lng: -79.4167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stratford, Ontario 43.3708 -80.9819 matched with DB 
+City: Stratford, state: Prince Edward Island, Lat: 46.2167, Lng: -63.0893, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+CSV City: Stratford, Ontario 43.3708 -80.9819 matched with DB 
+City: Stratford, state: Ontario, Lat: 43.3708, Lng: -80.9819, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Fort Erie, Ontario 42.9167 -79.0167 matched with DB 
+City: Fort Erie, state: Ontario, Lat: 42.9167, Lng: -79.0167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Val-d’Or, Quebec 48.1000 -77.7833 matched with DB 
+City: Val-d'Or, state: Quebec, Lat: 48.1, Lng: -77.7833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: LaSalle, Ontario 42.2167 -83.0667 matched with DB 
+City: LaSalle, state: Ontario, Lat: 42.2167, Lng: -83.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cochrane, Alberta 51.1890 -114.4670 matched with DB 
+City: Cochrane, state: Alberta, Lat: 51.189, Lng: -114.467, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Cowichan, British Columbia 48.8236 -123.7192 matched with DB 
+City: North Cowichan, state: British Columbia, Lat: 48.8236, Lng: -123.7192, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lloydminster, Saskatchewan 53.2783 -110.0050 matched with DB 
+City: Lloydminster, state: Alberta, Lat: 53.2807, Lng: -110.035, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+CSV City: Lloydminster, Saskatchewan 53.2783 -110.0050 matched with DB 
+City: Lloydminster, state: Saskatchewan, Lat: 53.2783, Lng: -110.005, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Chambly, Quebec 45.4311 -73.2873 matched with DB 
+City: Chambly, state: Quebec, Lat: 45.4311, Lng: -73.2873, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Centre Wellington, Ontario 43.7000 -80.3667 matched with DB 
+City: Centre Wellington, state: Ontario, Lat: 43.7, Lng: -80.3667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Okotoks, Alberta 50.7250 -113.9750 matched with DB 
+City: Okotoks, state: Alberta, Lat: 50.725, Lng: -113.975, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Alma, Quebec 48.5500 -71.6500 matched with DB 
+City: Alma, state: Quebec, Lat: 48.55, Lng: -71.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Julie, Quebec 45.5833 -73.3333 matched with DB 
+City: Sainte-Julie, state: Quebec, Lat: 45.5833, Lng: -73.3333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Constant, Quebec 45.3700 -73.5700 matched with DB 
+City: Saint-Constant, state: Quebec, Lat: 45.37, Lng: -73.57, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Langley, British Columbia 49.0986908053773 -122.659728692569 matched with DB 
+City: Langley, state: British Columbia, Lat: 49.0987, Lng: -122.6597, Country: CAN (Matches - state: true lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Grimsby, Ontario 43.2000 -79.5500 matched with DB 
+City: Grimsby, state: Ontario, Lat: 43.2, Lng: -79.55, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Magog, Quebec 45.2667 -72.1500 matched with DB 
+City: Magog, state: Quebec, Lat: 45.2667, Lng: -72.15, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Boisbriand, Quebec 45.6200 -73.8300 matched with DB 
+City: Boisbriand, state: Quebec, Lat: 45.62, Lng: -73.83, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Whitehorse, Yukon 60.7029 -135.0691 matched with DB 
+City: Whitehorse, state: Yukon, Lat: 60.7029, Lng: -135.0691, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Dieppe, New Brunswick 46.0989 -64.7242 matched with DB 
+City: Dieppe, state: New Brunswick, Lat: 46.0989, Lng: -64.7242, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: King, Ontario 44.0463 -79.6044 matched with DB 
+City: King, state: Ontario, Lat: 44.0463, Lng: -79.6044, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Parksville, British Columbia 49.3150 -124.3120 matched with DB 
+City: Parksville, state: British Columbia, Lat: 49.315, Lng: -124.312, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Conception Bay South, Newfoundland and Labrador 47.5167 -52.9833 matched with DB 
+City: Conception Bay South, state: Newfoundland and Labrador, Lat: 47.5167, Lng: -52.9833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Fort Saskatchewan, Alberta 53.7128 -113.2133 matched with DB 
+City: Fort Saskatchewan, state: Alberta, Lat: 53.7128, Lng: -113.2133, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Woolwich, Ontario 43.5667 -80.4833 matched with DB 
+City: Woolwich, state: Ontario, Lat: 43.5667, Lng: -80.4833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Thérèse, Quebec 45.6333 -73.8500 matched with DB 
+City: Sainte-Therese, state: Quebec, Lat: 45.6333, Lng: -73.85, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Clarence-Rockland, Ontario 45.4833 -75.2000 matched with DB 
+City: Clarence-Rockland, state: Ontario, Lat: 45.4833, Lng: -75.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: La Prairie, Quebec 45.4200 -73.5000 matched with DB 
+City: La Prairie, state: Quebec, Lat: 45.42, Lng: -73.5, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Bruno-de-Montarville, Quebec 45.5333 -73.3500 matched with DB 
+City: Saint-Bruno-de-Montarville, state: Quebec, Lat: 45.5333, Lng: -73.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Midland, Ontario 44.7500 -79.8833 matched with DB 
+City: Midland, state: Ontario, Lat: 44.75, Lng: -79.8833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Thetford Mines, Quebec 46.1000 -71.3000 matched with DB 
+City: Thetford Mines, state: Quebec, Lat: 46.1, Lng: -71.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lincoln, Ontario 43.1300 -79.4300 matched with DB 
+City: Lincoln, state: Ontario, Lat: 43.13, Lng: -79.43, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Quispamsis, New Brunswick 45.4322 -65.9462 matched with DB 
+City: Quispamsis, state: New Brunswick, Lat: 45.4322, Lng: -65.9462, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wasaga Beach, Ontario 44.5206 -80.0167 matched with DB 
+City: Wasaga Beach, state: Ontario, Lat: 44.5206, Lng: -80.0167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Collingwood, Ontario 44.5000 -80.2167 matched with DB 
+City: Collingwood, state: Ontario, Lat: 44.5, Lng: -80.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sept-Îles, Quebec 50.2167 -66.3833 matched with DB 
+City: Sept-Iles, state: Quebec, Lat: 50.2167, Lng: -66.3833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Duncan, British Columbia 48.7787 -123.7079 matched with DB 
+City: Duncan, state: British Columbia, Lat: 48.7787, Lng: -123.7079, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hudson, Quebec 45.4500 -74.1500 matched with DB 
+City: Hudson, state: Quebec, Lat: 45.45, Lng: -74.15, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Lin--Laurentides, Quebec 45.8500 -73.7667 matched with DB 
+City: Saint-Lin--Laurentides, state: Quebec, Lat: 45.85, Lng: -73.7667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Strathroy-Caradoc, Ontario 42.9575 -81.6167 matched with DB 
+City: Strathroy-Caradoc, state: Ontario, Lat: 42.9575, Lng: -81.6167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Squamish, British Columbia 49.7017 -123.1589 matched with DB 
+City: Squamish, state: British Columbia, Lat: 49.7017, Lng: -123.1589, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Thorold, Ontario 43.1167 -79.2000 matched with DB 
+City: Thorold, state: Ontario, Lat: 43.1167, Lng: -79.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Truro, Nova Scotia 45.3647 -63.2800 matched with DB 
+City: Truro, state: Nova Scotia, Lat: 45.3647, Lng: -63.28, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Amherstburg, Ontario 42.1000 -83.0833 matched with DB 
+City: Amherstburg, state: Ontario, Lat: 42.1, Lng: -83.0833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: L’Assomption, Quebec 45.8333 -73.4167 matched with DB 
+City: L'Assomption, state: Quebec, Lat: 45.8333, Lng: -73.4167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Tecumseh, Ontario 42.2431 -82.9256 matched with DB 
+City: Tecumseh, state: Ontario, Lat: 42.2431, Lng: -82.9256, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Candiac, Quebec 45.3800 -73.5200 matched with DB 
+City: Candiac, state: Quebec, Lat: 45.38, Lng: -73.52, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Essa, Ontario 44.2500 -79.7833 matched with DB 
+City: Essa, state: Ontario, Lat: 44.25, Lng: -79.7833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Paradise, Newfoundland and Labrador 47.5333 -52.8667 matched with DB 
+City: Paradise, state: Newfoundland and Labrador, Lat: 47.5333, Lng: -52.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Lambert, Quebec 45.5000 -73.5167 matched with DB 
+City: Saint-Lambert, state: Quebec, Lat: 45.5, Lng: -73.5167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mount Pearl Park, Newfoundland and Labrador 47.5189 -52.8058 matched with DB 
+City: Mount Pearl Park, state: Newfoundland and Labrador, Lat: 47.5189, Lng: -52.8058, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Lazare, Quebec 45.4000 -74.1333 matched with DB 
+City: Saint-Lazare, state: Quebec, Lat: 45.4, Lng: -74.1333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Owen Sound, Ontario 44.5667 -80.9333 matched with DB 
+City: Owen Sound, state: Ontario, Lat: 44.5667, Lng: -80.9333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brockville, Ontario 44.5833 -75.6833 matched with DB 
+City: Brockville, state: Ontario, Lat: 44.5833, Lng: -75.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Chestermere, Alberta 51.0500 -113.8225 matched with DB 
+City: Chestermere, state: Alberta, Lat: 51.05, Lng: -113.8225, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kingsville, Ontario 42.1000 -82.7167 matched with DB 
+City: Kingsville, state: Ontario, Lat: 42.1, Lng: -82.7167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Port Alberni, British Columbia 49.2339 -124.8050 matched with DB 
+City: Port Alberni, state: British Columbia, Lat: 49.2339, Lng: -124.805, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Springwater, Ontario 44.4333 -79.7333 matched with DB 
+City: Springwater, state: Ontario, Lat: 44.4333, Lng: -79.7333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Scugog, Ontario 44.0900 -78.9360 matched with DB 
+City: Scugog, state: Ontario, Lat: 44.09, Lng: -78.936, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Uxbridge, Ontario 44.1167 -79.1333 matched with DB 
+City: Uxbridge, state: Ontario, Lat: 44.1167, Lng: -79.1333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Fort St. John, British Columbia 56.2465 -120.8476 matched with DB 
+City: Fort St. John, state: British Columbia, Lat: 56.2465, Lng: -120.8476, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wilmot, Ontario 43.4000 -80.6500 matched with DB 
+City: Wilmot, state: Ontario, Lat: 43.4, Lng: -80.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Essex, Ontario 42.0833 -82.9000 matched with DB 
+City: Essex, state: Ontario, Lat: 42.0833, Lng: -82.9, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Varennes, Quebec 45.6833 -73.4333 matched with DB 
+City: Varennes, state: Quebec, Lat: 45.6833, Lng: -73.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Oro-Medonte, Ontario 44.5667 -79.5833 matched with DB 
+City: Oro-Medonte, state: Ontario, Lat: 44.5667, Lng: -79.5833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mont-Royal, Quebec 45.5161 -73.6431 matched with DB 
+City: Mont-Royal, state: Quebec, Lat: 45.5161, Lng: -73.6431, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Beaumont, Alberta 53.3572 -113.4147 matched with DB 
+City: Beaumont, state: Alberta, Lat: 53.3572, Lng: -113.4147, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Baie-Comeau, Quebec 49.2167 -68.1500 matched with DB 
+City: Baie-Comeau, state: Quebec, Lat: 49.2167, Lng: -68.15, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Riverview, New Brunswick 46.0613 -64.8052 matched with DB 
+City: Riverview, state: New Brunswick, Lat: 46.0613, Lng: -64.8052, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cobourg, Ontario 43.9667 -78.1667 matched with DB 
+City: Cobourg, state: Ontario, Lat: 43.9667, Lng: -78.1667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cranbrook, British Columbia 49.5097 -115.7667 matched with DB 
+City: Cranbrook, state: British Columbia, Lat: 49.5097, Lng: -115.7667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Yellowknife, Northwest Territories 62.4709 -114.4053 matched with DB 
+City: Yellowknife, state: Northwest Territories, Lat: 62.4709, Lng: -114.4053, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: South Frontenac, Ontario 44.5081 -76.4939 matched with DB 
+City: South Frontenac, state: Ontario, Lat: 44.5081, Lng: -76.4939, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rivière-du-Loup, Quebec 47.8333 -69.5333 matched with DB 
+City: Riviere-du-Loup, state: Quebec, Lat: 47.8333, Lng: -69.5333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Port Colborne, Ontario 42.8833 -79.2500 matched with DB 
+City: Port Colborne, state: Ontario, Lat: 42.8833, Lng: -79.25, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Augustin-de-Desmaures, Quebec 46.7333 -71.4667 matched with DB 
+City: Saint-Augustin-de-Desmaures, state: Quebec, Lat: 46.7333, Lng: -71.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Huntsville, Ontario 45.3333 -79.2167 matched with DB 
+City: Huntsville, state: Ontario, Lat: 45.3333, Lng: -79.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Marthe-sur-le-Lac, Quebec 45.5300 -73.9300 matched with DB 
+City: Sainte-Marthe-sur-le-Lac, state: Quebec, Lat: 45.53, Lng: -73.93, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lloydminster, Alberta 53.2807 -110.0350 matched with DB 
+City: Lloydminster, state: Alberta, Lat: 53.2807, Lng: -110.035, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+CSV City: Lloydminster, Alberta 53.2807 -110.0350 matched with DB 
+City: Lloydminster, state: Saskatchewan, Lat: 53.2783, Lng: -110.005, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Westmount, Quebec 45.4833 -73.6000 matched with DB 
+City: Westmount, state: Quebec, Lat: 45.4833, Lng: -73.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Russell, Ontario 45.2569 -75.3583 matched with DB 
+City: Russell, state: Ontario, Lat: 45.2569, Lng: -75.3583, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Les Coteaux, Quebec 45.2800 -74.2300 matched with DB 
+City: Les Coteaux, state: Quebec, Lat: 45.28, Lng: -74.23, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Salmon Arm, British Columbia 50.7022 -119.2722 matched with DB 
+City: Salmon Arm, state: British Columbia, Lat: 50.7022, Lng: -119.2722, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kirkland, Quebec 45.4500 -73.8667 matched with DB 
+City: Kirkland, state: Quebec, Lat: 45.45, Lng: -73.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Corner Brook, Newfoundland and Labrador 48.9287 -57.9260 matched with DB 
+City: Corner Brook, state: Newfoundland and Labrador, Lat: 48.9287, Lng: -57.926, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: New Glasgow, Nova Scotia 45.5926 -62.6455 matched with DB 
+City: New Glasgow, state: Nova Scotia, Lat: 45.5926, Lng: -62.6455, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Dorval, Quebec 45.4500 -73.7500 matched with DB 
+City: Dorval, state: Quebec, Lat: 45.45, Lng: -73.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Beaconsfield, Quebec 45.4333 -73.8667 matched with DB 
+City: Beaconsfield, state: Quebec, Lat: 45.4333, Lng: -73.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pitt Meadows, British Columbia 49.2333 -122.6833 matched with DB 
+City: Pitt Meadows, state: British Columbia, Lat: 49.2333, Lng: -122.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Niagara-on-the-Lake, Ontario 43.2553 -79.0717 matched with DB 
+City: Niagara-on-the-Lake, state: Ontario, Lat: 43.2553, Lng: -79.0717, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Colwood, British Columbia 48.4236 -123.4958 matched with DB 
+City: Colwood, state: British Columbia, Lat: 48.4236, Lng: -123.4958, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Middlesex Centre, Ontario 43.0500 -81.4500 matched with DB 
+City: Middlesex Centre, state: Ontario, Lat: 43.05, Lng: -81.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mont-Saint-Hilaire, Quebec 45.5622 -73.1917 matched with DB 
+City: Mont-Saint-Hilaire, state: Quebec, Lat: 45.5622, Lng: -73.1917, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Camrose, Alberta 53.0167 -112.8333 matched with DB 
+City: Camrose, state: Alberta, Lat: 53.0167, Lng: -112.8333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Selwyn, Ontario 44.4167 -78.3333 matched with DB 
+City: Selwyn, state: Ontario, Lat: 44.4167, Lng: -78.3333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Tillsonburg, Ontario 42.8667 -80.7333 matched with DB 
+City: Tillsonburg, state: Ontario, Lat: 42.8667, Lng: -80.7333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pelham, Ontario 43.0333 -79.3333 matched with DB 
+City: Pelham, state: Ontario, Lat: 43.0333, Lng: -79.3333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Petawawa, Ontario 45.9000 -77.2833 matched with DB 
+City: Petawawa, state: Ontario, Lat: 45.9, Lng: -77.2833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stony Plain, Alberta 53.5264 -114.0069 matched with DB 
+City: Stony Plain, state: Alberta, Lat: 53.5264, Lng: -114.0069, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Oak Bay, British Columbia 48.4264 -123.3228 matched with DB 
+City: Oak Bay, state: British Columbia, Lat: 48.4264, Lng: -123.3228, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Grenville, Ontario 44.9667 -75.6500 matched with DB 
+City: North Grenville, state: Ontario, Lat: 44.9667, Lng: -75.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Loyalist, Ontario 44.2500 -76.7500 matched with DB 
+City: Loyalist, state: Ontario, Lat: 44.25, Lng: -76.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Deux-Montagnes, Quebec 45.5333 -73.8833 matched with DB 
+City: Deux-Montagnes, state: Quebec, Lat: 45.5333, Lng: -73.8833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Steinbach, Manitoba 49.5258 -96.6839 matched with DB 
+City: Steinbach, state: Manitoba, Lat: 49.5258, Lng: -96.6839, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Colomban, Quebec 45.7300 -74.1300 matched with DB 
+City: Saint-Colomban, state: Quebec, Lat: 45.73, Lng: -74.13, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Miramichi, New Brunswick 47.0196 -65.5072 matched with DB 
+City: Miramichi, state: New Brunswick, Lat: 47.0196, Lng: -65.5072, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Esquimalt, British Columbia 48.4306 -123.4147 matched with DB 
+City: Esquimalt, state: British Columbia, Lat: 48.4306, Lng: -123.4147, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Central Saanich, British Columbia 48.5142 -123.3839 matched with DB 
+City: Central Saanich, state: British Columbia, Lat: 48.5142, Lng: -123.3839, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Catherine, Quebec 45.4000 -73.5800 matched with DB 
+City: Sainte-Catherine, state: Quebec, Lat: 45.4, Lng: -73.58, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Port Hope, Ontario 43.9500 -78.3000 matched with DB 
+City: Port Hope, state: Ontario, Lat: 43.95, Lng: -78.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Inverness, Nova Scotia 46.2000 -61.1000 matched with DB 
+City: Inverness, state: Nova Scotia, Lat: 46.2, Lng: -61.1, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Basile-le-Grand, Quebec 45.5333 -73.2833 matched with DB 
+City: Saint-Basile-le-Grand, state: Quebec, Lat: 45.5333, Lng: -73.2833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: L’Ancienne-Lorette, Quebec 46.8000 -71.3500 matched with DB 
+City: L'Ancienne-Lorette, state: Quebec, Lat: 46.8, Lng: -71.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Swift Current, Saskatchewan 50.2881 -107.7939 matched with DB 
+City: Swift Current, state: Saskatchewan, Lat: 50.2881, Lng: -107.7939, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pembroke, Ontario 45.8167 -77.1000 matched with DB 
+City: Pembroke, state: Ontario, Lat: 45.8167, Lng: -77.1, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Edmundston, New Brunswick 47.3765 -68.3253 matched with DB 
+City: Edmundston, state: New Brunswick, Lat: 47.3765, Lng: -68.3253, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Yorkton, Saskatchewan 51.2139 -102.4628 matched with DB 
+City: Yorkton, state: Saskatchewan, Lat: 51.2139, Lng: -102.4628, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Springfield, Manitoba 49.9292 -96.6939 matched with DB 
+City: Springfield, state: Manitoba, Lat: 49.9292, Lng: -96.6939, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sylvan Lake, Alberta 52.3083 -114.0964 matched with DB 
+City: Sylvan Lake, state: Alberta, Lat: 52.3083, Lng: -114.0964, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bracebridge, Ontario 45.0333 -79.3000 matched with DB 
+City: Bracebridge, state: Ontario, Lat: 45.0333, Lng: -79.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Summerside, Prince Edward Island 46.4000 -63.7833 matched with DB 
+City: Summerside, state: Prince Edward Island, Lat: 46.4, Lng: -63.7833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Canmore, Alberta 51.0890 -115.3590 matched with DB 
+City: Canmore, state: Alberta, Lat: 51.089, Lng: -115.359, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bathurst, New Brunswick 47.6200 -65.6500 matched with DB 
+City: Bathurst, state: New Brunswick, Lat: 47.62, Lng: -65.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Greater Napanee, Ontario 44.2500 -76.9500 matched with DB 
+City: Greater Napanee, state: Ontario, Lat: 44.25, Lng: -76.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lake Country, British Columbia 50.0833 -119.4142 matched with DB 
+City: Lake Country, state: British Columbia, Lat: 50.0833, Lng: -119.4142, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hanover, Manitoba 49.4433 -96.8492 matched with DB 
+City: Hanover, state: Manitoba, Lat: 49.4433, Lng: -96.8492, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Winkler, Manitoba 49.1817 -97.9397 matched with DB 
+City: Winkler, state: Manitoba, Lat: 49.1817, Lng: -97.9397, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Charles-Borromée, Quebec 46.0500 -73.4667 matched with DB 
+City: Saint-Charles-Borromee, state: Quebec, Lat: 46.05, Lng: -73.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cowansville, Quebec 45.2000 -72.7500 matched with DB 
+City: Cowansville, state: Quebec, Lat: 45.2, Lng: -72.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Anne-des-Plaines, Quebec 45.7617 -73.8204 matched with DB 
+City: Sainte-Anne-des-Plaines, state: Quebec, Lat: 45.7617, Lng: -73.8204, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Gaspé, Quebec 48.8333 -64.4833 matched with DB 
+City: Gaspe, state: Quebec, Lat: 48.8333, Lng: -64.4833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sooke, British Columbia 48.3761 -123.7378 matched with DB 
+City: Sooke, state: British Columbia, Lat: 48.3761, Lng: -123.7378, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kenora, Ontario 49.7667 -94.4833 matched with DB 
+City: Kenora, state: Ontario, Lat: 49.7667, Lng: -94.4833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cold Lake, Alberta 54.4642 -110.1825 matched with DB 
+City: Cold Lake, state: Alberta, Lat: 54.4642, Lng: -110.1825, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brooks, Alberta 50.5642 -111.8989 matched with DB 
+City: Brooks, state: Alberta, Lat: 50.5642, Lng: -111.8989, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kentville, Nova Scotia 45.0775 -64.4958 matched with DB 
+City: Kentville, state: Nova Scotia, Lat: 45.0775, Lng: -64.4958, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Comox, British Columbia 49.6733 -124.9022 matched with DB 
+City: Comox, state: British Columbia, Lat: 49.6733, Lng: -124.9022, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pincourt, Quebec 45.3833 -73.9833 matched with DB 
+City: Pincourt, state: Quebec, Lat: 45.3833, Lng: -73.9833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mississippi Mills, Ontario 45.2167 -76.2000 matched with DB 
+City: Mississippi Mills, state: Ontario, Lat: 45.2167, Lng: -76.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Clair, Ontario 42.7833 -82.3500 matched with DB 
+City: St. Clair, state: Ontario, Lat: 42.7833, Lng: -82.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Terrace, British Columbia 54.5164 -128.5997 matched with DB 
+City: Terrace, state: British Columbia, Lat: 54.5164, Lng: -128.5997, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mercier, Quebec 45.3200 -73.7500 matched with DB 
+City: Mercier, state: Quebec, Lat: 45.32, Lng: -73.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: West Lincoln, Ontario 43.0667 -79.5667 matched with DB 
+City: West Lincoln, state: Ontario, Lat: 43.0667, Lng: -79.5667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lavaltrie, Quebec 45.8833 -73.2833 matched with DB 
+City: Lavaltrie, state: Quebec, Lat: 45.8833, Lng: -73.2833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: West Nipissing / Nipissing Ouest, Ontario 46.3667 -79.9167 matched with DB 
+City: West Nipissing / Nipissing Ouest, state: Ontario, Lat: 46.3667, Lng: -79.9167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Strathmore, Alberta 51.0378 -113.4003 matched with DB 
+City: Strathmore, state: Alberta, Lat: 51.0378, Lng: -113.4003, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: High River, Alberta 50.5808 -113.8744 matched with DB 
+City: High River, state: Alberta, Lat: 50.5808, Lng: -113.8744, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Clearview, Ontario 44.3981 -80.0742 matched with DB 
+City: Clearview, state: Ontario, Lat: 44.3981, Lng: -80.0742, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lachute, Quebec 45.6500 -74.3333 matched with DB 
+City: Lachute, state: Quebec, Lat: 45.65, Lng: -74.3333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rosemère, Quebec 45.6369 -73.8000 matched with DB 
+City: Rosemere, state: Quebec, Lat: 45.6369, Lng: -73.8, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Matane, Quebec 48.8500 -67.5333 matched with DB 
+City: Matane, state: Quebec, Lat: 48.85, Lng: -67.5333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Thames Centre, Ontario 43.0300 -81.0800 matched with DB 
+City: Thames Centre, state: Ontario, Lat: 43.03, Lng: -81.08, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Powell River, British Columbia 49.8353 -124.5247 matched with DB 
+City: Powell River, state: British Columbia, Lat: 49.8353, Lng: -124.5247, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Carleton Place, Ontario 45.1333 -76.1333 matched with DB 
+City: Carleton Place, state: Ontario, Lat: 45.1333, Lng: -76.1333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Guelph/Eramosa, Ontario 43.6300 -80.2200 matched with DB 
+City: Guelph/Eramosa, state: Ontario, Lat: 43.63, Lng: -80.22, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Grand Falls, Newfoundland and Labrador 48.9578 -55.6633 matched with DB 
+City: Grand Falls, state: Newfoundland and Labrador, Lat: 48.9578, Lng: -55.6633, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Battleford, Saskatchewan 52.7575 -108.2861 matched with DB 
+City: North Battleford, state: Saskatchewan, Lat: 52.7575, Lng: -108.2861, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mont-Laurier, Quebec 46.5500 -75.5000 matched with DB 
+City: Mont-Laurier, state: Quebec, Lat: 46.55, Lng: -75.5, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Central Elgin, Ontario 42.7667 -81.1000 matched with DB 
+City: Central Elgin, state: Ontario, Lat: 42.7667, Lng: -81.1, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mistassini, Quebec 48.8229 -72.2154 matched with DB 
+City: Mistassini, state: Quebec, Lat: 48.8229, Lng: -72.2154, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saugeen Shores, Ontario 44.4333 -81.3667 matched with DB 
+City: Saugeen Shores, state: Ontario, Lat: 44.4333, Lng: -81.3667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Ingersoll, Ontario 43.0392 -80.8836 matched with DB 
+City: Ingersoll, state: Ontario, Lat: 43.0392, Lng: -80.8836, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Beauharnois, Quebec 45.3200 -73.8700 matched with DB 
+City: Beauharnois, state: Quebec, Lat: 45.32, Lng: -73.87, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: South Stormont, Ontario 45.0833 -74.9667 matched with DB 
+City: South Stormont, state: Ontario, Lat: 45.0833, Lng: -74.9667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bécancour, Quebec 46.3333 -72.4333 matched with DB 
+City: Becancour, state: Quebec, Lat: 46.3333, Lng: -72.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Severn, Ontario 44.7500 -79.5167 matched with DB 
+City: Severn, state: Ontario, Lat: 44.75, Lng: -79.5167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lacombe, Alberta 52.4683 -113.7369 matched with DB 
+City: Lacombe, state: Alberta, Lat: 52.4683, Lng: -113.7369, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Sophie, Quebec 45.8200 -73.9000 matched with DB 
+City: Sainte-Sophie, state: Quebec, Lat: 45.82, Lng: -73.9, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Val-des-Monts, Quebec 45.6500 -75.6667 matched with DB 
+City: Val-des-Monts, state: Quebec, Lat: 45.65, Lng: -75.6667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Amable, Quebec 45.6500 -73.3000 matched with DB 
+City: Saint-Amable, state: Quebec, Lat: 45.65, Lng: -73.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Portage La Prairie, Manitoba 49.9728 -98.2919 matched with DB 
+City: Portage La Prairie, state: Manitoba, Lat: 49.9728, Lng: -98.2919, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: South Glengarry, Ontario 45.2000 -74.5833 matched with DB 
+City: South Glengarry, state: Ontario, Lat: 45.2, Lng: -74.5833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Marie, Quebec 46.4500 -71.0333 matched with DB 
+City: Sainte-Marie, state: Quebec, Lat: 46.45, Lng: -71.0333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Perth, Ontario 43.7300 -80.9500 matched with DB 
+City: North Perth, state: Ontario, Lat: 43.73, Lng: -80.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Thompson, Manitoba 55.7433 -97.8553 matched with DB 
+City: Thompson, state: Manitoba, Lat: 55.7433, Lng: -97.8553, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Trent Hills, Ontario 44.3142 -77.8514 matched with DB 
+City: Trent Hills, state: Ontario, Lat: 44.3142, Lng: -77.8514, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Trail, British Columbia 49.0950 -117.7100 matched with DB 
+City: Trail, state: British Columbia, Lat: 49.095, Lng: -117.71, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: The Nation / La Nation, Ontario 45.3500 -75.0333 matched with DB 
+City: The Nation / La Nation, state: Ontario, Lat: 45.35, Lng: -75.0333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Amos, Quebec 48.5667 -78.1167 matched with DB 
+City: Amos, state: Quebec, Lat: 48.5667, Lng: -78.1167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wetaskiwin, Alberta 52.9694 -113.3769 matched with DB 
+City: Wetaskiwin, state: Alberta, Lat: 52.9694, Lng: -113.3769, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: West Grey, Ontario 44.1833 -80.8167 matched with DB 
+City: West Grey, state: Ontario, Lat: 44.1833, Lng: -80.8167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Warman, Saskatchewan 52.3219 -106.5842 matched with DB 
+City: Warman, state: Saskatchewan, Lat: 52.3219, Lng: -106.5842, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Dawson Creek, British Columbia 55.7606 -120.2356 matched with DB 
+City: Dawson Creek, state: British Columbia, Lat: 55.7606, Lng: -120.2356, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sidney, British Columbia 48.6506 -123.3986 matched with DB 
+City: Sidney, state: British Columbia, Lat: 48.6506, Lng: -123.3986, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Gravenhurst, Ontario 44.9167 -79.3667 matched with DB 
+City: Gravenhurst, state: Ontario, Lat: 44.9167, Lng: -79.3667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Prince Rupert, British Columbia 54.3122 -130.3271 matched with DB 
+City: Prince Rupert, state: British Columbia, Lat: 54.3122, Lng: -130.3271, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Perth East, Ontario 43.4700 -80.9500 matched with DB 
+City: Perth East, state: Ontario, Lat: 43.47, Lng: -80.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Saanich, British Columbia 48.6142 -123.4200 matched with DB 
+City: North Saanich, state: British Columbia, Lat: 48.6142, Lng: -123.42, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Prévost, Quebec 45.8700 -74.0800 matched with DB 
+City: Prevost, state: Quebec, Lat: 45.87, Lng: -74.08, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Adèle, Quebec 45.9500 -74.1300 matched with DB 
+City: Sainte-Adele, state: Quebec, Lat: 45.95, Lng: -74.13, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Agathe-des-Monts, Quebec 46.0500 -74.2800 matched with DB 
+City: Sainte-Agathe-des-Monts, state: Quebec, Lat: 46.05, Lng: -74.28, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Quesnel, British Columbia 52.9784 -122.4927 matched with DB 
+City: Quesnel, state: British Columbia, Lat: 52.9784, Lng: -122.4927, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Les Îles-de-la-Madeleine, Quebec 47.3833 -61.8667 matched with DB 
+City: Les Iles-de-la-Madeleine, state: Quebec, Lat: 47.3833, Lng: -61.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Taché, Manitoba 49.7081 -96.6736 matched with DB 
+City: Tache, state: Manitoba, Lat: 49.7081, Lng: -96.6736, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wellington North, Ontario 43.9000 -80.5700 matched with DB 
+City: Wellington North, state: Ontario, Lat: 43.9, Lng: -80.57, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Andrews, Manitoba 50.2700 -96.9747 matched with DB 
+City: St. Andrews, state: Manitoba, Lat: 50.27, Lng: -96.9747, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Williams Lake, British Columbia 52.1294 -122.1383 matched with DB 
+City: Williams Lake, state: British Columbia, Lat: 52.1294, Lng: -122.1383, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Gander, Newfoundland and Labrador 48.9569 -54.6089 matched with DB 
+City: Gander, state: Newfoundland and Labrador, Lat: 48.9569, Lng: -54.6089, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Whistler, British Columbia 50.1208 -122.9544 matched with DB 
+City: Whistler, state: British Columbia, Lat: 50.1208, Lng: -122.9544, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brighton, Ontario 44.1222 -77.7642 matched with DB 
+City: Brighton, state: Ontario, Lat: 44.1222, Lng: -77.7642, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Tiny, Ontario 44.6833 -79.9500 matched with DB 
+City: Tiny, state: Ontario, Lat: 44.6833, Lng: -79.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hawkesbury, Ontario 45.6000 -74.6000 matched with DB 
+City: Hawkesbury, state: Ontario, Lat: 45.6, Lng: -74.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Carignan, Quebec 45.4500 -73.3000 matched with DB 
+City: Carignan, state: Quebec, Lat: 45.45, Lng: -73.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brock, Ontario 44.3167 -79.0833 matched with DB 
+City: Brock, state: Ontario, Lat: 44.3167, Lng: -79.0833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: L’Île-Perrot, Quebec 45.3833 -73.9500 matched with DB 
+City: L'Ile-Perrot, state: Quebec, Lat: 45.3833, Lng: -73.95, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Summerland, British Columbia 49.6006 -119.6778 matched with DB 
+City: Summerland, state: British Columbia, Lat: 49.6006, Lng: -119.6778, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: St. Clements, Manitoba 50.2689 -96.6742 matched with DB 
+City: St. Clements, state: Manitoba, Lat: 50.2689, Lng: -96.6742, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: View Royal, British Columbia 48.4517 -123.4339 matched with DB 
+City: View Royal, state: British Columbia, Lat: 48.4517, Lng: -123.4339, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Montmagny, Quebec 46.9833 -70.5500 matched with DB 
+City: Montmagny, state: Quebec, Lat: 46.9833, Lng: -70.55, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cantley, Quebec 45.5667 -75.7833 matched with DB 
+City: Cantley, state: Quebec, Lat: 45.5667, Lng: -75.7833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Erin, Ontario 43.7667 -80.0667 matched with DB 
+City: Erin, state: Ontario, Lat: 43.7667, Lng: -80.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Notre-Dame-de-l'Île-Perrot, Quebec 45.3667 -73.9333 matched with DB 
+City: Notre-Dame-de-l'Ile-Perrot, state: Quebec, Lat: 45.3667, Lng: -73.9333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kincardine, Ontario 44.1667 -81.6333 matched with DB 
+City: Kincardine, state: Ontario, Lat: 44.1667, Lng: -81.6333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Elliot Lake, Ontario 46.3833 -82.6500 matched with DB 
+City: Elliot Lake, state: Ontario, Lat: 46.3833, Lng: -82.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bromont, Quebec 45.3167 -72.6500 matched with DB 
+City: Bromont, state: Quebec, Lat: 45.3167, Lng: -72.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Arnprior, Ontario 45.4333 -76.3500 matched with DB 
+City: Arnprior, state: Ontario, Lat: 45.4333, Lng: -76.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Dundas, Ontario 45.0833 -75.3500 matched with DB 
+City: North Dundas, state: Ontario, Lat: 45.0833, Lng: -75.35, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wellesley, Ontario 43.5500 -80.7167 matched with DB 
+City: Wellesley, state: Ontario, Lat: 43.55, Lng: -80.7167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Nelson, British Columbia 49.5000 -117.2833 matched with DB 
+City: Nelson, state: British Columbia, Lat: 49.5, Lng: -117.2833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Ladysmith, British Columbia 48.9975 -123.8203 matched with DB 
+City: Ladysmith, state: British Columbia, Lat: 48.9975, Lng: -123.8203, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Coldstream, British Columbia 50.2200 -119.2481 matched with DB 
+City: Coldstream, state: British Columbia, Lat: 50.22, Lng: -119.2481, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Georgian Bluffs, Ontario 44.6500 -81.0333 matched with DB 
+City: Georgian Bluffs, state: Ontario, Lat: 44.65, Lng: -81.0333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Weyburn, Saskatchewan 49.6611 -103.8525 matched with DB 
+City: Weyburn, state: Saskatchewan, Lat: 49.6611, Lng: -103.8525, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: La Tuque, Quebec 48.0652 -74.0528 matched with DB 
+City: La Tuque, state: Quebec, Lat: 48.0652, Lng: -74.0528, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Norwich, Ontario 42.9833 -80.6000 matched with DB 
+City: Norwich, state: Ontario, Lat: 42.9833, Lng: -80.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Meaford, Ontario 44.5800 -80.7300 matched with DB 
+City: Meaford, state: Ontario, Lat: 44.58, Lng: -80.73, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Adjala-Tosorontio, Ontario 44.1333 -79.9333 matched with DB 
+City: Adjala-Tosorontio, state: Ontario, Lat: 44.1333, Lng: -79.9333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hamilton Township, Ontario 44.0540 -78.2164 matched with DB 
+City: Hamilton Township, state: Ontario, Lat: 44.054, Lng: -78.2164, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stratford, Prince Edward Island 46.2167 -63.0893 matched with DB 
+City: Stratford, state: Prince Edward Island, Lat: 46.2167, Lng: -63.0893, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+CSV City: Stratford, Prince Edward Island 46.2167 -63.0893 matched with DB 
+City: Stratford, state: Ontario, Lat: 43.3708, Lng: -80.9819, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Estevan, Saskatchewan 49.1392 -102.9861 matched with DB 
+City: Estevan, state: Saskatchewan, Lat: 49.1392, Lng: -102.9861, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: South Dundas, Ontario 44.9167 -75.2667 matched with DB 
+City: South Dundas, state: Ontario, Lat: 44.9167, Lng: -75.2667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lambton Shores, Ontario 43.1833 -81.9000 matched with DB 
+City: Lambton Shores, state: Ontario, Lat: 43.1833, Lng: -81.9, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Dumfries, Ontario 43.3200 -80.3800 matched with DB 
+City: North Dumfries, state: Ontario, Lat: 43.32, Lng: -80.38, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Martensville, Saskatchewan 52.2897 -106.6667 matched with DB 
+City: Martensville, state: Saskatchewan, Lat: 52.2897, Lng: -106.6667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mapleton, Ontario 43.7358 -80.6681 matched with DB 
+City: Mapleton, state: Ontario, Lat: 43.7358, Lng: -80.6681, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rawdon, Quebec 46.0500 -73.7167 matched with DB 
+City: Rawdon, state: Quebec, Lat: 46.05, Lng: -73.7167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Morinville, Alberta 53.8022 -113.6497 matched with DB 
+City: Morinville, state: Alberta, Lat: 53.8022, Lng: -113.6497, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Blackfalds, Alberta 52.3833 -113.8000 matched with DB 
+City: Blackfalds, state: Alberta, Lat: 52.3833, Lng: -113.8, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Chester, Nova Scotia 44.6500 -64.3000 matched with DB 
+City: Chester, state: Nova Scotia, Lat: 44.65, Lng: -64.3, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Queens, Nova Scotia 44.0333 -64.7167 matched with DB 
+City: Queens, state: Nova Scotia, Lat: 44.0333, Lng: -64.7167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Selkirk, Manitoba 50.1436 -96.8839 matched with DB 
+City: Selkirk, state: Manitoba, Lat: 50.1436, Lng: -96.8839, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Félicien, Quebec 48.6500 -72.4500 matched with DB 
+City: Saint-Felicien, state: Quebec, Lat: 48.65, Lng: -72.45, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Roberval, Quebec 48.5200 -72.2300 matched with DB 
+City: Roberval, state: Quebec, Lat: 48.52, Lng: -72.23, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Rideau Lakes, Ontario 44.6667 -76.2167 matched with DB 
+City: Rideau Lakes, state: Ontario, Lat: 44.6667, Lng: -76.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sechelt, British Columbia 49.4742 -123.7542 matched with DB 
+City: Sechelt, state: British Columbia, Lat: 49.4742, Lng: -123.7542, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bois-des-Filion, Quebec 45.6667 -73.7500 matched with DB 
+City: Bois-des-Filion, state: Quebec, Lat: 45.6667, Lng: -73.75, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: North Glengarry, Ontario 45.3333 -74.7333 matched with DB 
+City: North Glengarry, state: Ontario, Lat: 45.3333, Lng: -74.7333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: South Huron, Ontario 43.3200 -81.5000 matched with DB 
+City: South Huron, state: Ontario, Lat: 43.32, Lng: -81.5, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Marieville, Quebec 45.4333 -73.1667 matched with DB 
+City: Marieville, state: Quebec, Lat: 45.4333, Lng: -73.1667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Penetanguishene, Ontario 44.7667 -79.9333 matched with DB 
+City: Penetanguishene, state: Ontario, Lat: 44.7667, Lng: -79.9333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Tay, Ontario 44.7167 -79.7667 matched with DB 
+City: Tay, state: Ontario, Lat: 44.7167, Lng: -79.7667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Castlegar, British Columbia 49.3256 -117.6661 matched with DB 
+City: Castlegar, state: British Columbia, Lat: 49.3256, Lng: -117.6661, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cavan Monaghan, Ontario 44.2000 -78.4667 matched with DB 
+City: Cavan Monaghan, state: Ontario, Lat: 44.2, Lng: -78.4667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Morden, Manitoba 49.1919 -98.1006 matched with DB 
+City: Morden, state: Manitoba, Lat: 49.1919, Lng: -98.1006, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Temiskaming Shores, Ontario 47.5167 -79.6833 matched with DB 
+City: Temiskaming Shores, state: Ontario, Lat: 47.5167, Lng: -79.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hinton, Alberta 53.4114 -117.5639 matched with DB 
+City: Hinton, state: Alberta, Lat: 53.4114, Lng: -117.5639, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Sauveur, Quebec 45.9000 -74.1700 matched with DB 
+City: Saint-Sauveur, state: Quebec, Lat: 45.9, Lng: -74.17, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Grey Highlands, Ontario 44.3333 -80.5000 matched with DB 
+City: Grey Highlands, state: Ontario, Lat: 44.3333, Lng: -80.5, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: East St. Paul, Manitoba 49.9772 -97.0103 matched with DB 
+City: East St. Paul, state: Manitoba, Lat: 49.9772, Lng: -97.0103, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stoneham-et-Tewkesbury, Quebec 47.1667 -71.4333 matched with DB 
+City: Stoneham-et-Tewkesbury, state: Quebec, Lat: 47.1667, Lng: -71.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Alfred and Plantagenet, Ontario 45.5667 -74.9167 matched with DB 
+City: Alfred and Plantagenet, state: Ontario, Lat: 45.5667, Lng: -74.9167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mont-Tremblant, Quebec 46.1167 -74.6000 matched with DB 
+City: Mont-Tremblant, state: Quebec, Lat: 46.1167, Lng: -74.6, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Zotique, Quebec 45.2500 -74.2500 matched with DB 
+City: Saint-Zotique, state: Quebec, Lat: 45.25, Lng: -74.25, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Saint-Raymond, Quebec 46.9000 -71.8333 matched with DB 
+City: Saint-Raymond, state: Quebec, Lat: 46.9, Lng: -71.8333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Gibsons, British Columbia 49.4028 -123.5036 matched with DB 
+City: Gibsons, state: British Columbia, Lat: 49.4028, Lng: -123.5036, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Amherst, Nova Scotia 45.8167 -64.2167 matched with DB 
+City: Amherst, state: Nova Scotia, Lat: 45.8167, Lng: -64.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Elizabethtown-Kitley, Ontario 44.7000 -75.8833 matched with DB 
+City: Elizabethtown-Kitley, state: Ontario, Lat: 44.7, Lng: -75.8833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Smiths Falls, Ontario 44.9000 -76.0167 matched with DB 
+City: Smiths Falls, state: Ontario, Lat: 44.9, Lng: -76.0167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lorraine, Quebec 45.6833 -73.7833 matched with DB 
+City: Lorraine, state: Quebec, Lat: 45.6833, Lng: -73.7833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Ramara, Ontario 44.6333 -79.2167 matched with DB 
+City: Ramara, state: Ontario, Lat: 44.6333, Lng: -79.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Notre-Dame-des-Prairies, Quebec 46.0500 -73.4333 matched with DB 
+City: Notre-Dame-des-Prairies, state: Quebec, Lat: 46.05, Lng: -73.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Leeds and the Thousand Islands, Ontario 44.4500 -76.0800 matched with DB 
+City: Leeds and the Thousand Islands, state: Ontario, Lat: 44.45, Lng: -76.08, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brockton, Ontario 44.1667 -81.2167 matched with DB 
+City: Brockton, state: Ontario, Lat: 44.1667, Lng: -81.2167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Laurentian Valley, Ontario 45.7681 -77.2239 matched with DB 
+City: Laurentian Valley, state: Ontario, Lat: 45.7681, Lng: -77.2239, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Mono, Ontario 44.0167 -80.0667 matched with DB 
+City: Mono, state: Ontario, Lat: 44.0167, Lng: -80.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Sainte-Julienne, Quebec 45.9700 -73.7200 matched with DB 
+City: Sainte-Julienne, state: Quebec, Lat: 45.97, Lng: -73.72, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Qualicum Beach, British Columbia 49.3500 -124.4333 matched with DB 
+City: Qualicum Beach, state: British Columbia, Lat: 49.35, Lng: -124.4333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Malahide, Ontario 42.7928 -80.9361 matched with DB 
+City: Malahide, state: Ontario, Lat: 42.7928, Lng: -80.9361, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Oromocto, New Brunswick 45.8488 -66.4788 matched with DB 
+City: Oromocto, state: New Brunswick, Lat: 45.8488, Lng: -66.4788, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Whitecourt, Alberta 54.1417 -115.6833 matched with DB 
+City: Whitecourt, state: Alberta, Lat: 54.1417, Lng: -115.6833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Olds, Alberta 51.7928 -114.1067 matched with DB 
+City: Olds, state: Alberta, Lat: 51.7928, Lng: -114.1067, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Huron East, Ontario 43.6300 -81.2800 matched with DB 
+City: Huron East, state: Ontario, Lat: 43.63, Lng: -81.28, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Beckwith, Ontario 45.0833 -76.0667 matched with DB 
+City: Beckwith, state: Ontario, Lat: 45.0833, Lng: -76.0667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Labrador City, Newfoundland and Labrador 52.9500 -66.9167 matched with DB 
+City: Labrador City, state: Newfoundland and Labrador, Lat: 52.95, Lng: -66.9167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Shelburne, Ontario 44.0833 -80.2000 matched with DB 
+City: Shelburne, state: Ontario, Lat: 44.0833, Lng: -80.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Stanley, Manitoba 49.1331 -98.0656 matched with DB 
+City: Stanley, state: Manitoba, Lat: 49.1331, Lng: -98.0656, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Taber, Alberta 49.7847 -112.1508 matched with DB 
+City: Taber, state: Alberta, Lat: 49.7847, Lng: -112.1508, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Donnacona, Quebec 46.6747 -71.7294 matched with DB 
+City: Donnacona, state: Quebec, Lat: 46.6747, Lng: -71.7294, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Corman Park No. 344, Saskatchewan 52.2291 -106.8002 matched with DB 
+City: Corman Park No. 344, state: Saskatchewan, Lat: 52.2291, Lng: -106.8002, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: L’Epiphanie, Quebec 45.8482664184978 -73.506054079174 matched with DB 
+City: L'Epiphanie, state: Quebec, Lat: 45.8483, Lng: -73.5061, Country: CAN (Matches - state: true lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: West Perth, Ontario 43.4700 -81.2000 matched with DB 
+City: West Perth, state: Ontario, Lat: 43.47, Lng: -81.2, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Campbellton, New Brunswick 48.0050 -66.6731 matched with DB 
+City: Campbellton, state: New Brunswick, Lat: 48.005, Lng: -66.6731, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Bridgewater, Nova Scotia 44.3700 -64.5200 matched with DB 
+City: Bridgewater, state: Nova Scotia, Lat: 44.37, Lng: -64.52, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Coaldale, Alberta 49.7333 -112.6167 matched with DB 
+City: Coaldale, state: Alberta, Lat: 49.7333, Lng: -112.6167, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Pont-Rouge, Quebec 46.7500 -71.7000 matched with DB 
+City: Pont-Rouge, state: Quebec, Lat: 46.75, Lng: -71.7, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Champlain, Ontario 45.5333 -74.6500 matched with DB 
+City: Champlain, state: Ontario, Lat: 45.5333, Lng: -74.65, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Coaticook, Quebec 45.1333 -71.8000 matched with DB 
+City: Coaticook, state: Quebec, Lat: 45.1333, Lng: -71.8, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Minto, Ontario 43.9167 -80.8667 matched with DB 
+City: Minto, state: Ontario, Lat: 43.9167, Lng: -80.8667, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: La Pêche, Quebec 45.6833 -75.9833 matched with DB 
+City: La Peche, state: Quebec, Lat: 45.6833, Lng: -75.9833, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Shediac, New Brunswick 46.2167 -64.5333 matched with DB 
+City: Shediac, state: New Brunswick, Lat: 46.2167, Lng: -64.5333, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Hanover, Ontario 44.1500 -81.0333 matched with DB 
+City: Hanover, state: Manitoba, Lat: 49.4433, Lng: -96.8492, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Iqaluit, Nunavut 63.7598 -68.5107 matched with DB 
+City: Iqaluit, state: Nunavut, Lat: 63.7598, Lng: -68.5107, Country: CAN (Matches - state: true lat: true lng: true)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cornwall, Prince Edward Island 46.2407 -63.2009 matched with DB 
+City: Cornwall, state: Ontario, Lat: 45.0275, Lng: -74.74, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Windsor, Nova Scotia 44.9803 -64.1292 matched with DB 
+City: Windsor, state: Ontario, Lat: 42.2833, Lng: -83.0, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Windsor, Quebec 45.5667 -72.0000 matched with DB 
+City: Windsor, state: Ontario, Lat: 42.2833, Lng: -83.0, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Grand Falls, New Brunswick 47.0344 -67.7394 matched with DB 
+City: Grand Falls, state: Newfoundland and Labrador, Lat: 48.9578, Lng: -55.6633, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Cochrane, Ontario 49.0667 -81.0167 matched with DB 
+City: Cochrane, state: Alberta, Lat: 51.189, Lng: -114.467, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Woodstock, New Brunswick 46.1522 -67.5983 matched with DB 
+City: Woodstock, state: Ontario, Lat: 43.1306, Lng: -80.7467, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Waterloo, Quebec 45.3500 -72.5167 matched with DB 
+City: Waterloo, state: Ontario, Lat: 43.4667, Lng: -80.5167, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Richmond, Quebec 45.6667 -72.1500 matched with DB 
+City: Richmond, state: British Columbia, Lat: 49.1667, Lng: -123.1333, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Kingston, New Brunswick 45.4663 -66.0217 matched with DB 
+City: Kingston, state: Ontario, Lat: 44.3128, Lng: -76.4553, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lincoln, New Brunswick 45.8716 -66.5437 matched with DB 
+City: Lincoln, state: Ontario, Lat: 43.13, Lng: -79.43, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Minto, New Brunswick 46.1497 -66.1067 matched with DB 
+City: Minto, state: Ontario, Lat: 43.9167, Lng: -80.8667, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Lakeshore, Manitoba 51.2440 -99.6562 matched with DB 
+City: Lakeshore, state: Ontario, Lat: 42.2399, Lng: -82.6511, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Champlain, Quebec 46.4500 -72.3500 matched with DB 
+City: Champlain, state: Ontario, Lat: 45.5333, Lng: -74.65, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Victoria, Newfoundland and Labrador 47.7675 -53.2411 matched with DB 
+City: Victoria, state: British Columbia, Lat: 48.4283, Lng: -123.3647, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Shelburne, Nova Scotia 43.7633 -65.3236 matched with DB 
+City: Shelburne, state: Ontario, Lat: 44.0833, Lng: -80.2, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Brighton, New Brunswick 46.3316 -67.3585 matched with DB 
+City: Brighton, state: Ontario, Lat: 44.1222, Lng: -77.7642, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Springfield, New Brunswick 45.7005 -65.8079 matched with DB 
+City: Springfield, state: Manitoba, Lat: 49.9292, Lng: -96.6939, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Amherst, Quebec 46.0500 -74.7667 matched with DB 
+City: Amherst, state: Nova Scotia, Lat: 45.8167, Lng: -64.2167, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Richmond, New Brunswick 46.0776 -67.7248 matched with DB 
+City: Richmond, state: British Columbia, Lat: 49.1667, Lng: -123.1333, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Victoria, Manitoba 49.6644 -98.9153 matched with DB 
+City: Victoria, state: British Columbia, Lat: 48.4283, Lng: -123.3647, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+
+CSV City: Wilmot, New Brunswick 46.3463 -67.7099 matched with DB 
+City: Wilmot, state: Ontario, Lat: 43.4, Lng: -80.65, Country: CAN (Matches - state: false lat: false lng: false)
+- - - - - - - - - - - - - - - - - - - - - - - -
+
+
+ ================= END CITY MATCH ================= 
+

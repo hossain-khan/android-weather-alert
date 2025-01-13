@@ -1,22 +1,70 @@
 package dev.hossain.citydb
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import androidx.sqlite.execSQL
 import androidx.sqlite.use
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import dev.hossain.citydb.config.CSV_CANADIAN_CITIES
-import dev.hossain.citydb.config.DB_FILE_NAME_ALERT_APP
-import dev.hossain.citydb.config.DB_TABLE_NAME_CITIES
-import dev.hossain.citydb.config.escapeSingleQuote
-import org.intellij.lang.annotations.Language
+import dev.hossain.citydb.config.*
 import java.io.File
+import kotlin.time.measureTime
 
 /**
  * Checks if the Canadian cities are in the database.
  */
 fun main() {
-    executeCityMatch()
+    val elapsed = measureTime {
+        //executeCityMatch()
+        //debugCityMatching()
+    }
+
+    // debugCityMatching - Time elapsed: 3.672165291s
+    println("Time elapsed: $elapsed")
 }
+
+
+private fun debugCityMatching() {
+    val outputFile = File(CANADA_CITIES_MATCHED_REPORT)
+    val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
+    outputFile.bufferedWriter().use { writer ->
+        val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
+        databaseConnection.prepare(countSql).use { stmt ->
+            while (stmt.step()) {
+                writer.write("Total records: ${stmt.getText(0)}\n")
+            }
+        }
+
+        val canadianCities = getCanadianCities()
+        canadianCities.forEach { csvCity ->
+            val citySql = """
+                SELECT * FROM $DB_TABLE_NAME_CITIES
+                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = '$CANADA_COUNTRY_CODE'
+            """.trimIndent()
+
+            var didFindMatch = false
+            databaseConnection.prepare(citySql).use { stmt ->
+                while (stmt.step()) {
+                    val city = stmt.getText(1)
+                    val lat = stmt.getDouble(2)
+                    val lng = stmt.getDouble(3)
+                    val province = stmt.getText(7)
+                    val country = stmt.getText(6)
+
+                    writer.write("""
+                        CSV City: ${csvCity["city"]}, ${csvCity["province_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB 
+                        City: $city, state: $province, Lat: $lat, Lng: $lng, Country: $country (Matches - state: ${province == csvCity["province_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
+                        - - - - - - - - - - - - - - - - - - - - - - - -
+                    """.trimIndent() + "\n")
+
+                    didFindMatch = true
+                }
+            }
+            if(didFindMatch) {
+                writer.write("\n\n ================= END CITY MATCH ================= \n\n")
+            }
+        }
+    }
+    databaseConnection.close()
+}
+
 
 private fun executeCityMatch() {
     val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
@@ -31,11 +79,10 @@ private fun executeCityMatch() {
     val totalCanadianCities = canadianCities.size
     var totalMatches = 0
     // For each canadian city, check if it exists in the cities table
-    // Result: Total USA cities: 31120 and matches: 10392 with multi-match: 19475
     canadianCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES
-            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = 'CAN'
+            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = '$CANADA_COUNTRY_CODE'
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
