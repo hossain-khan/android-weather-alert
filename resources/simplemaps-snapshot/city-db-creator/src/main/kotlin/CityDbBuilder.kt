@@ -11,15 +11,19 @@ import kotlin.time.measureTime
 
 /**
  * This build upon existing world cities and adds USA and Canada cities that are missing in original table.
+ *
+ * See existing database - [DB_FILE_NAME_ALERT_APP]
+ * The database where data is added on - [DB_FILE_NAME_ENHANCED_DB]
  */
 fun main() {
     val elapsed = measureTime {
-        //addMissingCanadianCities()
+        addMissingCanadianCities()
         addMissingUsaCities()
     }
 
     // addMissingCanadianCities - Time elapsed: 4.278676250s
     // addMissingUsaCities - Time elapsed: 1m 32.431552958s
+    // Both tasks - Time elapsed: 1m 37.289867708s
     println("Time elapsed: $elapsed")
 }
 

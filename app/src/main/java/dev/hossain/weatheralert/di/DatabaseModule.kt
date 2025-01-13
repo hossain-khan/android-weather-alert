@@ -23,6 +23,7 @@ object DatabaseModule {
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
             .createFromAsset("alertapp.db")
             .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigrationFrom(3)
             .build()
 
     @Provides
