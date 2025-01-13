@@ -1,8 +1,10 @@
 package dev.hossain.citydb.config
 
-internal const val USA_COUNTRY_CODE = "USA"
-internal const val USA_COUNTRY_NAME = "USA"
-internal const val CANADA_COUNTRY_CODE = "CAN"
+internal const val USA_COUNTRY_CODE_ISO2 = "US"
+internal const val USA_COUNTRY_CODE_ISO3 = "USA"
+internal const val USA_COUNTRY_NAME = "United States"
+internal const val CANADA_COUNTRY_CODE_ISO2 = "CA"
+internal const val CANADA_COUNTRY_CODE_ISO3 = "CAN"
 internal const val CANADA_COUNTRY_NAME = "Canada"
 internal const val DB_FILE_NAME_TODO_TEST = "db/todos.db"
 internal const val DB_FILE_NAME_ALERT_APP = "../alertapp.db"

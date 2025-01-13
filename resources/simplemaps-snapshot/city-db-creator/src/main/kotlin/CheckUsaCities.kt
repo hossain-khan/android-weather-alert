@@ -48,7 +48,7 @@ private fun debugCityMatching() {
         usaCities.forEach { csvCity ->
             val citySql = """
                 SELECT * FROM $DB_TABLE_NAME_CITIES
-                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
+                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE_ISO3'
             """.trimIndent()
 
             var didFindMatch = false
@@ -97,7 +97,7 @@ private fun executeCityMatching() {
     usaCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM cities
-            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
+            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE_ISO3'
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
@@ -136,7 +136,7 @@ private fun findIdCollision() {
     usaCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES
-            WHERE id = ${city["id"]!!.toLong()} AND iso3 = '$USA_COUNTRY_CODE'
+            WHERE id = ${city["id"]!!.toLong()} AND iso3 = '$USA_COUNTRY_CODE_ISO3'
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
