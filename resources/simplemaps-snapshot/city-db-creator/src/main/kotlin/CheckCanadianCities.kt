@@ -13,10 +13,11 @@ import kotlin.time.measureTime
 fun main() {
     val elapsed = measureTime {
         //executeCityMatch()
-        //debugCityMatching()
+        debugCityMatching()
     }
 
     // debugCityMatching - Time elapsed: 3.672165291s
+    // executeCityMatch- Time elapsed: 3.711421833s
     println("Time elapsed: $elapsed")
 }
 
@@ -28,7 +29,7 @@ private fun debugCityMatching() {
         val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
         databaseConnection.prepare(countSql).use { stmt ->
             while (stmt.step()) {
-                writer.write("Total records: ${stmt.getText(0)}\n")
+                writer.write("Total DB records: ${stmt.getText(0)}\n\n")
             }
         }
 
@@ -50,7 +51,7 @@ private fun debugCityMatching() {
 
                     writer.write("""
                         CSV City: ${csvCity["city"]}, ${csvCity["province_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB 
-                        City: $city, state: $province, Lat: $lat, Lng: $lng, Country: $country (Matches - state: ${province == csvCity["province_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
+                        City: $city, state: $province, Lat: $lat, Lng: $lng, Country: $country (Matches - province: ${province == csvCity["province_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
                         - - - - - - - - - - - - - - - - - - - - - - - -
                     """.trimIndent() + "\n")
 
