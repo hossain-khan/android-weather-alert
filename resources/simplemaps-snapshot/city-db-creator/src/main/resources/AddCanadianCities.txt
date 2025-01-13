@@ -1,0 +1,7931 @@
+Inserted: Victoria in British Columbia 
+Inserted: Victoria in British Columbia 
+
+
+ Inserted 2 cities took time: 2.646625ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Windsor in Ontario 
+Inserted: Windsor in Ontario 
+
+
+ Inserted 2 cities took time: 93.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Richmond in British Columbia 
+Inserted: Richmond in British Columbia 
+
+
+ Inserted 2 cities took time: 102.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waterloo in Ontario 
+
+
+ Inserted 1 cities took time: 54us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chatham in Ontario 
+
+
+ Inserted 1 cities took time: 61.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cornwall in Ontario 
+
+
+ Inserted 1 cities took time: 130.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Woodstock in Ontario 
+
+
+ Inserted 1 cities took time: 100.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lakeshore in Ontario 
+
+
+ Inserted 1 cities took time: 91.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stratford in Ontario 
+Inserted: Stratford in Ontario 
+
+
+ Inserted 2 cities took time: 96.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cochrane in Alberta 
+
+
+ Inserted 1 cities took time: 39.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lloydminster in Saskatchewan 
+Inserted: Lloydminster in Saskatchewan 
+
+
+ Inserted 2 cities took time: 140.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lincoln in Ontario 
+
+
+ Inserted 1 cities took time: 55.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wilmot in Ontario 
+
+
+ Inserted 1 cities took time: 135.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lloydminster in Alberta 
+Inserted: Lloydminster in Alberta 
+
+
+ Inserted 2 cities took time: 196.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Springfield in Manitoba 
+
+
+ Inserted 1 cities took time: 57.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hanover in Manitoba 
+
+
+ Inserted 1 cities took time: 40.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Falls in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 69.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brighton in Ontario 
+
+
+ Inserted 1 cities took time: 70.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stratford in Prince Edward Island 
+Inserted: Stratford in Prince Edward Island 
+
+
+ Inserted 2 cities took time: 134.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Amherst in Nova Scotia 
+
+
+ Inserted 1 cities took time: 61.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shelburne in Ontario 
+
+
+ Inserted 1 cities took time: 57.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Champlain in Ontario 
+
+
+ Inserted 1 cities took time: 32.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Minto in Ontario 
+
+
+ Inserted 1 cities took time: 35.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Otterburn Park in Quebec 
+
+
+ Inserted 1 cities took time: 1.135708ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Brigitte-de-Laval in Quebec 
+
+
+ Inserted 1 cities took time: 213.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Catherine-de-la-Jacques-Cartier in Quebec 
+
+
+ Inserted 1 cities took time: 197.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South Bruce Peninsula in Ontario 
+
+
+ Inserted 1 cities took time: 199.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Portugal Cove-St. Philip's in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 236.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Edson in Alberta 
+
+
+ Inserted 1 cities took time: 205.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Renfrew in Ontario 
+
+
+ Inserted 1 cities took time: 268.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Farnham in Quebec 
+
+
+ Inserted 1 cities took time: 210.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Delson in Quebec 
+
+
+ Inserted 1 cities took time: 231.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Plympton-Wyoming in Ontario 
+
+
+ Inserted 1 cities took time: 177.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Banff in Alberta 
+
+
+ Inserted 1 cities took time: 174.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kapuskasing in Ontario 
+
+
+ Inserted 1 cities took time: 171.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Malbaie in Quebec 
+
+
+ Inserted 1 cities took time: 160.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Boischatel in Quebec 
+
+
+ Inserted 1 cities took time: 159.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beauport in Quebec 
+
+
+ Inserted 1 cities took time: 210.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Zorra in Ontario 
+
+
+ Inserted 1 cities took time: 175.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kitimat in British Columbia 
+
+
+ Inserted 1 cities took time: 161.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Macdonald in Manitoba 
+
+
+ Inserted 1 cities took time: 155.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Happy Valley in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 176.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Hippolyte in Quebec 
+
+
+ Inserted 1 cities took time: 174.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dauphin in Manitoba 
+
+
+ Inserted 1 cities took time: 194.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Church Point in Nova Scotia 
+
+
+ Inserted 1 cities took time: 232us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Old Chelsea in Quebec 
+
+
+ Inserted 1 cities took time: 217.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Drumheller in Alberta 
+
+
+ Inserted 1 cities took time: 188.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kirkland Lake in Ontario 
+
+
+ Inserted 1 cities took time: 173.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Aylmer in Ontario 
+
+
+ Inserted 1 cities took time: 186.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Apollinaire in Quebec 
+
+
+ Inserted 1 cities took time: 206.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Puslinch in Ontario 
+
+
+ Inserted 1 cities took time: 283us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Argyle in Nova Scotia 
+
+
+ Inserted 1 cities took time: 234.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Torbay in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 222.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Yarmouth in Nova Scotia 
+
+
+ Inserted 1 cities took time: 262.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Innisfail in Alberta 
+
+
+ Inserted 1 cities took time: 236.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nicolet in Quebec 
+
+
+ Inserted 1 cities took time: 279.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rockwood in Manitoba 
+
+
+ Inserted 1 cities took time: 355.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Drummond/North Elmsley in Ontario 
+
+
+ Inserted 1 cities took time: 422.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Contrecoeur in Quebec 
+
+
+ Inserted 1 cities took time: 235.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hanover in Ontario 
+Inserted: Hanover in Ontario 
+
+
+ Inserted 2 cities took time: 69.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dryden in Ontario 
+
+
+ Inserted 1 cities took time: 270us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort Frances in Ontario 
+
+
+ Inserted 1 cities took time: 379us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Goderich in Ontario 
+
+
+ Inserted 1 cities took time: 201.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Sarre in Quebec 
+
+
+ Inserted 1 cities took time: 202.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chandler in Quebec 
+
+
+ Inserted 1 cities took time: 213.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stone Mills in Ontario 
+
+
+ Inserted 1 cities took time: 231.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South-West Oxford in Ontario 
+
+
+ Inserted 1 cities took time: 229.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Acton Vale in Quebec 
+
+
+ Inserted 1 cities took time: 206.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Douro-Dummer in Ontario 
+
+
+ Inserted 1 cities took time: 219.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Philippe in Quebec 
+
+
+ Inserted 1 cities took time: 215.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McNab/Braeside in Ontario 
+
+
+ Inserted 1 cities took time: 199.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Central Huron in Ontario 
+
+
+ Inserted 1 cities took time: 232.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rigaud in Quebec 
+
+
+ Inserted 1 cities took time: 234.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Louiseville in Quebec 
+
+
+ Inserted 1 cities took time: 243.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chibougamau in Quebec 
+
+
+ Inserted 1 cities took time: 283.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coteau-du-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 221.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ritchot in Manitoba 
+
+
+ Inserted 1 cities took time: 238.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kimberley in British Columbia 
+
+
+ Inserted 1 cities took time: 218.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Blandford-Blenheim in Ontario 
+
+
+ Inserted 1 cities took time: 199.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bayham in Ontario 
+
+
+ Inserted 1 cities took time: 295.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Augusta in Ontario 
+
+
+ Inserted 1 cities took time: 257.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stephenville in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 326.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: The Pas in Manitoba 
+
+
+ Inserted 1 cities took time: 182.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Marys in Ontario 
+
+
+ Inserted 1 cities took time: 226.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Rémi in Quebec 
+
+
+ Inserted 1 cities took time: 222.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Drayton Valley in Alberta 
+
+
+ Inserted 1 cities took time: 191.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ponoka in Alberta 
+
+
+ Inserted 1 cities took time: 393.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Southgate in Ontario 
+
+
+ Inserted 1 cities took time: 200.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Les Cèdres in Quebec 
+
+
+ Inserted 1 cities took time: 218.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Baie-Saint-Paul in Quebec 
+
+
+ Inserted 1 cities took time: 398us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Merritt in British Columbia 
+
+
+ Inserted 1 cities took time: 230.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bluewater in Ontario 
+
+
+ Inserted 1 cities took time: 212.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Zorra-Tavistock in Ontario 
+
+
+ Inserted 1 cities took time: 210.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brownsburg in Quebec 
+
+
+ Inserted 1 cities took time: 175.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Asbestos in Quebec 
+
+
+ Inserted 1 cities took time: 180.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Otonabee-South Monaghan in Ontario 
+
+
+ Inserted 1 cities took time: 155.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Huron-Kinloss in Ontario 
+
+
+ Inserted 1 cities took time: 170.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hampstead in Quebec 
+
+
+ Inserted 1 cities took time: 169.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joseph-du-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 216.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Plessisville in Quebec 
+
+
+ Inserted 1 cities took time: 168us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: The Blue Mountains in Ontario 
+
+
+ Inserted 1 cities took time: 187.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Whitewater Region in Ontario 
+
+
+ Inserted 1 cities took time: 185.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Edwardsburgh/Cardinal in Ontario 
+
+
+ Inserted 1 cities took time: 168.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-des-Monts in Quebec 
+
+
+ Inserted 1 cities took time: 175.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bay Roberts in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 171.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wainfleet in Ontario 
+
+
+ Inserted 1 cities took time: 176.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Stormont in Ontario 
+
+
+ Inserted 1 cities took time: 171.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alnwick/Haldimand in Ontario 
+
+
+ Inserted 1 cities took time: 173.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Peace River in Alberta 
+
+
+ Inserted 1 cities took time: 164.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Lambert-de-Lauzon in Quebec 
+
+
+ Inserted 1 cities took time: 190us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Arran-Elderslie in Ontario 
+
+
+ Inserted 1 cities took time: 176.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Parry Sound in Ontario 
+
+
+ Inserted 1 cities took time: 178.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Val-Shefford in Quebec 
+
+
+ Inserted 1 cities took time: 167.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: West St. Paul in Manitoba 
+
+
+ Inserted 1 cities took time: 190.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Slave Lake in Alberta 
+
+
+ Inserted 1 cities took time: 165.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Port-Cartier in Quebec 
+
+
+ Inserted 1 cities took time: 166.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Barrington in Nova Scotia 
+
+
+ Inserted 1 cities took time: 154.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rocky Mountain House in Alberta 
+
+
+ Inserted 1 cities took time: 170.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Muskoka Falls in Ontario 
+
+
+ Inserted 1 cities took time: 159.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cornwall in Prince Edward Island 
+Inserted: Cornwall in Prince Edward Island 
+
+
+ Inserted 2 cities took time: 95.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Paul in Quebec 
+
+
+ Inserted 1 cities took time: 185.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Devon in Alberta 
+
+
+ Inserted 1 cities took time: 192.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Perth in Ontario 
+
+
+ Inserted 1 cities took time: 194.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wainwright in Alberta 
+
+
+ Inserted 1 cities took time: 182.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shannon in Quebec 
+
+
+ Inserted 1 cities took time: 175.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Honoré in Quebec 
+
+
+ Inserted 1 cities took time: 212.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beaubassin East / Beaubassin-est in New Brunswick 
+
+
+ Inserted 1 cities took time: 174.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bonnyville in Alberta 
+
+
+ Inserted 1 cities took time: 183.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cramahe in Ontario 
+
+
+ Inserted 1 cities took time: 174.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beauceville in Quebec 
+
+
+ Inserted 1 cities took time: 172.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Middlesex in Ontario 
+
+
+ Inserted 1 cities took time: 164.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beaupré in Quebec 
+
+
+ Inserted 1 cities took time: 171.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Charlemagne in Quebec 
+
+
+ Inserted 1 cities took time: 189.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kent in British Columbia 
+
+
+ Inserted 1 cities took time: 209.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clarenville in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 149.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mont-Joli in Quebec 
+
+
+ Inserted 1 cities took time: 176.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pointe-Calumet in Quebec 
+
+
+ Inserted 1 cities took time: 201.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dysart et al in Ontario 
+
+
+ Inserted 1 cities took time: 179.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carbonear in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 206.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hope in British Columbia 
+
+
+ Inserted 1 cities took time: 182.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pontiac in Quebec 
+
+
+ Inserted 1 cities took time: 341.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L'Ange-Gardien in Quebec 
+
+
+ Inserted 1 cities took time: 218.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hindon Hill in Ontario 
+
+
+ Inserted 1 cities took time: 209.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Broquerie in Manitoba 
+
+
+ Inserted 1 cities took time: 208.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tweed in Ontario 
+
+
+ Inserted 1 cities took time: 239.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oliver Paipoonge in Ontario 
+
+
+ Inserted 1 cities took time: 229.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Félix-de-Valois in Quebec 
+
+
+ Inserted 1 cities took time: 336.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Melfort in Saskatchewan 
+
+
+ Inserted 1 cities took time: 194.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stettler in Alberta 
+
+
+ Inserted 1 cities took time: 307.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Niverville in Manitoba 
+
+
+ Inserted 1 cities took time: 226.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McMasterville in Quebec 
+
+
+ Inserted 1 cities took time: 235.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Douglas in New Brunswick 
+
+
+ Inserted 1 cities took time: 265.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Calixte in Quebec 
+
+
+ Inserted 1 cities took time: 207.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Mégantic in Quebec 
+
+
+ Inserted 1 cities took time: 260.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Humboldt in Saskatchewan 
+
+
+ Inserted 1 cities took time: 192.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Paul in Alberta 
+
+
+ Inserted 1 cities took time: 176.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Henri in Quebec 
+
+
+ Inserted 1 cities took time: 226.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Peachland in British Columbia 
+
+
+ Inserted 1 cities took time: 235.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Verchères in Quebec 
+
+
+ Inserted 1 cities took time: 232.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 510.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Petrolia in Ontario 
+
+
+ Inserted 1 cities took time: 223.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Southwest Middlesex in Ontario 
+
+
+ Inserted 1 cities took time: 292.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Front of Yonge in Ontario 
+
+
+ Inserted 1 cities took time: 232.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oliver in British Columbia 
+
+
+ Inserted 1 cities took time: 200.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vegreville in Alberta 
+
+
+ Inserted 1 cities took time: 233.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Princeville in Quebec 
+
+
+ Inserted 1 cities took time: 199.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Césaire in Quebec 
+
+
+ Inserted 1 cities took time: 214.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tay Valley in Ontario 
+
+
+ Inserted 1 cities took time: 201.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South Bruce in Ontario 
+
+
+ Inserted 1 cities took time: 275.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Antigonish in Nova Scotia 
+
+
+ Inserted 1 cities took time: 321.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Crowsnest Pass in Alberta 
+
+
+ Inserted 1 cities took time: 210.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Redcliff in Alberta 
+
+
+ Inserted 1 cities took time: 268.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Val-David in Quebec 
+
+
+ Inserted 1 cities took time: 371.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fernie in British Columbia 
+
+
+ Inserted 1 cities took time: 181.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Windsor in Nova Scotia 
+Inserted: Windsor in Nova Scotia 
+Inserted: Windsor in Nova Scotia 
+
+
+ Inserted 3 cities took time: 81.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-du-Mont-Carmel in Quebec 
+
+
+ Inserted 1 cities took time: 225us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Martine in Quebec 
+
+
+ Inserted 1 cities took time: 285.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Creston in British Columbia 
+
+
+ Inserted 1 cities took time: 233.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Roch-de-l'Achigan in Quebec 
+
+
+ Inserted 1 cities took time: 231.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sussex in New Brunswick 
+
+
+ Inserted 1 cities took time: 379.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pie in Quebec 
+
+
+ Inserted 1 cities took time: 379.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ashfield-Colborne-Wawanosh in Ontario 
+
+
+ Inserted 1 cities took time: 271.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trent Lakes in Ontario 
+
+
+ Inserted 1 cities took time: 179.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Northern Rockies in British Columbia 
+
+
+ Inserted 1 cities took time: 182.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gananoque in Ontario 
+
+
+ Inserted 1 cities took time: 168.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Windsor in Quebec 
+Inserted: Windsor in Quebec 
+Inserted: Windsor in Quebec 
+
+
+ Inserted 3 cities took time: 44.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Smithers in British Columbia 
+
+
+ Inserted 1 cities took time: 169us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tracadie in New Brunswick 
+
+
+ Inserted 1 cities took time: 148.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Meadow Lake in Saskatchewan 
+
+
+ Inserted 1 cities took time: 176.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lanark Highlands in Ontario 
+
+
+ Inserted 1 cities took time: 181.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sackville in New Brunswick 
+
+
+ Inserted 1 cities took time: 163.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Falls in New Brunswick 
+Inserted: Grand Falls in New Brunswick 
+
+
+ Inserted 2 cities took time: 39.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Armstrong in British Columbia 
+
+
+ Inserted 1 cities took time: 225.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cochrane in Ontario 
+Inserted: Cochrane in Ontario 
+
+
+ Inserted 2 cities took time: 31.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Ronge in Saskatchewan 
+
+
+ Inserted 1 cities took time: 167.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Marystown in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 166.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sioux Lookout in Ontario 
+
+
+ Inserted 1 cities took time: 168.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Didsbury in Alberta 
+
+
+ Inserted 1 cities took time: 162.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Deer Lake in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 178.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Woodstock in New Brunswick 
+Inserted: Woodstock in New Brunswick 
+
+
+ Inserted 2 cities took time: 29.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Flin Flon in Saskatchewan 
+
+
+ Inserted 1 cities took time: 192.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brokenhead in Manitoba 
+
+
+ Inserted 1 cities took time: 186.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Burton in New Brunswick 
+
+
+ Inserted 1 cities took time: 193.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Montréal-Ouest in Quebec 
+
+
+ Inserted 1 cities took time: 183.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Spallumcheen in British Columbia 
+
+
+ Inserted 1 cities took time: 180.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Westlock in Alberta 
+
+
+ Inserted 1 cities took time: 196.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Témiscouata-sur-le-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 182.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Osoyoos in British Columbia 
+
+
+ Inserted 1 cities took time: 180.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint Marys in New Brunswick 
+
+
+ Inserted 1 cities took time: 174.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hearst in Ontario 
+
+
+ Inserted 1 cities took time: 211.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Metchosin in British Columbia 
+
+
+ Inserted 1 cities took time: 210.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wolfville in Nova Scotia 
+
+
+ Inserted 1 cities took time: 202.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Breslau in Ontario 
+
+
+ Inserted 1 cities took time: 188.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stonewall in Manitoba 
+
+
+ Inserted 1 cities took time: 198.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Memramcook in New Brunswick 
+
+
+ Inserted 1 cities took time: 165.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-Bellevue in Quebec 
+
+
+ Inserted 1 cities took time: 194.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stirling-Rawdon in Ontario 
+
+
+ Inserted 1 cities took time: 216.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mont-Orford in Quebec 
+
+
+ Inserted 1 cities took time: 217.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ste. Anne in Manitoba 
+
+
+ Inserted 1 cities took time: 178.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Espanola in Ontario 
+
+
+ Inserted 1 cities took time: 205.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: West Elgin in Ontario 
+
+
+ Inserted 1 cities took time: 216.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Flin Flon (Part) in Manitoba 
+
+
+ Inserted 1 cities took time: 285.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Bay-Westfield in New Brunswick 
+
+
+ Inserted 1 cities took time: 169.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Ferris in Ontario 
+
+
+ Inserted 1 cities took time: 175.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Neepawa in Manitoba 
+
+
+ Inserted 1 cities took time: 169.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Huron in Ontario 
+
+
+ Inserted 1 cities took time: 176.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Germain-de-Grantham in Quebec 
+
+
+ Inserted 1 cities took time: 190.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Cyrille-de-Wendover in Quebec 
+
+
+ Inserted 1 cities took time: 180.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chisasibi in Quebec 
+
+
+ Inserted 1 cities took time: 246.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Southwold in Ontario 
+
+
+ Inserted 1 cities took time: 251.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chertsey in Quebec 
+
+
+ Inserted 1 cities took time: 213.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shippagan in New Brunswick 
+
+
+ Inserted 1 cities took time: 162.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lanoraie in Quebec 
+
+
+ Inserted 1 cities took time: 228.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Centre Hastings in Ontario 
+
+
+ Inserted 1 cities took time: 204.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coverdale in New Brunswick 
+
+
+ Inserted 1 cities took time: 352.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Warwick in Quebec 
+
+
+ Inserted 1 cities took time: 184.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hanwell in New Brunswick 
+
+
+ Inserted 1 cities took time: 219.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Napierville in Quebec 
+
+
+ Inserted 1 cities took time: 255.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waterloo in Quebec 
+Inserted: Waterloo in Quebec 
+
+
+ Inserted 2 cities took time: 58.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joseph-de-Beauce in Quebec 
+
+
+ Inserted 1 cities took time: 274.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: White City in Saskatchewan 
+
+
+ Inserted 1 cities took time: 216.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lucan Biddulph in Ontario 
+
+
+ Inserted 1 cities took time: 203.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Berthierville in Quebec 
+
+
+ Inserted 1 cities took time: 423.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rivière-Rouge in Quebec 
+
+
+ Inserted 1 cities took time: 237.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Greenstone in Ontario 
+
+
+ Inserted 1 cities took time: 249.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kindersley in Saskatchewan 
+
+
+ Inserted 1 cities took time: 271.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Denis-de-Brompton in Quebec 
+
+
+ Inserted 1 cities took time: 193us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Jasper in Alberta 
+
+
+ Inserted 1 cities took time: 277.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Barrhead in Alberta 
+
+
+ Inserted 1 cities took time: 187.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Melville in Saskatchewan 
+
+
+ Inserted 1 cities took time: 182.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Amqui in Quebec 
+
+
+ Inserted 1 cities took time: 257.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Mathias-sur-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 167.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tyendinaga in Ontario 
+
+
+ Inserted 1 cities took time: 307.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Iroquois Falls in Ontario 
+
+
+ Inserted 1 cities took time: 203.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Havelock-Belmont-Methuen in Ontario 
+
+
+ Inserted 1 cities took time: 271.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cornwallis in Manitoba 
+
+
+ Inserted 1 cities took time: 391.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Boniface in Quebec 
+
+
+ Inserted 1 cities took time: 262.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Westbank in British Columbia 
+
+
+ Inserted 1 cities took time: 273us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Edenwold No. 158 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 499.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cumberland in British Columbia 
+
+
+ Inserted 1 cities took time: 186.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Goulds in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 199.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vanderhoof in British Columbia 
+
+
+ Inserted 1 cities took time: 238.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Château-Richer in Quebec 
+
+
+ Inserted 1 cities took time: 254.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint Stephen in New Brunswick 
+
+
+ Inserted 1 cities took time: 269.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nipawin in Saskatchewan 
+
+
+ Inserted 1 cities took time: 204us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Battleford in Saskatchewan 
+
+
+ Inserted 1 cities took time: 243.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hampton in New Brunswick 
+
+
+ Inserted 1 cities took time: 193.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Montréal-Est in Quebec 
+
+
+ Inserted 1 cities took time: 196.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Central Frontenac in Ontario 
+
+
+ Inserted 1 cities took time: 204.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Antonin in Quebec 
+
+
+ Inserted 1 cities took time: 321.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jean-de-Matha in Quebec 
+
+
+ Inserted 1 cities took time: 217.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Headingley in Manitoba 
+
+
+ Inserted 1 cities took time: 186.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Seguin in Ontario 
+
+
+ Inserted 1 cities took time: 206.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beresford in New Brunswick 
+
+
+ Inserted 1 cities took time: 160.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Pocatière in Quebec 
+
+
+ Inserted 1 cities took time: 169.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bowen Island in British Columbia 
+
+
+ Inserted 1 cities took time: 205.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Caraquet in New Brunswick 
+
+
+ Inserted 1 cities took time: 157.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Altona in Manitoba 
+
+
+ Inserted 1 cities took time: 162.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Roxton Pond in Quebec 
+
+
+ Inserted 1 cities took time: 150.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Étienne-des-Grès in Quebec 
+
+
+ Inserted 1 cities took time: 157.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Forks in British Columbia 
+
+
+ Inserted 1 cities took time: 154.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: New Maryland in New Brunswick 
+
+
+ Inserted 1 cities took time: 153.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Port Hardy in British Columbia 
+
+
+ Inserted 1 cities took time: 164.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Donat in Quebec 
+
+
+ Inserted 1 cities took time: 149.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Madawaska Valley in Ontario 
+
+
+ Inserted 1 cities took time: 199.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Deep River in Ontario 
+
+
+ Inserted 1 cities took time: 199.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Asphodel-Norwood in Ontario 
+
+
+ Inserted 1 cities took time: 170.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Red Lake in Ontario 
+
+
+ Inserted 1 cities took time: 193.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Métabetchouan-Lac-à-la-Croix in Quebec 
+
+
+ Inserted 1 cities took time: 233.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maniwaki in Quebec 
+
+
+ Inserted 1 cities took time: 193.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vermilion in Alberta 
+
+
+ Inserted 1 cities took time: 169.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hastings Highlands in Ontario 
+
+
+ Inserted 1 cities took time: 181.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Prescott in Ontario 
+
+
+ Inserted 1 cities took time: 189.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carstairs in Alberta 
+
+
+ Inserted 1 cities took time: 175.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Danville in Quebec 
+
+
+ Inserted 1 cities took time: 165.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Channel-Port aux Basques in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 162.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Etchemin in Quebec 
+
+
+ Inserted 1 cities took time: 166.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jacques in Quebec 
+
+
+ Inserted 1 cities took time: 192.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Swan River in Manitoba 
+
+
+ Inserted 1 cities took time: 178.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stellarton in Nova Scotia 
+
+
+ Inserted 1 cities took time: 195.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Northern Bruce Peninsula in Ontario 
+
+
+ Inserted 1 cities took time: 189.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L’Islet-sur-Mer in Quebec 
+
+
+ Inserted 1 cities took time: 276.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carleton-sur-Mer in Quebec 
+
+
+ Inserted 1 cities took time: 209.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sparwood in British Columbia 
+
+
+ Inserted 1 cities took time: 174.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Casselman in Ontario 
+
+
+ Inserted 1 cities took time: 178.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oka in Quebec 
+
+
+ Inserted 1 cities took time: 174.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Callander in Ontario 
+
+
+ Inserted 1 cities took time: 165.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Amaranth in Ontario 
+
+
+ Inserted 1 cities took time: 169.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Marmora and Lake in Ontario 
+
+
+ Inserted 1 cities took time: 174.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Raymond in Alberta 
+
+
+ Inserted 1 cities took time: 163.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Morin-Heights in Quebec 
+
+
+ Inserted 1 cities took time: 161.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dundas in New Brunswick 
+
+
+ Inserted 1 cities took time: 156.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Simonds in New Brunswick 
+
+
+ Inserted 1 cities took time: 173.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Crabtree in Quebec 
+
+
+ Inserted 1 cities took time: 206.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bancroft in Ontario 
+
+
+ Inserted 1 cities took time: 170.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Tite in Quebec 
+
+
+ Inserted 1 cities took time: 210.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Howick in Ontario 
+
+
+ Inserted 1 cities took time: 184.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dutton/Dunwich in Ontario 
+
+
+ Inserted 1 cities took time: 214.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: New Richmond in Quebec 
+
+
+ Inserted 1 cities took time: 203.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Perth South in Ontario 
+
+
+ Inserted 1 cities took time: 190.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Claresholm in Alberta 
+
+
+ Inserted 1 cities took time: 346.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Baie-d’Urfé in Quebec 
+
+
+ Inserted 1 cities took time: 296.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Montague in Ontario 
+
+
+ Inserted 1 cities took time: 214.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-André-Avellin in Quebec 
+
+
+ Inserted 1 cities took time: 220.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ambroise-de-Kildare in Quebec 
+
+
+ Inserted 1 cities took time: 161.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Angus in Quebec 
+
+
+ Inserted 1 cities took time: 234.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rossland in British Columbia 
+
+
+ Inserted 1 cities took time: 178.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mackenzie in British Columbia 
+
+
+ Inserted 1 cities took time: 266.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Golden in British Columbia 
+
+
+ Inserted 1 cities took time: 260.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Adolphe-d'Howard in Quebec 
+
+
+ Inserted 1 cities took time: 221.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Warwick in Ontario 
+
+
+ Inserted 1 cities took time: 392.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bonnechere Valley in Ontario 
+
+
+ Inserted 1 cities took time: 339.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pincher Creek in Alberta 
+
+
+ Inserted 1 cities took time: 227.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alnwick in New Brunswick 
+
+
+ Inserted 1 cities took time: 266us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Prosper in Quebec 
+
+
+ Inserted 1 cities took time: 188.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Crossfield in Alberta 
+
+
+ Inserted 1 cities took time: 249.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ormstown in Quebec 
+
+
+ Inserted 1 cities took time: 209.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cardston in Alberta 
+
+
+ Inserted 1 cities took time: 191.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: De Salaberry in Manitoba 
+
+
+ Inserted 1 cities took time: 230.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grande Cache in Alberta 
+
+
+ Inserted 1 cities took time: 180us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Agapit in Quebec 
+
+
+ Inserted 1 cities took time: 201.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fruitvale in British Columbia 
+
+
+ Inserted 1 cities took time: 357.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ambroise in Quebec 
+
+
+ Inserted 1 cities took time: 186.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Westville in Nova Scotia 
+
+
+ Inserted 1 cities took time: 284.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hay River in Northwest Territories 
+
+
+ Inserted 1 cities took time: 208.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pasadena in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 192.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mistissini in Quebec 
+
+
+ Inserted 1 cities took time: 213.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Studholm in New Brunswick 
+
+
+ Inserted 1 cities took time: 186.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lorette in Manitoba 
+
+
+ Inserted 1 cities took time: 255.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Faustin--Lac-Carré in Quebec 
+
+
+ Inserted 1 cities took time: 200.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Morris-Turnberry in Ontario 
+
+
+ Inserted 1 cities took time: 206us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Placentia in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 255.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pascal in Quebec 
+
+
+ Inserted 1 cities took time: 195.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mulmur in Ontario 
+
+
+ Inserted 1 cities took time: 257.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Blind River in Ontario 
+
+
+ Inserted 1 cities took time: 208.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dunham in Quebec 
+
+
+ Inserted 1 cities took time: 234.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: High Level in Alberta 
+
+
+ Inserted 1 cities took time: 179.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Havre-Saint-Pierre in Quebec 
+
+
+ Inserted 1 cities took time: 184.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Anselme in Quebec 
+
+
+ Inserted 1 cities took time: 300.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trois-Pistoles in Quebec 
+
+
+ Inserted 1 cities took time: 187.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grande-Rivière in Quebec 
+
+
+ Inserted 1 cities took time: 168.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Malartic in Quebec 
+
+
+ Inserted 1 cities took time: 200.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bonavista in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 148.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Prince Albert No. 461 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 225.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Maurice in Quebec 
+
+
+ Inserted 1 cities took time: 198.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Killarney - Turtle Mountain in Manitoba 
+
+
+ Inserted 1 cities took time: 187.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Woodlands in Manitoba 
+
+
+ Inserted 1 cities took time: 173.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lewisporte in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 162.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Invermere in British Columbia 
+
+
+ Inserted 1 cities took time: 153.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bifrost-Riverton in Manitoba 
+
+
+ Inserted 1 cities took time: 162.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ascot Corner in Quebec 
+
+
+ Inserted 1 cities took time: 153us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cartier in Manitoba 
+
+
+ Inserted 1 cities took time: 192.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fossambault-sur-le-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 204.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-des-Lacs in Quebec 
+
+
+ Inserted 1 cities took time: 201.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Sulpice in Quebec 
+
+
+ Inserted 1 cities took time: 196.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Penhold in Alberta 
+
+
+ Inserted 1 cities took time: 153.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Powassan in Ontario 
+
+
+ Inserted 1 cities took time: 155.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Highlands East in Ontario 
+
+
+ Inserted 1 cities took time: 166.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alphonse-de-Granby in Quebec 
+
+
+ Inserted 1 cities took time: 159.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Claire in Quebec 
+
+
+ Inserted 1 cities took time: 152.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bright in New Brunswick 
+
+
+ Inserted 1 cities took time: 145.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ellison in British Columbia 
+
+
+ Inserted 1 cities took time: 169.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Percé in Quebec 
+
+
+ Inserted 1 cities took time: 176.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jean-Port-Joli in Quebec 
+
+
+ Inserted 1 cities took time: 208.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Hawkesbury in Ontario 
+
+
+ Inserted 1 cities took time: 187.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Buckland No. 491 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 161.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-André-d'Argenteuil in Quebec 
+
+
+ Inserted 1 cities took time: 158.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Côme--Linière in Quebec 
+
+
+ Inserted 1 cities took time: 207.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Marathon in Ontario 
+
+
+ Inserted 1 cities took time: 200.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Forestville in Quebec 
+
+
+ Inserted 1 cities took time: 157.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Compton in Quebec 
+
+
+ Inserted 1 cities took time: 169.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shuniah in Ontario 
+
+
+ Inserted 1 cities took time: 170.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Inuvik in Northwest Territories 
+
+
+ Inserted 1 cities took time: 186.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Richmond in Quebec 
+Inserted: Richmond in Quebec 
+Inserted: Richmond in Quebec 
+
+
+ Inserted 3 cities took time: 50.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lake Cowichan in British Columbia 
+
+
+ Inserted 1 cities took time: 170.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gabriel-de-Valcartier in Quebec 
+
+
+ Inserted 1 cities took time: 175.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gibbons in Alberta 
+
+
+ Inserted 1 cities took time: 200.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sables-Spanish Rivers in Ontario 
+
+
+ Inserted 1 cities took time: 186.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hillsburg-Roblin-Shell River in Manitoba 
+
+
+ Inserted 1 cities took time: 185.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Port Hawkesbury in Nova Scotia 
+
+
+ Inserted 1 cities took time: 185.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Three Hills in Alberta 
+
+
+ Inserted 1 cities took time: 187.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kingston in New Brunswick 
+
+
+ Inserted 1 cities took time: 19.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Paspebiac in Quebec 
+
+
+ Inserted 1 cities took time: 218.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Thomas in Quebec 
+
+
+ Inserted 1 cities took time: 200.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jean-Baptiste in Quebec 
+
+
+ Inserted 1 cities took time: 246.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Portneuf in Quebec 
+
+
+ Inserted 1 cities took time: 205.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pictou in Nova Scotia 
+
+
+ Inserted 1 cities took time: 215.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tisdale in Saskatchewan 
+
+
+ Inserted 1 cities took time: 285.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lake of Bays in Ontario 
+
+
+ Inserted 1 cities took time: 212.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bishops Falls in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 208.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: WestLake-Gladstone in Manitoba 
+
+
+ Inserted 1 cities took time: 216.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Normandin in Quebec 
+
+
+ Inserted 1 cities took time: 279.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mitchell in Manitoba 
+
+
+ Inserted 1 cities took time: 180.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alphonse-Rodriguez in Quebec 
+
+
+ Inserted 1 cities took time: 208.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beauséjour in Manitoba 
+
+
+ Inserted 1 cities took time: 321.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dalhousie in New Brunswick 
+
+
+ Inserted 1 cities took time: 430.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Val-Morin in Quebec 
+
+
+ Inserted 1 cities took time: 298.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac du Bonnet in Manitoba 
+
+
+ Inserted 1 cities took time: 327.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clermont in Quebec 
+
+
+ Inserted 1 cities took time: 198.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Virden in Manitoba 
+
+
+ Inserted 1 cities took time: 358.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Christophe-d'Arthabaska in Quebec 
+
+
+ Inserted 1 cities took time: 228us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mont-Saint-Grégoire in Quebec 
+
+
+ Inserted 1 cities took time: 186.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Thurso in Quebec 
+
+
+ Inserted 1 cities took time: 224.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wellington in New Brunswick 
+
+
+ Inserted 1 cities took time: 221.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cedar in British Columbia 
+
+
+ Inserted 1 cities took time: 403.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gabriel in Quebec 
+
+
+ Inserted 1 cities took time: 186.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Merrickville in Ontario 
+
+
+ Inserted 1 cities took time: 197.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Liboire in Quebec 
+
+
+ Inserted 1 cities took time: 416.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dégelis in Quebec 
+
+
+ Inserted 1 cities took time: 180.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Morris in Manitoba 
+
+
+ Inserted 1 cities took time: 288.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alexis-des-Monts in Quebec 
+
+
+ Inserted 1 cities took time: 244.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cap-Saint-Ignace in Quebec 
+
+
+ Inserted 1 cities took time: 205.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort Macleod in Alberta 
+
+
+ Inserted 1 cities took time: 270.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Enderby in British Columbia 
+
+
+ Inserted 1 cities took time: 191.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carman in Manitoba 
+
+
+ Inserted 1 cities took time: 220.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Anaclet-de-Lessard in Quebec 
+
+
+ Inserted 1 cities took time: 185.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stoke in Quebec 
+
+
+ Inserted 1 cities took time: 239.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Adelaide-Metcalfe in Ontario 
+
+
+ Inserted 1 cities took time: 373.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Melancthon in Ontario 
+
+
+ Inserted 1 cities took time: 172.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cap Santé in Quebec 
+
+
+ Inserted 1 cities took time: 240.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-David-de-Falardeau in Quebec 
+
+
+ Inserted 1 cities took time: 312.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Harbour Grace in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 192.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Houston in British Columbia 
+
+
+ Inserted 1 cities took time: 327.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Springdale in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 257.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pemberton in British Columbia 
+
+
+ Inserted 1 cities took time: 267.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Athabasca in Alberta 
+
+
+ Inserted 1 cities took time: 242.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ferréol-les-Neiges in Quebec 
+
+
+ Inserted 1 cities took time: 189.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Laurentian Hills in Ontario 
+
+
+ Inserted 1 cities took time: 166.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Valley in Ontario 
+
+
+ Inserted 1 cities took time: 161.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Senneterre in Quebec 
+
+
+ Inserted 1 cities took time: 203.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Mathieu-de-Beloeil in Quebec 
+
+
+ Inserted 1 cities took time: 151.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marie-Madeleine in Quebec 
+
+
+ Inserted 1 cities took time: 168.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Admaston/Bromley in Ontario 
+
+
+ Inserted 1 cities took time: 164.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Algona Wilberforce in Ontario 
+
+
+ Inserted 1 cities took time: 169.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Errington in British Columbia 
+
+
+ Inserted 1 cities took time: 151.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wawa in Ontario 
+
+
+ Inserted 1 cities took time: 204.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Mélanie in Quebec 
+
+
+ Inserted 1 cities took time: 145.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Horton in Ontario 
+
+
+ Inserted 1 cities took time: 220.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Paul-d'Abbotsford in Quebec 
+
+
+ Inserted 1 cities took time: 200.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Michel in Quebec 
+
+
+ Inserted 1 cities took time: 174.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Botwood in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 162.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coalhurst in Alberta 
+
+
+ Inserted 1 cities took time: 148.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Marc-des-Carrières in Quebec 
+
+
+ Inserted 1 cities took time: 170.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stanstead in Quebec 
+
+
+ Inserted 1 cities took time: 156.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-Beaupré in Quebec 
+
+
+ Inserted 1 cities took time: 161.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Luce in Quebec 
+
+
+ Inserted 1 cities took time: 158.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joseph-de-Sorel in Quebec 
+
+
+ Inserted 1 cities took time: 161.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rankin Inlet in Nunavut 
+
+
+ Inserted 1 cities took time: 159.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kingsclear in New Brunswick 
+
+
+ Inserted 1 cities took time: 160.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Princeton in British Columbia 
+
+
+ Inserted 1 cities took time: 159.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Loche in Saskatchewan 
+
+
+ Inserted 1 cities took time: 160.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ferme-Neuve in Quebec 
+
+
+ Inserted 1 cities took time: 186.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Yamachiche in Quebec 
+
+
+ Inserted 1 cities took time: 154.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Adstock in Quebec 
+
+
+ Inserted 1 cities took time: 148.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cowichan Bay in British Columbia 
+
+
+ Inserted 1 cities took time: 140.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vanscoy No. 345 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 171.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Enniskillen in Ontario 
+
+
+ Inserted 1 cities took time: 173.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Royston in British Columbia 
+
+
+ Inserted 1 cities took time: 160.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bonaventure in Quebec 
+
+
+ Inserted 1 cities took time: 155.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pohénégamook in Quebec 
+
+
+ Inserted 1 cities took time: 163.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Isidore in Quebec 
+
+
+ Inserted 1 cities took time: 150.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wakefield in New Brunswick 
+
+
+ Inserted 1 cities took time: 162.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Arviat in Nunavut 
+
+
+ Inserted 1 cities took time: 158.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marguerite-du-Lac-Masson in Quebec 
+
+
+ Inserted 1 cities took time: 148.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Prime in Quebec 
+
+
+ Inserted 1 cities took time: 173.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kuujjuaq in Quebec 
+
+
+ Inserted 1 cities took time: 180.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Atikokan in Ontario 
+
+
+ Inserted 1 cities took time: 178.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grenville-sur-la-Rouge in Quebec 
+
+
+ Inserted 1 cities took time: 174.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Cypress-Langford in Manitoba 
+
+
+ Inserted 1 cities took time: 170.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Dominique in Quebec 
+
+
+ Inserted 1 cities took time: 178.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Macamic in Quebec 
+
+
+ Inserted 1 cities took time: 168.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-Sorel in Quebec 
+
+
+ Inserted 1 cities took time: 190.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sundre in Alberta 
+
+
+ Inserted 1 cities took time: 174.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rougemont in Quebec 
+
+
+ Inserted 1 cities took time: 300.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Piedmont in Quebec 
+
+
+ Inserted 1 cities took time: 162.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grimshaw in Alberta 
+
+
+ Inserted 1 cities took time: 296us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-des-Écorces in Quebec 
+
+
+ Inserted 1 cities took time: 234.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Markstay in Ontario 
+
+
+ Inserted 1 cities took time: 307.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Northeastern Manitoulin and the Islands in Ontario 
+
+
+ Inserted 1 cities took time: 257.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pelican Narrows in Saskatchewan 
+
+
+ Inserted 1 cities took time: 216.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McDougall in Ontario 
+
+
+ Inserted 1 cities took time: 266.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Black Diamond in Alberta 
+
+
+ Inserted 1 cities took time: 196.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pamphile in Quebec 
+
+
+ Inserted 1 cities took time: 201.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bedford in Quebec 
+
+
+ Inserted 1 cities took time: 193.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Weedon-Centre in Quebec 
+
+
+ Inserted 1 cities took time: 172.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lacolle in Quebec 
+
+
+ Inserted 1 cities took time: 240.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gabriel-de-Brandon in Quebec 
+
+
+ Inserted 1 cities took time: 235.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Huntingdon in Quebec 
+
+
+ Inserted 1 cities took time: 233.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: French River / Rivière des Français in Ontario 
+
+
+ Inserted 1 cities took time: 202.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Spaniards Bay in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 233.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cocagne in New Brunswick 
+
+
+ Inserted 1 cities took time: 209.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pilot Butte in Saskatchewan 
+
+
+ Inserted 1 cities took time: 321.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Bruno in Quebec 
+
+
+ Inserted 1 cities took time: 208.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Laurier-Station in Quebec 
+
+
+ Inserted 1 cities took time: 215.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Anicet in Quebec 
+
+
+ Inserted 1 cities took time: 190.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cap-Chat in Quebec 
+
+
+ Inserted 1 cities took time: 196.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sexsmith in Alberta 
+
+
+ Inserted 1 cities took time: 307.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-de-Lourdes in Quebec 
+
+
+ Inserted 1 cities took time: 196us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ville-Marie in Quebec 
+
+
+ Inserted 1 cities took time: 191.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wickham in Quebec 
+
+
+ Inserted 1 cities took time: 183.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shippegan in New Brunswick 
+
+
+ Inserted 1 cities took time: 214.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Garafraxa in Ontario 
+
+
+ Inserted 1 cities took time: 292.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Unity in Saskatchewan 
+
+
+ Inserted 1 cities took time: 192.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rimbey in Alberta 
+
+
+ Inserted 1 cities took time: 240.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: High Prairie in Alberta 
+
+
+ Inserted 1 cities took time: 245.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Turner Valley in Alberta 
+
+
+ Inserted 1 cities took time: 172.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hanna in Alberta 
+
+
+ Inserted 1 cities took time: 370.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Neuville in Quebec 
+
+
+ Inserted 1 cities took time: 254.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort Smith in Northwest Territories 
+
+
+ Inserted 1 cities took time: 217.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maria in Quebec 
+
+
+ Inserted 1 cities took time: 249.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Chrysostome in Quebec 
+
+
+ Inserted 1 cities took time: 186.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Greater Madawaska in Ontario 
+
+
+ Inserted 1 cities took time: 216.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Berwick in Nova Scotia 
+
+
+ Inserted 1 cities took time: 195.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Damase in Quebec 
+
+
+ Inserted 1 cities took time: 181.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Disraeli in Quebec 
+
+
+ Inserted 1 cities took time: 172.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Meadow Lake No. 588 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 161.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Elkford in British Columbia 
+
+
+ Inserted 1 cities took time: 177.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Georgian Bay in Ontario 
+
+
+ Inserted 1 cities took time: 182.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alexandre in Quebec 
+
+
+ Inserted 1 cities took time: 169.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hérbertville in Quebec 
+
+
+ Inserted 1 cities took time: 165.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Moosomin in Saskatchewan 
+
+
+ Inserted 1 cities took time: 153.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Highlands in British Columbia 
+
+
+ Inserted 1 cities took time: 150.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Kawartha in Ontario 
+
+
+ Inserted 1 cities took time: 156.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Thècle in Quebec 
+
+
+ Inserted 1 cities took time: 171.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fermont in Quebec 
+
+
+ Inserted 1 cities took time: 175.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Esterhazy in Saskatchewan 
+
+
+ Inserted 1 cities took time: 155.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Holyrood in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 142.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Présentation in Quebec 
+
+
+ Inserted 1 cities took time: 158.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beaverlodge in Alberta 
+
+
+ Inserted 1 cities took time: 163.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Catherine-de-Hatley in Quebec 
+
+
+ Inserted 1 cities took time: 155.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Basile in Quebec 
+
+
+ Inserted 1 cities took time: 173.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Raphaël in Quebec 
+
+
+ Inserted 1 cities took time: 152.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Martin in Quebec 
+
+
+ Inserted 1 cities took time: 165.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Causapscal in Quebec 
+
+
+ Inserted 1 cities took time: 174.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brigham in Quebec 
+
+
+ Inserted 1 cities took time: 180.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Victoire-de-Sorel in Quebec 
+
+
+ Inserted 1 cities took time: 168.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Perry in Ontario 
+
+
+ Inserted 1 cities took time: 175.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Port-Daniel--Gascons in Quebec 
+
+
+ Inserted 1 cities took time: 187.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rosetown in Saskatchewan 
+
+
+ Inserted 1 cities took time: 163.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Minnedosa in Manitoba 
+
+
+ Inserted 1 cities took time: 169.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Labelle in Quebec 
+
+
+ Inserted 1 cities took time: 152.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lincoln in New Brunswick 
+Inserted: Lincoln in New Brunswick 
+
+
+ Inserted 2 cities took time: 27.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Black River-Matheson in Ontario 
+
+
+ Inserted 1 cities took time: 175.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Michel-des-Saints in Quebec 
+
+
+ Inserted 1 cities took time: 157.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dufferin in Manitoba 
+
+
+ Inserted 1 cities took time: 155.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Victor in Quebec 
+
+
+ Inserted 1 cities took time: 139.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sicamous in British Columbia 
+
+
+ Inserted 1 cities took time: 152.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cap Pele in New Brunswick 
+
+
+ Inserted 1 cities took time: 159.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kelsey in Manitoba 
+
+
+ Inserted 1 cities took time: 201.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Killaloe, Hagarty and Richards in Ontario 
+
+
+ Inserted 1 cities took time: 224us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alvinston in Ontario 
+
+
+ Inserted 1 cities took time: 187.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trenton in Nova Scotia 
+
+
+ Inserted 1 cities took time: 165.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lunenburg in Nova Scotia 
+
+
+ Inserted 1 cities took time: 158.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Éphrem-de-Beauce in Quebec 
+
+
+ Inserted 1 cities took time: 172.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chase in British Columbia 
+
+
+ Inserted 1 cities took time: 159.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Léry in Quebec 
+
+
+ Inserted 1 cities took time: 163.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Assiniboia in Saskatchewan 
+
+
+ Inserted 1 cities took time: 172.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tumbler Ridge in British Columbia 
+
+
+ Inserted 1 cities took time: 200.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Salisbury in New Brunswick 
+
+
+ Inserted 1 cities took time: 186.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Témiscaming in Quebec 
+
+
+ Inserted 1 cities took time: 217.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Magrath in Alberta 
+
+
+ Inserted 1 cities took time: 183.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Geneviève-de-Berthier in Quebec 
+
+
+ Inserted 1 cities took time: 274.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Logy Bay-Middle Cove-Outer Cove in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 205us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Buctouche in New Brunswick 
+
+
+ Inserted 1 cities took time: 337.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Manan in New Brunswick 
+
+
+ Inserted 1 cities took time: 312.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Madeleine in Quebec 
+
+
+ Inserted 1 cities took time: 216.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Anmore in British Columbia 
+
+
+ Inserted 1 cities took time: 472.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Croix in Quebec 
+
+
+ Inserted 1 cities took time: 210.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Algonquin Highlands in Ontario 
+
+
+ Inserted 1 cities took time: 223.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Valcourt in Quebec 
+
+
+ Inserted 1 cities took time: 339.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gimli in Manitoba 
+
+
+ Inserted 1 cities took time: 160.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint George in New Brunswick 
+
+
+ Inserted 1 cities took time: 373.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Mathieu in Quebec 
+
+
+ Inserted 1 cities took time: 211.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Paquetville in New Brunswick 
+
+
+ Inserted 1 cities took time: 175.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clearwater in British Columbia 
+
+
+ Inserted 1 cities took time: 229.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Addington Highlands in Ontario 
+
+
+ Inserted 1 cities took time: 170.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lillooet in British Columbia 
+
+
+ Inserted 1 cities took time: 280.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Burin in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 200.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand Bank in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 202.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waterville in Quebec 
+
+
+ Inserted 1 cities took time: 209.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Minto in New Brunswick 
+Inserted: Minto in New Brunswick 
+
+
+ Inserted 2 cities took time: 60.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rosthern No. 403 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 260.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mansfield-et-Pontefract in Quebec 
+
+
+ Inserted 1 cities took time: 348.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Denis in Quebec 
+
+
+ Inserted 1 cities took time: 188.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gore in Quebec 
+
+
+ Inserted 1 cities took time: 204.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Outlook in Saskatchewan 
+
+
+ Inserted 1 cities took time: 209.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gédéon-de-Beauce in Quebec 
+
+
+ Inserted 1 cities took time: 362.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Léonard-d'Aston in Quebec 
+
+
+ Inserted 1 cities took time: 254.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort-Coulonge in Quebec 
+
+
+ Inserted 1 cities took time: 222.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Albanel in Quebec 
+
+
+ Inserted 1 cities took time: 185.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Anthony in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 272.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pessamit in Quebec 
+
+
+ Inserted 1 cities took time: 200.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Logan Lake in British Columbia 
+
+
+ Inserted 1 cities took time: 363.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maskinongé in Quebec 
+
+
+ Inserted 1 cities took time: 201.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Charles-de-Bellechasse in Quebec 
+
+
+ Inserted 1 cities took time: 205.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fogo Island in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 296.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Neebing in Ontario 
+
+
+ Inserted 1 cities took time: 252.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Port McNeill in British Columbia 
+
+
+ Inserted 1 cities took time: 179.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hatley in Quebec 
+
+
+ Inserted 1 cities took time: 231.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: East Broughton in Quebec 
+
+
+ Inserted 1 cities took time: 173.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Polycarpe in Quebec 
+
+
+ Inserted 1 cities took time: 168.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Deschambault in Quebec 
+
+
+ Inserted 1 cities took time: 177.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Canora in Saskatchewan 
+
+
+ Inserted 1 cities took time: 150.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Upper Miramichi in New Brunswick 
+
+
+ Inserted 1 cities took time: 171.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tofino in British Columbia 
+
+
+ Inserted 1 cities took time: 151.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hardwicke in New Brunswick 
+
+
+ Inserted 1 cities took time: 172.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wendake in Quebec 
+
+
+ Inserted 1 cities took time: 168.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Côme in Quebec 
+
+
+ Inserted 1 cities took time: 154.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waskaganish in Quebec 
+
+
+ Inserted 1 cities took time: 220.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Twillingate in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 180.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Quentin in New Brunswick 
+
+
+ Inserted 1 cities took time: 166.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lebel-sur-Quévillon in Quebec 
+
+
+ Inserted 1 cities took time: 149.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Calmar in Alberta 
+
+
+ Inserted 1 cities took time: 154.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nanton in Alberta 
+
+
+ Inserted 1 cities took time: 165.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pierreville in Quebec 
+
+
+ Inserted 1 cities took time: 175.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: New-Wes-Valley in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 175.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pennfield Ridge in New Brunswick 
+
+
+ Inserted 1 cities took time: 160.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Northesk in New Brunswick 
+
+
+ Inserted 1 cities took time: 197.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: West Interlake in Manitoba 
+
+
+ Inserted 1 cities took time: 170.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Biggar in Saskatchewan 
+
+
+ Inserted 1 cities took time: 151.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kent in New Brunswick 
+
+
+ Inserted 1 cities took time: 151.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maple Creek in Saskatchewan 
+
+
+ Inserted 1 cities took time: 154.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wabana in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 147.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bonfield in Ontario 
+
+
+ Inserted 1 cities took time: 146.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gilles in Quebec 
+
+
+ Inserted 1 cities took time: 144.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Bernard in Quebec 
+
+
+ Inserted 1 cities took time: 150.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Cécile-de-Milton in Quebec 
+
+
+ Inserted 1 cities took time: 170.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Roch-de-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 186.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Burns Lake in British Columbia 
+
+
+ Inserted 1 cities took time: 163.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Redwater in Alberta 
+
+
+ Inserted 1 cities took time: 159.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Nazaire in Quebec 
+
+
+ Inserted 1 cities took time: 169.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Westfield Beach in New Brunswick 
+
+
+ Inserted 1 cities took time: 204.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saltair in British Columbia 
+
+
+ Inserted 1 cities took time: 164.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Elzéar in Quebec 
+
+
+ Inserted 1 cities took time: 160.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hinchinbrooke in Quebec 
+
+
+ Inserted 1 cities took time: 172.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dundurn No. 314 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 167.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-François-Xavier-de-Brompton in Quebec 
+
+
+ Inserted 1 cities took time: 145.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Papineauville in Quebec 
+
+
+ Inserted 1 cities took time: 183.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Prairie View in Manitoba 
+
+
+ Inserted 1 cities took time: 150.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ignace-de-Loyola in Quebec 
+
+
+ Inserted 1 cities took time: 164us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Central Manitoulin in Ontario 
+
+
+ Inserted 1 cities took time: 150.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Glovertown in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 148us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tofield in Alberta 
+
+
+ Inserted 1 cities took time: 150.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Madoc in Ontario 
+
+
+ Inserted 1 cities took time: 145.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-Sabrevois in Quebec 
+
+
+ Inserted 1 cities took time: 149.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-la-Pérade in Quebec 
+
+
+ Inserted 1 cities took time: 166.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Damien-de-Buckland in Quebec 
+
+
+ Inserted 1 cities took time: 204.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Baker Lake in Nunavut 
+
+
+ Inserted 1 cities took time: 192.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ferdinand in Quebec 
+
+
+ Inserted 1 cities took time: 1.750125ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pouch Cove in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 504.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Britannia No. 502 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 250.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Fulgence in Quebec 
+
+
+ Inserted 1 cities took time: 256.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Digby in Nova Scotia 
+
+
+ Inserted 1 cities took time: 312.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Manouane in Quebec 
+
+
+ Inserted 1 cities took time: 305.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gervais in Quebec 
+
+
+ Inserted 1 cities took time: 304.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alexandre-de-Kamouraska in Quebec 
+
+
+ Inserted 1 cities took time: 517.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Marc-sur-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 284.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mandeville in Quebec 
+
+
+ Inserted 1 cities took time: 245.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Caplan in Quebec 
+
+
+ Inserted 1 cities took time: 472.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Allardville in New Brunswick 
+
+
+ Inserted 1 cities took time: 209.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Damien in Quebec 
+
+
+ Inserted 1 cities took time: 288.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Nominingue in Quebec 
+
+
+ Inserted 1 cities took time: 420.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Obedjiwan in Quebec 
+
+
+ Inserted 1 cities took time: 219.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rama in Saskatchewan 
+
+
+ Inserted 1 cities took time: 221.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Deloraine-Winchester in Manitoba 
+
+
+ Inserted 1 cities took time: 236.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oakland-Wawanesa in Manitoba 
+
+
+ Inserted 1 cities took time: 180.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brenda-Waskada in Manitoba 
+
+
+ Inserted 1 cities took time: 259.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Russell-Binscarth in Manitoba 
+
+
+ Inserted 1 cities took time: 266.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ellice-Archie in Manitoba 
+
+
+ Inserted 1 cities took time: 185.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Souris-Glenwood in Manitoba 
+
+
+ Inserted 1 cities took time: 294.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Riverdale in Manitoba 
+
+
+ Inserted 1 cities took time: 166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pembina in Manitoba 
+
+
+ Inserted 1 cities took time: 274.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wallace-Woodworth in Manitoba 
+
+
+ Inserted 1 cities took time: 229.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lorne in Manitoba 
+
+
+ Inserted 1 cities took time: 241.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Yellowhead in Manitoba 
+
+
+ Inserted 1 cities took time: 378.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Swan Valley West in Manitoba 
+
+
+ Inserted 1 cities took time: 169.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grey in Manitoba 
+
+
+ Inserted 1 cities took time: 281.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gilbert Plains in Manitoba 
+
+
+ Inserted 1 cities took time: 318.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Norfolk-Treherne in Manitoba 
+
+
+ Inserted 1 cities took time: 183.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Emerson-Franklin in Manitoba 
+
+
+ Inserted 1 cities took time: 295.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sifton in Manitoba 
+
+
+ Inserted 1 cities took time: 208.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grassland in Manitoba 
+
+
+ Inserted 1 cities took time: 205.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Louise in Manitoba 
+
+
+ Inserted 1 cities took time: 302.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ste. Rose in Manitoba 
+
+
+ Inserted 1 cities took time: 161.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cartwright-Roblin in Manitoba 
+
+
+ Inserted 1 cities took time: 253.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mossey River in Manitoba 
+
+
+ Inserted 1 cities took time: 212.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lakeshore in Manitoba 
+Inserted: Lakeshore in Manitoba 
+
+
+ Inserted 2 cities took time: 38.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Riding Mountain West in Manitoba 
+
+
+ Inserted 1 cities took time: 232.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clanwilliam-Erickson in Manitoba 
+
+
+ Inserted 1 cities took time: 206.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Glenboro-South Cypress in Manitoba 
+
+
+ Inserted 1 cities took time: 173.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Norfolk in Manitoba 
+
+
+ Inserted 1 cities took time: 200.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Reinland in Manitoba 
+
+
+ Inserted 1 cities took time: 149us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Minitonas-Bowsman in Manitoba 
+
+
+ Inserted 1 cities took time: 198.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kippens in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 178.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gédéon in Quebec 
+
+
+ Inserted 1 cities took time: 170.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lumby in British Columbia 
+
+
+ Inserted 1 cities took time: 224.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kingsey Falls in Quebec 
+
+
+ Inserted 1 cities took time: 189.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Provost in Alberta 
+
+
+ Inserted 1 cities took time: 166.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Charles in New Brunswick 
+
+
+ Inserted 1 cities took time: 158.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Swift Current No. 137 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 150.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mattawa in Ontario 
+
+
+ Inserted 1 cities took time: 182.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Blucher in Saskatchewan 
+
+
+ Inserted 1 cities took time: 178.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L'Ascension-de-Notre-Seigneur in Quebec 
+
+
+ Inserted 1 cities took time: 159.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bow Island in Alberta 
+
+
+ Inserted 1 cities took time: 243.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Barraute in Quebec 
+
+
+ Inserted 1 cities took time: 205.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: One Hundred Mile House in British Columbia 
+
+
+ Inserted 1 cities took time: 156.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Liguori in Quebec 
+
+
+ Inserted 1 cities took time: 163.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint Mary in New Brunswick 
+
+
+ Inserted 1 cities took time: 148.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Patrice-de-Sherrington in Quebec 
+
+
+ Inserted 1 cities took time: 157.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fox Creek in Alberta 
+
+
+ Inserted 1 cities took time: 236.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lumsden No. 189 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 187.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dawn-Euphemia in Ontario 
+
+
+ Inserted 1 cities took time: 174.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chapleau in Ontario 
+
+
+ Inserted 1 cities took time: 159.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Esprit in Quebec 
+
+
+ Inserted 1 cities took time: 140.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Montague in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 169.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mashteuiatsh in Quebec 
+
+
+ Inserted 1 cities took time: 144.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-François-du-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 162.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Petit Rocher in New Brunswick 
+
+
+ Inserted 1 cities took time: 169.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Eel River Crossing in New Brunswick 
+
+
+ Inserted 1 cities took time: 155.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Millet in Alberta 
+
+
+ Inserted 1 cities took time: 209.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ucluelet in British Columbia 
+
+
+ Inserted 1 cities took time: 160.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vallée-Jonction in Quebec 
+
+
+ Inserted 1 cities took time: 169.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Manitouwadge in Ontario 
+
+
+ Inserted 1 cities took time: 206.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wellington in Ontario 
+
+
+ Inserted 1 cities took time: 154.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Frontenac Islands in Ontario 
+
+
+ Inserted 1 cities took time: 153.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Point Edward in Ontario 
+
+
+ Inserted 1 cities took time: 167.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Picture Butte in Alberta 
+
+
+ Inserted 1 cities took time: 143.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Manners Sutton in New Brunswick 
+
+
+ Inserted 1 cities took time: 178.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort Qu’Appelle in Saskatchewan 
+
+
+ Inserted 1 cities took time: 165.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vulcan in Alberta 
+
+
+ Inserted 1 cities took time: 149.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chetwynd in British Columbia 
+
+
+ Inserted 1 cities took time: 149.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Indian Head in Saskatchewan 
+
+
+ Inserted 1 cities took time: 181.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wabush in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 169.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Fabien in Quebec 
+
+
+ Inserted 1 cities took time: 155.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Harrison Hot Springs in British Columbia 
+
+
+ Inserted 1 cities took time: 207.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Watrous in Saskatchewan 
+
+
+ Inserted 1 cities took time: 187.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: North Frontenac in Ontario 
+
+
+ Inserted 1 cities took time: 270.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Supérieur in Quebec 
+
+
+ Inserted 1 cities took time: 261.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Les Escoumins in Quebec 
+
+
+ Inserted 1 cities took time: 346.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Richibucto in New Brunswick 
+
+
+ Inserted 1 cities took time: 278.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Terrasse-Vaudreuil in Quebec 
+
+
+ Inserted 1 cities took time: 329.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rivière-Beaudette in Quebec 
+
+
+ Inserted 1 cities took time: 346.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Orkney No. 244 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 267.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Barthélemy in Quebec 
+
+
+ Inserted 1 cities took time: 338.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Komoka in Ontario 
+
+
+ Inserted 1 cities took time: 271.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nisga'a in British Columbia 
+
+
+ Inserted 1 cities took time: 459.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Austin in Quebec 
+
+
+ Inserted 1 cities took time: 308.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Paul-de-l'Île-aux-Noix in Quebec 
+
+
+ Inserted 1 cities took time: 255.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Behchokò in Northwest Territories 
+
+
+ Inserted 1 cities took time: 260.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Cyprien-de-Napierville in Quebec 
+
+
+ Inserted 1 cities took time: 464.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Valleyview in Alberta 
+
+
+ Inserted 1 cities took time: 283.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Déléage in Quebec 
+
+
+ Inserted 1 cities took time: 254.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Potton in Quebec 
+
+
+ Inserted 1 cities took time: 302.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Béatrix in Quebec 
+
+
+ Inserted 1 cities took time: 335.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Georges-de-Cacouna in Quebec 
+
+
+ Inserted 1 cities took time: 264.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lakeview in British Columbia 
+
+
+ Inserted 1 cities took time: 274.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Justine in Quebec 
+
+
+ Inserted 1 cities took time: 352.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Valérien-de-Milton in Quebec 
+
+
+ Inserted 1 cities took time: 206.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Cuthbert in Quebec 
+
+
+ Inserted 1 cities took time: 302us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Blaise-sur-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 248.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Middleton in Nova Scotia 
+
+
+ Inserted 1 cities took time: 342.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kamsack in Saskatchewan 
+
+
+ Inserted 1 cities took time: 272.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carberry in Manitoba 
+
+
+ Inserted 1 cities took time: 215.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joseph-de-Coleraine in Quebec 
+
+
+ Inserted 1 cities took time: 313.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trinity Bay North in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 325.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pointe-Lebel in Quebec 
+
+
+ Inserted 1 cities took time: 344.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grenville in Quebec 
+
+
+ Inserted 1 cities took time: 251.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Michel-de-Bellechasse in Quebec 
+
+
+ Inserted 1 cities took time: 293.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Angèle-de-Monnoir in Quebec 
+
+
+ Inserted 1 cities took time: 472.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Champlain in Quebec 
+Inserted: Champlain in Quebec 
+
+
+ Inserted 2 cities took time: 35.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sacré-Coeur-Saguenay in Quebec 
+
+
+ Inserted 1 cities took time: 400.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Louis in New Brunswick 
+
+
+ Inserted 1 cities took time: 235.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Lucien in Quebec 
+
+
+ Inserted 1 cities took time: 178.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Victoria in Newfoundland and Labrador 
+Inserted: Victoria in Newfoundland and Labrador 
+Inserted: Victoria in Newfoundland and Labrador 
+
+
+ Inserted 3 cities took time: 48.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lumsden in Saskatchewan 
+
+
+ Inserted 1 cities took time: 203.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Robert in Quebec 
+
+
+ Inserted 1 cities took time: 204.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Armstrong in Manitoba 
+
+
+ Inserted 1 cities took time: 172.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Keremeos in British Columbia 
+
+
+ Inserted 1 cities took time: 190.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Regina Beach in Saskatchewan 
+
+
+ Inserted 1 cities took time: 195.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Guadeloupe in Quebec 
+
+
+ Inserted 1 cities took time: 169.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sutton in Quebec 
+
+
+ Inserted 1 cities took time: 167.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint Andrews in New Brunswick 
+
+
+ Inserted 1 cities took time: 190.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Placide in Quebec 
+
+
+ Inserted 1 cities took time: 210.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grunthal in Manitoba 
+
+
+ Inserted 1 cities took time: 174.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Povungnituk in Quebec 
+
+
+ Inserted 1 cities took time: 2.106083ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pointe-des-Cascades in Quebec 
+
+
+ Inserted 1 cities took time: 4.285542ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Deseronto in Ontario 
+
+
+ Inserted 1 cities took time: 1.752708ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lamont in Alberta 
+
+
+ Inserted 1 cities took time: 4.202958ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chambord in Quebec 
+
+
+ Inserted 1 cities took time: 2.441541ms
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maugerville in New Brunswick 
+
+
+ Inserted 1 cities took time: 173.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dudswell in Quebec 
+
+
+ Inserted 1 cities took time: 157.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nipissing in Ontario 
+
+
+ Inserted 1 cities took time: 197.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shaunavon in Saskatchewan 
+
+
+ Inserted 1 cities took time: 201.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wynyard in Saskatchewan 
+
+
+ Inserted 1 cities took time: 154.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cambridge Bay in Nunavut 
+
+
+ Inserted 1 cities took time: 147.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dalmeny in Saskatchewan 
+
+
+ Inserted 1 cities took time: 183.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Narcisse in Quebec 
+
+
+ Inserted 1 cities took time: 175.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waswanipi in Quebec 
+
+
+ Inserted 1 cities took time: 152.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Inukjuak in Quebec 
+
+
+ Inserted 1 cities took time: 177.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Balgonie in Saskatchewan 
+
+
+ Inserted 1 cities took time: 195.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Piney in Manitoba 
+
+
+ Inserted 1 cities took time: 150.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Warfield in British Columbia 
+
+
+ Inserted 1 cities took time: 166.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Zacharie in Quebec 
+
+
+ Inserted 1 cities took time: 155.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hemmingford in Quebec 
+
+
+ Inserted 1 cities took time: 187.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pierre-de-l'Île-d'Orléans in Quebec 
+
+
+ Inserted 1 cities took time: 158.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kensington in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 186.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shelburne in Nova Scotia 
+Inserted: Shelburne in Nova Scotia 
+
+
+ Inserted 2 cities took time: 24.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Clet in Quebec 
+
+
+ Inserted 1 cities took time: 219.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Blumenort in Manitoba 
+
+
+ Inserted 1 cities took time: 209.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brighton in New Brunswick 
+Inserted: Brighton in New Brunswick 
+
+
+ Inserted 2 cities took time: 29.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Antoine in New Brunswick 
+
+
+ Inserted 1 cities took time: 285.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Northampton in New Brunswick 
+
+
+ Inserted 1 cities took time: 207.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Flat Rock in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 281us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ours in Quebec 
+
+
+ Inserted 1 cities took time: 249.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stephenville Crossing in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 250.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-de-la-Pocatière in Quebec 
+
+
+ Inserted 1 cities took time: 296.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Popkum in British Columbia 
+
+
+ Inserted 1 cities took time: 231.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-du-Bon-Conseil in Quebec 
+
+
+ Inserted 1 cities took time: 201.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fisher in Manitoba 
+
+
+ Inserted 1 cities took time: 400.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Clotilde in Quebec 
+
+
+ Inserted 1 cities took time: 188.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lantz in Nova Scotia 
+
+
+ Inserted 1 cities took time: 249.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wicklow in New Brunswick 
+
+
+ Inserted 1 cities took time: 248.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nouvelle in Quebec 
+
+
+ Inserted 1 cities took time: 184us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wasagamack in Manitoba 
+
+
+ Inserted 1 cities took time: 299.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rosthern in Saskatchewan 
+
+
+ Inserted 1 cities took time: 215.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Yamaska in Quebec 
+
+
+ Inserted 1 cities took time: 212.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Neguac in New Brunswick 
+
+
+ Inserted 1 cities took time: 205us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Antoine-de-Tilly in Quebec 
+
+
+ Inserted 1 cities took time: 157.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Igloolik in Nunavut 
+
+
+ Inserted 1 cities took time: 353.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Whitehead in Manitoba 
+
+
+ Inserted 1 cities took time: 172.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Élie-de-Caxton in Quebec 
+
+
+ Inserted 1 cities took time: 258us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Balmoral in New Brunswick 
+
+
+ Inserted 1 cities took time: 315.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Price in Quebec 
+
+
+ Inserted 1 cities took time: 172.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rosedale in Manitoba 
+
+
+ Inserted 1 cities took time: 225.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jacques-le-Mineur in Quebec 
+
+
+ Inserted 1 cities took time: 191.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coombs in British Columbia 
+
+
+ Inserted 1 cities took time: 231.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Val-Joli in Quebec 
+
+
+ Inserted 1 cities took time: 329.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Southesk in New Brunswick 
+
+
+ Inserted 1 cities took time: 199.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Huron Shores in Ontario 
+
+
+ Inserted 1 cities took time: 215.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Antoine-sur-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 203.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pacôme in Quebec 
+
+
+ Inserted 1 cities took time: 178.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Stanislas-de-Kostka in Quebec 
+
+
+ Inserted 1 cities took time: 213.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jacques in New Brunswick 
+
+
+ Inserted 1 cities took time: 206.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Frontenac in Quebec 
+
+
+ Inserted 1 cities took time: 191.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stuartburn in Manitoba 
+
+
+ Inserted 1 cities took time: 193.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Émélie-de-l'Énergie in Quebec 
+
+
+ Inserted 1 cities took time: 218.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Charles-sur-Richelieu in Quebec 
+
+
+ Inserted 1 cities took time: 240.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nipigon in Ontario 
+
+
+ Inserted 1 cities took time: 318.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Witless Bay in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 268.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Hélène-de-Bagot in Quebec 
+
+
+ Inserted 1 cities took time: 343.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Franklin Centre in Quebec 
+
+
+ Inserted 1 cities took time: 255.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Harbour Breton in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 229.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mille-Isles in Quebec 
+
+
+ Inserted 1 cities took time: 164.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Naramata in British Columbia 
+
+
+ Inserted 1 cities took time: 224.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lyster in Quebec 
+
+
+ Inserted 1 cities took time: 200.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oakview in Manitoba 
+
+
+ Inserted 1 cities took time: 195.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Harrison Park in Manitoba 
+
+
+ Inserted 1 cities took time: 176.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pond Inlet in Nunavut 
+
+
+ Inserted 1 cities took time: 182.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Clotilde-de-Horton in Quebec 
+
+
+ Inserted 1 cities took time: 210.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Burford in Ontario 
+
+
+ Inserted 1 cities took time: 174.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Benoît-Labre in Quebec 
+
+
+ Inserted 1 cities took time: 166.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Terrace Bay in Ontario 
+
+
+ Inserted 1 cities took time: 166.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maliotenam in Quebec 
+
+
+ Inserted 1 cities took time: 163.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chapais in Quebec 
+
+
+ Inserted 1 cities took time: 230.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Honoré-de-Shenley in Quebec 
+
+
+ Inserted 1 cities took time: 176.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cleveland in Quebec 
+
+
+ Inserted 1 cities took time: 159.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Messines in Quebec 
+
+
+ Inserted 1 cities took time: 193.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Laurent-de-l'Île-d'Orléans in Quebec 
+
+
+ Inserted 1 cities took time: 160.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jean-de-Dieu in Quebec 
+
+
+ Inserted 1 cities took time: 194us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Massey Drive in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 166.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nakusp in British Columbia 
+
+
+ Inserted 1 cities took time: 148.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Florenceville in New Brunswick 
+
+
+ Inserted 1 cities took time: 187.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Larouche in Quebec 
+
+
+ Inserted 1 cities took time: 151.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort St. James in British Columbia 
+
+
+ Inserted 1 cities took time: 161.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-François-de-la-Rivière-du-Sud in Quebec 
+
+
+ Inserted 1 cities took time: 161.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wabasca in Alberta 
+
+
+ Inserted 1 cities took time: 147.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hilliers in British Columbia 
+
+
+ Inserted 1 cities took time: 148.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Perth in New Brunswick 
+
+
+ Inserted 1 cities took time: 180.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Eeyou Istchee Baie-James in Quebec 
+
+
+ Inserted 1 cities took time: 140.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shellbrook No. 493 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 186.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shawville in Quebec 
+
+
+ Inserted 1 cities took time: 191.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lambton in Quebec 
+
+
+ Inserted 1 cities took time: 252.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Flavien in Quebec 
+
+
+ Inserted 1 cities took time: 190.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Boissevain in Manitoba 
+
+
+ Inserted 1 cities took time: 162.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marcelline-de-Kildare in Quebec 
+
+
+ Inserted 1 cities took time: 155.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rivière-Blanche in Quebec 
+
+
+ Inserted 1 cities took time: 160.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bay Bulls in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 144.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Félix-de-Kingsey in Quebec 
+
+
+ Inserted 1 cities took time: 144.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Upper Island Cove in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 153.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Élisabeth in Quebec 
+
+
+ Inserted 1 cities took time: 148.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ashcroft in British Columbia 
+
+
+ Inserted 1 cities took time: 166.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clarkes Beach in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 155us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Falmouth in Nova Scotia 
+
+
+ Inserted 1 cities took time: 146.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Uashat in Quebec 
+
+
+ Inserted 1 cities took time: 148.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Bernard-de-Lacolle in Quebec 
+
+
+ Inserted 1 cities took time: 195.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joseph in New Brunswick 
+
+
+ Inserted 1 cities took time: 273.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Belledune in New Brunswick 
+
+
+ Inserted 1 cities took time: 173.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Guillaume in Quebec 
+
+
+ Inserted 1 cities took time: 195.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Venise-en-Québec in Quebec 
+
+
+ Inserted 1 cities took time: 236.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gambo in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 251us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nauwigewauk in New Brunswick 
+
+
+ Inserted 1 cities took time: 179.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Humbermouth in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 231.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Springbrook in Alberta 
+
+
+ Inserted 1 cities took time: 213.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Paulin in Quebec 
+
+
+ Inserted 1 cities took time: 284us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Glenelg in New Brunswick 
+
+
+ Inserted 1 cities took time: 209.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint David in New Brunswick 
+
+
+ Inserted 1 cities took time: 194.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Albert in Quebec 
+
+
+ Inserted 1 cities took time: 201.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Matagami in Quebec 
+
+
+ Inserted 1 cities took time: 281.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grindrod in British Columbia 
+
+
+ Inserted 1 cities took time: 204.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Springfield in New Brunswick 
+Inserted: Springfield in New Brunswick 
+
+
+ Inserted 2 cities took time: 58.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Amherst in Quebec 
+Inserted: Amherst in Quebec 
+
+
+ Inserted 2 cities took time: 37.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carlyle in Saskatchewan 
+
+
+ Inserted 1 cities took time: 260.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-du-Laus in Quebec 
+
+
+ Inserted 1 cities took time: 215.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Langham in Saskatchewan 
+
+
+ Inserted 1 cities took time: 195.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. George in New Brunswick 
+
+
+ Inserted 1 cities took time: 335.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wembley in Alberta 
+
+
+ Inserted 1 cities took time: 191.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Macdonald, Meredith and Aberdeen Additional in Ontario 
+
+
+ Inserted 1 cities took time: 266.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pinawa in Manitoba 
+
+
+ Inserted 1 cities took time: 180.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Windermere in British Columbia 
+
+
+ Inserted 1 cities took time: 198.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Tite-des-Caps in Quebec 
+
+
+ Inserted 1 cities took time: 353.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hudson Bay in Saskatchewan 
+
+
+ Inserted 1 cities took time: 175.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brudenell, Lyndoch and Raglan in Ontario 
+
+
+ Inserted 1 cities took time: 216.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gold River in British Columbia 
+
+
+ Inserted 1 cities took time: 196.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Casimir in Quebec 
+
+
+ Inserted 1 cities took time: 161.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dunsmuir in British Columbia 
+
+
+ Inserted 1 cities took time: 331.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Frenchman Butte in Saskatchewan 
+
+
+ Inserted 1 cities took time: 182.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gordon in New Brunswick 
+
+
+ Inserted 1 cities took time: 190.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Malachie in Quebec 
+
+
+ Inserted 1 cities took time: 317.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Southampton in New Brunswick 
+
+
+ Inserted 1 cities took time: 228.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Salluit in Quebec 
+
+
+ Inserted 1 cities took time: 315.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pangnirtung in Nunavut 
+
+
+ Inserted 1 cities took time: 235us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Louis-de-Gonzague in Quebec 
+
+
+ Inserted 1 cities took time: 220.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Moosonee in Ontario 
+
+
+ Inserted 1 cities took time: 220.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Englehart in Ontario 
+
+
+ Inserted 1 cities took time: 178.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Urbain in Quebec 
+
+
+ Inserted 1 cities took time: 210.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tring-Jonction in Quebec 
+
+
+ Inserted 1 cities took time: 190us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wilton No. 472 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 191.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Denmark in New Brunswick 
+
+
+ Inserted 1 cities took time: 313.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joachim in Quebec 
+
+
+ Inserted 1 cities took time: 183.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Torch River No. 488 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 193.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Théodore-d'Acton in Quebec 
+
+
+ Inserted 1 cities took time: 165.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L’ Îsle-Verte in Quebec 
+
+
+ Inserted 1 cities took time: 187.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Palmarolle in Quebec 
+
+
+ Inserted 1 cities took time: 170.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bon Accord in Alberta 
+
+
+ Inserted 1 cities took time: 180.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sussex Corner in New Brunswick 
+
+
+ Inserted 1 cities took time: 158.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Odilon-de-Cranbourne in Quebec 
+
+
+ Inserted 1 cities took time: 159.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pipestone in Manitoba 
+
+
+ Inserted 1 cities took time: 230.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Doré in Quebec 
+
+
+ Inserted 1 cities took time: 196.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-au-Saumon in Quebec 
+
+
+ Inserted 1 cities took time: 212.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wotton in Quebec 
+
+
+ Inserted 1 cities took time: 148.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Prairie Lakes in Manitoba 
+
+
+ Inserted 1 cities took time: 154.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Elk Point in Alberta 
+
+
+ Inserted 1 cities took time: 164.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. François Xavier in Manitoba 
+
+
+ Inserted 1 cities took time: 209.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Shellbrook in Saskatchewan 
+
+
+ Inserted 1 cities took time: 150.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wemindji in Quebec 
+
+
+ Inserted 1 cities took time: 159.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cape Dorset in Nunavut 
+
+
+ Inserted 1 cities took time: 154.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Strong in Ontario 
+
+
+ Inserted 1 cities took time: 187.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nobleford in Alberta 
+
+
+ Inserted 1 cities took time: 166.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lappe in Ontario 
+
+
+ Inserted 1 cities took time: 186.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pointe-aux-Outardes in Quebec 
+
+
+ Inserted 1 cities took time: 144.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rivière-Héva in Quebec 
+
+
+ Inserted 1 cities took time: 146.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Scott in Quebec 
+
+
+ Inserted 1 cities took time: 149.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Godmanchester in Quebec 
+
+
+ Inserted 1 cities took time: 155.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Macklin in Saskatchewan 
+
+
+ Inserted 1 cities took time: 156.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Armour in Ontario 
+
+
+ Inserted 1 cities took time: 161.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Simon in Quebec 
+
+
+ Inserted 1 cities took time: 143.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tingwick in Quebec 
+
+
+ Inserted 1 cities took time: 153.416us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Aubert in Quebec 
+
+
+ Inserted 1 cities took time: 165.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Mathieu-du-Parc in Quebec 
+
+
+ Inserted 1 cities took time: 139.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ubalde in Quebec 
+
+
+ Inserted 1 cities took time: 149.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Creighton in Saskatchewan 
+
+
+ Inserted 1 cities took time: 139.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Faraday in Ontario 
+
+
+ Inserted 1 cities took time: 156.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Berthier-sur-Mer in Quebec 
+
+
+ Inserted 1 cities took time: 144.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bayfield in Ontario 
+
+
+ Inserted 1 cities took time: 152.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Frampton in Quebec 
+
+
+ Inserted 1 cities took time: 142.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Barrière in British Columbia 
+
+
+ Inserted 1 cities took time: 151.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chute-aux-Outardes in Quebec 
+
+
+ Inserted 1 cities took time: 137.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lions Bay in British Columbia 
+
+
+ Inserted 1 cities took time: 161.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: New Carlisle in Quebec 
+
+
+ Inserted 1 cities took time: 156.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Laird No. 404 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 167.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Majorique-de-Grantham in Quebec 
+
+
+ Inserted 1 cities took time: 197us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Petitcodiac in New Brunswick 
+
+
+ Inserted 1 cities took time: 187.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Canwood No. 494 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 200.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wentworth-Nord in Quebec 
+
+
+ Inserted 1 cities took time: 184.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bas Caraquet in New Brunswick 
+
+
+ Inserted 1 cities took time: 275.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Two Hills in Alberta 
+
+
+ Inserted 1 cities took time: 210.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Ursule in Quebec 
+
+
+ Inserted 1 cities took time: 257.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dawson in Yukon 
+
+
+ Inserted 1 cities took time: 228.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nantes in Quebec 
+
+
+ Inserted 1 cities took time: 200.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-aux-Sables in Quebec 
+
+
+ Inserted 1 cities took time: 387.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stewiacke in Nova Scotia 
+
+
+ Inserted 1 cities took time: 241.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vaudreuil-sur-le-Lac in Quebec 
+
+
+ Inserted 1 cities took time: 185.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grahamdale in Manitoba 
+
+
+ Inserted 1 cities took time: 240us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Upham in New Brunswick 
+
+
+ Inserted 1 cities took time: 172.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St.-Charles in Ontario 
+
+
+ Inserted 1 cities took time: 214.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cardwell in New Brunswick 
+
+
+ Inserted 1 cities took time: 176.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Amulet in Quebec 
+
+
+ Inserted 1 cities took time: 246.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L’Avenir in Quebec 
+
+
+ Inserted 1 cities took time: 247.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hillsborough in New Brunswick 
+
+
+ Inserted 1 cities took time: 190.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Spiritwood No. 496 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 183.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pointe-à-la-Croix in Quebec 
+
+
+ Inserted 1 cities took time: 236.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hérouxville in Quebec 
+
+
+ Inserted 1 cities took time: 175.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Weldford in New Brunswick 
+
+
+ Inserted 1 cities took time: 224.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Reynolds in Manitoba 
+
+
+ Inserted 1 cities took time: 168us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Laurent in Manitoba 
+
+
+ Inserted 1 cities took time: 191.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L'Isle-aux-Allumettes in Quebec 
+
+
+ Inserted 1 cities took time: 214.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Emo in Ontario 
+
+
+ Inserted 1 cities took time: 176.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Brigide-d'Iberville in Quebec 
+
+
+ Inserted 1 cities took time: 200us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Les Éboulements in Quebec 
+
+
+ Inserted 1 cities took time: 175.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Smooth Rock Falls in Ontario 
+
+
+ Inserted 1 cities took time: 190.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bruederheim in Alberta 
+
+
+ Inserted 1 cities took time: 209.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oxbow in Saskatchewan 
+
+
+ Inserted 1 cities took time: 185.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Telkwa in British Columbia 
+
+
+ Inserted 1 cities took time: 227.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Landmark in Manitoba 
+
+
+ Inserted 1 cities took time: 229.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Norton in New Brunswick 
+
+
+ Inserted 1 cities took time: 194.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gjoa Haven in Nunavut 
+
+
+ Inserted 1 cities took time: 263.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Barbe in Quebec 
+
+
+ Inserted 1 cities took time: 171.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mayerthorpe in Alberta 
+
+
+ Inserted 1 cities took time: 212.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ootischenia in British Columbia 
+
+
+ Inserted 1 cities took time: 183.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Louis-du-Ha! Ha! in Quebec 
+
+
+ Inserted 1 cities took time: 196.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Taylor in British Columbia 
+
+
+ Inserted 1 cities took time: 322.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Powerview-Pine Falls in Manitoba 
+
+
+ Inserted 1 cities took time: 227.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ragueneau in Quebec 
+
+
+ Inserted 1 cities took time: 239.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Baie Verte in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 220.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chisholm in Ontario 
+
+
+ Inserted 1 cities took time: 190.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Édouard in Quebec 
+
+
+ Inserted 1 cities took time: 265.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Charlo in New Brunswick 
+
+
+ Inserted 1 cities took time: 187.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sorrento in British Columbia 
+
+
+ Inserted 1 cities took time: 187.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Burgeo in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 203.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wadena in Saskatchewan 
+
+
+ Inserted 1 cities took time: 170.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St-Pierre-Jolys in Manitoba 
+
+
+ Inserted 1 cities took time: 155.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Richmond in New Brunswick 
+Inserted: Richmond in New Brunswick 
+Inserted: Richmond in New Brunswick 
+
+
+ Inserted 3 cities took time: 31.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Youbou in British Columbia 
+
+
+ Inserted 1 cities took time: 156.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Swan Hills in Alberta 
+
+
+ Inserted 1 cities took time: 151.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wilkie in Saskatchewan 
+
+
+ Inserted 1 cities took time: 155.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Léonard in New Brunswick 
+
+
+ Inserted 1 cities took time: 152.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rivière-Bleue in Quebec 
+
+
+ Inserted 1 cities took time: 153.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Noyan in Quebec 
+
+
+ Inserted 1 cities took time: 143.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-du-Portage in Quebec 
+
+
+ Inserted 1 cities took time: 145.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ile-à-la-Crosse in Saskatchewan 
+
+
+ Inserted 1 cities took time: 158.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Hugues in Quebec 
+
+
+ Inserted 1 cities took time: 144.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Anne-du-Sault in Quebec 
+
+
+ Inserted 1 cities took time: 148.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Conception in Quebec 
+
+
+ Inserted 1 cities took time: 171.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Vauxhall in Alberta 
+
+
+ Inserted 1 cities took time: 186.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lamèque in New Brunswick 
+
+
+ Inserted 1 cities took time: 143.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Arborg in Manitoba 
+
+
+ Inserted 1 cities took time: 148.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Estevan No. 5 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 171.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Thessalon in Ontario 
+
+
+ Inserted 1 cities took time: 146.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L'Isle-aux-Coudres in Quebec 
+
+
+ Inserted 1 cities took time: 181.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lanigan in Saskatchewan 
+
+
+ Inserted 1 cities took time: 190.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Elton in Manitoba 
+
+
+ Inserted 1 cities took time: 141.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bowden in Alberta 
+
+
+ Inserted 1 cities took time: 150.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South Qu'Appelle No. 157 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 172.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Conestogo in Ontario 
+
+
+ Inserted 1 cities took time: 175.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rosser in Manitoba 
+
+
+ Inserted 1 cities took time: 182.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Lucie-des-Laurentides in Quebec 
+
+
+ Inserted 1 cities took time: 158.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alexis in Quebec 
+
+
+ Inserted 1 cities took time: 208.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Roxton Falls in Quebec 
+
+
+ Inserted 1 cities took time: 173.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Montcalm in Manitoba 
+
+
+ Inserted 1 cities took time: 164.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Irishtown-Summerside in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 199.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clarendon in Quebec 
+
+
+ Inserted 1 cities took time: 158.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mervin No. 499 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 162.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Ludger in Quebec 
+
+
+ Inserted 1 cities took time: 162.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coldwell in Manitoba 
+
+
+ Inserted 1 cities took time: 202.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Musquash in New Brunswick 
+
+
+ Inserted 1 cities took time: 154.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Racine in Quebec 
+
+
+ Inserted 1 cities took time: 160.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Osler in Saskatchewan 
+
+
+ Inserted 1 cities took time: 199.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Zénon in Quebec 
+
+
+ Inserted 1 cities took time: 201.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Armand in Quebec 
+
+
+ Inserted 1 cities took time: 178.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Édouard-de-Lotbinière in Quebec 
+
+
+ Inserted 1 cities took time: 168.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alonsa in Manitoba 
+
+
+ Inserted 1 cities took time: 171.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Arsène in Quebec 
+
+
+ Inserted 1 cities took time: 217.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Listuguj in Quebec 
+
+
+ Inserted 1 cities took time: 226.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Joseph in Ontario 
+
+
+ Inserted 1 cities took time: 212.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Queensbury in New Brunswick 
+
+
+ Inserted 1 cities took time: 246.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Hubert-de-Rivière-du-Loup in Quebec 
+
+
+ Inserted 1 cities took time: 247.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Jude in Quebec 
+
+
+ Inserted 1 cities took time: 374.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Minerve in Quebec 
+
+
+ Inserted 1 cities took time: 177.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trécesson in Quebec 
+
+
+ Inserted 1 cities took time: 216.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Legal in Alberta 
+
+
+ Inserted 1 cities took time: 269.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Moonbeam in Ontario 
+
+
+ Inserted 1 cities took time: 154.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-des-Pins in Quebec 
+
+
+ Inserted 1 cities took time: 206.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Alban in Quebec 
+
+
+ Inserted 1 cities took time: 222.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Pierre-les-Becquets in Quebec 
+
+
+ Inserted 1 cities took time: 176.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beaver River in Saskatchewan 
+
+
+ Inserted 1 cities took time: 217.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Labrecque in Quebec 
+
+
+ Inserted 1 cities took time: 206.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Claremont in Ontario 
+
+
+ Inserted 1 cities took time: 376.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: New Bandon in New Brunswick 
+
+
+ Inserted 1 cities took time: 250.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Hénédine in Quebec 
+
+
+ Inserted 1 cities took time: 223.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: L'Anse-Saint-Jean in Quebec 
+
+
+ Inserted 1 cities took time: 204.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Moose Jaw No. 161 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 183.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bassano in Alberta 
+
+
+ Inserted 1 cities took time: 179.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Parrsboro in Nova Scotia 
+
+
+ Inserted 1 cities took time: 244.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. George's in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 192.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fort Simpson in Northwest Territories 
+
+
+ Inserted 1 cities took time: 207.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Akwesasne in Quebec 
+
+
+ Inserted 1 cities took time: 204.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ignace in Ontario 
+
+
+ Inserted 1 cities took time: 247.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Teulon in Manitoba 
+
+
+ Inserted 1 cities took time: 240.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Peel in New Brunswick 
+
+
+ Inserted 1 cities took time: 233.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Miltonvale Park in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 181.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Lawrence in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 347.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oxford in Nova Scotia 
+
+
+ Inserted 1 cities took time: 225.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Minto-Odanah in Manitoba 
+
+
+ Inserted 1 cities took time: 207.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Valère in Quebec 
+
+
+ Inserted 1 cities took time: 189.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Alban's in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 174.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kaleden in British Columbia 
+
+
+ Inserted 1 cities took time: 307.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint James in New Brunswick 
+
+
+ Inserted 1 cities took time: 213.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Norbert-d'Arthabaska in Quebec 
+
+
+ Inserted 1 cities took time: 201.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Manning in Alberta 
+
+
+ Inserted 1 cities took time: 228.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Glenella-Lansdowne in Manitoba 
+
+
+ Inserted 1 cities took time: 205us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Hilarion in Quebec 
+
+
+ Inserted 1 cities took time: 208.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Modeste in Quebec 
+
+
+ Inserted 1 cities took time: 194.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Siméon in Quebec 
+
+
+ Inserted 1 cities took time: 282.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Barnabé in Quebec 
+
+
+ Inserted 1 cities took time: 166.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Irricana in Alberta 
+
+
+ Inserted 1 cities took time: 165.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint Martins in New Brunswick 
+
+
+ Inserted 1 cities took time: 173.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Two Borders in Manitoba 
+
+
+ Inserted 1 cities took time: 178.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bury in Quebec 
+
+
+ Inserted 1 cities took time: 171.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Bouchette in Quebec 
+
+
+ Inserted 1 cities took time: 159.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Lazare-de-Bellechasse in Quebec 
+
+
+ Inserted 1 cities took time: 154.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Michel-du-Squatec in Quebec 
+
+
+ Inserted 1 cities took time: 175.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Joachim-de-Shefford in Quebec 
+
+
+ Inserted 1 cities took time: 153.292us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand-Remous in Quebec 
+
+
+ Inserted 1 cities took time: 159.666us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Gabriel-de-Rimouski in Quebec 
+
+
+ Inserted 1 cities took time: 149.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Armstrong in Ontario 
+Inserted: Armstrong in Ontario 
+
+
+ Inserted 2 cities took time: 173.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rogersville in New Brunswick 
+
+
+ Inserted 1 cities took time: 146.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Langenburg in Saskatchewan 
+
+
+ Inserted 1 cities took time: 175.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marie-Salomé in Quebec 
+
+
+ Inserted 1 cities took time: 166.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Cyprien in Quebec 
+
+
+ Inserted 1 cities took time: 153.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Centreville in Nova Scotia 
+
+
+ Inserted 1 cities took time: 142.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maidstone in Saskatchewan 
+
+
+ Inserted 1 cities took time: 147.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Très-Saint-Sacrement in Quebec 
+
+
+ Inserted 1 cities took time: 193.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hillsburgh in Ontario 
+
+
+ Inserted 1 cities took time: 154.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McAdam in New Brunswick 
+
+
+ Inserted 1 cities took time: 196.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Newcastle in New Brunswick 
+
+
+ Inserted 1 cities took time: 164.834us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saints-Anges in Quebec 
+
+
+ Inserted 1 cities took time: 151.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Urbain-Premier in Quebec 
+
+
+ Inserted 1 cities took time: 149.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Centreville-Wareham-Trinity in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 164.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alberton in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 152.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Winnipeg Beach in Manitoba 
+
+
+ Inserted 1 cities took time: 154.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Agathe-de-Lotbinière in Quebec 
+
+
+ Inserted 1 cities took time: 140.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Salmo in British Columbia 
+
+
+ Inserted 1 cities took time: 163.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kipling in Saskatchewan 
+
+
+ Inserted 1 cities took time: 153.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sagamok in Ontario 
+
+
+ Inserted 1 cities took time: 150.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grande-Vallée in Quebec 
+
+
+ Inserted 1 cities took time: 145.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bertrand in New Brunswick 
+
+
+ Inserted 1 cities took time: 155.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mont-Carmel in Quebec 
+
+
+ Inserted 1 cities took time: 159.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Victoria in Manitoba 
+Inserted: Victoria in Manitoba 
+Inserted: Victoria in Manitoba 
+
+
+ Inserted 3 cities took time: 31.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Eugène in Quebec 
+
+
+ Inserted 1 cities took time: 146.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-des-Neiges in Quebec 
+
+
+ Inserted 1 cities took time: 165.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-André in New Brunswick 
+
+
+ Inserted 1 cities took time: 158.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Roland in Manitoba 
+
+
+ Inserted 1 cities took time: 162.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Léon-de-Standon in Quebec 
+
+
+ Inserted 1 cities took time: 145.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hensall in Ontario 
+
+
+ Inserted 1 cities took time: 201.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carnduff in Saskatchewan 
+
+
+ Inserted 1 cities took time: 163.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Greenwich in New Brunswick 
+
+
+ Inserted 1 cities took time: 156.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Carling in Ontario 
+
+
+ Inserted 1 cities took time: 158.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Eckville in Alberta 
+
+
+ Inserted 1 cities took time: 155.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nain in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 180us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Foam Lake in Saskatchewan 
+
+
+ Inserted 1 cities took time: 170.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sayabec in Quebec 
+
+
+ Inserted 1 cities took time: 170.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Laird in Ontario 
+
+
+ Inserted 1 cities took time: 200.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Sabine in Quebec 
+
+
+ Inserted 1 cities took time: 243.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Tara in Ontario 
+
+
+ Inserted 1 cities took time: 173.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Maxime-du-Mont-Louis in Quebec 
+
+
+ Inserted 1 cities took time: 176.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Blanc-Sablon in Quebec 
+
+
+ Inserted 1 cities took time: 182.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cobalt in Ontario 
+
+
+ Inserted 1 cities took time: 358.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South River in Ontario 
+
+
+ Inserted 1 cities took time: 200.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hudson Bay No. 394 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 291.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Waldheim in Saskatchewan 
+
+
+ Inserted 1 cities took time: 249.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McKellar in Ontario 
+
+
+ Inserted 1 cities took time: 204.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Buffalo Narrows in Saskatchewan 
+
+
+ Inserted 1 cities took time: 261.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ayer’s Cliff in Quebec 
+
+
+ Inserted 1 cities took time: 217.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Les Méchins in Quebec 
+
+
+ Inserted 1 cities took time: 186.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marguerite in Quebec 
+
+
+ Inserted 1 cities took time: 233.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Claude in Quebec 
+
+
+ Inserted 1 cities took time: 169.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Air Ronge in Saskatchewan 
+
+
+ Inserted 1 cities took time: 310.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chipman in New Brunswick 
+
+
+ Inserted 1 cities took time: 165.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Weyburn No. 67 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 180.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Alberta Beach in Alberta 
+
+
+ Inserted 1 cities took time: 367.541us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Jeanne-d'Arc in Quebec 
+
+
+ Inserted 1 cities took time: 202.084us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Félicité in Quebec 
+
+
+ Inserted 1 cities took time: 351.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Girardville in Quebec 
+
+
+ Inserted 1 cities took time: 232.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Bruno-de-Guigues in Quebec 
+
+
+ Inserted 1 cities took time: 254.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grenfell in Saskatchewan 
+
+
+ Inserted 1 cities took time: 282.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: South Algonquin in Ontario 
+
+
+ Inserted 1 cities took time: 236us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Upton in Quebec 
+
+
+ Inserted 1 cities took time: 230.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Narcisse-de-Beaurivage in Quebec 
+
+
+ Inserted 1 cities took time: 331.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Plaisance in Quebec 
+
+
+ Inserted 1 cities took time: 180.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Roxton-Sud in Quebec 
+
+
+ Inserted 1 cities took time: 317.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: St. Louis No. 431 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 215.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Noonan in New Brunswick 
+
+
+ Inserted 1 cities took time: 212.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Duchess in Alberta 
+
+
+ Inserted 1 cities took time: 201.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Frédéric in Quebec 
+
+
+ Inserted 1 cities took time: 196us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Narcisse-de-Rimouski in Quebec 
+
+
+ Inserted 1 cities took time: 202.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Atholville in New Brunswick 
+
+
+ Inserted 1 cities took time: 240.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Viking in Alberta 
+
+
+ Inserted 1 cities took time: 175.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sioux Narrows-Nestor Falls in Ontario 
+
+
+ Inserted 1 cities took time: 193.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Repulse Bay in Nunavut 
+
+
+ Inserted 1 cities took time: 208.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Patrice-de-Beaurivage in Quebec 
+
+
+ Inserted 1 cities took time: 346.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bentley in Alberta 
+
+
+ Inserted 1 cities took time: 271.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Durham in New Brunswick 
+
+
+ Inserted 1 cities took time: 261.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Marthe in Quebec 
+
+
+ Inserted 1 cities took time: 174.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Notre-Dame-du-Nord in Quebec 
+
+
+ Inserted 1 cities took time: 172.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Beachburg in Ontario 
+
+
+ Inserted 1 cities took time: 167.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Pinehouse in Saskatchewan 
+
+
+ Inserted 1 cities took time: 160.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Aimé-des-Lacs in Quebec 
+
+
+ Inserted 1 cities took time: 165.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wedgeport in Nova Scotia 
+
+
+ Inserted 1 cities took time: 158.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lac-Drolet in Quebec 
+
+
+ Inserted 1 cities took time: 143.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Preeceville in Saskatchewan 
+
+
+ Inserted 1 cities took time: 160.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Maple Creek No. 111 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 159.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Harbour Main-Chapel's Cove-Lakeview in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 150.709us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Coleraine in Quebec 
+
+
+ Inserted 1 cities took time: 172.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Birch Hills in Saskatchewan 
+
+
+ Inserted 1 cities took time: 156.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Bonaventure in Quebec 
+
+
+ Inserted 1 cities took time: 213.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Wenceslas in Quebec 
+
+
+ Inserted 1 cities took time: 164us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kerrobert in Saskatchewan 
+
+
+ Inserted 1 cities took time: 156.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Havelock in New Brunswick 
+
+
+ Inserted 1 cities took time: 150.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Eston in Saskatchewan 
+
+
+ Inserted 1 cities took time: 145.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Geneviève-de-Batiscan in Quebec 
+
+
+ Inserted 1 cities took time: 147.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Justin in Quebec 
+
+
+ Inserted 1 cities took time: 184.209us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Norbert in Quebec 
+
+
+ Inserted 1 cities took time: 151us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Schreiber in Ontario 
+
+
+ Inserted 1 cities took time: 144.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Trochu in Alberta 
+
+
+ Inserted 1 cities took time: 190.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Botsford in New Brunswick 
+
+
+ Inserted 1 cities took time: 147.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Riviere-Ouelle in Quebec 
+
+
+ Inserted 1 cities took time: 147.958us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Stukely-Sud in Quebec 
+
+
+ Inserted 1 cities took time: 159.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Georges-de-Clarenceville in Quebec 
+
+
+ Inserted 1 cities took time: 161.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Plantagenet in Ontario 
+
+
+ Inserted 1 cities took time: 151.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Thérèse-de-Gaspé in Quebec 
+
+
+ Inserted 1 cities took time: 169.542us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Sainte-Pétronille in Quebec 
+
+
+ Inserted 1 cities took time: 152.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Desbiens in Quebec 
+
+
+ Inserted 1 cities took time: 146.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Clyde River in Nunavut 
+
+
+ Inserted 1 cities took time: 163.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: La Macaza in Quebec 
+
+
+ Inserted 1 cities took time: 176.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Souris in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 148.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kindersley No. 290 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 169.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Falher in Alberta 
+
+
+ Inserted 1 cities took time: 143.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Vallier in Quebec 
+
+
+ Inserted 1 cities took time: 146.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Melita in Manitoba 
+
+
+ Inserted 1 cities took time: 159.5us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Davidson in Saskatchewan 
+
+
+ Inserted 1 cities took time: 149.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Bristol in Quebec 
+
+
+ Inserted 1 cities took time: 146.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Mahone Bay in Nova Scotia 
+
+
+ Inserted 1 cities took time: 140us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Sylvestre in Quebec 
+
+
+ Inserted 1 cities took time: 144.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Taloyoak in Nunavut 
+
+
+ Inserted 1 cities took time: 153.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Onoway in Alberta 
+
+
+ Inserted 1 cities took time: 152.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Stanislas in Quebec 
+
+
+ Inserted 1 cities took time: 164.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Battle River No. 438 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 176.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Malpeque in Prince Edward Island 
+
+
+ Inserted 1 cities took time: 227.584us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Longue-Rive in Quebec 
+
+
+ Inserted 1 cities took time: 329.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Argyle in Manitoba 
+
+
+ Inserted 1 cities took time: 184.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Delisle in Saskatchewan 
+
+
+ Inserted 1 cities took time: 199.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Plaster Rock in New Brunswick 
+
+
+ Inserted 1 cities took time: 176.083us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wilmot in New Brunswick 
+Inserted: Wilmot in New Brunswick 
+
+
+ Inserted 2 cities took time: 26.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Valemount in British Columbia 
+
+
+ Inserted 1 cities took time: 237.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-Léonard-de-Portneuf in Quebec 
+
+
+ Inserted 1 cities took time: 208.667us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Longlaketon No. 219 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 331.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Papineau-Cameron in Ontario 
+
+
+ Inserted 1 cities took time: 165.792us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Assiginack in Ontario 
+
+
+ Inserted 1 cities took time: 201.916us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Brébeuf in Quebec 
+
+
+ Inserted 1 cities took time: 285.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hudson Hope in British Columbia 
+
+
+ Inserted 1 cities took time: 191.291us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Baie-du-Febvre in Quebec 
+
+
+ Inserted 1 cities took time: 202us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Durham-Sud in Quebec 
+
+
+ Inserted 1 cities took time: 177.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Melbourne in Quebec 
+
+
+ Inserted 1 cities took time: 250.208us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Nipawin No. 487 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 196us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Duck Lake No. 463 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 205.875us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Oyen in Alberta 
+
+
+ Inserted 1 cities took time: 282.917us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gravelbourg in Saskatchewan 
+
+
+ Inserted 1 cities took time: 237.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lajord No. 128 in Saskatchewan 
+
+
+ Inserted 1 cities took time: 174.459us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hébertville in Quebec 
+
+
+ Inserted 1 cities took time: 177.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Lorrainville in Quebec 
+
+
+ Inserted 1 cities took time: 226.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Prince in Ontario 
+
+
+ Inserted 1 cities took time: 188.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Athens in Ontario 
+
+
+ Inserted 1 cities took time: 205.75us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Saint-René-de-Matane in Quebec 
+
+
+ Inserted 1 cities took time: 220.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Eastman in Quebec 
+
+
+ Inserted 1 cities took time: 199.375us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kugluktuk in Nunavut 
+
+
+ Inserted 1 cities took time: 217.167us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Kedgwick in New Brunswick 
+
+
+ Inserted 1 cities took time: 180.041us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Wemotaci in Quebec 
+
+
+ Inserted 1 cities took time: 203.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Cookshire in Quebec 
+
+
+ Inserted 1 cities took time: 182.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dorchester in New Brunswick 
+
+
+ Inserted 1 cities took time: 189.791us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Fortune in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 282.333us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Hamiota in Manitoba 
+
+
+ Inserted 1 cities took time: 210.833us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gillam in Manitoba 
+
+
+ Inserted 1 cities took time: 210.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Grand View in Manitoba 
+
+
+ Inserted 1 cities took time: 242.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Dildo in Newfoundland and Labrador 
+
+
+ Inserted 1 cities took time: 193.959us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Laurierville in Quebec 
+
+
+ Inserted 1 cities took time: 286us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ripon in Quebec 
+
+
+ Inserted 1 cities took time: 256.166us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Henryville in Quebec 
+
+
+ Inserted 1 cities took time: 222.625us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Gracefield in Quebec 
+
+
+ Inserted 1 cities took time: 192.25us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Chatsworth in Ontario 
+
+
+ Inserted 1 cities took time: 205.708us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: McCreary in Manitoba 
+
+
+ Inserted 1 cities took time: 195.125us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Yamaska-Est in Quebec 
+
+
+ Inserted 1 cities took time: 191.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rossburn in Manitoba 
+
+
+ Inserted 1 cities took time: 169.334us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Rothesay in New Brunswick 
+
+
+ Inserted 1 cities took time: 177.417us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Ethelbert in Manitoba 
+
+
+ Inserted 1 cities took time: 170.458us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Frelighsburg in Quebec 
+
+
+ Inserted 1 cities took time: 178.583us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+Inserted: Magnetawan in Ontario 
+
+
+ Inserted 1 cities took time: 179.042us
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
