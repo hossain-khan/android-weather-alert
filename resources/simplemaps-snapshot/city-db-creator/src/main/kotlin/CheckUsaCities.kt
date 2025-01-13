@@ -22,10 +22,10 @@ fun main() {
     println("Time elapsed: $elapsed")
 }
 
-
+/**
+ * Writes report to [USA_CITIES_MATCHED_REPORT] file.
+ */
 private fun debugCityMatching() {
-    // city-db-creator/CheckUsaCities.txt
-    // city-db-creator/src/main/kotlin/CheckUsaCities.kt
     val outputFile = File(USA_CITIES_MATCHED_REPORT)
     val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
     outputFile.bufferedWriter().use { writer ->
@@ -40,7 +40,7 @@ private fun debugCityMatching() {
         usaCities.forEach { csvCity ->
             val citySql = """
                 SELECT * FROM $DB_TABLE_NAME_CITIES
-                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = 'USA'
+                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
             """.trimIndent()
 
             var didFindMatch = false
@@ -57,6 +57,8 @@ private fun debugCityMatching() {
                         City: $city, state: $state, Lat: $lat, Lng: $lng, Country: $country (Matches - state: ${state == csvCity["state_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
                         - - - - - - - - - - - - - - - - - - - - - - - -
                     """.trimIndent() + "\n")
+
+                    println("CSV City: ${csvCity["city"]}, ${csvCity["state_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB City: $city, state: $state, Lat: $lat, Lng: $lng, Country: $country")
 
                     didFindMatch = true
                 }
@@ -87,7 +89,7 @@ private fun executeCityMatching() {
     usaCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM cities
-            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = 'USA'
+            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
