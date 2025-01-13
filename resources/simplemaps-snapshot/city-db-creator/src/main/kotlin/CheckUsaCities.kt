@@ -3,9 +3,7 @@ package dev.hossain.citydb
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.use
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import dev.hossain.citydb.config.CSV_USA_CITIES
-import dev.hossain.citydb.config.DB_FILE_NAME_ALERT_APP
-import dev.hossain.citydb.config.escapeSingleQuote
+import dev.hossain.citydb.config.*
 import java.io.File
 import kotlin.time.measureTime
 
@@ -14,12 +12,60 @@ import kotlin.time.measureTime
  */
 fun main() {
     val elapsed = measureTime {
-        executeCityMatching()
+        //loadUsaCities()
+        //executeCityMatching()
+        debugCityMatching()
     }
-    // Time elapsed for executeCityMatching: 63469 milliseconds (1m 3.469409584s)
-    println("Time elapsed for executeCityMatching: ${elapsed.inWholeMilliseconds} milliseconds ($elapsed)")
+    // executeCityMatching - Time elapsed 1m 3.469409584s
+    // debugCityMatching - Time elapsed: 1m 2.940418500s
+    println("Time elapsed: $elapsed")
+}
 
-    //loadUsaCities()
+
+private fun debugCityMatching() {
+    // city-db-creator/CheckUsaCities.txt
+    // city-db-creator/src/main/kotlin/CheckUsaCities.kt
+    val outputFile = File(USA_CITIES_MATCHED_REPORT)
+    val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
+    outputFile.bufferedWriter().use { writer ->
+        val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
+        databaseConnection.prepare(countSql).use { stmt ->
+            while (stmt.step()) {
+                writer.write("Total records: ${stmt.getText(0)}\n")
+            }
+        }
+
+        val usaCities = getUsaCities()
+        usaCities.forEach { csvCity ->
+            val citySql = """
+                SELECT * FROM $DB_TABLE_NAME_CITIES
+                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = 'USA'
+            """.trimIndent()
+
+            var didFindMatch = false
+            databaseConnection.prepare(citySql).use { stmt ->
+                while (stmt.step()) {
+                    val city = stmt.getText(1)
+                    val lat = stmt.getDouble(2)
+                    val lng = stmt.getDouble(3)
+                    val state = stmt.getText(7)
+                    val country = stmt.getText(6)
+
+                    writer.write("""
+                        CSV City: ${csvCity["city"]}, ${csvCity["state_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB 
+                        City: $city, state: $state, Lat: $lat, Lng: $lng, Country: $country (Matches - state: ${state == csvCity["state_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
+                        - - - - - - - - - - - - - - - - - - - - - - - -
+                    """.trimIndent() + "\n")
+
+                    didFindMatch = true
+                }
+            }
+            if(didFindMatch) {
+                writer.write("\n\n ================= END CITY MATCH ================= \n\n")
+            }
+        }
+    }
+    databaseConnection.close()
 }
 
 private fun executeCityMatching() {

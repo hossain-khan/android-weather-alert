@@ -6,6 +6,7 @@ import androidx.sqlite.use
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dev.hossain.citydb.config.CSV_CANADIAN_CITIES
 import dev.hossain.citydb.config.DB_FILE_NAME_ALERT_APP
+import dev.hossain.citydb.config.DB_TABLE_NAME_CITIES
 import dev.hossain.citydb.config.escapeSingleQuote
 import org.intellij.lang.annotations.Language
 import java.io.File
@@ -19,7 +20,7 @@ fun main() {
 
 private fun executeCityMatch() {
     val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
-    val countSql = "SELECT COUNT(*) FROM cities WHERE 1"
+    val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
     databaseConnection.prepare(countSql).use { stmt ->
         while (stmt.step()) {
             println("Total records: ${stmt.getText(0)}")
@@ -33,7 +34,7 @@ private fun executeCityMatch() {
     // Result: Total USA cities: 31120 and matches: 10392 with multi-match: 19475
     canadianCities.forEach { city ->
         val citySql = """
-            SELECT COUNT(*) FROM cities
+            SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES
             WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = 'CAN'
         """.trimIndent()
 
