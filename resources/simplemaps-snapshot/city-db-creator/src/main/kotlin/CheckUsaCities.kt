@@ -13,19 +13,27 @@ import kotlin.time.measureTime
 fun main() {
     val elapsed = measureTime {
         //loadUsaCities()
+
+        // Total USA cities: 31120 and matches: 605
         //executeCityMatching()
-        debugCityMatching()
+
+        //debugCityMatching()
+
+        // Total USA cities: 31120 and Collision matches: 4566
+        // Conclusion: ❌ ID collision between world cities and USA cities
+        findIdCollision()
     }
 
     // executeCityMatching - Time elapsed 1m 3.469409584s
     // debugCityMatching - Time elapsed: 1m 2.940418500s
+    // findIdCollision() - Time elapsed: 655.892917ms
     println("Time elapsed: $elapsed")
 }
 
-
+/**
+ * Writes report to [USA_CITIES_MATCHED_REPORT] file.
+ */
 private fun debugCityMatching() {
-    // city-db-creator/CheckUsaCities.txt
-    // city-db-creator/src/main/kotlin/CheckUsaCities.kt
     val outputFile = File(USA_CITIES_MATCHED_REPORT)
     val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
     outputFile.bufferedWriter().use { writer ->
@@ -40,7 +48,7 @@ private fun debugCityMatching() {
         usaCities.forEach { csvCity ->
             val citySql = """
                 SELECT * FROM $DB_TABLE_NAME_CITIES
-                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = 'USA'
+                WHERE city_ascii = '${escapeSingleQuote(csvCity["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
             """.trimIndent()
 
             var didFindMatch = false
@@ -57,6 +65,8 @@ private fun debugCityMatching() {
                         City: $city, state: $state, Lat: $lat, Lng: $lng, Country: $country (Matches - state: ${state == csvCity["state_name"]} lat: ${lat == csvCity["lat"]?.toDouble()} lng: ${lng == csvCity["lng"]?.toDouble()})
                         - - - - - - - - - - - - - - - - - - - - - - - -
                     """.trimIndent() + "\n")
+
+                    println("CSV City: ${csvCity["city"]}, ${csvCity["state_name"]} ${csvCity["lat"]} ${csvCity["lng"]} matched with DB City: $city, state: $state, Lat: $lat, Lng: $lng, Country: $country")
 
                     didFindMatch = true
                 }
@@ -87,7 +97,7 @@ private fun executeCityMatching() {
     usaCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM cities
-            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = 'USA'
+            WHERE city_ascii = '${escapeSingleQuote(city["city_ascii"]!!)}' AND iso3 = '$USA_COUNTRY_CODE'
         """.trimIndent()
 
         databaseConnection.prepare(citySql).use { stmt ->
@@ -104,6 +114,42 @@ private fun executeCityMatching() {
     }
 
     println("Total USA cities: $totalUsaCities and matches: $totalMatches with multi-match: $totalMultiMatch")
+
+    databaseConnection.close()
+}
+
+
+private fun findIdCollision() {
+    val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
+    val countSql = "SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES WHERE 1"
+    databaseConnection.prepare(countSql).use { stmt ->
+        while (stmt.step()) {
+            println("Total DB records: ${stmt.getText(0)}")
+        }
+    }
+
+    val usaCities = getUsaCities()
+    val totalCities = usaCities.size
+    var totalCollisionMatches = 0
+    // For each usa city from csv, check if the id matches with world cities
+    // Report: Total USA cities: 31120 and Collision matches: 4566
+    usaCities.forEach { city ->
+        val citySql = """
+            SELECT COUNT(*) FROM $DB_TABLE_NAME_CITIES
+            WHERE id = ${city["id"]!!.toLong()} AND iso3 = '$USA_COUNTRY_CODE'
+        """.trimIndent()
+
+        databaseConnection.prepare(citySql).use { stmt ->
+            while (stmt.step()) {
+                if (stmt.getText(0).toInt() > 0) {
+                    totalCollisionMatches++
+                }
+                println("City: ${city["city"]}, State: ${city["state_name"]} - Count: ${stmt.getText(0)}")
+            }
+        }
+    }
+
+    println("Total USA cities: $totalCities and Collision matches: $totalCollisionMatches")
 
     databaseConnection.close()
 }
