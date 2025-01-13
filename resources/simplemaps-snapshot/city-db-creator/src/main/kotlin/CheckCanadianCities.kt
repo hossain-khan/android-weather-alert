@@ -6,6 +6,7 @@ import androidx.sqlite.use
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dev.hossain.citydb.config.CSV_CANADIAN_CITIES
 import dev.hossain.citydb.config.DB_FILE_NAME_ALERT_APP
+import dev.hossain.citydb.config.escapeSingleQuote
 import org.intellij.lang.annotations.Language
 import java.io.File
 
@@ -13,6 +14,10 @@ import java.io.File
  * Checks if the Canadian cities are in the database.
  */
 fun main() {
+    executeCityMatch()
+}
+
+private fun executeCityMatch() {
     val databaseConnection = BundledSQLiteDriver().open(DB_FILE_NAME_ALERT_APP)
     val countSql = "SELECT COUNT(*) FROM cities WHERE 1"
     databaseConnection.prepare(countSql).use { stmt ->
@@ -25,7 +30,7 @@ fun main() {
     val totalCanadianCities = canadianCities.size
     var totalMatches = 0
     // For each canadian city, check if it exists in the cities table
-    // Result: Total Canadian cities: 1737 and matches: 466
+    // Result: Total USA cities: 31120 and matches: 10392 with multi-match: 19475
     canadianCities.forEach { city ->
         val citySql = """
             SELECT COUNT(*) FROM cities
@@ -35,7 +40,7 @@ fun main() {
         databaseConnection.prepare(citySql).use { stmt ->
             //stmt.bindText(1, city["city_ascii"]!!)
             while (stmt.step()) {
-                if(stmt.getText(0).toInt() > 0) {
+                if (stmt.getText(0).toInt() > 0) {
                     totalMatches++
                 }
                 println("City: ${city["city"]}, Province: ${city["province_id"]} - Count: ${stmt.getText(0)}")
@@ -88,8 +93,4 @@ private fun loadCanadianCities() {
 private fun getCanadianCities(): List<Map<String, String>> {
     val file: File = File(CSV_CANADIAN_CITIES)
     return csvReader().readAllWithHeader(file)
-}
-
-fun escapeSingleQuote(input: String): String {
-    return input.replace("'", "''")
 }
