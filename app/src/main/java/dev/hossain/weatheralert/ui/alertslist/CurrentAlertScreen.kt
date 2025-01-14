@@ -82,6 +82,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.AlertTileData
+import dev.hossain.weatheralert.data.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
@@ -166,8 +167,8 @@ class CurrentWeatherAlertPresenter
                     when (apiResult) {
                         is ApiResult.Success -> {
                             val forecastData = apiResult.value
-                            val snowStatus = forecastData.snow.nextDaySnow
-                            val rainStatus = forecastData.rain.nextDayRain
+                            val snowStatus = forecastData.snow.dailyCumulativeSnow
+                            val rainStatus = forecastData.rain.dailyCumulativeRain
                             alertTileData.add(
                                 AlertTileData(
                                     alertId = alert.alert.id,
@@ -564,7 +565,7 @@ fun AlertListItem(
                     Text(text = "City: ${data.cityInfo}", style = MaterialTheme.typography.bodySmall)
                     Text(text = "Threshold: ${data.threshold}", style = MaterialTheme.typography.bodySmall)
                     Text(
-                        text = "Tomorrow: ${data.currentStatus}",
+                        text = "Next ${CUMULATIVE_DATA_HOURS_24}H: ${data.currentStatus}",
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                     )

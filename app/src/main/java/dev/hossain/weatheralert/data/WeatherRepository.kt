@@ -243,6 +243,7 @@ class WeatherRepositoryImpl
                                 .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
                         nextDaySnow =
                             daily
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .firstOrNull()
                                 ?.snowVolume ?: 0.0,
                         weeklyCumulativeSnow = 0.0,
@@ -251,6 +252,7 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain =
                             hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
                         nextDayRain =
                             daily
@@ -287,6 +289,7 @@ class WeatherRepositoryImpl
                     Snow(
                         dailyCumulativeSnow =
                             timelines.hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.values.snowDepth ?: 0.0 },
                         nextDaySnow =
                             timelines.daily
@@ -299,6 +302,7 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain =
                             timelines.hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.values.rainAccumulation ?: 0.0 },
                         nextDayRain =
                             timelines.daily
