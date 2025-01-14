@@ -6,6 +6,7 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 internal const val WEATHER_UPDATE_INTERVAL_6_HOURS = 6L
@@ -31,11 +32,15 @@ internal val supportedWeatherUpdateInterval: List<Long> =
  * Enqueue weather check worker to run in background using WorkManager.
  * - https://developer.android.com/topic/libraries/architecture/workmanager
  */
-fun scheduleWeatherAlertsWork(context: Context) {
+fun scheduleWeatherAlertsWork(
+    context: Context,
+    updateIntervalHours: Long,
+) {
+    Timber.d("Scheduling weather check worker to run every $updateIntervalHours hours")
     val weatherWorker =
         PeriodicWorkRequestBuilder<WeatherCheckWorker>(
             // Check every N hours
-            repeatInterval = DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS,
+            repeatInterval = updateIntervalHours,
             repeatIntervalTimeUnit = TimeUnit.HOURS,
         ).setConstraints(
             Constraints

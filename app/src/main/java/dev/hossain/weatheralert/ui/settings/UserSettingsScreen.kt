@@ -31,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -39,6 +38,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -65,6 +65,7 @@ import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -106,6 +107,7 @@ class UserSettingsPresenter
         @Composable
         override fun present(): UserSettingsScreen.State {
             val scope = rememberCoroutineScope()
+            val context = LocalContext.current
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
 
             LaunchedEffect(Unit) {
@@ -144,6 +146,7 @@ class UserSettingsPresenter
                         scope.launch {
                             preferencesManager.savePreferredUpdateInterval(event.frequency)
                         }
+                        scheduleWeatherAlertsWork(context = context, event.frequency)
                     }
                 }
             }

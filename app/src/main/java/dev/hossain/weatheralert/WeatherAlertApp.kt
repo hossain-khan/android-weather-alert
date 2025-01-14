@@ -3,12 +3,13 @@ package dev.hossain.weatheralert
 import android.app.Application
 import androidx.work.Configuration
 import androidx.work.WorkerFactory
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.di.AppComponent
 import dev.hossain.weatheralert.notification.createAppNotificationChannel
 import dev.hossain.weatheralert.util.CrashlyticsTree
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
-import jakarta.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Application class for the app with key initializations.
@@ -22,6 +23,9 @@ class WeatherAlertApp :
 
     @Inject
     lateinit var workerFactory: WorkerFactory
+
+    @Inject
+    lateinit var preferencesManager: PreferencesManager
 
     // https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration
     override val workManagerConfiguration: Configuration
@@ -41,7 +45,7 @@ class WeatherAlertApp :
         installLoggingTree()
 
         createAppNotificationChannel(context = this)
-        scheduleWeatherAlertsWork(context = this)
+        scheduleWeatherAlertsWork(context = this, preferencesManager.preferredUpdateIntervalSync)
 
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
     }
