@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.util.Analytics
@@ -21,6 +22,7 @@ object WorkerModule {
         alertDao: AlertDao,
         weatherRepository: WeatherRepository,
         analytics: Analytics,
+        preferencesManager: PreferencesManager,
     ): WorkerFactory =
         object : WorkerFactory() {
             override fun createWorker(
@@ -40,6 +42,7 @@ object WorkerModule {
                             alertDao = alertDao,
                             weatherRepository = weatherRepository,
                             analytics = analytics,
+                            preferencesManager = preferencesManager,
                         )
                     else -> null
                 }

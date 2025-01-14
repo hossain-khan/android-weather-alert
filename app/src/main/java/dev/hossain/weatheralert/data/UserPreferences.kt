@@ -1,8 +1,10 @@
 package dev.hossain.weatheralert.data
 
 import android.content.Context
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
 
 /**
  * Extension property to create a DataStore instance with the name "weather_alerts".
@@ -28,4 +30,10 @@ object UserPreferences {
      * Key for storing user preferred weather service provider.
      */
     val preferredWeatherServiceKey = stringPreferencesKey("user_preferred_weather_service_key")
+
+    /**
+     * User selected update interval for weather alerts.
+     * Supported values are listed in [supportedWeatherUpdateInterval].
+     */
+    val preferredUpdateIntervalKey = longPreferencesKey("user_preferred_update_interval_key")
 }

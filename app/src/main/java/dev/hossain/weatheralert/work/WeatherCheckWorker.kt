@@ -6,12 +6,15 @@ import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.notification.triggerNotification
 import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import timber.log.Timber
 
 /**
@@ -30,6 +33,7 @@ class WeatherCheckWorker
         private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
         private val analytics: Analytics,
+        private val preferencesManager: PreferencesManager,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
             Timber.d("WeatherCheckWorker: Checking weather forecast")
@@ -41,8 +45,7 @@ class WeatherCheckWorker
                 return Result.success()
             }
 
-            // Log worker initiative to ensure the worker is working fine
-            analytics.logWorkerJob(userConfiguredAlerts.size.toLong())
+            logWorkerStarted(userConfiguredAlerts)
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -133,7 +136,19 @@ class WeatherCheckWorker
                 delay(1_000)
             }
 
-            analytics.logWorkSuccess()
+            logWorkerCompleted()
             return Result.success()
+        }
+
+        private suspend fun logWorkerStarted(userConfiguredAlerts: List<UserCityAlert>) {
+            // Log worker initiative to ensure the worker is working fine
+            analytics.logWorkerJob(
+                interval = preferencesManager.preferredUpdateInterval.first(),
+                alertsCount = userConfiguredAlerts.size.toLong(),
+            )
+        }
+
+        private suspend fun logWorkerCompleted() {
+            analytics.logWorkSuccess()
         }
     }

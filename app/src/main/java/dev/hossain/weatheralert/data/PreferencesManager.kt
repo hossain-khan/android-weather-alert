@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import dev.hossain.weatheralert.di.ApplicationContext
+import dev.hossain.weatheralert.work.DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -104,6 +105,25 @@ class PreferencesManager
         suspend fun savePreferredWeatherService(service: WeatherService) {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[UserPreferences.preferredWeatherServiceKey] = service.name
+            }
+        }
+
+        val preferredUpdateInterval: Flow<Long> =
+            dataStore.data
+                .map { preferences: Preferences ->
+                    preferences[UserPreferences.preferredUpdateIntervalKey] ?: DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
+                }
+
+        val preferredUpdateIntervalSync: Long =
+            runBlocking {
+                val interval = preferredUpdateInterval.first()
+                Timber.d("Returning preferredUpdateIntervalSync: $interval")
+                return@runBlocking interval
+            }
+
+        suspend fun savePreferredUpdateInterval(interval: Long) {
+            dataStore.edit { preferences: MutablePreferences ->
+                preferences[UserPreferences.preferredUpdateIntervalKey] = interval
             }
         }
     }
