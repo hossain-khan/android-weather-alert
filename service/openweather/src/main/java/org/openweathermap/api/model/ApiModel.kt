@@ -2,6 +2,8 @@ package org.openweathermap.api.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import dev.hossain.weatheralert.datamodel.AppForecastData
+import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
 
 /**
  * Weather forecast data.
@@ -28,7 +30,9 @@ data class WeatherForecast(
     @Json(name = "timezone_offset") val timezoneOffset: Int,
     val hourly: List<HourlyForecast> = emptyList(),
     val daily: List<DailyForecast> = emptyList(),
-)
+) : WeatherApiServiceResponse {
+    override fun convertToForecastData(): AppForecastData = this.toForecastData()
+}
 
 @JsonClass(generateAdapter = true)
 data class DailyForecast(

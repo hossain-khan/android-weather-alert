@@ -9,8 +9,8 @@ import dev.hossain.weatheralert.data.WeatherService
 data class CityForecast(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
-    val forecastId: Int = 0,
-    val cityId: Int,
+    val forecastId: Long = 0,
+    val cityId: Long,
     val latitude: Double,
     val longitude: Double,
     val dailyCumulativeSnow: Double,

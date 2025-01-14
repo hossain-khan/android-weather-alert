@@ -53,7 +53,7 @@ class WeatherCheckWorkerTest {
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
-        mockWebServer.start(60000)
+        mockWebServer.start()
         NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
         injectAndSetupTestClass()

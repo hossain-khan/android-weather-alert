@@ -110,6 +110,7 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":data-model"))
     implementation(project(":service:tomorrowio"))
     implementation(project(":service:openweather"))
     implementation(platform(libs.androidx.compose.bom))

@@ -24,10 +24,10 @@ interface CityDao {
     suspend fun updateCity(city: City)
 
     @Query("DELETE FROM cities WHERE id = :cityId")
-    suspend fun deleteCityById(cityId: Int)
+    suspend fun deleteCityById(cityId: Long)
 
     @Query("SELECT * FROM cities WHERE id = :cityId")
-    suspend fun getCityById(cityId: Int): City?
+    suspend fun getCityById(cityId: Long): City?
 
     @Query("SELECT * FROM cities ORDER BY city ASC")
     fun getAllCities(): Flow<List<City>>

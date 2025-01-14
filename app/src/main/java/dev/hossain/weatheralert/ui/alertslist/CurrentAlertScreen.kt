@@ -82,10 +82,10 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.AlertTileData
-import dev.hossain.weatheralert.data.CUMULATIVE_DATA_HOURS_24
-import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
@@ -116,7 +116,7 @@ data class CurrentWeatherAlertScreen(
         ) : Event()
 
         data class OnItemClicked(
-            val alertId: Int,
+            val alertId: Long,
         ) : Event()
 
         data object AddNewAlertClicked : Event()

@@ -20,6 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Weather Alert"
-include(":app")
+include(":data-model")
 include(":service:tomorrowio")
 include(":service:openweather")
+include(":app")

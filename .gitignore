@@ -36,3 +36,4 @@ google-services.json
 *.aab
 app/debug/*
 app/release/*
+*.salive

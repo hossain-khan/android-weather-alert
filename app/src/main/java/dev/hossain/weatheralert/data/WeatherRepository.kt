@@ -1,14 +1,16 @@
 package dev.hossain.weatheralert.data
 import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
+import dev.hossain.weatheralert.datamodel.AppForecastData
+import dev.hossain.weatheralert.datamodel.Rain
+import dev.hossain.weatheralert.datamodel.Snow
+import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
-import io.tomorrow.api.model.WeatherResponse
 import org.openweathermap.api.OpenWeatherService
-import org.openweathermap.api.model.WeatherForecast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -26,14 +28,14 @@ interface WeatherRepository {
      * @param latitude The latitude of the city.
      * @param longitude The longitude of the city.
      * @param skipCache Whether to skip the cache and fetch fresh data.
-     * @return An [ApiResult] containing the [ForecastData] or an error.
+     * @return An [ApiResult] containing the [AppForecastData] or an error.
      */
     suspend fun getDailyForecast(
-        cityId: Int,
+        cityId: Long,
         latitude: Double,
         longitude: Double,
         skipCache: Boolean = false,
-    ): ApiResult<ForecastData, Unit>
+    ): ApiResult<AppForecastData, Unit>
 
     /**
      * Validates the given API key by sending a basic API request for given [weatherService].
@@ -59,11 +61,11 @@ class WeatherRepositoryImpl
         private val activeWeatherService: ActiveWeatherService,
     ) : WeatherRepository {
         override suspend fun getDailyForecast(
-            cityId: Int,
+            cityId: Long,
             latitude: Double,
             longitude: Double,
             skipCache: Boolean,
-        ): ApiResult<ForecastData, Unit> {
+        ): ApiResult<AppForecastData, Unit> {
             val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
 
             return if (skipCache.not() &&
@@ -140,8 +142,8 @@ class WeatherRepositoryImpl
         private suspend fun loadForecastFromNetwork(
             latitude: Double,
             longitude: Double,
-            cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> {
             val selectedService = activeWeatherService.selectedService()
             return when (selectedService) {
                 WeatherService.OPEN_WEATHER_MAP -> {
@@ -168,8 +170,8 @@ class WeatherRepositoryImpl
             weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
-            cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
                     apiKey = apiKey.key,
@@ -178,7 +180,7 @@ class WeatherRepositoryImpl
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
-                    val convertToForecastData = apiResult.value.toForecastData()
+                    val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
                     cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
@@ -193,8 +195,8 @@ class WeatherRepositoryImpl
             weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
-            cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
@@ -202,7 +204,7 @@ class WeatherRepositoryImpl
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
-                    val convertToForecastData = apiResult.value.toForecastData()
+                    val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
                     cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
@@ -215,55 +217,25 @@ class WeatherRepositoryImpl
 
         private suspend fun cacheCityForecastData(
             weatherService: WeatherService,
-            cityId: Int,
-            convertToForecastData: ForecastData,
+            cityId: Long,
+            convertToAppForecastData: AppForecastData,
         ) {
             cityForecastDao.insertCityForecast(
                 CityForecast(
                     cityId = cityId,
-                    latitude = convertToForecastData.latitude,
-                    longitude = convertToForecastData.longitude,
-                    dailyCumulativeSnow = convertToForecastData.snow.dailyCumulativeSnow,
-                    nextDaySnow = convertToForecastData.snow.nextDaySnow,
-                    dailyCumulativeRain = convertToForecastData.rain.dailyCumulativeRain,
-                    nextDayRain = convertToForecastData.rain.nextDayRain,
+                    latitude = convertToAppForecastData.latitude,
+                    longitude = convertToAppForecastData.longitude,
+                    dailyCumulativeSnow = convertToAppForecastData.snow.dailyCumulativeSnow,
+                    nextDaySnow = convertToAppForecastData.snow.nextDaySnow,
+                    dailyCumulativeRain = convertToAppForecastData.rain.dailyCumulativeRain,
+                    nextDayRain = convertToAppForecastData.rain.nextDayRain,
                     forecastSourceService = weatherService,
                 ),
             )
         }
 
-        private fun WeatherForecast.toForecastData(): ForecastData =
-            ForecastData(
-                latitude = lat,
-                longitude = lon,
-                snow =
-                    Snow(
-                        dailyCumulativeSnow =
-                            hourly
-                                .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
-                        nextDaySnow =
-                            daily
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .firstOrNull()
-                                ?.snowVolume ?: 0.0,
-                        weeklyCumulativeSnow = 0.0,
-                    ),
-                rain =
-                    Rain(
-                        dailyCumulativeRain =
-                            hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
-                        nextDayRain =
-                            daily
-                                .firstOrNull()
-                                ?.rainVolume ?: 0.0,
-                        weeklyCumulativeRain = 0.0,
-                    ),
-            )
-
         private fun convertToForecastData(cityForecast: CityForecast) =
-            ForecastData(
+            AppForecastData(
                 latitude = cityForecast.latitude,
                 longitude = cityForecast.longitude,
                 snow =
@@ -276,38 +248,6 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain = cityForecast.dailyCumulativeRain,
                         nextDayRain = cityForecast.nextDayRain,
-                        weeklyCumulativeRain = 0.0,
-                    ),
-            )
-
-        private fun WeatherResponse.toForecastData(): ForecastData =
-            ForecastData(
-                latitude = location.latitude,
-                longitude = location.longitude,
-                snow =
-                    Snow(
-                        dailyCumulativeSnow =
-                            timelines.hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.values.snowDepth ?: 0.0 },
-                        nextDaySnow =
-                            timelines.daily
-                                .firstOrNull()
-                                ?.values
-                                ?.snowAccumulation ?: 0.0,
-                        weeklyCumulativeSnow = 0.0,
-                    ),
-                rain =
-                    Rain(
-                        dailyCumulativeRain =
-                            timelines.hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.values.rainAccumulation ?: 0.0 },
-                        nextDayRain =
-                            timelines.daily
-                                .firstOrNull()
-                                ?.values
-                                ?.rainAccumulation ?: 0.0,
                         weeklyCumulativeRain = 0.0,
                     ),
             )

@@ -7,8 +7,8 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.notification.triggerNotification
@@ -88,7 +88,7 @@ class WeatherCheckWorker
                                 if (snowTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
                                         context = context,
-                                        notificationId = configuredAlert.alert.id,
+                                        notificationId = configuredAlert.alert.id.toInt(), // Precision loss?
                                         notificationTag = configuredAlert.toNotificationTag(),
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = snowTomorrow,
@@ -102,7 +102,7 @@ class WeatherCheckWorker
                                 if (rainTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
                                         context = context,
-                                        notificationId = configuredAlert.alert.id,
+                                        notificationId = configuredAlert.alert.id.toInt(), // Precision loss?
                                         notificationTag = configuredAlert.toNotificationTag(),
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = rainTomorrow,

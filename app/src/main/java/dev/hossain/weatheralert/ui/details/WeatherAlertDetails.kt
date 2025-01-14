@@ -52,10 +52,10 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.data.CUMULATIVE_DATA_HOURS_24
-import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
@@ -75,7 +75,7 @@ import timber.log.Timber
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
-    val alertId: Int,
+    val alertId: Long,
 ) : Screen {
     data class State(
         val alertConfig: Alert?,

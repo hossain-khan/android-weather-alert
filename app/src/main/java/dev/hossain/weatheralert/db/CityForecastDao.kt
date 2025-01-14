@@ -19,10 +19,10 @@ interface CityForecastDao {
     suspend fun deleteCityForecast(cityForecast: CityForecast)
 
     @Query("DELETE FROM city_forecasts WHERE forecast_id = :forecastId")
-    suspend fun deleteCityForecastById(forecastId: Int)
+    suspend fun deleteCityForecastById(forecastId: Long)
 
     @Query("SELECT * FROM city_forecasts WHERE forecast_id = :forecastId")
-    suspend fun getCityForecastById(forecastId: Int): CityForecast?
+    suspend fun getCityForecastById(forecastId: Long): CityForecast?
 
     /**
      * Get latest forecast for a city.
@@ -31,5 +31,5 @@ interface CityForecastDao {
      * However, this is not required for now.
      */
     @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
-    suspend fun getCityForecastsByCityId(cityId: Int): List<CityForecast>
+    suspend fun getCityForecastsByCityId(cityId: Long): List<CityForecast>
 }
