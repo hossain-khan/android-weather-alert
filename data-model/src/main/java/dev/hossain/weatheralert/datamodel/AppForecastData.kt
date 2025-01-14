@@ -3,7 +3,7 @@ package dev.hossain.weatheralert.datamodel
 /**
  * Contains minimum data required for weather alert app.
  */
-data class ForecastData(
+data class AppForecastData(
     val latitude: Double = 0.0,
     val longitude: Double = 0.0,
     val snow: Snow = Snow(),

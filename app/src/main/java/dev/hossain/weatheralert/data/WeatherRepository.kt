@@ -1,7 +1,7 @@
 package dev.hossain.weatheralert.data
 import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
-import dev.hossain.weatheralert.datamodel.ForecastData
+import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
 import dev.hossain.weatheralert.db.CityForecast
@@ -29,14 +29,14 @@ interface WeatherRepository {
      * @param latitude The latitude of the city.
      * @param longitude The longitude of the city.
      * @param skipCache Whether to skip the cache and fetch fresh data.
-     * @return An [ApiResult] containing the [ForecastData] or an error.
+     * @return An [ApiResult] containing the [AppForecastData] or an error.
      */
     suspend fun getDailyForecast(
         cityId: Int,
         latitude: Double,
         longitude: Double,
         skipCache: Boolean = false,
-    ): ApiResult<ForecastData, Unit>
+    ): ApiResult<AppForecastData, Unit>
 
     /**
      * Validates the given API key by sending a basic API request for given [weatherService].
@@ -66,7 +66,7 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             skipCache: Boolean,
-        ): ApiResult<ForecastData, Unit> {
+        ): ApiResult<AppForecastData, Unit> {
             val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
 
             return if (skipCache.not() &&
@@ -144,7 +144,7 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+        ): ApiResult<AppForecastData, Unit> {
             val selectedService = activeWeatherService.selectedService()
             return when (selectedService) {
                 WeatherService.OPEN_WEATHER_MAP -> {
@@ -172,7 +172,7 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+        ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
                     apiKey = apiKey.key,
@@ -197,7 +197,7 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             cityId: Int,
-        ): ApiResult<ForecastData, Unit> {
+        ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
@@ -219,24 +219,24 @@ class WeatherRepositoryImpl
         private suspend fun cacheCityForecastData(
             weatherService: WeatherService,
             cityId: Int,
-            convertToForecastData: ForecastData,
+            convertToAppForecastData: AppForecastData,
         ) {
             cityForecastDao.insertCityForecast(
                 CityForecast(
                     cityId = cityId,
-                    latitude = convertToForecastData.latitude,
-                    longitude = convertToForecastData.longitude,
-                    dailyCumulativeSnow = convertToForecastData.snow.dailyCumulativeSnow,
-                    nextDaySnow = convertToForecastData.snow.nextDaySnow,
-                    dailyCumulativeRain = convertToForecastData.rain.dailyCumulativeRain,
-                    nextDayRain = convertToForecastData.rain.nextDayRain,
+                    latitude = convertToAppForecastData.latitude,
+                    longitude = convertToAppForecastData.longitude,
+                    dailyCumulativeSnow = convertToAppForecastData.snow.dailyCumulativeSnow,
+                    nextDaySnow = convertToAppForecastData.snow.nextDaySnow,
+                    dailyCumulativeRain = convertToAppForecastData.rain.dailyCumulativeRain,
+                    nextDayRain = convertToAppForecastData.rain.nextDayRain,
                     forecastSourceService = weatherService,
                 ),
             )
         }
 
-        private fun WeatherForecast.toForecastData(): ForecastData =
-            ForecastData(
+        private fun WeatherForecast.toForecastData(): AppForecastData =
+            AppForecastData(
                 latitude = lat,
                 longitude = lon,
                 snow =
@@ -266,7 +266,7 @@ class WeatherRepositoryImpl
             )
 
         private fun convertToForecastData(cityForecast: CityForecast) =
-            ForecastData(
+            AppForecastData(
                 latitude = cityForecast.latitude,
                 longitude = cityForecast.longitude,
                 snow =
@@ -283,8 +283,8 @@ class WeatherRepositoryImpl
                     ),
             )
 
-        private fun WeatherResponse.toForecastData(): ForecastData =
-            ForecastData(
+        private fun WeatherResponse.toForecastData(): AppForecastData =
+            AppForecastData(
                 latitude = location.latitude,
                 longitude = location.longitude,
                 snow =

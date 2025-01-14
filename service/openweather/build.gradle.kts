@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":data-model"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.timber)
 
