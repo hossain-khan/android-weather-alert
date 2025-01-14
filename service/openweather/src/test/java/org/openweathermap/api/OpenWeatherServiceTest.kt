@@ -25,7 +25,7 @@ class OpenWeatherServiceTest {
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
-        mockWebServer.start(60000)
+        mockWebServer.start()
 
         tomorrowIoService =
             OpenWeatherServiceBuilder

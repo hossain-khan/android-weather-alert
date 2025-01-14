@@ -53,7 +53,7 @@ class WeatherRepositoryTest {
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
-        mockWebServer.start(60000)
+        mockWebServer.start()
         NetworkModule.openWeatherBaseUrl = mockWebServer.url("/")
         NetworkModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
