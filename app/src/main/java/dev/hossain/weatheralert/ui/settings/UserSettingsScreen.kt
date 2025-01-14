@@ -107,7 +107,6 @@ class UserSettingsPresenter
         override fun present(): UserSettingsScreen.State {
             val scope = rememberCoroutineScope()
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
-            var selectedUpdateFrequency by remember { mutableLongStateOf(preferencesManager.preferredUpdateIntervalSync) }
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherService.collect { service ->
@@ -122,7 +121,7 @@ class UserSettingsPresenter
 
             return UserSettingsScreen.State(
                 selectedService = selectedService,
-                selectedUpdateFrequency = selectedUpdateFrequency,
+                selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
