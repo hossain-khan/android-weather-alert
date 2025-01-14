@@ -22,11 +22,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -60,6 +65,7 @@ import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -70,12 +76,17 @@ data class UserSettingsScreen(
 ) : Screen {
     data class State(
         val selectedService: WeatherService,
+        val selectedUpdateFrequency: Long,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
         data class ServiceSelected(
             val service: WeatherService,
+        ) : Event()
+
+        data class UpdateFrequencySelected(
+            val frequency: Long,
         ) : Event()
 
         data object AddServiceApiKey : Event()
@@ -96,6 +107,7 @@ class UserSettingsPresenter
         override fun present(): UserSettingsScreen.State {
             val scope = rememberCoroutineScope()
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
+            var selectedUpdateFrequency by remember { mutableLongStateOf(preferencesManager.preferredUpdateIntervalSync) }
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherService.collect { service ->
@@ -110,6 +122,7 @@ class UserSettingsPresenter
 
             return UserSettingsScreen.State(
                 selectedService = selectedService,
+                selectedUpdateFrequency = selectedUpdateFrequency,
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
@@ -125,6 +138,13 @@ class UserSettingsPresenter
 
                     UserSettingsScreen.Event.AddServiceApiKey -> {
                         navigator.goTo(BringYourOwnApiKeyScreen(weatherApiService = selectedService))
+                    }
+
+                    is UserSettingsScreen.Event.UpdateFrequencySelected -> {
+                        Timber.d("Selected update frequency: ${event.frequency}")
+                        scope.launch {
+                            preferencesManager.savePreferredUpdateInterval(event.frequency)
+                        }
                     }
                 }
             }
@@ -173,12 +193,19 @@ fun UserSettingsScreen(
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
+            WeatherUpdateFrequencyUi(
+                selectedFrequency = state.selectedUpdateFrequency,
+                onUpdateFrequencySelected = { frequency: Long ->
+                    state.eventSink(UserSettingsScreen.Event.UpdateFrequencySelected(frequency))
+                },
+            )
+
             Text(
                 text = "Select your preferred weather API service:",
-                style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
             )
-            RadioButtonGroup(
+            WeatherServiceSelectionGroupUi(
                 selectedService = state.selectedService,
                 onServiceSelected = { service ->
                     state.eventSink(UserSettingsScreen.Event.ServiceSelected(service))
@@ -189,7 +216,10 @@ fun UserSettingsScreen(
                 onClick = {
                     state.eventSink(UserSettingsScreen.Event.AddServiceApiKey)
                 },
-                modifier = Modifier.padding(top = 24.dp).align(Alignment.CenterHorizontally),
+                modifier =
+                    Modifier
+                        .padding(top = 24.dp)
+                        .align(Alignment.CenterHorizontally),
             ) {
                 Text("Add API Service Key")
             }
@@ -217,7 +247,40 @@ fun UserSettingsScreen(
 }
 
 @Composable
-fun RadioButtonGroup(
+fun WeatherUpdateFrequencyUi(
+    selectedFrequency: Long,
+    onUpdateFrequencySelected: (Long) -> Unit,
+) {
+    var selectedIndex by remember { mutableIntStateOf(supportedWeatherUpdateInterval.indexOf(selectedFrequency)) }
+    val options = supportedWeatherUpdateInterval.map { "$it hours" }
+    Column {
+        Text(
+            text = "Select how often weather should be checked for notification:",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        )
+        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+            options.forEachIndexed { index, label ->
+                SegmentedButton(
+                    shape =
+                        SegmentedButtonDefaults.itemShape(
+                            index = index,
+                            count = options.size,
+                        ),
+                    onClick = {
+                        selectedIndex = index
+                        onUpdateFrequencySelected(supportedWeatherUpdateInterval[index])
+                    },
+                    selected = index == selectedIndex,
+                    label = { Text(label) },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherServiceSelectionGroupUi(
     selectedService: WeatherService,
     onServiceSelected: (WeatherService) -> Unit,
 ) {
@@ -261,7 +324,10 @@ fun RadioButtonGroup(
                         Text(
                             text = serviceConfig.description,
                             style = MaterialTheme.typography.labelSmall,
-                            modifier = Modifier.alpha(0.6f).padding(top = 4.dp),
+                            modifier =
+                                Modifier
+                                    .alpha(0.6f)
+                                    .padding(top = 4.dp),
                         )
                     }
                 }
@@ -277,6 +343,7 @@ fun UserSettingsScreenPreview() {
     val sampleState =
         UserSettingsScreen.State(
             selectedService = WeatherService.OPEN_WEATHER_MAP,
+            selectedUpdateFrequency = 12,
             eventSink = {},
         )
     WeatherAlertAppTheme {

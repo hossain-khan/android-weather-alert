@@ -8,6 +8,25 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
 
+internal const val WEATHER_UPDATE_INTERVAL_6_HOURS = 6L
+internal const val WEATHER_UPDATE_INTERVAL_12_HOURS = 12L
+internal const val WEATHER_UPDATE_INTERVAL_18_HOURS = 18L
+
+/**
+ * Default weather update interval in hours.
+ */
+internal const val DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS = WEATHER_UPDATE_INTERVAL_12_HOURS
+
+/**
+ * Supported weather update interval in hours.
+ */
+internal val supportedWeatherUpdateInterval: List<Long> =
+    listOf(
+        WEATHER_UPDATE_INTERVAL_6_HOURS,
+        WEATHER_UPDATE_INTERVAL_12_HOURS,
+        WEATHER_UPDATE_INTERVAL_18_HOURS,
+    )
+
 /**
  * Enqueue weather check worker to run in background using WorkManager.
  * - https://developer.android.com/topic/libraries/architecture/workmanager
@@ -16,7 +35,7 @@ fun scheduleWeatherAlertsWork(context: Context) {
     val weatherWorker =
         PeriodicWorkRequestBuilder<WeatherCheckWorker>(
             // Check every N hours
-            repeatInterval = 6,
+            repeatInterval = DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS,
             repeatIntervalTimeUnit = TimeUnit.HOURS,
         ).setConstraints(
             Constraints
