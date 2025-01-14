@@ -1,6 +1,9 @@
 # Android - Weather Alert
 A simple app to alert you about specific weather condition.
 
+![](resources/google-play/google-play-banner.png)
+
+
 <img width="300" align="right" src="https://github.com/user-attachments/assets/79dc8278-9e12-4325-a16d-0e2ab89b3e3a" alt="Weather Alert Banner Image">
 
 > 🚧 early phase, work in progress... 👷🏽‍♂️
