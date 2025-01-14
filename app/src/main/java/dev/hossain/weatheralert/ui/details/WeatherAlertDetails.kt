@@ -52,6 +52,7 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.data.WeatherAlertCategory
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.icon
@@ -66,6 +67,7 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatToDate
+import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -314,13 +316,20 @@ fun WeatherAlertConfigUi(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Threshold: ${alert.threshold}",
+                        text = "Threshold: ${alert.threshold.formatUnit(alert.alertCategory.unit)}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Current Status: ${when (alert.alertCategory){
-                            WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow
-                            WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain
+                        text = "Next $CUMULATIVE_DATA_HOURS_24 Hours: ${when (alert.alertCategory){
+                            WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow.formatUnit(alert.alertCategory.unit)
+                            WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain.formatUnit(alert.alertCategory.unit)
+                        }}",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
+                    Text(
+                        text = "Tomorrow: ${when (alert.alertCategory){
+                            WeatherAlertCategory.SNOW_FALL -> forecast.nextDaySnow.formatUnit(alert.alertCategory.unit)
+                            WeatherAlertCategory.RAIN_FALL -> forecast.nextDayRain.formatUnit(alert.alertCategory.unit)
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )

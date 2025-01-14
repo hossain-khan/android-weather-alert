@@ -243,6 +243,7 @@ class WeatherRepositoryImpl
                                 .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
                         nextDaySnow =
                             daily
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .firstOrNull()
                                 ?.snowVolume ?: 0.0,
                         weeklyCumulativeSnow = 0.0,
@@ -251,6 +252,7 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain =
                             hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
                         nextDayRain =
                             daily
@@ -278,15 +280,15 @@ class WeatherRepositoryImpl
                     ),
             )
 
-        private fun WeatherResponse.toForecastData(): ForecastData {
-            // Convert `WeatherResponse` to `ForecastData`
-            return ForecastData(
+        private fun WeatherResponse.toForecastData(): ForecastData =
+            ForecastData(
                 latitude = location.latitude,
                 longitude = location.longitude,
                 snow =
                     Snow(
                         dailyCumulativeSnow =
                             timelines.hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.values.snowDepth ?: 0.0 },
                         nextDaySnow =
                             timelines.daily
@@ -299,6 +301,7 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain =
                             timelines.hourly
+                                .take(CUMULATIVE_DATA_HOURS_24)
                                 .sumOf { it.values.rainAccumulation ?: 0.0 },
                         nextDayRain =
                             timelines.daily
@@ -308,5 +311,4 @@ class WeatherRepositoryImpl
                         weeklyCumulativeRain = 0.0,
                     ),
             )
-        }
     }

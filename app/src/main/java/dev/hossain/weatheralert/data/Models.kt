@@ -11,6 +11,11 @@ import java.util.UUID
 const val DEFAULT_SNOW_THRESHOLD = 20.0f // mm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
 
+/**
+ * Total hours used to calculate the cumulative data for each type of weather alert.
+ */
+const val CUMULATIVE_DATA_HOURS_24 = 24
+
 @Parcelize
 data class AlertTileData constructor(
     val alertId: Int,
