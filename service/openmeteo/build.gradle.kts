@@ -35,6 +35,8 @@ android {
 
 dependencies {
     implementation(project(":data-model"))
+    // https://github.com/open-meteo/open-meteo-api-kotlin/wiki/Examples
+    implementation(libs.openmeteo.api.kotlin)
     implementation(libs.androidx.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

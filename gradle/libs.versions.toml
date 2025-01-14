@@ -175,6 +175,10 @@ eithernet-integration-retrofit = { group = "com.slack.eithernet", name = "either
 
 robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14.1" }
 
+# open-meteo-api-kotlin
+# https://github.com/open-meteo/open-meteo-api-kotlin/releases
+openmeteo-api-kotlin = { group = "com.open-meteo", name = "open-meteo-api-kotlin", version = "0.7.1-beta.1" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
