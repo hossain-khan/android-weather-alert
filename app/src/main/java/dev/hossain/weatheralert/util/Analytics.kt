@@ -22,7 +22,10 @@ interface Analytics {
      */
     suspend fun logScreenView(circuitScreen: KClass<out Screen>)
 
-    suspend fun logWorkerJob(alertsCount: Long)
+    suspend fun logWorkerJob(
+        interval: Long,
+        alertsCount: Long,
+    )
 
     suspend fun logWorkSuccess()
 }
@@ -49,8 +52,12 @@ class AnalyticsImpl
             }
         }
 
-        override suspend fun logWorkerJob(alertsCount: Long) {
+        override suspend fun logWorkerJob(
+            interval: Long,
+            alertsCount: Long,
+        ) {
             firebaseAnalytics.logEvent("wa_worker_job_initiated") {
+                param("update_interval", interval)
                 param("alerts_count", alertsCount)
             }
         }

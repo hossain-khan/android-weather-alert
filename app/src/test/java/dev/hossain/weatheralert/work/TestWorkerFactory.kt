@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.util.Analytics
@@ -13,6 +14,7 @@ class TestWorkerFactory(
     private val alertDao: AlertDao,
     private val weatherRepository: WeatherRepository,
     private val analytics: Analytics,
+    private val preferencesManager: PreferencesManager,
 ) : WorkerFactory() {
     override fun createWorker(
         appContext: Context,
@@ -27,6 +29,7 @@ class TestWorkerFactory(
                     alertDao = alertDao,
                     weatherRepository = weatherRepository,
                     analytics = analytics,
+                    preferencesManager = preferencesManager,
                 )
             }
             else -> null

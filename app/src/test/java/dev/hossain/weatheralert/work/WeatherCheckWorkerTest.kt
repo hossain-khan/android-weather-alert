@@ -6,6 +6,7 @@ import androidx.work.ListenableWorker
 import androidx.work.testing.TestListenableWorkerBuilder
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.ktx.analytics
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
@@ -46,6 +47,9 @@ class WeatherCheckWorkerTest {
     @Inject
     internal lateinit var analytics: Analytics
 
+    @Inject
+    internal lateinit var preferencesManager: PreferencesManager
+
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
@@ -59,6 +63,7 @@ class WeatherCheckWorkerTest {
                 alertDao = alertDao,
                 weatherRepository = weatherRepository,
                 analytics = analytics,
+                preferencesManager = preferencesManager,
             )
     }
 
