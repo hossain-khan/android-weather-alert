@@ -15,8 +15,10 @@ import androidx.room.RoomDatabase
     version = 4,
     exportSchema = true,
     // https://developer.android.com/training/data-storage/room/migrating-db-versions
-    autoMigrations = [AutoMigration(from = 1, to = 2),
-        AutoMigration(from = 3, to = 4)],
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 3, to = 4),
+    ],
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun cityDao(): CityDao
