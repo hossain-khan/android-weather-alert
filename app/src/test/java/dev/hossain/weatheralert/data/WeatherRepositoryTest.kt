@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.slack.eithernet.ApiResult
+import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
@@ -121,7 +122,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(33.44)
             assertThat(forecast.longitude).isEqualTo(-94.04)
         }
@@ -142,7 +143,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(21.1619)
             assertThat(forecast.longitude).isEqualTo(-86.8515)
         }
@@ -163,7 +164,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(43.7)
             assertThat(forecast.longitude).isEqualTo(-79.42)
         }
@@ -184,7 +185,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(43.9319)
             assertThat(forecast.longitude).isEqualTo(-78.851)
         }
@@ -205,7 +206,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(38.4685)
             assertThat(forecast.longitude).isEqualTo(-100.9596)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(1.2499999999999998)
@@ -227,7 +228,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(38.6289)
             assertThat(forecast.longitude).isEqualTo(-90.2546)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(27.23)
@@ -249,7 +250,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(32.864)
             assertThat(forecast.longitude).isEqualTo(-90.43)
             assertThat(forecast.rain.dailyCumulativeRain).isEqualTo(8.85)
@@ -271,7 +272,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(50.7756)
             assertThat(forecast.longitude).isEqualTo(6.0836)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(20.249999999999996)
@@ -296,7 +297,7 @@ class WeatherRepositoryTest {
                     longitude = -0.0,
                 )
             assert(result is ApiResult.Success)
-            val forecast: ForecastData = (result as ApiResult.Success).value
+            val forecast: AppForecastData = (result as ApiResult.Success).value
             assertThat(forecast.latitude).isEqualTo(43.9)
             assertThat(forecast.longitude).isEqualTo(-78.85)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(5.89)

@@ -4,14 +4,13 @@ import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
+import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
-import io.tomorrow.api.model.WeatherResponse
 import org.openweathermap.api.OpenWeatherService
-import org.openweathermap.api.model.WeatherForecast
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -181,7 +180,7 @@ class WeatherRepositoryImpl
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
-                    val convertToForecastData = apiResult.value.toForecastData()
+                    val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
                     cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
@@ -205,7 +204,7 @@ class WeatherRepositoryImpl
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
-                    val convertToForecastData = apiResult.value.toForecastData()
+                    val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
                     cacheCityForecastData(weatherService, cityId, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
@@ -235,36 +234,6 @@ class WeatherRepositoryImpl
             )
         }
 
-        private fun WeatherForecast.toForecastData(): AppForecastData =
-            AppForecastData(
-                latitude = lat,
-                longitude = lon,
-                snow =
-                    Snow(
-                        dailyCumulativeSnow =
-                            hourly
-                                .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
-                        nextDaySnow =
-                            daily
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .firstOrNull()
-                                ?.snowVolume ?: 0.0,
-                        weeklyCumulativeSnow = 0.0,
-                    ),
-                rain =
-                    Rain(
-                        dailyCumulativeRain =
-                            hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 },
-                        nextDayRain =
-                            daily
-                                .firstOrNull()
-                                ?.rainVolume ?: 0.0,
-                        weeklyCumulativeRain = 0.0,
-                    ),
-            )
-
         private fun convertToForecastData(cityForecast: CityForecast) =
             AppForecastData(
                 latitude = cityForecast.latitude,
@@ -279,38 +248,6 @@ class WeatherRepositoryImpl
                     Rain(
                         dailyCumulativeRain = cityForecast.dailyCumulativeRain,
                         nextDayRain = cityForecast.nextDayRain,
-                        weeklyCumulativeRain = 0.0,
-                    ),
-            )
-
-        private fun WeatherResponse.toForecastData(): AppForecastData =
-            AppForecastData(
-                latitude = location.latitude,
-                longitude = location.longitude,
-                snow =
-                    Snow(
-                        dailyCumulativeSnow =
-                            timelines.hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.values.snowDepth ?: 0.0 },
-                        nextDaySnow =
-                            timelines.daily
-                                .firstOrNull()
-                                ?.values
-                                ?.snowAccumulation ?: 0.0,
-                        weeklyCumulativeSnow = 0.0,
-                    ),
-                rain =
-                    Rain(
-                        dailyCumulativeRain =
-                            timelines.hourly
-                                .take(CUMULATIVE_DATA_HOURS_24)
-                                .sumOf { it.values.rainAccumulation ?: 0.0 },
-                        nextDayRain =
-                            timelines.daily
-                                .firstOrNull()
-                                ?.values
-                                ?.rainAccumulation ?: 0.0,
                         weeklyCumulativeRain = 0.0,
                     ),
             )
