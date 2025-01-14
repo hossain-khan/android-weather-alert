@@ -1,0 +1,11 @@
+{
+  "timelines": {
+    "minutely": [],
+    "hourly": [],
+    "daily": []
+  },
+  "location": {
+    "lat": 40.7128,
+    "lon": -74.0060
+  }
+}
