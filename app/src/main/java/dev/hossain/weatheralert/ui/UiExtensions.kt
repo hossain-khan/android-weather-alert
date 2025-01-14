@@ -66,7 +66,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
                 apiExhaustedMessage =
                     "Unfortunately, API key provided with the app has been exhausted.\n\n" +
                         "To continue to use this app, you need to provide your own API key from Tomorrow.io.",
-                apiFormatGuide = "API key should be 32 characters long and contain only hexadecimal characters.",
+                apiFormatGuide = "API key should be 32 characters long and contain only letters and numbers.",
                 apiServiceProduceName = "Weather API",
             )
     }
