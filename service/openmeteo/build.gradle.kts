@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -35,9 +36,14 @@ android {
 
 dependencies {
     implementation(project(":data-model"))
+    implementation(libs.androidx.core.ktx)
+
     // https://github.com/open-meteo/open-meteo-api-kotlin/wiki/Examples
     implementation(libs.openmeteo.api.kotlin)
-    implementation(libs.androidx.core.ktx)
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.serialization.properties)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

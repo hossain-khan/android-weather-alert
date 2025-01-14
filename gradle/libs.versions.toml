@@ -8,6 +8,8 @@ junitKtx = "1.2.1"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxSerializationJson = "1.7.3"
+kotlinxSerializationProperties = "1.6.3"
 testCore = "1.6.1"
 coroutinesTest = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
@@ -156,8 +158,10 @@ retrofit-mock-server = { group = "com.squareup.retrofit2", name = "retrofit-mock
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 
-
-
+# Kotlin multiplatform / multi-format serialization
+# https://github.com/Kotlin/kotlinx.serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx",name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+kotlinx-serialization-properties = { group = "org.jetbrains.kotlinx",name = "kotlinx-serialization-properties", version.ref = "kotlinxSerializationProperties" }
 
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
@@ -190,6 +194,10 @@ androidx-room = { id = "androidx.room", version.ref = "roomDb" }
 # Add @Parcelize support
 # https://plugins.gradle.org/plugin/org.jetbrains.kotlin.plugin.parcelize
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+
+# Add Kotlin serialization support
+# https://github.com/Kotlin/kotlinx.serialization
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp"}
 
