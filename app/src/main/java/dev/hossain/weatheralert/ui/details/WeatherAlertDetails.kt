@@ -75,7 +75,7 @@ import timber.log.Timber
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
-    val alertId: Int,
+    val alertId: Long,
 ) : Screen {
     data class State(
         val alertConfig: Alert?,

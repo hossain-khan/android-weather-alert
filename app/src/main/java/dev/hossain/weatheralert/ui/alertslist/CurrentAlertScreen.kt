@@ -116,7 +116,7 @@ data class CurrentWeatherAlertScreen(
         ) : Event()
 
         data class OnItemClicked(
-            val alertId: Int,
+            val alertId: Long,
         ) : Event()
 
         data object AddNewAlertClicked : Event()

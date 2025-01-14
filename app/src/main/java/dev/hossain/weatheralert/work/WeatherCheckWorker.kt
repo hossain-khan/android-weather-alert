@@ -88,7 +88,7 @@ class WeatherCheckWorker
                                 if (snowTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
                                         context = context,
-                                        notificationId = configuredAlert.alert.id,
+                                        notificationId = configuredAlert.alert.id.toInt(), // Precision loss?
                                         notificationTag = configuredAlert.toNotificationTag(),
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = snowTomorrow,
@@ -102,7 +102,7 @@ class WeatherCheckWorker
                                 if (rainTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(
                                         context = context,
-                                        notificationId = configuredAlert.alert.id,
+                                        notificationId = configuredAlert.alert.id.toInt(), // Precision loss?
                                         notificationTag = configuredAlert.toNotificationTag(),
                                         alertCategory = configuredAlert.alert.alertCategory,
                                         currentValue = rainTomorrow,

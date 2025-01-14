@@ -15,7 +15,7 @@ interface AlertDao {
     suspend fun getAll(): List<Alert>
 
     @Query("SELECT * FROM alerts WHERE city_id = :cityId")
-    suspend fun getAlertsByCityId(cityId: Int): List<Alert>
+    suspend fun getAlertsByCityId(cityId: Long): List<Alert>
 
     @Query("SELECT * FROM alerts WHERE alert_category = :category")
     suspend fun getAlertsByCategory(category: WeatherAlertCategory): List<Alert>
@@ -28,7 +28,7 @@ interface AlertDao {
 
     @Query("UPDATE alerts SET notes = :notes WHERE id = :alertId")
     suspend fun updateAlertNote(
-        alertId: Int,
+        alertId: Long,
         notes: String,
     )
 
@@ -36,11 +36,11 @@ interface AlertDao {
     suspend fun deleteAlert(alert: Alert)
 
     @Query("DELETE FROM alerts WHERE id = :alertId")
-    suspend fun deleteAlertById(alertId: Int)
+    suspend fun deleteAlertById(alertId: Long)
 
     @Transaction
     @Query("SELECT * FROM alerts WHERE id = :alertId")
-    suspend fun getAlertWithCity(alertId: Int): UserCityAlert
+    suspend fun getAlertWithCity(alertId: Long): UserCityAlert
 
     @Transaction
     @Query("SELECT * FROM alerts")

@@ -28,12 +28,12 @@ import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
     indices = [Index(value = ["city_id"])],
 )
 data class Alert(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     /**
      * Foreign key to City table.
      * @see [City.id]
      */
-    @ColumnInfo(name = "city_id") val cityId: Int,
+    @ColumnInfo(name = "city_id") val cityId: Long,
     @ColumnInfo(name = "alert_category") val alertCategory: WeatherAlertCategory,
     val threshold: Float,
     val notes: String = "",

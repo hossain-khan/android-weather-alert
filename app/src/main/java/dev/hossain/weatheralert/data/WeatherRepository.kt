@@ -31,7 +31,7 @@ interface WeatherRepository {
      * @return An [ApiResult] containing the [AppForecastData] or an error.
      */
     suspend fun getDailyForecast(
-        cityId: Int,
+        cityId: Long,
         latitude: Double,
         longitude: Double,
         skipCache: Boolean = false,
@@ -61,7 +61,7 @@ class WeatherRepositoryImpl
         private val activeWeatherService: ActiveWeatherService,
     ) : WeatherRepository {
         override suspend fun getDailyForecast(
-            cityId: Int,
+            cityId: Long,
             latitude: Double,
             longitude: Double,
             skipCache: Boolean,
@@ -142,7 +142,7 @@ class WeatherRepositoryImpl
         private suspend fun loadForecastFromNetwork(
             latitude: Double,
             longitude: Double,
-            cityId: Int,
+            cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val selectedService = activeWeatherService.selectedService()
             return when (selectedService) {
@@ -170,7 +170,7 @@ class WeatherRepositoryImpl
             weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
-            cityId: Int,
+            cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
@@ -195,7 +195,7 @@ class WeatherRepositoryImpl
             weatherService: WeatherService,
             latitude: Double,
             longitude: Double,
-            cityId: Int,
+            cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
@@ -217,7 +217,7 @@ class WeatherRepositoryImpl
 
         private suspend fun cacheCityForecastData(
             weatherService: WeatherService,
-            cityId: Int,
+            cityId: Long,
             convertToAppForecastData: AppForecastData,
         ) {
             cityForecastDao.insertCityForecast(

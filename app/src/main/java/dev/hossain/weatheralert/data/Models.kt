@@ -14,7 +14,7 @@ const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
 
 @Parcelize
 data class AlertTileData constructor(
-    val alertId: Int,
+    val alertId: Long,
     val cityInfo: String,
     val lat: Double,
     val lon: Double,

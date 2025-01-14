@@ -31,5 +31,5 @@ data class City(
     @ColumnInfo(name = "admin_name") val provStateName: String?,
     val capital: String?,
     val population: Int?,
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Long,
 )
