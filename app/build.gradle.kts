@@ -113,6 +113,7 @@ dependencies {
     implementation(project(":data-model"))
     implementation(project(":service:tomorrowio"))
     implementation(project(":service:openweather"))
+    implementation(project(":service:openmeteo"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.ktx)

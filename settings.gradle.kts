@@ -16,6 +16,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Adds JitPack repository
+        maven("https://jitpack.io")
     }
 }
 
@@ -23,4 +25,5 @@ rootProject.name = "Weather Alert"
 include(":data-model")
 include(":service:tomorrowio")
 include(":service:openweather")
+include(":service:openmeteo")
 include(":app")
