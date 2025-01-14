@@ -280,9 +280,8 @@ class WeatherRepositoryImpl
                     ),
             )
 
-        private fun WeatherResponse.toForecastData(): ForecastData {
-            // Convert `WeatherResponse` to `ForecastData`
-            return ForecastData(
+        private fun WeatherResponse.toForecastData(): ForecastData =
+            ForecastData(
                 latitude = location.latitude,
                 longitude = location.longitude,
                 snow =
@@ -312,5 +311,4 @@ class WeatherRepositoryImpl
                         weeklyCumulativeRain = 0.0,
                     ),
             )
-        }
     }
