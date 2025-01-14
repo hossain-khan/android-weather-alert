@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 
 @Dao
 interface AlertDao {

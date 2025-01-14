@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 
 /**
  * Represents a user's alert for a specific city.

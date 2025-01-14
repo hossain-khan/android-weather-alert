@@ -8,7 +8,7 @@ import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.data.WeatherAlertCategory
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
