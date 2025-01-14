@@ -23,4 +23,5 @@ rootProject.name = "Weather Alert"
 include(":data-model")
 include(":service:tomorrowio")
 include(":service:openweather")
+include(":service:openmeteo")
 include(":app")
