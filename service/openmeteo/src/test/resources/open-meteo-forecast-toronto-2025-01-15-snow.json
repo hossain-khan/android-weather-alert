@@ -1,4 +1,5 @@
 {
+  "X-REQUEST-URL": "https://api.open-meteo.com/v1/forecast?latitude=43.9319&longitude=-78.851&current=temperature_2m,rain,showers,snowfall&hourly=temperature_2m,rain,showers,snowfall,snow_depth",
   "latitude": 43.924908,
   "longitude": -78.849144,
   "generationtime_ms": 0.13566017150878906,
