@@ -53,6 +53,8 @@ class ApiKeyImpl
                         // Check if user has provided their own API key.
                         preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.TOMORROW_IO_API_KEY
                     }
+
+                    WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
                 }
             }
 
@@ -67,5 +69,7 @@ class ApiKeyImpl
                 WeatherService.TOMORROW_IO -> {
                     apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
                 }
+
+                WeatherService.OPEN_METEO -> true
             }
     }

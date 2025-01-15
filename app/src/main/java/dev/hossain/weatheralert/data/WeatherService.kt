@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.data
 
 import androidx.annotation.Keep
+import com.openmeteo.api.OpenMeteoService
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.di.AppScope
 import io.tomorrow.api.TomorrowIoService
@@ -27,6 +28,14 @@ enum class WeatherService {
      * @see TomorrowIoService
      */
     TOMORROW_IO,
+
+    /**
+     * Open-Meteo API for weather forecast.
+     * - https://open-meteo.com/en/docs
+     *
+     * @see OpenMeteoService
+     */
+    OPEN_METEO,
 }
 
 interface ActiveWeatherService {

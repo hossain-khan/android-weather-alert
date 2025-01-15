@@ -1,5 +1,8 @@
 package dev.hossain.weatheralert.data
+import com.openmeteo.api.OpenMeteoService
+import com.openmeteo.api.model.OpenMeteoForecastResponse
 import com.slack.eithernet.ApiResult
+import com.slack.eithernet.exceptionOrNull
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
@@ -56,6 +59,7 @@ class WeatherRepositoryImpl
         private val apiKey: ApiKey,
         private val openWeatherService: OpenWeatherService,
         private val tomorrowIoService: TomorrowIoService,
+        private val openMeteoService: OpenMeteoService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
         private val activeWeatherService: ActiveWeatherService,
@@ -136,6 +140,8 @@ class WeatherRepositoryImpl
                             }
                         }
                 }
+
+                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
             }
         }
 
@@ -157,6 +163,15 @@ class WeatherRepositoryImpl
 
                 WeatherService.TOMORROW_IO -> {
                     loadForecastUseTomorrowIo(
+                        weatherService = selectedService,
+                        latitude = latitude,
+                        longitude = longitude,
+                        cityId = cityId,
+                    )
+                }
+
+                WeatherService.OPEN_METEO -> {
+                    loadForecastUseOpenMeteo(
                         weatherService = selectedService,
                         latitude = latitude,
                         longitude = longitude,
@@ -186,6 +201,7 @@ class WeatherRepositoryImpl
                 }
 
                 is ApiResult.Failure -> {
+                    Timber.e(apiResult.exceptionOrNull(), "Failed to fetch OpenWeather forecast data")
                     apiResult
                 }
             }
@@ -210,10 +226,35 @@ class WeatherRepositoryImpl
                 }
 
                 is ApiResult.Failure -> {
+                    Timber.e(apiResult.exceptionOrNull(), "Failed to fetch Tomorrow.io forecast data")
                     apiResult
                 }
             }
         }
+
+        private suspend fun WeatherRepositoryImpl.loadForecastUseOpenMeteo(
+            weatherService: WeatherService,
+            latitude: Double,
+            longitude: Double,
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> =
+            runCatching {
+                openMeteoService.getWeatherForecast(
+                    latitude = latitude.toFloat(),
+                    longitude = longitude.toFloat(),
+                )
+            }.onSuccess {
+                cacheCityForecastData(weatherService, cityId, it.appForecastData)
+            }.onFailure {
+                Timber.e(it, "Failed to fetch Open-Meteo forecast data")
+            }.fold(
+                onSuccess = { response: OpenMeteoForecastResponse ->
+                    ApiResult.success(response.appForecastData)
+                },
+                onFailure = { error ->
+                    ApiResult.unknownFailure(error)
+                },
+            )
 
         private suspend fun cacheCityForecastData(
             weatherService: WeatherService,

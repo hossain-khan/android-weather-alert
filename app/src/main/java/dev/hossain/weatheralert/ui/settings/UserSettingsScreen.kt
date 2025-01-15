@@ -1,5 +1,10 @@
 package dev.hossain.weatheralert.ui.settings
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -214,6 +219,25 @@ fun UserSettingsScreen(
                 },
             )
 
+            AddServiceApiKeyUi(
+                state = state,
+                isServiceApiKeyRequired = state.selectedService.serviceConfig().requiresApiKey,
+            )
+        }
+    }
+}
+
+@Composable
+private fun AddServiceApiKeyUi(
+    state: UserSettingsScreen.State,
+    isServiceApiKeyRequired: Boolean,
+) {
+    AnimatedVisibility(
+        visible = isServiceApiKeyRequired,
+        enter = fadeIn() + slideInVertically(),
+        exit = fadeOut() + slideOutVertically(),
+    ) {
+        Column {
             ElevatedButton(
                 onClick = {
                     state.eventSink(UserSettingsScreen.Event.AddServiceApiKey)
@@ -228,7 +252,7 @@ fun UserSettingsScreen(
             Text(
                 text =
                     buildAnnotatedString {
-                        append("Use alert service uninterrupted by adding ")
+                        append("[Optional] Use alert service uninterrupted by adding ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                             append("your own")
                         }
@@ -259,7 +283,7 @@ fun WeatherUpdateFrequencyUi(
         Text(
             text = "Select how often weather should be checked for notification:",
             style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
         )
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             options.forEachIndexed { index, label ->

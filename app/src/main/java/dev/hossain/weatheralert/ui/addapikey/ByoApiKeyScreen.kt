@@ -225,6 +225,7 @@ class BringYourOwnApiKeyPresenter
             when (weatherApiService) {
                 WeatherService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
                 WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
+                WeatherService.OPEN_METEO -> false
             }
 
         @CircuitInject(BringYourOwnApiKeyScreen::class, AppScope::class)
@@ -414,7 +415,7 @@ private fun WeatherApiServiceLinkedText(serviceConfig: WeatherServiceLogoConfig)
             }
             append(" to get your free API key for '")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontStyle = FontStyle.Italic)) {
-                append(serviceConfig.apiServiceProduceName)
+                append(serviceConfig.apiServiceProductName)
             }
             append("'.")
         }
