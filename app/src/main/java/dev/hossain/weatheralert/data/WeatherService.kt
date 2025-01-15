@@ -12,7 +12,12 @@ import javax.inject.Inject
  * List of supported weather services.
  */
 @Keep
-enum class WeatherService {
+enum class WeatherService(
+    /**
+     * Indicates if the weather forecast service is enabled or disabled at build time.
+     */
+    val isEnabled: Boolean = true,
+) {
     /**
      * OpenWeatherMap API for weather forecast.
      * - https://openweathermap.org/api
@@ -35,7 +40,13 @@ enum class WeatherService {
      *
      * @see OpenMeteoService
      */
-    OPEN_METEO,
+    OPEN_METEO(
+        /**
+         * Disabled to service as the forecast data was not reliable.
+         * See https://github.com/hossain-khan/android-weather-alert/pull/164
+         */
+        isEnabled = false,
+    ),
 }
 
 interface ActiveWeatherService {

@@ -318,6 +318,10 @@ fun WeatherServiceSelectionGroupUi(
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         WeatherService.entries.forEach { service ->
+            if (!service.isEnabled) {
+                return@forEach
+            }
+
             Card(
                 modifier =
                     Modifier
