@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.openmeteo.api.OpenMeteoService
 import com.slack.eithernet.ApiResult
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.db.CityForecastDao
@@ -39,6 +40,9 @@ class WeatherRepositoryTest {
     lateinit var tomorrowIoService: TomorrowIoService
 
     @Inject
+    lateinit var openMeteoService: OpenMeteoService
+
+    @Inject
     lateinit var cityForecastDao: CityForecastDao
 
     @Inject
@@ -65,6 +69,7 @@ class WeatherRepositoryTest {
                 apiKey = ApiKeyImpl(preferencesManager = preferencesManager),
                 openWeatherService = openWeatherService,
                 tomorrowIoService = tomorrowIoService,
+                openMeteoService = openMeteoService,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
                 activeWeatherService = activeWeatherService,

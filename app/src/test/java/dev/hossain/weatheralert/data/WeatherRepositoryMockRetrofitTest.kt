@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.openmeteo.api.OpenMeteoServiceImpl
 import com.slack.eithernet.ApiResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -97,6 +98,7 @@ class WeatherRepositoryMockRetrofitTest {
                 apiKey = ApiKeyImpl(preferencesManager),
                 openWeatherService = mockWeatherApi,
                 tomorrowIoService = mockTomorrowIoAi,
+                openMeteoService = OpenMeteoServiceImpl(),
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
                 activeWeatherService = activeWeatherService,
