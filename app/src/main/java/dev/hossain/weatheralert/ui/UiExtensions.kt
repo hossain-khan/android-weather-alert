@@ -9,7 +9,7 @@ import dev.hossain.weatheralert.data.WeatherService
 /**
  * Internal config to show logo with right sizing and description for each weather service.
  */
-internal data class WeatherServiceLogoConfig(
+data class WeatherServiceLogoConfig(
     /**
      * Can be used to display name of the service.
      */

@@ -242,6 +242,8 @@ class WeatherRepositoryImpl
                 )
             }.onSuccess {
                 cacheCityForecastData(weatherService, cityId, it.appForecastData)
+            }.onFailure {
+                Timber.e(it, "Failed to fetch Open-Meteo forecast data")
             }.fold(
                 onSuccess = { response: OpenMeteoForecastResponse ->
                     ApiResult.success(response.appForecastData)
