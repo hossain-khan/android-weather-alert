@@ -53,7 +53,7 @@ retrofit = "2.11.0"
 # https://developer.android.com/jetpack/androidx/releases/work
 workManager = "2.10.0"
 
-dataStore = "1.1.1"
+dataStore = "1.1.2"
 
 # Android Widgets using Compose
 # https://developer.android.com/jetpack/androidx/releases/glance
