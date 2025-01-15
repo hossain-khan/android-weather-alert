@@ -1,4 +1,6 @@
 package dev.hossain.weatheralert.data
+import com.openmeteo.api.OpenMeteoService
+import com.openmeteo.api.model.OpenMeteoForecastResponse
 import com.slack.eithernet.ApiResult
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.datamodel.AppForecastData
@@ -56,6 +58,7 @@ class WeatherRepositoryImpl
         private val apiKey: ApiKey,
         private val openWeatherService: OpenWeatherService,
         private val tomorrowIoService: TomorrowIoService,
+        private val openMeteoService: OpenMeteoService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
         private val activeWeatherService: ActiveWeatherService,
@@ -137,7 +140,7 @@ class WeatherRepositoryImpl
                         }
                 }
 
-                WeatherService.OPEN_METEO -> TODO()
+                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
             }
         }
 
@@ -166,7 +169,14 @@ class WeatherRepositoryImpl
                     )
                 }
 
-                WeatherService.OPEN_METEO -> TODO()
+                WeatherService.OPEN_METEO -> {
+                    loadForecastUseOpenMeteo(
+                        weatherService = selectedService,
+                        latitude = latitude,
+                        longitude = longitude,
+                        cityId = cityId,
+                    )
+                }
             }
         }
 
@@ -218,6 +228,28 @@ class WeatherRepositoryImpl
                 }
             }
         }
+
+        private suspend fun WeatherRepositoryImpl.loadForecastUseOpenMeteo(
+            weatherService: WeatherService,
+            latitude: Double,
+            longitude: Double,
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> =
+            runCatching {
+                openMeteoService.getWeatherForecast(
+                    latitude = latitude.toFloat(),
+                    longitude = longitude.toFloat(),
+                )
+            }.onSuccess {
+                cacheCityForecastData(weatherService, cityId, it.appForecastData)
+            }.fold(
+                onSuccess = { response: OpenMeteoForecastResponse ->
+                    ApiResult.success(response.appForecastData)
+                },
+                onFailure = { error ->
+                    ApiResult.unknownFailure(error)
+                },
+            )
 
         private suspend fun cacheCityForecastData(
             weatherService: WeatherService,

@@ -54,7 +54,7 @@ class ApiKeyImpl
                         preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.TOMORROW_IO_API_KEY
                     }
 
-                    WeatherService.OPEN_METEO -> TODO()
+                    WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
                 }
             }
 

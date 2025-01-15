@@ -18,7 +18,7 @@ interface OpenMeteoService {
     ): OpenMeteoForecastResponse
 }
 
-class OpenMeteoServiceImpl : OpenMeteoService {
+class OpenMeteoServiceImpl constructor() : OpenMeteoService {
     @OptIn(Response.ExperimentalGluedUnitTimeStepValues::class)
     override suspend fun getWeatherForecast(
         latitude: Float,

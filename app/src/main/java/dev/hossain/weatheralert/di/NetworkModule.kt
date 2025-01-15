@@ -1,6 +1,8 @@
 package dev.hossain.weatheralert.di
 
 import android.content.Context
+import com.openmeteo.api.OpenMeteoService
+import com.openmeteo.api.OpenMeteoServiceImpl
 import com.slack.eithernet.integration.retrofit.ApiResultCallAdapterFactory
 import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
@@ -102,4 +104,8 @@ object NetworkModule {
     ): TomorrowIoService =
         retrofit
             .create(TomorrowIoService::class.java)
+
+    @Provides
+    @SingleIn(AppScope::class)
+    fun provideOpenMeteoService(): OpenMeteoService = OpenMeteoServiceImpl()
 }
