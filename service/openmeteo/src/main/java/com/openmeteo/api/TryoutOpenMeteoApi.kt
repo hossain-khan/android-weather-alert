@@ -35,13 +35,13 @@ internal fun main() {
 
 @OptIn(Response.ExperimentalGluedUnitTimeStepValues::class)
 private fun checkForApp() {
-
-    val om = OpenMeteo(
-        latitude = 43.9319f,
-        longitude = -78.851f,
-        apikey = null,
-        contexts = Contexts()
-    )
+    val om =
+        OpenMeteo(
+            latitude = 43.9319f,
+            longitude = -78.851f,
+            apikey = null,
+            contexts = Contexts(),
+        )
 
     val forecast: Forecast.Response =
         om
@@ -59,7 +59,6 @@ private fun checkForApp() {
                 precipitationUnit = PrecipitationUnit.Millimeters
                 timezone = Timezone.auto
             }.getOrThrow()
-
 
     Forecast.Daily.run {
         forecast.daily.getValue(snowfallSum).run {

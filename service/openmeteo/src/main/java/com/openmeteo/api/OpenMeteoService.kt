@@ -24,12 +24,13 @@ class OpenMeteoServiceImpl : OpenMeteoService {
         latitude: Float,
         longitude: Float,
     ): OpenMeteoForecastResponse {
-        val om = OpenMeteo(
-            latitude = latitude,
-            longitude = longitude,
-            apikey = null,
-            contexts = Contexts()
-        )
+        val om =
+            OpenMeteo(
+                latitude = latitude,
+                longitude = longitude,
+                apikey = null,
+                contexts = Contexts(),
+            )
 
         val forecast: Forecast.Response =
             om
@@ -47,7 +48,6 @@ class OpenMeteoServiceImpl : OpenMeteoService {
                     precipitationUnit = PrecipitationUnit.Millimeters
                     timezone = Timezone.auto
                 }.getOrThrow()
-
 
         var dailyCumulativeSnow = 0.0
         var nextDaySnow = 0.0
@@ -77,22 +77,23 @@ class OpenMeteoServiceImpl : OpenMeteoService {
             }
         }
         return OpenMeteoForecastResponse(
-            appForecastData = AppForecastData(
-                latitude = latitude.toDouble(),
-                longitude = longitude.toDouble(),
-                snow =
-                Snow(
-                    dailyCumulativeSnow = dailyCumulativeSnow,
-                    nextDaySnow = nextDaySnow,
-                    weeklyCumulativeSnow = 0.0,
+            appForecastData =
+                AppForecastData(
+                    latitude = latitude.toDouble(),
+                    longitude = longitude.toDouble(),
+                    snow =
+                        Snow(
+                            dailyCumulativeSnow = dailyCumulativeSnow,
+                            nextDaySnow = nextDaySnow,
+                            weeklyCumulativeSnow = 0.0,
+                        ),
+                    rain =
+                        Rain(
+                            dailyCumulativeRain = dailyCumulativeRain,
+                            nextDayRain = nextDayRain,
+                            weeklyCumulativeRain = 0.0,
+                        ),
                 ),
-                rain =
-                Rain(
-                    dailyCumulativeRain = dailyCumulativeRain,
-                    nextDayRain = nextDayRain,
-                    weeklyCumulativeRain = 0.0,
-                ),
-            )
         )
     }
 }
