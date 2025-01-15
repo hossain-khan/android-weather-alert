@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="140mm"
+   height="30mm"
+   viewBox="0 0 140 30"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="bitmap.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   sodipodi:docname="open-mateo-logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.78216891"
+     inkscape:cx="396.33383"
+     inkscape:cy="152.14105"
+     inkscape:window-width="1696"
+     inkscape:window-height="1027"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1"
+       transform="matrix(3.9677183,0,0,3.9677183,-399.73923,-574.05996)">
+      <path
+         d="m 104.31303,148.23282 a 1.6205729,1.6205729 0 0 1 1.62057,1.64604 0.23151041,0.23151041 0 0 0 0.28892,0.2278 0.69592031,0.69592031 0 0 1 0.86863,0.67277 0.69453124,0.69453124 0 0 1 -0.69453,0.69453 h -3.93568 a 0.92604166,0.92604166 0 1 1 0.0463,-1.85115 0.23151041,0.23151041 0 0 0 0.23615,-0.17364 1.6214989,1.6214989 0 0 1 1.56964,-1.21635 z m 2.07109,1.38906 a 2.0835937,2.0835937 0 0 0 -4.03754,-0.45839 1.3890625,1.3890625 0 0 0 0.11436,2.77349 h 3.93568 a 1.1575521,1.1575521 0 0 0 0,-2.3151 z"
+         id="path1"
+         style="stroke-width:0.463021" />
+      <path
+         d="m 105.9336,145.22318 a 0.23151041,0.23151041 0 0 0 -0.46302,0 v 0.46302 a 0.23151041,0.23151041 0 0 0 0.46302,0 z m 1.73309,0.90937 a 0.23151041,0.23151041 0 1 0 -0.32736,-0.32735 l -0.32782,0.32735 a 0.23180375,0.23180375 0 0 0 0.32782,0.32782 z m -3.60184,-0.32735 a 0.23151041,0.23151041 0 0 0 -0.32736,0.32735 l 0.32736,0.32782 a 0.23180375,0.23180375 0 1 0 0.32782,-0.32782 z m 0.80287,1.56223 a 0.92604166,0.92604166 0 1 1 1.52612,1.01772 c 0.0921,0.13011 0.17225,0.26948 0.23892,0.41579 a 1.3890625,1.3890625 0 1 0 -2.24102,-1.49324 c 0.16298,0.005 0.32226,0.0255 0.47598,0.0597 z m 2.07619,1.88635 c 0.27781,0.0995 0.5209,0.27318 0.70472,0.49636 a 0.23151041,0.23151041 0 0 0 0.0181,-0.34357 l -0.32736,-0.32735 a 0.23151041,0.23151041 0 0 0 -0.39542,0.17456 z m 0.84177,-1.71549 a 0.23151041,0.23151041 0 0 0 0,0.46302 h 0.46302 a 0.23151041,0.23151041 0 0 0 0,-0.46302 z"
+         id="path2"
+         style="stroke-width:0.463021" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:16.5429px;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;stroke-width:0.387724"
+       x="35.229248"
+       y="20.722607"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:16.5429px;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans';stroke-width:0.387724"
+         x="35.229248"
+         y="20.722607">Open-Meteo</tspan></text>
+  </g>
+</svg>
