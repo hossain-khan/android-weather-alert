@@ -13,7 +13,7 @@ kotlinxSerializationProperties = "1.8.0"
 testCore = "1.6.1"
 coroutinesTest = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.9.3"
+activityCompose = "1.10.0"
 composeBom = "2024.12.01"
 
 # Fluent assertions for Java and Android
