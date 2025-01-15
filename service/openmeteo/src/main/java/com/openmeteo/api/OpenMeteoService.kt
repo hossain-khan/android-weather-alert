@@ -13,6 +13,11 @@ import dev.hossain.weatheralert.datamodel.Snow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * Service to interact with OpenMeteo API.
+ *
+ * - https://open-meteo.com/en/features
+ */
 interface OpenMeteoService {
     suspend fun getWeatherForecast(
         latitude: Float,
