@@ -33,6 +33,7 @@ class PreferencesManager
                     when (service) {
                         WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
                         WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                        WeatherService.OPEN_METEO -> TODO()
                     }
                 }
 
@@ -46,6 +47,7 @@ class PreferencesManager
                         when (service) {
                             WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
                             WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                            WeatherService.OPEN_METEO -> TODO()
                         }
                     }.firstOrNull()
             }
@@ -58,6 +60,7 @@ class PreferencesManager
                 when (service) {
                     WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey] = apiKey
                     WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey] = apiKey
+                    WeatherService.OPEN_METEO -> TODO()
                 }
             }
         }

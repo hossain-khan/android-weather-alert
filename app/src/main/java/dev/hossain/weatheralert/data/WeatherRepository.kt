@@ -136,6 +136,8 @@ class WeatherRepositoryImpl
                             }
                         }
                 }
+
+                WeatherService.OPEN_METEO -> TODO()
             }
         }
 
@@ -163,6 +165,8 @@ class WeatherRepositoryImpl
                         cityId = cityId,
                     )
                 }
+
+                WeatherService.OPEN_METEO -> TODO()
             }
         }
 

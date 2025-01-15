@@ -34,7 +34,12 @@ internal data class WeatherServiceLogoConfig(
     /**
      * Optional API service name that is required for the API key.
      */
-    val apiServiceProduceName: String,
+    val apiServiceProductName: String,
+    /**
+     * Indicates API key is required to avoid rate limiting or overuse.
+     * Some services does not require API key or has high limit making it not required to provide API key.
+     */
+    val requiresApiKey: Boolean,
 )
 
 internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
@@ -52,7 +57,8 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
                     "Unfortunately, API key provided with the app has been exhausted.\n\n" +
                         "To continue to use this app, you need to provide your own API key from OpenWeatherMap.",
                 apiFormatGuide = "API key should be 32 characters long and contain only hexadecimal characters.",
-                apiServiceProduceName = "One Call API 3.0",
+                apiServiceProductName = "One Call API 3.0",
+                requiresApiKey = true,
             )
         WeatherService.TOMORROW_IO ->
             WeatherServiceLogoConfig(
@@ -67,6 +73,22 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
                     "Unfortunately, API key provided with the app has been exhausted.\n\n" +
                         "To continue to use this app, you need to provide your own API key from Tomorrow.io.",
                 apiFormatGuide = "API key should be 32 characters long and contain only letters and numbers.",
-                apiServiceProduceName = "Weather API",
+                apiServiceProductName = "Weather API",
+                requiresApiKey = true,
+            )
+
+        WeatherService.OPEN_METEO ->
+            WeatherServiceLogoConfig(
+                serviceName = "Open-Meteo",
+                logoResId = R.drawable.open_mateo_logo,
+                logoWidth = 140.dp,
+                logoHeight = 30.dp,
+                description = "Free API service with high limit. No service API key is required.",
+                apiServiceUrl = "https://open-meteo.com/en/docs",
+                apiServiceUrlLabel = "open-meteo.com",
+                apiExhaustedMessage = "Not applicable for Open-Meteo API.",
+                apiFormatGuide = "Not applicable.",
+                apiServiceProductName = "Weather API",
+                requiresApiKey = false,
             )
     }
