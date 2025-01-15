@@ -48,7 +48,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
             text = "No custom weather alerts configured.",
             style = MaterialTheme.typography.bodySmall,
         )
-        Column(modifier = Modifier.padding(vertical = 120.dp)) {
+        Column(modifier = Modifier.padding(vertical = 80.dp)) {
             Text(
                 text = "Powered by,",
                 style =
@@ -74,6 +74,18 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         // Original: width="134dp" height="25dp"
                         // Increase by 30% to match the OpenWeather logo
                         .size(174.dp, 32.dp)
+                        // Reduces intensity by a bit
+                        .alpha(0.9f),
+                contentDescription = "Tomorrow.io Logo",
+            )
+            Image(
+                painter = painterResource(id = R.drawable.open_mateo_logo),
+                modifier =
+                    Modifier
+                        .padding(top = 20.dp, start = 56.dp)
+                        // Original: width="140dp" height="30dp"
+                        // Increase by 30% to match the OpenWeather logo
+                        .size(175.dp, 40.dp)
                         // Reduces intensity by a bit
                         .alpha(0.9f),
                 contentDescription = "Tomorrow.io Logo",

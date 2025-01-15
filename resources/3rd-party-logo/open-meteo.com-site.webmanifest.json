@@ -16,5 +16,6 @@
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "favicon_color": "#FF8800",
+    "blue_tint_color": "#436CF5",
     "display": "standalone"
 }
