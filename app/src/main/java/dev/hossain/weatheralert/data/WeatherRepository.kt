@@ -2,6 +2,7 @@ package dev.hossain.weatheralert.data
 import com.openmeteo.api.OpenMeteoService
 import com.openmeteo.api.model.OpenMeteoForecastResponse
 import com.slack.eithernet.ApiResult
+import com.slack.eithernet.exceptionOrNull
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
@@ -200,6 +201,7 @@ class WeatherRepositoryImpl
                 }
 
                 is ApiResult.Failure -> {
+                    Timber.e(apiResult.exceptionOrNull(), "Failed to fetch OpenWeather forecast data")
                     apiResult
                 }
             }
@@ -224,6 +226,7 @@ class WeatherRepositoryImpl
                 }
 
                 is ApiResult.Failure -> {
+                    Timber.e(apiResult.exceptionOrNull(), "Failed to fetch Tomorrow.io forecast data")
                     apiResult
                 }
             }
