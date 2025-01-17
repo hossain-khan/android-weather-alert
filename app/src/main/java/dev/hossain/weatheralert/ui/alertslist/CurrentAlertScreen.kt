@@ -44,6 +44,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -87,6 +88,7 @@ import dev.hossain.weatheralert.data.icon
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
@@ -105,6 +107,7 @@ data class CurrentWeatherAlertScreen(
 ) : Screen {
     data class State(
         val tiles: List<AlertTileData>,
+        val recentlyDeletedAlert: AlertTileData?,
         val userMessage: String? = null,
         val isNetworkUnavailable: Boolean = false,
         val eventSink: (Event) -> Unit,
@@ -124,6 +127,10 @@ data class CurrentWeatherAlertScreen(
         data object MessageShown : Event()
 
         data object SettingsClicked : Event()
+
+        data class UndoDelete(
+            val item: AlertTileData,
+        ) : Event()
     }
 }
 
@@ -141,6 +148,8 @@ class CurrentWeatherAlertPresenter
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
+            var recentlyDeletedAlert by remember { mutableStateOf<AlertTileData?>(null) }
+            var forecastAlerts by remember { mutableStateOf(emptyList<UserCityAlert>()) }
             var userMessage by remember { mutableStateOf<String?>(null) }
             var isNetworkUnavailable by remember { mutableStateOf(false) }
 
@@ -150,6 +159,9 @@ class CurrentWeatherAlertPresenter
 
             LaunchedEffect(Unit) {
                 val userCityAlerts = alertDao.getAllAlertsWithCities()
+
+                // Saves it locally to undo delete later
+                forecastAlerts = userCityAlerts
                 Timber.d("Found ${userCityAlerts.size} userCityAlerts.")
 
                 val alertTileData = mutableListOf<AlertTileData>()
@@ -209,6 +221,7 @@ class CurrentWeatherAlertPresenter
 
             return CurrentWeatherAlertScreen.State(
                 tiles = weatherTiles,
+                recentlyDeletedAlert = recentlyDeletedAlert,
                 userMessage = userMessage,
                 isNetworkUnavailable = isNetworkUnavailable,
             ) { event ->
@@ -223,17 +236,33 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
-                        userMessage = "Alert for ${event.item.cityInfo} removed."
                         val updatedTiles = weatherTiles.toMutableList()
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
                             alertDao.deleteAlertById(event.item.alertId)
+                            // Triggers alert is deleted and allows user to `UNDO`
+                            recentlyDeletedAlert = event.item
+                        }
+                    }
+
+                    is CurrentWeatherAlertScreen.Event.UndoDelete -> {
+                        val updatedTiles = weatherTiles.toMutableList()
+                        updatedTiles.add(event.item)
+                        weatherTiles = updatedTiles
+                        scope.launch {
+                            val alert: UserCityAlert? = forecastAlerts.find { it.alert.id == event.item.alertId }
+                            alert?.let {
+                                alertDao.insertAlert(it.alert)
+                            } ?: run {
+                                Timber.e("Undo delete failed for alertId: ${event.item.alertId}")
+                            }
                         }
                     }
 
                     CurrentWeatherAlertScreen.Event.MessageShown -> {
                         userMessage = null
+                        recentlyDeletedAlert = null
                     }
 
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
@@ -261,6 +290,7 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -271,7 +301,7 @@ fun CurrentWeatherAlerts(
                     }) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = "Delete alert",
+                            contentDescription = "Settings",
                         )
                     }
                 },
@@ -319,6 +349,23 @@ fun CurrentWeatherAlerts(
             )
         } else {
             snackbarHostState.currentSnackbarData?.dismiss()
+        }
+    }
+
+    LaunchedEffect(state.recentlyDeletedAlert) {
+        state.recentlyDeletedAlert?.let { alert ->
+            // userMessage = "Alert for ${event.item.cityInfo} removed."
+            val result =
+                snackbarHostState.showSnackbar(
+                    message = "Alert for ${alert.cityInfo} removed.",
+                    actionLabel = "Undo",
+                    duration = SnackbarDuration.Short,
+                )
+            if (result == SnackbarResult.ActionPerformed) {
+                state.eventSink(CurrentWeatherAlertScreen.Event.UndoDelete(alert))
+            } else if (result == SnackbarResult.Dismissed) {
+                state.eventSink(CurrentWeatherAlertScreen.Event.MessageShown)
+            }
         }
     }
 }
@@ -690,5 +737,10 @@ fun CurrentWeatherAlertsPreview() {
                 alertNote = "Note when alert is reached.\n* Charge batteries\n* Get car in **garage**",
             ),
         )
-    CurrentWeatherAlerts(CurrentWeatherAlertScreen.State(sampleTiles) {})
+    CurrentWeatherAlerts(
+        CurrentWeatherAlertScreen.State(
+            tiles = sampleTiles,
+            recentlyDeletedAlert = null,
+        ) {},
+    )
 }
