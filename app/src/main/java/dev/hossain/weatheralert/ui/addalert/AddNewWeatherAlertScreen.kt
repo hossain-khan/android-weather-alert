@@ -25,7 +25,6 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -528,7 +527,7 @@ private fun CurrentApiServiceStateUi(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        Text("ℹ️ API Service: ", style = MaterialTheme.typography.labelSmall)
+        Text("ℹ️ Forecast data source: ", style = MaterialTheme.typography.labelSmall)
         Image(
             painter = painterResource(id = serviceConfig.logoResId),
             // tint = MaterialTheme.colorScheme.secondary,
@@ -549,7 +548,7 @@ fun ReminderNotesUi(onValueChange: (String) -> Unit) {
         },
         label = { Text("Reminder Notes") },
         modifier = Modifier.fillMaxWidth(),
-        supportingText = { Text("ℹ\uFE0F FYI: Some markdown syntax are supported: **bold**, _italic_ and * list-item.") },
+        supportingText = { Text("📝 Some markdown syntax are supported: **bold**, _italic_ and * list-item.") },
         placeholder = {
             Text(
                 text = "(Optional) Notes that will show up in the alert notification.",
@@ -594,8 +593,11 @@ fun NotificationPermissionStatusUi() {
     if (requiresNotificationPermission()) {
         when {
             hasNotificationPermission(context) -> {
-                // Permission already granted, proceed with notifications
-                Row(
+                // Permission already granted, proceed with notifications status row
+
+                // UPDATE: Commented out to simplify the UI
+
+                /*Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
@@ -606,7 +608,7 @@ fun NotificationPermissionStatusUi() {
                         tint = MaterialTheme.colorScheme.secondary,
                         contentDescription = null,
                     )
-                }
+                }*/
             }
             else -> {
                 // Request the permission
