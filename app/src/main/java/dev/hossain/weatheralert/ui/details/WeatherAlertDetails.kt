@@ -552,7 +552,17 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             population = 1000000,
                             city = "Salt Lake City",
                         ),
-                    cityForecast = null,
+                    cityForecast =
+                        CityForecast(
+                            cityId = 1,
+                            latitude = 0.0,
+                            longitude = 0.0,
+                            dailyCumulativeSnow = 100.0,
+                            nextDaySnow = 50.0,
+                            dailyCumulativeRain = 100.0,
+                            nextDayRain = 50.0,
+                            forecastSourceService = WeatherService.OPEN_WEATHER_MAP,
+                        ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
                     eventSink = {},
