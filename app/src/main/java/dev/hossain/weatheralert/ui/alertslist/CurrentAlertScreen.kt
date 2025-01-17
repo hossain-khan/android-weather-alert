@@ -94,6 +94,7 @@ import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
+import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
@@ -377,7 +378,11 @@ fun AlertTileGrid(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp),
+        contentPadding =
+            PaddingValues(
+                vertical = MaterialTheme.dimensions.verticalScreenPadding,
+                horizontal = MaterialTheme.dimensions.horizontalScreenPadding,
+            ),
     ) {
         itemsIndexed(
             items = tiles,
