@@ -83,6 +83,10 @@ kotlinter = "5.0.1"
 # https://developer.android.com/training/data-storage/room
 roomDb = "2.6.1"
 
+# Adaptive library to create adaptive UIs
+# https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
+adaptiveAndroid = "1.1.0-alpha09"
+
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -182,6 +186,10 @@ robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14
 # open-meteo-api-kotlin
 # https://github.com/open-meteo/open-meteo-api-kotlin/releases
 openmeteo-api-kotlin = { group = "com.open-meteo", name = "open-meteo-api-kotlin", version = "0.7.1-beta.1" }
+
+# Adaptive library to create adaptive UIs
+# https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
+androidx-adaptive-android = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "adaptiveAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

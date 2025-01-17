@@ -116,7 +116,10 @@ dependencies {
     implementation(project(":service:openmeteo"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.adaptive.android)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui)
@@ -153,10 +156,6 @@ dependencies {
 
     // WorkManager
     implementation(libs.androidx.work.runtime.ktx)
-
-    // Data Store
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.datastore.core)
 
     // Glance (disabled for now to avoid import issues)
     // implementation(libs.androidx.glance)
