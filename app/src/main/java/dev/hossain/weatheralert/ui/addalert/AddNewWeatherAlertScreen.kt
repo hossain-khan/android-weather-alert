@@ -34,6 +34,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType.Companion.PrimaryEditable
@@ -385,18 +386,15 @@ fun AddNewWeatherAlertScreen(
             TopAppBar(
                 title = { Text("Configure Alerts") },
                 navigationIcon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Go back",
-                        modifier = Modifier,
-                    )
+                    IconButton(onClick = {
+                        state.eventSink(AddNewWeatherAlertScreen.Event.GoBack)
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back",
+                        )
+                    }
                 },
-                modifier =
-                    Modifier
-                        .padding(start = 8.dp)
-                        .clickable {
-                            state.eventSink(AddNewWeatherAlertScreen.Event.GoBack)
-                        },
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
