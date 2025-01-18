@@ -25,7 +25,7 @@ interface TomorrowIoService {
          * ------   -----------         ------------
          * 401001	Invalid Key	        The method requires authentication, but it was not presented or is invalid.
          */
-        private const val ERROR_HTTP_UNAUTHORIZED = 401
+        const val ERROR_HTTP_UNAUTHORIZED = 401
 
         /**
          * 402 PAYMENT REQUIRED:
@@ -33,7 +33,7 @@ interface TomorrowIoService {
          * ------   -----------         ------------
          * 402001	Insufficient Tokens	Adding additional tokens is required
          */
-        private const val ERROR_HTTP_PAYMENT_REQUIRED = 402
+        const val ERROR_HTTP_PAYMENT_REQUIRED = 402
 
         /**
          * 403 FORBIDDEN:
@@ -44,7 +44,16 @@ interface TomorrowIoService {
          * 403002	Account Limit	    The plan limit for a resource has been reached.
          * 403003	Forbidden Action	The plan is restricted and cannot perform this action.
          */
-        private const val ERROR_HTTP_FORBIDDEN = 403
+        const val ERROR_HTTP_FORBIDDEN = 403
+
+        /**
+         * 404 NOT FOUND:
+         *
+         * Code	    Type	            Description
+         * ------   -----------         ------------
+         * 404001	Not Found	        A resource id was not found.
+         */
+        const val ERROR_HTTP_NOT_FOUND = 404
     }
 
     /**

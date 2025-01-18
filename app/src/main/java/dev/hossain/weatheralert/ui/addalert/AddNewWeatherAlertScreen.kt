@@ -97,6 +97,7 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import io.tomorrow.api.TomorrowIoService
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import org.openweathermap.api.OpenWeatherService
@@ -248,6 +249,22 @@ class AddWeatherAlertPresenter
                                     isSaveButtonEnabled = true
                                     when (dailyForecast.code) {
                                         OpenWeatherService.ERROR_HTTP_UNAUTHORIZED -> {
+                                            snackbarData =
+                                                SnackbarData(
+                                                    message =
+                                                        "The weather API is is likely exhausted or not active. " +
+                                                            "Please add your own API key.",
+                                                    actionLabel = "Add Key",
+                                                ) {
+                                                    navigator.goTo(
+                                                        BringYourOwnApiKeyScreen(
+                                                            weatherApiService = selectedApiService!!,
+                                                            isOriginatedFromError = true,
+                                                        ),
+                                                    )
+                                                }
+                                        }
+                                        TomorrowIoService.ERROR_HTTP_FORBIDDEN -> {
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
