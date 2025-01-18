@@ -65,6 +65,7 @@ import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
@@ -211,7 +212,7 @@ fun WeatherAlertDetailsScreen(
                 modifier
                     .fillMaxSize()
                     .padding(contentPaddingValues)
-                    .padding(horizontal = 24.dp)
+                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {

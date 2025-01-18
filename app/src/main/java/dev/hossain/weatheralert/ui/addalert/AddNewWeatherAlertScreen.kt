@@ -94,6 +94,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -376,7 +377,7 @@ fun AddNewWeatherAlertScreen(
                 modifier
                     .fillMaxSize()
                     .padding(contentPaddingValues)
-                    .padding(horizontal = 24.dp)
+                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {

@@ -79,7 +79,11 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         .alpha(0.9f),
                 contentDescription = "Tomorrow.io Logo",
             )
-            Image(
+
+            // Open-Mateo is disabled due to some inconsistencies discovered
+            // See https://github.com/hossain-khan/android-weather-alert/pull/165
+
+            /*Image(
                 painter = painterResource(id = R.drawable.open_mateo_logo),
                 modifier =
                     Modifier
@@ -90,7 +94,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         // Reduces intensity by a bit
                         .alpha(0.9f),
                 contentDescription = "Tomorrow.io Logo",
-            )
+            )*/
         }
     }
 }
