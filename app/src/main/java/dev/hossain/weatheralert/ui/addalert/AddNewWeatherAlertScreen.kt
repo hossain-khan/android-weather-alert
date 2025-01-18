@@ -255,7 +255,12 @@ class AddWeatherAlertPresenter
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(BringYourOwnApiKeyScreen(selectedApiService!!))
+                                                    navigator.goTo(
+                                                        BringYourOwnApiKeyScreen(
+                                                            weatherApiService = selectedApiService!!,
+                                                            isOriginatedFromError = true,
+                                                        ),
+                                                    )
                                                 }
                                         }
                                         OpenWeatherService.ERROR_HTTP_NOT_FOUND -> {
@@ -272,7 +277,12 @@ class AddWeatherAlertPresenter
                                                     message = "This public API key rate limit exceed. Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(BringYourOwnApiKeyScreen(selectedApiService!!))
+                                                    navigator.goTo(
+                                                        BringYourOwnApiKeyScreen(
+                                                            weatherApiService = selectedApiService!!,
+                                                            isOriginatedFromError = true,
+                                                        ),
+                                                    )
                                                 }
                                         }
                                         else -> {
