@@ -54,6 +54,7 @@ import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -150,6 +151,7 @@ class CurrentWeatherAlertPresenter
             val scope = rememberCoroutineScope()
             var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
             var recentlyDeletedAlert by remember { mutableStateOf<AlertTileData?>(null) }
+            var deletedItemIndex by remember { mutableIntStateOf(-1) }
             var forecastAlerts by remember { mutableStateOf(emptyList<UserCityAlert>()) }
             var userMessage by remember { mutableStateOf<String?>(null) }
             var isNetworkUnavailable by remember { mutableStateOf(false) }
@@ -238,6 +240,7 @@ class CurrentWeatherAlertPresenter
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
                         val updatedTiles = weatherTiles.toMutableList()
+                        deletedItemIndex = updatedTiles.indexOf(event.item)
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
@@ -249,7 +252,7 @@ class CurrentWeatherAlertPresenter
 
                     is CurrentWeatherAlertScreen.Event.UndoDelete -> {
                         val updatedTiles = weatherTiles.toMutableList()
-                        updatedTiles.add(event.item)
+                        updatedTiles.add(deletedItemIndex, event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
                             val alert: UserCityAlert? = forecastAlerts.find { it.alert.id == event.item.alertId }
