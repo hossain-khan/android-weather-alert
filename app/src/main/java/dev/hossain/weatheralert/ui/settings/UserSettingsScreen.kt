@@ -69,6 +69,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
@@ -190,13 +191,13 @@ fun UserSettingsScreen(
                 },
             )
         },
-    ) { padding ->
+    ) { contentPaddingValues ->
         Column(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(padding)
-                    .padding(horizontal = 16.dp)
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {

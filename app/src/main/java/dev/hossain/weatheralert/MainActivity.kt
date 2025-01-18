@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
 import com.slack.circuit.foundation.CircuitCompositionLocals
@@ -17,6 +18,7 @@ import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.ui.theme.dimensions
 import javax.inject.Inject
 
 @ContributesMultibinding(AppScope::class, boundType = Activity::class)
@@ -32,7 +34,8 @@ class MainActivity
             enableEdgeToEdge()
 
             setContent {
-                WeatherAlertAppTheme {
+                val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
+                WeatherAlertAppTheme(dimensions = windowSizeClass.windowWidthSizeClass.dimensions()) {
                     // See https://slackhq.github.io/circuit/navigation/
                     val backStack = rememberSaveableBackStack(root = CurrentWeatherAlertScreen("root"))
                     val navigator = rememberCircuitNavigator(backStack)

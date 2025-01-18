@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
+import dev.hossain.weatheralert.ui.theme.dimensions
 
 @Composable
 fun EmptyAlertState(modifier: Modifier = Modifier) {
@@ -31,7 +32,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
             modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -78,7 +79,11 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         .alpha(0.9f),
                 contentDescription = "Tomorrow.io Logo",
             )
-            Image(
+
+            // Open-Mateo is disabled due to some inconsistencies discovered
+            // See https://github.com/hossain-khan/android-weather-alert/pull/165
+
+            /*Image(
                 painter = painterResource(id = R.drawable.open_mateo_logo),
                 modifier =
                     Modifier
@@ -89,7 +94,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         // Reduces intensity by a bit
                         .alpha(0.9f),
                 contentDescription = "Tomorrow.io Logo",
-            )
+            )*/
         }
     }
 }
