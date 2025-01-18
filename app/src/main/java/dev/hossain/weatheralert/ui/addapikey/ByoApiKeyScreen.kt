@@ -36,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.LinkAnnotation
@@ -164,10 +165,6 @@ class BringYourOwnApiKeyPresenter
                         val isValidKey =
                             apiKeyProvider.isValidKey(screen.weatherApiService, event.value)
                         isApiKeyValid = isValidKey
-                        if (isValidKey) {
-                            // Update the label if it somehow is reset to build config key
-                            isUserProvidedApiKey = isUserProvidedApiKey(screen.weatherApiService, event.value)
-                        }
                     }
 
                     is BringYourOwnApiKeyScreen.Event.SubmitApiKey -> {
@@ -189,6 +186,9 @@ class BringYourOwnApiKeyPresenter
                                         }
                                 }
                                 is ApiResult.Failure -> {
+                                    // Reset the supporting text message to show the API format guide.
+                                    isUserProvidedApiKey = false
+
                                     var serverMessage = ""
                                     if (result is ApiResult.Failure.HttpFailure) {
                                         result.error?.let {
@@ -248,6 +248,7 @@ fun BringYourOwnApiKeyScreen(
 ) {
     val serviceConfig: WeatherServiceLogoConfig = state.weatherService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Scaffold(
         topBar = {
@@ -324,7 +325,10 @@ fun BringYourOwnApiKeyScreen(
 
             Button(
                 enabled = state.isApiKeyValid,
-                onClick = { state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKeyInput)) },
+                onClick = {
+                    keyboardController?.hide()
+                    state.eventSink(BringYourOwnApiKeyScreen.Event.SubmitApiKey(state.apiKeyInput))
+                },
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Text("Save API Key")
