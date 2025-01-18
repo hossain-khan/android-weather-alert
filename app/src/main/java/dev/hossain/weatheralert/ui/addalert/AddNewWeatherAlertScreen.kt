@@ -25,6 +25,7 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
@@ -666,6 +667,7 @@ fun EditableCityInputDropdownMenu(
     onSuggestionClick: (City) -> Unit,
 ) {
     val textFieldState: TextFieldState = rememberTextFieldState()
+    var lastSelectedCity by remember { mutableStateOf<City?>(null) }
 
     // The text that the user inputs into the text field can be used to filter the options.
     // This sample uses string subsequence matching.
@@ -681,6 +683,7 @@ fun EditableCityInputDropdownMenu(
         OutlinedTextField(
             value = textFieldState.text.toString(),
             onValueChange = { newValue ->
+                lastSelectedCity = null
                 textFieldState.setTextAndPlaceCursorAtEnd(newValue)
                 onQueryChange(newValue)
                 setExpanded(newValue.isNotEmpty())
@@ -698,6 +701,22 @@ fun EditableCityInputDropdownMenu(
             // Commented because of grey tint color in the box
             // colors = ExposedDropdownMenuDefaults.textFieldColors(),
             leadingIcon = { Icon(Icons.Default.LocationCity, contentDescription = null) },
+            trailingIcon = {
+                lastSelectedCity?.let {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Clear selected city",
+                        tint = MaterialTheme.colorScheme.secondary,
+                        modifier =
+                            Modifier.clickable {
+                                textFieldState.setTextAndPlaceCursorAtEnd("")
+                                onQueryChange("")
+                                setExpanded(false)
+                                lastSelectedCity = null
+                            },
+                    )
+                }
+            },
         )
         ExposedDropdownMenu(
             modifier = Modifier.heightIn(max = 280.dp),
@@ -715,6 +734,7 @@ fun EditableCityInputDropdownMenu(
                     onClick = {
                         textFieldState.setTextAndPlaceCursorAtEnd(city.cityName)
                         setExpanded(false)
+                        lastSelectedCity = city
                         onSuggestionClick(city)
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
