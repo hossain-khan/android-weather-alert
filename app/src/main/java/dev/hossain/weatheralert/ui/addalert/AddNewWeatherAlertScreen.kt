@@ -25,6 +25,7 @@ import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -571,6 +572,7 @@ fun NotificationPermissionStatusUi() {
     val context = LocalContext.current
     var permissionGranted by remember { mutableStateOf(hasNotificationPermission(context)) }
     var labelText by remember { mutableStateOf("") }
+    var showPermissionGrantedRow by remember { mutableStateOf(false) }
 
     LaunchedEffect(permissionGranted) {
         labelText = if (permissionGranted) "Notification status" else "Turn on notification?"
@@ -583,7 +585,8 @@ fun NotificationPermissionStatusUi() {
             if (isGranted) {
                 // Permission granted, proceed with notifications
                 permissionGranted = true
-                labelText = "Notification permission granted"
+                // labelText = "Notification permission granted"
+                showPermissionGrantedRow = true
             } else {
                 // Permission denied, handle accordingly
                 permissionGranted = false
@@ -595,21 +598,20 @@ fun NotificationPermissionStatusUi() {
         when {
             hasNotificationPermission(context) -> {
                 // Permission already granted, proceed with notifications status row
-
-                // UPDATE: Commented out to simplify the UI
-
-                /*Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(text = labelText)
-                    Icon(
-                        imageVector = Icons.Default.CheckCircle,
-                        tint = MaterialTheme.colorScheme.secondary,
-                        contentDescription = null,
-                    )
-                }*/
+                if (showPermissionGrantedRow) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(text = labelText)
+                        Icon(
+                            imageVector = Icons.Default.CheckCircle,
+                            tint = MaterialTheme.colorScheme.secondary,
+                            contentDescription = null,
+                        )
+                    }
+                }
             }
             else -> {
                 // Request the permission
