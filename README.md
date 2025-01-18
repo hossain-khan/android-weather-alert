@@ -16,7 +16,7 @@ this will allow you charge your snow blower batteries, put car in the garage, an
 
 
 ### **App Summary**  
-**Set it and forget it—get alerted when it matters!**  
+**Set it and forget it — get alerted when it matters!**  
 
 Weather Alert is a simple, no-frills app designed to notify you when specific weather conditions meet the thresholds you set. Whether it’s a snowy driveway or a rainy day, stay ahead with timely alerts that help you prepare with ease.  
 
@@ -44,4 +44,4 @@ Easily configure and view your alerts in a simple, intuitive tile-based design.
 - Lightweight and efficient, with no unnecessary extras.  
 - Built for people who want actionable weather notifications, hassle-free.  
 
-Download **Weather Alert** today and let the app do the work for you!  
+[Download](https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share) **Weather Alert** today and let the app do the work for you!  
