@@ -1,29 +1,24 @@
 package dev.hossain.weatheralert.ui.alertslist
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Settings
@@ -62,12 +57,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -85,7 +78,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
-import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
@@ -442,7 +435,7 @@ fun AlertTileItem(
             AlertListItem(
                 data = alertTileData,
                 cardElevation = cardElevation,
-                icon = alertTileData.category.icon(),
+                iconResId = alertTileData.category.iconRes(),
             )
             // AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
         },
@@ -479,120 +472,26 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     }
 }
 
-// Older card, evaluating if this should be used or `ListItem`
-@Composable
-fun AlertTile(
-    data: AlertTileData,
-    cardElevation: Dp,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        modifier = modifier.padding(8.dp),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(cardElevation),
-    ) {
-        Column(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
-                    .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly,
-        ) {
-            Text(
-                text = data.category.name,
-                style = MaterialTheme.typography.titleMedium,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Threshold: ${data.threshold}",
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = data.currentStatus,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center,
-            )
-        }
-    }
-}
-
-// ChatGPT suggested item - evaluating if this should be used or `ListItem`
-@Composable
-fun AlertItem(
-    data: AlertTileData,
-    cardElevation: Dp,
-    icon: ImageVector,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-        elevation = CardDefaults.cardElevation(cardElevation),
-        shape = RoundedCornerShape(12.dp),
-    ) {
-        Row(
-            modifier =
-                Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(48.dp),
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(
-                modifier = Modifier.weight(1f),
-            ) {
-                Text(
-                    text = data.category.name,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                )
-                Text(
-                    text = "Threshold: ${data.threshold}",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Text(
-                    text = "Tomorrow: ${data.currentStatus}",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.secondary,
-                )
-            }
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
-        }
-    }
-}
-
 @Composable
 fun AlertListItem(
     data: AlertTileData,
     cardElevation: Dp,
-    icon: ImageVector,
+    @DrawableRes
+    iconResId: Int,
     modifier: Modifier = Modifier,
 ) {
     Card(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp)
+                .then(
+                    if (isSystemInDarkTheme()) {
+                        Modifier.border(1.dp, Color.Gray.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
+                    } else {
+                        Modifier
+                    },
+                ),
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
@@ -639,7 +538,7 @@ fun AlertListItem(
             colors = colors,
             leadingContent = {
                 Icon(
-                    imageVector = icon,
+                    painter = painterResource(iconResId),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp),
@@ -654,65 +553,6 @@ fun AlertListItem(
             },
             modifier = Modifier.padding(0.dp),
         )
-    }
-}
-
-@Composable
-fun AnimatedAlertItemBackground(isAlertActive: Boolean) {
-    val backgroundColor by animateColorAsState(
-        targetValue = if (isAlertActive) Color.Red else Color.White,
-        animationSpec = tween(durationMillis = 500),
-        label = "alert-pulse-animation",
-    )
-    Box(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .background(backgroundColor),
-    ) {
-        // Content here
-    }
-}
-
-/**
- * 1. Smooth Animations for Alerts
- *
- *     Purpose: Draw attention to new alerts or updates in the app.
- *     Implementation:
- *         Use animated transitions in Jetpack Compose when new data arrives.
- *         Use a pulse effect or fade-in animation for alert tiles.
- */
-@Composable
-fun AlertTileEnhanced(
-    category: String,
-    threshold: String,
-    status: String,
-    isUpdated: Boolean,
-) {
-    val scale = remember { Animatable(1f) }
-
-    LaunchedEffect(isUpdated) {
-        if (isUpdated) {
-            scale.animateTo(
-                targetValue = 1.1f,
-                animationSpec = tween(300, easing = FastOutSlowInEasing),
-            )
-            scale.animateTo(1f, animationSpec = tween(200))
-        }
-    }
-
-    Card(
-        modifier =
-            Modifier
-                .scale(scale.value)
-                .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = category, style = MaterialTheme.typography.headlineSmall)
-            Text(text = "Threshold: $threshold", style = MaterialTheme.typography.bodyMedium)
-            Text(text = "Status: $status", style = MaterialTheme.typography.bodyMedium)
-        }
     }
 }
 
