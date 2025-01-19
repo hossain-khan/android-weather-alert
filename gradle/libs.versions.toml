@@ -37,7 +37,7 @@ ksp = "2.1.0-1.0.29"
 # Forked Anvil
 # https://github.com/ZacSweers/anvil
 # Original Anvil - https://github.com/square/anvil
-anvil = "0.4.0"
+anvil = "0.4.1"
 
 # https://dagger.dev/dev-guide/ksp
 dagger = "2.55"
