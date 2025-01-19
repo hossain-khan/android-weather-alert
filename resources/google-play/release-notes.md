@@ -1,3 +1,15 @@
+## Weather Alert v1.6
+
+### What's new
+* Introducing the "Undo Delete Alert" feature for easier alert management.
+* Enhanced user experience with a city selection indicator
+* Added a new adaptive library utilizing WindowSizeClass for better layout responsiveness.
+* Fixed issues related to API key exhaustion and enhanced error handling for weather services.
+* Minor UI improvements and usability tweaks for a smoother app experience.
+* Expanded analytics to provide deeper insights into app usage and worker performance.
+* Reduced APK size by 20% by removing the Material Icon Extended library.
+
+
 ## Weather Alert v1.5
 
 ### What's new
