@@ -429,7 +429,7 @@ fun AlertTileItem(
         content = {
             val cardElevation: Dp =
                 animateDpAsState(
-                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 12.dp else 8.dp,
+                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 8.dp else 4.dp,
                     label = "card-elevation",
                 ).value
             AlertListItem(
