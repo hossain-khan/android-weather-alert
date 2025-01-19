@@ -8,6 +8,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
+import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.UserCityAlert
@@ -36,16 +37,16 @@ class WeatherCheckWorker
         private val preferencesManager: PreferencesManager,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
-            Timber.d("WeatherCheckWorker: Checking weather forecast")
-            // Fetch thresholds from DataStore
             val userConfiguredAlerts = alertDao.getAllAlertsWithCities()
+            val weatherService: WeatherService = preferencesManager.preferredWeatherService.first()
+            Timber.d("WeatherCheckWorker: Checking weather forecast for ${userConfiguredAlerts.size} alerts using $weatherService.")
 
             if (userConfiguredAlerts.isEmpty()) {
                 Timber.d("No user configured alerts found.")
                 return Result.success()
             }
 
-            logWorkerStarted(userConfiguredAlerts)
+            logWorkerStarted(weatherService, userConfiguredAlerts)
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -116,6 +117,7 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.HttpFailure -> {
+                        logWorkerFailed(weatherService, forecastApiResult.code.toLong())
                         return Result.retry()
                     }
 
@@ -128,6 +130,7 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.UnknownFailure -> {
+                        logWorkerFailed(weatherService, 0L)
                         return Result.failure()
                     }
                 }
@@ -136,19 +139,30 @@ class WeatherCheckWorker
                 delay(1_000)
             }
 
-            logWorkerCompleted()
+            logWorkerCompleted(weatherService)
             return Result.success()
         }
 
-        private suspend fun logWorkerStarted(userConfiguredAlerts: List<UserCityAlert>) {
+        private suspend fun logWorkerFailed(
+            weatherService: WeatherService,
+            errorCode: Long,
+        ) {
+            analytics.logWorkFailed(weatherService, errorCode)
+        }
+
+        private suspend fun logWorkerStarted(
+            weatherService: WeatherService,
+            userConfiguredAlerts: List<UserCityAlert>,
+        ) {
             // Log worker initiative to ensure the worker is working fine
             analytics.logWorkerJob(
+                weatherService = weatherService,
                 interval = preferencesManager.preferredUpdateInterval.first(),
                 alertsCount = userConfiguredAlerts.size.toLong(),
             )
         }
 
-        private suspend fun logWorkerCompleted() {
-            analytics.logWorkSuccess()
+        private suspend fun logWorkerCompleted(weatherService: WeatherService) {
+            analytics.logWorkSuccess(weatherService)
         }
     }
