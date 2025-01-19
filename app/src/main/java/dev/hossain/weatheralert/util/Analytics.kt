@@ -9,6 +9,9 @@ import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.optional.SingleIn
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLETED
+import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_FAILED
+import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_STARTED
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -16,6 +19,12 @@ import kotlin.reflect.KClass
  * Interface for logging analytics events.
  */
 interface Analytics {
+    companion object {
+        internal const val EVENT_WORKER_JOB_STARTED = "wa_worker_job_initiated"
+        internal const val EVENT_WORKER_JOB_COMPLETED = "wa_worker_job_success"
+        internal const val EVENT_WORKER_JOB_FAILED = "wa_worker_job_failed"
+    }
+
     /**
      * Logs a screen view event.
      *
@@ -72,7 +81,7 @@ class AnalyticsImpl
             interval: Long,
             alertsCount: Long,
         ) {
-            firebaseAnalytics.logEvent("wa_worker_job_initiated") {
+            firebaseAnalytics.logEvent(EVENT_WORKER_JOB_STARTED) {
                 param("update_interval", interval)
                 param("alerts_count", alertsCount)
                 param(FirebaseAnalytics.Param.METHOD, weatherService.name)
@@ -80,7 +89,7 @@ class AnalyticsImpl
         }
 
         override suspend fun logWorkSuccess(weatherService: WeatherService) {
-            firebaseAnalytics.logEvent("wa_worker_job_success") {
+            firebaseAnalytics.logEvent(EVENT_WORKER_JOB_COMPLETED) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, 1L)
                 param(FirebaseAnalytics.Param.METHOD, weatherService.name)
@@ -91,7 +100,7 @@ class AnalyticsImpl
             weatherService: WeatherService,
             errorCode: Long,
         ) {
-            firebaseAnalytics.logEvent("wa_worker_job_success") {
+            firebaseAnalytics.logEvent(EVENT_WORKER_JOB_FAILED) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, 0L)
                 param(FirebaseAnalytics.Param.METHOD, weatherService.name)
