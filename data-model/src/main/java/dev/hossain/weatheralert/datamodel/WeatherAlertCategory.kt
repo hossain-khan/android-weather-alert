@@ -14,12 +14,14 @@ enum class WeatherAlertCategory(
     /**
      * Precipitation volume	standard=mm, imperial=mm and metric=mm
      * - https://openweathermap.org/weather-data
+     * - https://docs.tomorrow.io/reference/data-layers-core
      */
     SNOW_FALL("Snow", "mm"),
 
     /**
      * Precipitation volume	standard=mm, imperial=mm and metric=mm
      * - https://openweathermap.org/weather-data
+     * - https://docs.tomorrow.io/reference/data-layers-core
      */
     RAIN_FALL("Rain", "mm"),
 }

@@ -5,12 +5,13 @@ import com.slack.eithernet.DecodeErrorBody
 import io.tomorrow.api.model.RealTimeWeatherResponse
 import io.tomorrow.api.model.TomorrowIoApiErrorResponse
 import io.tomorrow.api.model.WeatherResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
  * Retrofit API service for Tomorrow.io weather data.
+ *
+ * See: https://docs.tomorrow.io/reference/welcome
  *
  * Free Tier Limits
  * - Requests per second: 3
@@ -59,9 +60,12 @@ interface TomorrowIoService {
     /**
      * Fetch weather forecast data based on location.
      *
+     * See:
+     * - https://docs.tomorrow.io/reference/weather-forecast
+     *
      * @param location The location coordinates in "latitude,longitude" format.
      * @param apiKey The API key for authentication.
-     * @return A [Call] object with [WeatherResponse].
+     * @return A [ApiResult] object with [WeatherResponse].
      */
     @GET("v4/weather/forecast")
     suspend fun getWeatherForecast(
@@ -72,9 +76,12 @@ interface TomorrowIoService {
     /**
      * Fetch real-time weather data based on location.
      *
+     * See:
+     * - https://docs.tomorrow.io/reference/realtime-weather
+     *
      * @param location The location coordinates in "latitude,longitude" format.
      * @param apiKey The API key for authentication.
-     * @return A [ApiResult] object with [WeatherResponse].
+     * @return A [ApiResult] object with [RealTimeWeatherResponse].
      */
     @DecodeErrorBody
     @GET("v4/weather/realtime")
