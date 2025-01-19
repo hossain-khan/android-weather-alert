@@ -3,7 +3,9 @@ package dev.hossain.weatheralert.ui.alertslist
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -427,7 +429,7 @@ fun AlertTileItem(
         content = {
             val cardElevation: Dp =
                 animateDpAsState(
-                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 8.dp else 4.dp,
+                    if (dismissState.dismissDirection != SwipeToDismissBoxValue.Settled) 12.dp else 8.dp,
                     label = "card-elevation",
                 ).value
             AlertListItem(
@@ -482,7 +484,14 @@ fun AlertListItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(8.dp)
+                .then(
+                    if (isSystemInDarkTheme()) {
+                        Modifier.border(1.dp, Color.Gray.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
+                    } else {
+                        Modifier
+                    },
+                ),
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
