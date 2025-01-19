@@ -9,6 +9,7 @@ import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.optional.SingleIn
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_ADD_SERVICE_API_KEY
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLETED
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_FAILED
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_STARTED
@@ -23,6 +24,7 @@ interface Analytics {
         internal const val EVENT_WORKER_JOB_STARTED = "wa_worker_job_initiated"
         internal const val EVENT_WORKER_JOB_COMPLETED = "wa_worker_job_success"
         internal const val EVENT_WORKER_JOB_FAILED = "wa_worker_job_failed"
+        internal const val EVENT_ADD_SERVICE_API_KEY = "wa_add_service_api_key"
     }
 
     /**
@@ -51,6 +53,15 @@ interface Analytics {
     suspend fun logCityDetails(
         cityId: Long,
         cityName: String,
+    )
+
+    /**
+     * Logs attempt to add service API key.
+     */
+    suspend fun logAddServiceApiKey(
+        weatherService: WeatherService,
+        isApiKeyAdded: Boolean,
+        initiatedFromApiError: Boolean,
     )
 }
 
@@ -116,6 +127,19 @@ class AnalyticsImpl
                 param(FirebaseAnalytics.Param.ITEM_ID, cityId)
                 param(FirebaseAnalytics.Param.ITEM_NAME, cityName)
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "city")
+            }
+        }
+
+        override suspend fun logAddServiceApiKey(
+            weatherService: WeatherService,
+            isApiKeyAdded: Boolean,
+            initiatedFromApiError: Boolean,
+        ) {
+            firebaseAnalytics.logEvent(EVENT_ADD_SERVICE_API_KEY) {
+                // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
+                param(FirebaseAnalytics.Param.SUCCESS, if (isApiKeyAdded) 1L else 0L)
+                param(FirebaseAnalytics.Param.METHOD, weatherService.name)
+                param("directed_from_error", initiatedFromApiError.toString())
             }
         }
     }

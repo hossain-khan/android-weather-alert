@@ -175,6 +175,7 @@ class BringYourOwnApiKeyPresenter
                             when (result) {
                                 is ApiResult.Success -> {
                                     Timber.d("API key is valid - saving to preferences.")
+                                    logAddServiceApiKey(isApiKeyAdded = true)
                                     preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
                                         SnackbarData("✔️API key is valid and saved.", "Continue") {
@@ -186,6 +187,7 @@ class BringYourOwnApiKeyPresenter
                                         }
                                 }
                                 is ApiResult.Failure -> {
+                                    logAddServiceApiKey(isApiKeyAdded = false)
                                     // Reset the supporting text message to show the API format guide.
                                     isUserProvidedApiKey = false
 
@@ -228,6 +230,14 @@ class BringYourOwnApiKeyPresenter
                 WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
                 WeatherService.OPEN_METEO -> false
             }
+
+        private suspend fun logAddServiceApiKey(isApiKeyAdded: Boolean) {
+            analytics.logAddServiceApiKey(
+                weatherService = screen.weatherApiService,
+                isApiKeyAdded = isApiKeyAdded,
+                initiatedFromApiError = screen.isOriginatedFromError,
+            )
+        }
 
         @CircuitInject(BringYourOwnApiKeyScreen::class, AppScope::class)
         @AssistedFactory
