@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
+import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -118,18 +119,34 @@ class WeatherCheckWorker
 
                     is ApiResult.Failure.HttpFailure -> {
                         logWorkerFailed(weatherService, forecastApiResult.code.toLong())
+                        Timber.e(
+                            forecastApiResult.exceptionOrNull(),
+                            "HttpFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
+                        )
                         return Result.retry()
                     }
 
                     is ApiResult.Failure.ApiFailure -> {
+                        Timber.e(
+                            forecastApiResult.exceptionOrNull(),
+                            "ApiFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
+                        )
                         return Result.failure()
                     }
 
                     is ApiResult.Failure.NetworkFailure -> {
+                        Timber.e(
+                            forecastApiResult.exceptionOrNull(),
+                            "NetworkFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
+                        )
                         return Result.retry()
                     }
 
                     is ApiResult.Failure.UnknownFailure -> {
+                        Timber.e(
+                            forecastApiResult.exceptionOrNull(),
+                            "UnknownFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
+                        )
                         logWorkerFailed(weatherService, 0L)
                         return Result.failure()
                     }
