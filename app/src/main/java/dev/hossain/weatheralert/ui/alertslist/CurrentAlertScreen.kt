@@ -21,9 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.TagFaces
-import androidx.compose.material.icons.filled.WarningAmber
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -76,6 +73,7 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
@@ -297,7 +295,7 @@ fun CurrentWeatherAlerts(
                         state.eventSink(CurrentWeatherAlertScreen.Event.SettingsClicked)
                     }) {
                         Icon(
-                            imageVector = Icons.Default.Settings,
+                            painter = painterResource(id = R.drawable.settings_24dp),
                             contentDescription = "Settings",
                         )
                     }
@@ -546,7 +544,14 @@ fun AlertListItem(
             },
             trailingContent = {
                 Icon(
-                    imageVector = if (data.isAlertActive) Icons.Default.WarningAmber else Icons.Default.TagFaces,
+                    painter =
+                        if (data.isAlertActive) {
+                            painterResource(
+                                R.drawable.warning_24dp,
+                            )
+                        } else {
+                            painterResource(R.drawable.happy_face_24dp)
+                        },
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurface,
                 )

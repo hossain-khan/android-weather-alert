@@ -27,7 +27,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.LocationCity
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -82,6 +81,7 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.DEFAULT_RAIN_THRESHOLD
 import dev.hossain.weatheralert.data.DEFAULT_SNOW_THRESHOLD
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -698,7 +698,12 @@ fun EditableCityInputDropdownMenu(
             singleLine = true,
             // Commented because of grey tint color in the box
             // colors = ExposedDropdownMenuDefaults.textFieldColors(),
-            leadingIcon = { Icon(Icons.Default.LocationCity, contentDescription = null) },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.location_city_24dp),
+                    contentDescription = "City Building Icon",
+                )
+            },
             trailingIcon = {
                 lastSelectedCity?.let {
                     Icon(

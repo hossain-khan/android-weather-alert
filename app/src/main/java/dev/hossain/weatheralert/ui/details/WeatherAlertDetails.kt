@@ -12,11 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.LocationCity
-import androidx.compose.material.icons.filled.NoteAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
@@ -52,6 +48,7 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
@@ -264,7 +261,7 @@ fun CityInfoUi(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
-                    imageVector = Icons.Default.LocationCity,
+                    painter = painterResource(id = R.drawable.location_city_24dp),
                     contentDescription = "Alert Category",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
@@ -362,7 +359,7 @@ fun WeatherAlertNoteUi(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
-                    imageVector = Icons.Default.NoteAlt,
+                    painter = painterResource(R.drawable.edit_note_24dp),
                     contentDescription = "Alert Category",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
@@ -454,7 +451,7 @@ fun WeatherAlertUpdateOnUi(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
-                    imageVector = Icons.Default.CalendarMonth,
+                    painter = painterResource(R.drawable.calendar_month_24dp),
                     contentDescription = "Calendar icon",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
@@ -496,7 +493,7 @@ fun WeatherForecastSourceUi(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
-                    imageVector = Icons.Default.Computer,
+                    painter = painterResource(id = R.drawable.server_smb_share_24dp),
                     contentDescription = "Computer server icon for weather data source",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
