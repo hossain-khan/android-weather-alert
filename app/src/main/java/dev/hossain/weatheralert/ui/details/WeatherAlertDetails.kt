@@ -119,7 +119,9 @@ class WeatherAlertDetailsPresenter
             var isEditingNote by remember { mutableStateOf(false) }
 
             LaunchedImpressionEffect {
+                val city = alertDao.getAlertWithCity(screen.alertId).city
                 analytics.logScreenView(WeatherAlertDetailsScreen::class)
+                analytics.logCityDetails(city.id, city.cityName)
             }
 
             LaunchedEffect(Unit) {
