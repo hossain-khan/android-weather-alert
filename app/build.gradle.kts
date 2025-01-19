@@ -126,7 +126,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.material.icons.extended)
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
