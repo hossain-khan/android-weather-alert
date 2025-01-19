@@ -88,7 +88,7 @@ import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherService
-import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
@@ -444,7 +444,7 @@ fun AddNewWeatherAlertScreen(
                         icon = {
                             SegmentedButtonDefaults.Icon(active = index in checkedList) {
                                 Icon(
-                                    imageVector = alertCategory.icon(),
+                                    painter = painterResource(id = alertCategory.iconRes()),
                                     contentDescription = null,
                                     modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
                                 )

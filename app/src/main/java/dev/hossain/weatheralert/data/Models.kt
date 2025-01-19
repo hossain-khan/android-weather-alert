@@ -1,10 +1,8 @@
 package dev.hossain.weatheralert.data
 
 import android.os.Parcelable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AcUnit
-import androidx.compose.material.icons.outlined.Umbrella
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import kotlinx.parcelize.Parcelize
 import java.util.UUID
@@ -30,12 +28,11 @@ data class AlertTileData constructor(
     val uuid: String = UUID.randomUUID().toString(),
 ) : Parcelable
 
-// ⚠️ Icon should be imported instead
-// See https://github.com/hossain-khan/android-weather-alert/issues/31
-internal fun WeatherAlertCategory.icon(): ImageVector =
+@DrawableRes
+internal fun WeatherAlertCategory.iconRes(): Int =
     when (this) {
-        WeatherAlertCategory.SNOW_FALL -> Icons.Outlined.AcUnit
-        WeatherAlertCategory.RAIN_FALL -> Icons.Outlined.Umbrella
+        WeatherAlertCategory.SNOW_FALL -> R.drawable.cold_snowflake_bold_icon
+        WeatherAlertCategory.RAIN_FALL -> R.drawable.rain_umbrella_bold_icon
     }
 
 data class SnackbarData(

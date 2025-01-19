@@ -53,7 +53,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.WeatherService
-import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.Alert
@@ -305,7 +305,7 @@ fun WeatherAlertConfigUi(
         ) {
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
-                    imageVector = alert.alertCategory.icon(),
+                    painter = painterResource(id = alert.alertCategory.iconRes()),
                     contentDescription = "Alert Category",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =

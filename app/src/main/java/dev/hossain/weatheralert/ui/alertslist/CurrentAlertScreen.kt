@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.ui.alertslist
 
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,8 +56,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -75,7 +76,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
-import dev.hossain.weatheralert.data.icon
+import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
@@ -432,7 +433,7 @@ fun AlertTileItem(
             AlertListItem(
                 data = alertTileData,
                 cardElevation = cardElevation,
-                icon = alertTileData.category.icon(),
+                iconResId = alertTileData.category.iconRes(),
             )
             // AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
         },
@@ -473,7 +474,8 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
 fun AlertListItem(
     data: AlertTileData,
     cardElevation: Dp,
-    icon: ImageVector,
+    @DrawableRes
+    iconResId: Int,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -527,7 +529,7 @@ fun AlertListItem(
             colors = colors,
             leadingContent = {
                 Icon(
-                    imageVector = icon,
+                    painter = painterResource(iconResId),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(48.dp),
