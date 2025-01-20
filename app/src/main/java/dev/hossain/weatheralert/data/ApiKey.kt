@@ -10,9 +10,14 @@ import javax.inject.Inject
  */
 interface ApiKey {
     /**
-     * The API key as a string.
+     * The API key as a string for active API service (user preferred service).
      */
-    val key: String
+    val activeServiceApiKey: String
+
+    /**
+     * Unlike [activeServiceApiKey], this method provides the API key for the given weather service.
+     */
+    fun apiKey(weatherService: WeatherService): String
 
     /**
      * Checks if the provided API key is valid for the given weather service.
@@ -25,6 +30,11 @@ interface ApiKey {
         weatherService: WeatherService,
         apiKey: String,
     ): Boolean
+
+    /**
+     * Checks if the API key for selected service is provided by user or not.
+     */
+    fun hasUserProvidedApiKey(weatherApiService: WeatherService): Boolean
 }
 
 /**
@@ -40,22 +50,25 @@ class ApiKeyImpl
         /**
          * Retrieves the API key from the build configuration.
          */
-        override val key: String
+        override val activeServiceApiKey: String
             get() {
                 val activeWeatherServiceSync = preferencesManager.preferredWeatherServiceSync
-                return when (activeWeatherServiceSync) {
-                    WeatherService.OPEN_WEATHER_MAP -> {
-                        // Check if user has provided their own API key.
-                        preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.OPEN_WEATHER_API_KEY
-                    }
+                return apiKey(activeWeatherServiceSync)
+            }
 
-                    WeatherService.TOMORROW_IO -> {
-                        // Check if user has provided their own API key.
-                        preferencesManager.savedApiKey(activeWeatherServiceSync) ?: BuildConfig.TOMORROW_IO_API_KEY
-                    }
-
-                    WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+        override fun apiKey(weatherService: WeatherService): String =
+            when (weatherService) {
+                WeatherService.OPEN_WEATHER_MAP -> {
+                    // Check if user has provided their own API key.
+                    preferencesManager.savedApiKey(weatherService) ?: BuildConfig.OPEN_WEATHER_API_KEY
                 }
+
+                WeatherService.TOMORROW_IO -> {
+                    // Check if user has provided their own API key.
+                    preferencesManager.savedApiKey(weatherService) ?: BuildConfig.TOMORROW_IO_API_KEY
+                }
+
+                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
             }
 
         override fun isValidKey(
@@ -72,4 +85,13 @@ class ApiKeyImpl
 
                 WeatherService.OPEN_METEO -> true
             }
+
+        override fun hasUserProvidedApiKey(weatherApiService: WeatherService): Boolean {
+            val apiKey = apiKey(weatherApiService)
+            return when (weatherApiService) {
+                WeatherService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
+                WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
+                WeatherService.OPEN_METEO -> false
+            }
+        }
     }

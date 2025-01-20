@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -14,7 +15,8 @@ import org.robolectric.RobolectricTestRunner
 class ApiKeyTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
-    private val apiKeyImpl = ApiKeyImpl(PreferencesManager(context))
+    private val preferencesManager = PreferencesManager(context)
+    private val apiKeyImpl = ApiKeyImpl(preferencesManager)
 
     @Test
     fun isValidKey_returnsTrueForValidOpenWeatherMap_key1() {
@@ -57,4 +59,22 @@ class ApiKeyTest {
         val isValid = apiKeyImpl.isValidKey(WeatherService.TOMORROW_IO, invalidKey)
         assertThat(isValid).isFalse()
     }
+
+    @Test
+    fun hasUserProvidedApiKey_returnsTrueWhenUserProvidedKey() =
+        runTest {
+            preferencesManager.saveUserApiKey(WeatherService.OPEN_WEATHER_MAP, "userProvidedKey")
+
+            val hasUserProvidedKey = apiKeyImpl.hasUserProvidedApiKey(WeatherService.OPEN_WEATHER_MAP)
+            assertThat(hasUserProvidedKey).isTrue()
+        }
+
+    @Test
+    fun hasUserProvidedApiKey_returnsFalseWhenUsingDefaultKey() =
+        runTest {
+            preferencesManager.saveUserApiKey(WeatherService.OPEN_WEATHER_MAP, "")
+
+            val hasUserProvidedKey = apiKeyImpl.hasUserProvidedApiKey(WeatherService.OPEN_WEATHER_MAP)
+            assertThat(hasUserProvidedKey).isFalse()
+        }
 }

@@ -63,6 +63,7 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherService
 import dev.hossain.weatheralert.di.AppScope
@@ -84,11 +85,16 @@ data class UserSettingsScreen(
     data class State(
         val selectedService: WeatherService,
         val selectedUpdateFrequency: Long,
+        val isUserProvidedApiKeyInUse: Boolean,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
         data class ServiceSelected(
+            val service: WeatherService,
+        ) : Event()
+
+        data class RemoveServiceApiKey(
             val service: WeatherService,
         ) : Event()
 
@@ -108,6 +114,7 @@ class UserSettingsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: UserSettingsScreen,
         private val preferencesManager: PreferencesManager,
+        private val apiKeyProvider: ApiKey,
         private val analytics: Analytics,
     ) : Presenter<UserSettingsScreen.State> {
         @Composable
@@ -115,11 +122,13 @@ class UserSettingsPresenter
             val scope = rememberCoroutineScope()
             val context = LocalContext.current
             var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
+            var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedService = service
+                    isUserProvidedApiKeyInUse = apiKeyProvider.hasUserProvidedApiKey(service)
                 }
             }
 
@@ -130,6 +139,7 @@ class UserSettingsPresenter
             return UserSettingsScreen.State(
                 selectedService = selectedService,
                 selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
+                isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
@@ -154,6 +164,8 @@ class UserSettingsPresenter
                         }
                         scheduleWeatherAlertsWork(context = context, event.frequency)
                     }
+
+                    is UserSettingsScreen.Event.RemoveServiceApiKey -> TODO()
                 }
             }
         }
@@ -221,8 +233,10 @@ fun UserSettingsScreen(
             )
 
             AddServiceApiKeyUi(
-                state = state,
+                selectedService = state.selectedService,
                 isServiceApiKeyRequired = state.selectedService.serviceConfig().requiresApiKey,
+                isUserProvidedApiKeyInUse = state.isUserProvidedApiKeyInUse,
+                eventSink = state.eventSink,
             )
         }
     }
@@ -230,8 +244,10 @@ fun UserSettingsScreen(
 
 @Composable
 private fun AddServiceApiKeyUi(
-    state: UserSettingsScreen.State,
+    selectedService: WeatherService,
     isServiceApiKeyRequired: Boolean,
+    isUserProvidedApiKeyInUse: Boolean,
+    eventSink: (UserSettingsScreen.Event) -> Unit,
 ) {
     AnimatedVisibility(
         visible = isServiceApiKeyRequired,
@@ -241,15 +257,30 @@ private fun AddServiceApiKeyUi(
         Column {
             ElevatedButton(
                 onClick = {
-                    state.eventSink(UserSettingsScreen.Event.AddServiceApiKey)
+                    eventSink(UserSettingsScreen.Event.AddServiceApiKey)
                 },
                 modifier =
                     Modifier
                         .padding(top = 24.dp)
                         .align(Alignment.CenterHorizontally),
             ) {
-                Text("Add API Service Key")
+                Text(if (isUserProvidedApiKeyInUse) "Modify API Service Key" else "Add API Service Key")
             }
+
+            if (isUserProvidedApiKeyInUse) {
+                ElevatedButton(
+                    onClick = {
+                        eventSink(UserSettingsScreen.Event.RemoveServiceApiKey(selectedService))
+                    },
+                    modifier =
+                        Modifier
+                            .padding(top = 8.dp)
+                            .align(Alignment.CenterHorizontally),
+                ) {
+                    Text("Remove API Key")
+                }
+            }
+
             Text(
                 text =
                     buildAnnotatedString {
@@ -375,6 +406,7 @@ fun UserSettingsScreenPreview() {
         UserSettingsScreen.State(
             selectedService = WeatherService.OPEN_WEATHER_MAP,
             selectedUpdateFrequency = 12,
+            isUserProvidedApiKeyInUse = true,
             eventSink = {},
         )
     WeatherAlertAppTheme {
