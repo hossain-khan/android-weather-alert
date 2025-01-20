@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.deeplinking.createViewAlertDeeplinkUri
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
@@ -20,7 +21,7 @@ import timber.log.Timber
  */
 internal fun triggerNotification(
     context: Context,
-    notificationId: Int,
+    userAlertId: Long,
     notificationTag: String,
     alertCategory: WeatherAlertCategory,
     currentValue: Double,
@@ -98,7 +99,8 @@ internal fun triggerNotification(
 
     val intent =
         context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            data = createViewAlertDeeplinkUri(userAlertId)
         }
     val pendingIntent =
         PendingIntent.getActivity(
@@ -121,7 +123,12 @@ internal fun triggerNotification(
             .setAutoCancel(true)
             .build()
 
-    notificationManager.notify(notificationTag, notificationId, notification)
+    notificationManager.notify(
+        notificationTag,
+        // ⚠️ Potential precision loss and overflow when converting to int.
+        userAlertId.toInt(),
+        notification,
+    )
 }
 
 /**
@@ -131,7 +138,7 @@ internal fun debugNotification(context: Context) {
     // Debug notification by triggering a notification
     triggerNotification(
         context = context,
-        notificationId = 1,
+        userAlertId = 1,
         notificationTag = "debug",
         alertCategory = WeatherAlertCategory.SNOW_FALL,
         currentValue = 30.0,
