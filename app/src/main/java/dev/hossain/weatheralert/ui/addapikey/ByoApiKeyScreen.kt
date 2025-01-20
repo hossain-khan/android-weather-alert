@@ -59,7 +59,6 @@ import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.ApiKey
 import dev.hossain.weatheralert.data.PreferencesManager
@@ -136,13 +135,11 @@ class BringYourOwnApiKeyPresenter
 
             LaunchedEffect(Unit) {
                 // Prepopulates the API key, IFF it was provided by user.
-                apiKeyProvider.key
-                    .takeIf { isUserProvidedApiKey(screen.weatherApiService, it) }
-                    ?.let {
-                        apiKey = it
-                        isUserProvidedApiKey = true
-                        isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
-                    }
+                if (apiKeyProvider.hasUserProvidedApiKey(screen.weatherApiService)) {
+                    apiKey = apiKeyProvider.activeServiceApiKey
+                    isUserProvidedApiKey = true
+                    isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
+                }
             }
 
             LaunchedImpressionEffect {
@@ -177,7 +174,7 @@ class BringYourOwnApiKeyPresenter
                                     logAddServiceApiKey(isApiKeyAdded = true)
                                     preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
-                                        SnackbarData("✔️API key is valid and saved.", "Continue") {
+                                        SnackbarData("✔️ API key is valid and saved.", "Continue") {
                                             if (screen.isOriginatedFromError) {
                                                 navigator.pop()
                                             } else {
@@ -215,20 +212,6 @@ class BringYourOwnApiKeyPresenter
                 }
             }
         }
-
-        /**
-         * Internal function to check if the API key is provided by user,
-         * then it's used to display in the API input field.
-         */
-        private fun isUserProvidedApiKey(
-            weatherApiService: WeatherService,
-            apiKey: String,
-        ): Boolean =
-            when (weatherApiService) {
-                WeatherService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
-                WeatherService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
-                WeatherService.OPEN_METEO -> false
-            }
 
         private suspend fun logAddServiceApiKey(isApiKeyAdded: Boolean) {
             analytics.logAddServiceApiKey(

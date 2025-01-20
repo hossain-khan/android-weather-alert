@@ -65,10 +65,30 @@ class PreferencesManager
             }
         }
 
+        /**
+         * @see removeApiKey
+         */
         suspend fun clearUserApiKeys() {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences.remove(UserPreferences.openWeatherServiceApiKey)
                 preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
+            }
+        }
+
+        /**
+         * @see clearUserApiKeys
+         */
+        suspend fun removeApiKey(service: WeatherService) {
+            when (service) {
+                WeatherService.OPEN_WEATHER_MAP ->
+                    dataStore.edit { preferences: MutablePreferences ->
+                        preferences.remove(UserPreferences.openWeatherServiceApiKey)
+                    }
+                WeatherService.TOMORROW_IO ->
+                    dataStore.edit { preferences: MutablePreferences ->
+                        preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
+                    }
+                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
             }
         }
 

@@ -189,7 +189,7 @@ class WeatherRepositoryImpl
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
-                    apiKey = apiKey.key,
+                    apiKey = apiKey.activeServiceApiKey,
                     latitude = latitude,
                     longitude = longitude,
                 )
@@ -216,7 +216,7 @@ class WeatherRepositoryImpl
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
-                    apiKey = apiKey.key,
+                    apiKey = apiKey.activeServiceApiKey,
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {
