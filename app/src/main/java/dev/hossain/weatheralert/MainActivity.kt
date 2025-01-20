@@ -7,6 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
+import androidx.compose.runtime.remember
 import androidx.core.os.BundleCompat
 import com.slack.circuit.backstack.rememberSaveableBackStack
 import com.slack.circuit.foundation.Circuit
@@ -24,6 +25,8 @@ import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -50,7 +53,11 @@ class MainActivity
                 val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
                 WeatherAlertAppTheme(dimensions = windowSizeClass.windowWidthSizeClass.dimensions()) {
                     // See https://slackhq.github.io/circuit/navigation/
-                    val backStack = rememberSaveableBackStack(root = CurrentWeatherAlertScreen("root"))
+                    val stack: ImmutableList<Screen> =
+                        remember {
+                            parseDeepLinkedScreens(intent) ?: persistentListOf(CurrentWeatherAlertScreen("root"))
+                        }
+                    val backStack = rememberSaveableBackStack(stack)
                     navigator = rememberCircuitNavigator(backStack)
 
                     // See https://slackhq.github.io/circuit/circuit-content/
@@ -96,5 +103,17 @@ class MainActivity
             if (destinationScreen != null) {
                 navigator.goTo(destinationScreen)
             }
+        }
+
+        private fun parseDeepLinkedScreens(intent: Intent): ImmutableList<Screen>? {
+            val bundle: Bundle = intent.extras ?: return null
+            val screen: Screen? =
+                BundleCompat.getParcelable(
+                    bundle,
+                    BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
+                    Screen::class.java,
+                )
+            // Builds stack of screens to navigate to.
+            return screen?.let { persistentListOf(CurrentWeatherAlertScreen("root"), it) }
         }
     }
