@@ -9,7 +9,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
-import dev.hossain.weatheralert.deeplinking.createViewAlertDeeplinkUri
+import dev.hossain.weatheralert.deeplinking.BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN
+import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
@@ -100,7 +101,7 @@ internal fun triggerNotification(
     val intent =
         context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            data = createViewAlertDeeplinkUri(userAlertId)
+            putExtra(BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN, WeatherAlertDetailsScreen(userAlertId))
         }
     val pendingIntent =
         PendingIntent.getActivity(
