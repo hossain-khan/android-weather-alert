@@ -165,7 +165,13 @@ class UserSettingsPresenter
                         scheduleWeatherAlertsWork(context = context, event.frequency)
                     }
 
-                    is UserSettingsScreen.Event.RemoveServiceApiKey -> TODO()
+                    is UserSettingsScreen.Event.RemoveServiceApiKey -> {
+                        Timber.d("Removing API key for service: ${event.service}")
+                        scope.launch {
+                            preferencesManager.removeApiKey(event.service)
+                        }
+                        isUserProvidedApiKeyInUse = false
+                    }
                 }
             }
         }

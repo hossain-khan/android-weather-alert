@@ -174,7 +174,7 @@ class BringYourOwnApiKeyPresenter
                                     logAddServiceApiKey(isApiKeyAdded = true)
                                     preferencesManager.saveUserApiKey(screen.weatherApiService, apiKey)
                                     snackbarData =
-                                        SnackbarData("✔️API key is valid and saved.", "Continue") {
+                                        SnackbarData("✔️ API key is valid and saved.", "Continue") {
                                             if (screen.isOriginatedFromError) {
                                                 navigator.pop()
                                             } else {
