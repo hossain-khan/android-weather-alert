@@ -81,6 +81,38 @@ class OpenWeatherServiceTest {
             assertThat(forecast.lon).isEqualTo(-90.43)
         }
 
+    @Test
+    fun `given weather forecast response for lac mann - parses data properly`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("open-weather-lac-mann-snowing-2025-01-20.json")),
+            )
+
+            val result =
+                tomorrowIoService.getDailyForecast(
+                    apiKey = "fake-api-key",
+                    latitude = 49.588,
+                    longitude = -75.1699,
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val forecast: WeatherForecast = (result as ApiResult.Success).value
+            assertThat(forecast.lat).isEqualTo(49.588)
+            assertThat(forecast.lon).isEqualTo(-75.1699)
+            assertThat(forecast.daily.size).isEqualTo(8)
+            assertThat(forecast.hourly.size).isEqualTo(48)
+
+            // Verify total hourly snowfall
+            val totalHourlySnowfall = forecast.hourly.sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 }
+            assertThat(totalHourlySnowfall).isEqualTo(0.0)
+
+            // Verify total hourly rain volume
+            val totalHourlyRainVolume = forecast.hourly.sumOf { it.rain?.rainVolumeInAnHour ?: 0.0 }
+            assertThat(totalHourlyRainVolume).isEqualTo(0.0)
+        }
+
     // Helper method to load JSON from resources
     private fun loadJsonFromResources(fileName: String): String {
         val classLoader = javaClass.classLoader
