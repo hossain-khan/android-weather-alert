@@ -7,7 +7,7 @@ import org.junit.Test
 class OpenMeteoResponseTest {
     @Test(expected = Exception::class)
     fun `test load and parse JSON file`() {
-        // Test is not working, because of following error:
+        // Test is not working, because of following errors:
         // 1. kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 937:
         //    Failed to parse type 'double' for input '2025-01-21T00:00' at path: $.hourly['time'][0]
         // 2. kotlinx.serialization.MissingFieldException: Fields [utcOffsetSeconds, timezoneAbbreviation, generationtimeMs]
