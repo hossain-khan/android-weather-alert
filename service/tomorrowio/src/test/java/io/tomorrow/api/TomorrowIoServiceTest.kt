@@ -110,6 +110,46 @@ class TomorrowIoServiceTest {
         }
 
     @Test
+    fun `given realtime response for lac mann - parses data properly`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("tomorrow-io-lac-mann-snowing-2025-01-20.json")),
+            )
+
+            val result =
+                tomorrowIoService.getWeatherForecast(
+                    location = "49.587967,-75.16987",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val forecast: WeatherResponse = (result as ApiResult.Success).value
+            assertThat(forecast.location.latitude).isEqualTo(49.587967)
+            assertThat(forecast.location.longitude).isEqualTo(-75.16987)
+            assertThat(forecast.timelines.minutely).hasSize(60)
+            assertThat(forecast.timelines.hourly).hasSize(120)
+            assertThat(forecast.timelines.daily).hasSize(7)
+
+            // verify total hourly snowfall
+            val totalHourlySnowfall = forecast.timelines.hourly.sumOf { it.values.snowAccumulation ?: 0.0 }
+            assertThat(totalHourlySnowfall).isEqualTo(341.3000000000002)
+
+            // verify total hourly rain
+            val totalHourlyRain = forecast.timelines.hourly.sumOf { it.values.rainAccumulation ?: 0.0 }
+            assertThat(totalHourlyRain).isEqualTo(0.0)
+
+            // Verify total daily snowfall
+            val totalDailySnowfall = forecast.timelines.daily.sumOf { it.values.snowAccumulation ?: 0.0 }
+            assertThat(totalDailySnowfall).isEqualTo(0.0)
+
+            // Verify total daily rain
+            val totalDailyRain = forecast.timelines.daily.sumOf { it.values.rainAccumulation ?: 0.0 }
+            assertThat(totalDailyRain).isEqualTo(0.0)
+        }
+
+    @Test
     fun `given realtime response that errors out - parses error body properly`() =
         runTest {
             mockWebServer.enqueue(

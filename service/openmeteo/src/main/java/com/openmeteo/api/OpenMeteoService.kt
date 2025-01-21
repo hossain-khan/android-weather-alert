@@ -17,6 +17,7 @@ import kotlinx.coroutines.withContext
  * Service to interact with OpenMeteo API.
  *
  * - https://open-meteo.com/en/features
+ * - https://open-meteo.com/en/docs to try API.
  */
 interface OpenMeteoService {
     suspend fun getWeatherForecast(

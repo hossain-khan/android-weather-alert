@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.properties)
 
     testImplementation(libs.junit)
+    testImplementation(libs.google.truth)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

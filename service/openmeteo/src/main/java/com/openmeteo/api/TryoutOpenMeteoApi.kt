@@ -18,6 +18,7 @@ val testCoordinates: Map<String, Coordinates> =
         "Edmonton" to Coordinates(53.526226f, -113.82236f),
         "São Luís" to Coordinates(-2.7408473f, -44.273506f),
         "Santa Bárbara" to Coordinates(4.193481f, -74.74811f),
+        "Lac Mann" to Coordinates(49.587967f, -75.16987f),
     )
 
 /**
@@ -58,8 +59,8 @@ private fun checkForApp() {
     val om =
         OpenMeteo(
             // Uses toronto latitude and longitude
-            latitude = testCoordinates["Grande Prairie"]!!.latitude,
-            longitude = testCoordinates["Grande Prairie"]!!.longitude,
+            latitude = testCoordinates["Lac Mann"]!!.latitude,
+            longitude = testCoordinates["Lac Mann"]!!.longitude,
             apikey = null,
             contexts = Contexts(),
         )
