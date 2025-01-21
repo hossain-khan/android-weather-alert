@@ -8,8 +8,11 @@ class OpenMeteoResponseTest {
     @Test(expected = Exception::class)
     fun `test load and parse JSON file`() {
         // Test is not working, because of following error:
-        // kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 937:
-        // Failed to parse type 'double' for input '2025-01-21T00:00' at path: $.hourly['time'][0]
+        // 1. kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 937:
+        //    Failed to parse type 'double' for input '2025-01-21T00:00' at path: $.hourly['time'][0]
+        // 2. kotlinx.serialization.MissingFieldException: Fields [utcOffsetSeconds, timezoneAbbreviation, generationtimeMs]
+        //    are required for type with serial name 'com.openmeteo.api.Forecast.Response', but they were missing at path: $
+        // and so on...
         val response = loadWeatherForecastFromJson("open-meteo-forecast-lac-mann-snowing-2025-01-20.json")
 
         // Verify the parsed data
