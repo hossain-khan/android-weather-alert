@@ -122,7 +122,7 @@ kover {
         filters {
             excludes {
                 androidGeneratedClasses()
-                annotatedBy("Composable")
+                annotatedBy("*Composable", "*Parcelize", "*Preview")
             }
         }
 
