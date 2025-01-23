@@ -3,16 +3,17 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.androidx.room)
+    alias(libs.plugins.anvil)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.anvil)
+    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlinter)
-    alias(libs.plugins.androidx.room)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.kotlinx.kover)
+    alias(libs.plugins.ksp)
 }
 
 // Creates a variable called keystorePropertiesFile, and initializes it to the keystore.properties file.
@@ -107,6 +108,16 @@ android {
 
 kapt {
     correctErrorTypes = true
+}
+
+// Kotlin Code Coverage - https://github.com/Kotlin/kotlinx-kover
+kover {
+    htmlReport {
+        onCheck = true
+    }
+    xmlReport {
+        onCheck = true
+    }
 }
 
 dependencies {

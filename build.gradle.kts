@@ -47,4 +47,8 @@ plugins {
     // Firebase Crashlytics Gradle plugin
     // https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
     alias(libs.plugins.firebase.crashlytics) apply false
+
+    // Kover coverage for Kotlin projects
+    // Project: https://github.com/Kotlin/kotlinx-kover
+    alias(libs.plugins.kotlinx.kover) apply false
 }

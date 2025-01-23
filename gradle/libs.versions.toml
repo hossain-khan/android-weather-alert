@@ -182,7 +182,15 @@ openmeteo-api-kotlin = { group = "com.open-meteo", name = "open-meteo-api-kotlin
 androidx-adaptive-android = { group = "androidx.compose.material3.adaptive", name = "adaptive", version.ref = "adaptiveAndroid" }
 
 [plugins]
+# Plugin for Android Applications
+# https://developer.android.com/build
 android-application = { id = "com.android.application", version.ref = "agp" }
+
+# Plugin for Android Libraries
+# https://developer.android.com/studio/projects/android-library
+# https://developer.android.com/build
+android-library = { id = "com.android.library", version.ref = "agp" }
+
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
@@ -214,8 +222,7 @@ google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 # https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.2" }
 
-# Plugin for Android Libraries
-# https://developer.android.com/studio/projects/android-library
-# https://developer.android.com/build
-android-library = { id = "com.android.library", version.ref = "agp" }
+# Kover is a set of solutions for collecting test coverage of Kotlin code compiled for JVM and Android platforms.
+# https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#kover-gradle-plugin
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.6.0" }
 
