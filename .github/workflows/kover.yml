@@ -28,18 +28,20 @@ jobs:
       # Generates reports in following location
       # file:///home/runner/work/android-weather-alert/android-weather-alert/app/build/reports/kover/html/index.html
       - name: Build and run tests
-        run: ./gradlew build koverHtmlReport
+        run: ./gradlew koverHtmlReport
 
+      # https://github.com/actions/upload-artifact
       - name: Upload Kover report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: kover-report
           path: app/build/reports/kover/html
 
+      # Sticky Pull Request Comment
+      # https://github.com/marocchino/sticky-pull-request-comment
       - name: Post coverage comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          path: app/build/reports/kover/html/index.html
           message: |
             ## Code Coverage Report
             [View Coverage Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
