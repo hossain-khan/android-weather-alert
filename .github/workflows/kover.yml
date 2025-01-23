@@ -1,0 +1,38 @@
+name: Kover Code Coverage
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  kover-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Build and run tests
+        run: ./gradlew build koverHtmlReport
+
+      - name: Upload Kover report
+        uses: actions/upload-artifact@v3
+        with:
+          name: kover-report
+          path: build/reports/kover/html
+
+      - name: Post coverage comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          path: build/reports/kover/html/index.html
+          message: |
+            ## Code Coverage Report
+            [View Coverage Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
