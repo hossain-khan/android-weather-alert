@@ -122,7 +122,13 @@ kover {
         filters {
             excludes {
                 androidGeneratedClasses()
-                annotatedBy("*Composable", "*Parcelize", "*Preview")
+                annotatedBy(
+                    "*Composable",
+                    "*Parcelize",
+                    "*Preview",
+                    // Generated classes by Dagger 🗡️
+                    "javax.annotation.processing.Generated"
+                )
             }
         }
 
