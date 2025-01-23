@@ -111,14 +111,14 @@ kapt {
 }
 
 // Kotlin Code Coverage - https://github.com/Kotlin/kotlinx-kover
+
 kover {
-    htmlReport {
-        onCheck = true
-    }
-    xmlReport {
-        onCheck = true
-    }
+    // Configure reports for the debug build variant
+    // For now use default values, key tasks are
+    // - koverHtmlReportDebug - Task to generate HTML coverage report for 'debug' Android build variant
+    // - koverXmlReportDebug - Task to generate XML coverage report for 'debug' Android build variant
 }
+
 
 dependencies {
     implementation(project(":data-model"))
