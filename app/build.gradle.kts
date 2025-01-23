@@ -110,15 +110,39 @@ kapt {
     correctErrorTypes = true
 }
 
+
 // Kotlin Code Coverage - https://github.com/Kotlin/kotlinx-kover
 kover {
-    htmlReport {
-        onCheck = true
-    }
-    xmlReport {
-        onCheck = true
+    // Configure reports for the debug build variant
+    // For now use default values, key tasks are
+    // - koverHtmlReportDebug - Task to generate HTML coverage report for 'debug' Android build variant
+    // - koverXmlReportDebug - Task to generate XML coverage report for 'debug' Android build variant
+    reports {
+        // filters for all report types of all build variants
+        filters {
+            excludes {
+                androidGeneratedClasses()
+                annotatedBy(
+                    "*Composable",
+                    "*Parcelize",
+                    "*Preview",
+                    // Generated classes by Dagger 🗡️
+                    "javax.annotation.processing.Generated"
+                )
+            }
+        }
+
+        variant("release") {
+            // verification only for 'release' build variant
+            verify {
+                rule {
+                    minBound(50)
+                }
+            }
+        }
     }
 }
+
 
 dependencies {
     implementation(project(":data-model"))
