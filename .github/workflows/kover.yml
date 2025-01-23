@@ -30,9 +30,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       # Generates reports in following location
-      # app/build/reports/kover/htmlDebug/index.html
+      # - app/build/reports/kover/htmlDebug/index.html
+      # - app/build/reports/kover/reportDebug.xml
       - name: Build and run tests
-        run: ./gradlew koverHtmlReportDebug
+        run: ./gradlew koverHtmlReportDebug koverXmlReportDebug
 
       # https://github.com/actions/upload-artifact
       - name: Upload Kover report
@@ -49,3 +50,12 @@ jobs:
           message: |
             ## Code Coverage Report
             [View Coverage Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+      # GitHub Action that uploads coverage to Codecov ☂️
+      # https://github.com/codecov/codecov-action
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            files: ./app/build/reports/kover/reportDebug.xml
+            slug: hossain-khan/android-weather-alert
