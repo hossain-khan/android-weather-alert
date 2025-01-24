@@ -11,9 +11,8 @@ this will allow you charge your snow blower batteries, put car in the garage, an
 
 > _This app is a result from personal need to have focused alert compared to wonderful weather apps already available._
 
-[![Get it on Google Play](resources/google-play/GetItOnGooglePlay_Badge_Web_color_English.png)](https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share)
 
-
+<a href="https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share" target="_blank"><img src="resources/google-play/GetItOnGooglePlay_Badge_Web_color_English.png" height="45"></a>
 
 ### **App Summary**  
 **Set it and forget it — get alerted when it matters!**  
@@ -44,7 +43,7 @@ Easily configure and view your alerts in a simple, intuitive tile-based design.
 - Lightweight and efficient, with no unnecessary extras.  
 - Built for people who want actionable weather notifications, hassle-free.  
 
-[Download](https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share) **Weather Alert** today and let the app do the work for you!  
+Try out **Weather Alert** today and let the app do the work for you!  
 
 ## Tech Stack 📱
 Simple application generated from Android App template that uses:
