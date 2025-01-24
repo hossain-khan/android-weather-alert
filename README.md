@@ -45,3 +45,15 @@ Easily configure and view your alerts in a simple, intuitive tile-based design.
 - Built for people who want actionable weather notifications, hassle-free.  
 
 [Download](https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share) **Weather Alert** today and let the app do the work for you!  
+
+## Tech Stack 📱
+Simple application generated from Android App template that uses:
+* Jetpack Compose
+* ⚡️ Circuit - UDF Architecture
+* Jetpack libraries like - Room, Datastore, Material 3, and so on
+* Dagger + Anvil
+* ... and few more. See [`libs.versions.toml`](https://github.com/hossain-khan/android-weather-alert/blob/main/gradle/libs.versions.toml) to get more idea.
+
+Here is simple diagram of Gradle modules for this app.
+
+<img src="https://github.com/user-attachments/assets/c783723c-4303-4287-bf10-54890f4ca058" alt="App Module Diagram" width="400"/>
