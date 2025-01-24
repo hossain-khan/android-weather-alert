@@ -19,7 +19,9 @@ this will allow you charge your snow blower batteries, put car in the garage, an
 
 Weather Alert is a simple, no-frills app designed to notify you when specific weather conditions meet the thresholds you set. Whether it’s a snowy driveway or a rainy day, stay ahead with timely alerts that help you prepare with ease.  
 
-**Key Features:**  
+<details>
+<summary>🎨 Key App Features</summary>
+
 🌨 **Custom Alerts for Specific Weather Conditions:**  
 Set thresholds for snowfall or rainfall (e.g., 5cm snow, 10mm rain) and receive notifications only when they’re met.  
 
@@ -42,6 +44,7 @@ Easily configure and view your alerts in a simple, intuitive tile-based design.
 - Focused on delivering only what you need: alerts that meet your criteria.  
 - Lightweight and efficient, with no unnecessary extras.  
 - Built for people who want actionable weather notifications, hassle-free.  
+</details>
 
 Try out **Weather Alert** today and let the app do the work for you!  
 
