@@ -59,7 +59,9 @@ android {
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
         buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
 
-        buildConfigField("String", "GIT_COMMIT_HASH", "\"${getGitCommitHash()}\"")
+        val execOperations = project.extensions.getByType(ExecOperations::class.java)
+        val gitCommitHash = getGitCommitHash(execOperations)
+        buildConfigField("String", "GIT_COMMIT_HASH", "\"$gitCommitHash\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -249,9 +251,10 @@ ksp {
 
 
 // Helper function to get the current Git commit hash
-fun getGitCommitHash(): String {
+// Function to get the current Git commit hash
+fun getGitCommitHash(execOperations: ExecOperations): String {
     val stdout = ByteArrayOutputStream()
-    exec {
+    execOperations.exec {
         commandLine = listOf("git", "rev-parse", "--short", "HEAD")
         standardOutput = stdout
     }
