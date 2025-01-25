@@ -44,8 +44,8 @@ android {
         applicationId = "dev.hossain.weatheralert"
         minSdk = 30
         targetSdk = 35
-        versionCode = 9
-        versionName = "2.0"
+        versionCode = 10
+        versionName = "2.1"
 
         // Read bundled API key from local.properties
         val openWeatherApiKey: String =
@@ -59,6 +59,7 @@ android {
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
         buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
 
+        // Git commit hash to identify build source
         buildConfigField("String", "GIT_COMMIT_HASH", "\"${getGitCommitHash()}\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
