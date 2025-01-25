@@ -45,6 +45,7 @@ android {
         minSdk = 30
         targetSdk = 35
         versionCode = 10
+        // 🤓 FYI: Don't forget to update release notes.
         versionName = "2.1"
 
         // Read bundled API key from local.properties
