@@ -71,6 +71,15 @@ fun AppMenuItems(
             HorizontalDivider()
 
             DropdownMenuItem(
+                text = { Text("Credits") },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.book_letter_24dp), contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    eventSink(Event.CreditsClicked)
+                },
+            )
+
+            DropdownMenuItem(
                 text = { Text("About") },
                 leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
                 onClick = {
