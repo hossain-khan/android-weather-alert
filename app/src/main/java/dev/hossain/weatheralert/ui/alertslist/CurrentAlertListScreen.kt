@@ -410,10 +410,7 @@ fun AlertTileGrid(
                 eventSink = eventSink,
                 modifier =
                     Modifier
-                        .animateItem()
-                        .clickable {
-                            eventSink(CurrentWeatherAlertScreen.Event.OnItemClicked(alertTileData.alertId))
-                        },
+                        .animateItem(),
             )
         }
     }
@@ -457,8 +454,8 @@ fun AlertTileItem(
                 data = alertTileData,
                 cardElevation = cardElevation,
                 iconResId = alertTileData.category.iconRes(),
+                eventSink = eventSink,
             )
-            // AlertTile(data = alertTileData, cardElevation, modifier = Modifier.fillMaxWidth())
         },
     )
 }
@@ -499,6 +496,7 @@ fun AlertListItem(
     cardElevation: Dp,
     @DrawableRes
     iconResId: Int,
+    eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -512,7 +510,9 @@ fun AlertListItem(
                     } else {
                         Modifier
                     },
-                ),
+                ).clickable {
+                    eventSink(CurrentWeatherAlertScreen.Event.OnItemClicked(data.alertId))
+                },
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
     ) {
