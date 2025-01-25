@@ -31,7 +31,6 @@ interface CityForecastDao {
      * In future, we may have to cleanup the table to keep only latest forecast for each city.
      * However, this is not required for now.
      */
-    @Transaction
     @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastsByCityId(cityId: Long): List<CityForecast>
 }
