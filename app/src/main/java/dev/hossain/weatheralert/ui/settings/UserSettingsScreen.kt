@@ -63,9 +63,9 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.data.ApiKey
+import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
@@ -114,7 +114,7 @@ class UserSettingsPresenter
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: UserSettingsScreen,
         private val preferencesManager: PreferencesManager,
-        private val apiKeyProvider: ApiKey,
+        private val apiKeyProvider: ApiKeyProvider,
         private val analytics: Analytics,
     ) : Presenter<UserSettingsScreen.State> {
         @Composable

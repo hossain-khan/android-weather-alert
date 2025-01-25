@@ -11,8 +11,8 @@ import dagger.Module
 import dagger.Provides
 import dev.hossain.weatheralert.data.ActiveWeatherService
 import dev.hossain.weatheralert.data.ActiveWeatherServiceImpl
-import dev.hossain.weatheralert.data.ApiKey
-import dev.hossain.weatheralert.data.ApiKeyImpl
+import dev.hossain.weatheralert.data.ApiKeyProvider
+import dev.hossain.weatheralert.data.ApiKeyProviderImpl
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.WeatherRepositoryImpl
@@ -28,7 +28,7 @@ interface TestModule {
     fun bindWeatherRepository(impl: WeatherRepositoryImpl): WeatherRepository
 
     @Binds
-    fun bindApiKey(impl: ApiKeyImpl): ApiKey
+    fun bindApiKey(impl: ApiKeyProviderImpl): ApiKeyProvider
 
     @Binds
     fun bindActiveWeatherService(impl: ActiveWeatherServiceImpl): ActiveWeatherService

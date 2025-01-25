@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.ApplicationContext
 import dev.hossain.weatheralert.work.DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
 import kotlinx.coroutines.flow.Flow
@@ -131,6 +132,12 @@ class PreferencesManager
             }
         }
 
+        /**
+         * Retrieves the user selected update interval for weather alerts.
+         *
+         * @see preferredUpdateIntervalSync
+         * @see savePreferredUpdateInterval
+         */
         val preferredUpdateInterval: Flow<Long> =
             dataStore.data
                 .map { preferences: Preferences ->
@@ -144,6 +151,9 @@ class PreferencesManager
                 return@runBlocking interval
             }
 
+        /**
+         * @see preferredUpdateInterval
+         */
         suspend fun savePreferredUpdateInterval(interval: Long) {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[UserPreferences.preferredUpdateIntervalKey] = interval

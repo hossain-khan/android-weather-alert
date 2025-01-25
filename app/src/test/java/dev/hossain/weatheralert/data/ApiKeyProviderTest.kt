@@ -3,20 +3,21 @@ package dev.hossain.weatheralert.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import dev.hossain.weatheralert.datamodel.WeatherService
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 /**
- * Test for [ApiKeyImpl].
+ * Test for [ApiKeyProviderImpl].
  */
 @RunWith(RobolectricTestRunner::class)
-class ApiKeyTest {
+class ApiKeyProviderTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     private val preferencesManager = PreferencesManager(context)
-    private val apiKeyImpl = ApiKeyImpl(preferencesManager)
+    private val apiKeyImpl = ApiKeyProviderImpl(preferencesManager)
 
     @Test
     fun isValidKey_returnsTrueForValidOpenWeatherMap_key1() {

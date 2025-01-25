@@ -8,6 +8,7 @@ import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
@@ -56,7 +57,7 @@ interface WeatherRepository {
 class WeatherRepositoryImpl
     @Inject
     constructor(
-        private val apiKey: ApiKey,
+        private val apiKeyProvider: ApiKeyProvider,
         private val openWeatherService: OpenWeatherService,
         private val tomorrowIoService: TomorrowIoService,
         private val openMeteoService: OpenMeteoService,
@@ -189,7 +190,7 @@ class WeatherRepositoryImpl
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
-                    apiKey = apiKey.activeServiceApiKey,
+                    apiKey = apiKeyProvider.activeServiceApiKey,
                     latitude = latitude,
                     longitude = longitude,
                 )
@@ -216,7 +217,7 @@ class WeatherRepositoryImpl
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
-                    apiKey = apiKey.activeServiceApiKey,
+                    apiKey = apiKeyProvider.activeServiceApiKey,
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {

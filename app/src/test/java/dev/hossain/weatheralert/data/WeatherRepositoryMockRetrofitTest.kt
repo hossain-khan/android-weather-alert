@@ -95,7 +95,7 @@ class WeatherRepositoryMockRetrofitTest {
         val mockTomorrowIoAi = MockTomorrowIoService(tomorrowIoServiceDelegate)
         weatherRepository =
             WeatherRepositoryImpl(
-                apiKey = ApiKeyImpl(preferencesManager),
+                apiKeyProvider = ApiKeyProviderImpl(preferencesManager),
                 openWeatherService = mockWeatherApi,
                 tomorrowIoService = mockTomorrowIoAi,
                 openMeteoService = OpenMeteoServiceImpl(),

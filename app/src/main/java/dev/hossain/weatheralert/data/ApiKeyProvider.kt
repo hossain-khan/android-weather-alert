@@ -2,13 +2,15 @@ package dev.hossain.weatheralert.data
 
 import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.BuildConfig
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import javax.inject.Inject
 
 /**
- * Interface representing an API key.
+ * Provides API key for the supported weather services.
+ * @see WeatherService
  */
-interface ApiKey {
+interface ApiKeyProvider {
     /**
      * The API key as a string for active API service (user preferred service).
      */
@@ -38,15 +40,15 @@ interface ApiKey {
 }
 
 /**
- * Implementation of the [ApiKey] interface.
+ * Implementation of the [ApiKeyProvider] interface.
  * This class provides the API key from the build configuration.
  */
 @ContributesBinding(AppScope::class)
-class ApiKeyImpl
+class ApiKeyProviderImpl
     @Inject
     constructor(
         private val preferencesManager: PreferencesManager,
-    ) : ApiKey {
+    ) : ApiKeyProvider {
         /**
          * Retrieves the API key from the build configuration.
          */
