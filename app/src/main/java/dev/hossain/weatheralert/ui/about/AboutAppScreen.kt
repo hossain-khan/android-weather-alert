@@ -19,6 +19,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,6 +60,8 @@ data class AboutAppScreen(
 
     sealed class Event : CircuitUiEvent {
         data object GoBack : Event()
+
+        data object OpenGitHubProject : Event()
     }
 }
 
@@ -70,6 +74,7 @@ class AboutAppPresenter
     ) : Presenter<AboutAppScreen.State> {
         @Composable
         override fun present(): AboutAppScreen.State {
+            val uriHandler = LocalUriHandler.current
             val appVersion = "v${BuildConfig.VERSION_NAME} (${BuildConfig.GIT_COMMIT_HASH})"
 
             LaunchedImpressionEffect {
@@ -80,6 +85,10 @@ class AboutAppPresenter
                 when (event) {
                     AboutAppScreen.Event.GoBack -> {
                         navigator.pop()
+                    }
+
+                    AboutAppScreen.Event.OpenGitHubProject -> {
+                        uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert")
                     }
                 }
             }
@@ -162,6 +171,9 @@ fun AboutAppScreen(
                     style = MaterialTheme.typography.labelSmall,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
+                TextButton(onClick = {
+                    state.eventSink(AboutAppScreen.Event.OpenGitHubProject)
+                }, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text("View Source") }
             }
             Text(
                 text = "Version: ${state.appVersion}",
