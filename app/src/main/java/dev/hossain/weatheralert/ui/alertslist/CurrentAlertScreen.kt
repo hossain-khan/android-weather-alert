@@ -13,8 +13,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +29,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
@@ -120,6 +121,8 @@ data class CurrentWeatherAlertScreen(
         data object MessageShown : Event()
 
         data object SettingsClicked : Event()
+
+        data object AboutAppClicked : Event()
 
         data class UndoDelete(
             val item: AlertTileData,
@@ -263,6 +266,11 @@ class CurrentWeatherAlertPresenter
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
                         navigator.goTo(UserSettingsScreen("settings"))
                     }
+
+                    CurrentWeatherAlertScreen.Event.AboutAppClicked -> {
+                        Timber.d("About app clicked.")
+                        // TODO https://github.com/hossain-khan/android-weather-alert/issues/211
+                    }
                 }
             }
         }
@@ -289,15 +297,23 @@ fun CurrentWeatherAlerts(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Weather Alerts") },
-                actions = {
-                    IconButton(onClick = {
-                        state.eventSink(CurrentWeatherAlertScreen.Event.SettingsClicked)
-                    }) {
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text("Weather Alerts")
+                        Spacer(modifier = Modifier.width(8.dp))
                         Icon(
-                            painter = painterResource(id = R.drawable.settings_24dp),
-                            contentDescription = "Settings",
+                            painter = painterResource(R.drawable.weather_alert_icon_no_fill),
+                            contentDescription = "Weather Alerts",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(20.dp).offset(y = (-3).dp),
                         )
+                    }
+                },
+                actions = {
+                    AppMenuItems {
+                        state.eventSink(it)
                     }
                 },
             )
