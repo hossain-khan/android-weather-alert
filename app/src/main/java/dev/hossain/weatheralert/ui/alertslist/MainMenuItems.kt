@@ -73,7 +73,10 @@ fun AppMenuItems(
             DropdownMenuItem(
                 text = { Text("About") },
                 leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
-                onClick = { /* Do something... */ },
+                onClick = {
+                    expanded = false
+                    eventSink(Event.AboutAppClicked)
+                },
             )
         }
     }

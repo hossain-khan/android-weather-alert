@@ -122,6 +122,8 @@ data class CurrentWeatherAlertScreen(
 
         data object SettingsClicked : Event()
 
+        data object AboutAppClicked : Event()
+
         data class UndoDelete(
             val item: AlertTileData,
         ) : Event()
@@ -263,6 +265,11 @@ class CurrentWeatherAlertPresenter
 
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
                         navigator.goTo(UserSettingsScreen("settings"))
+                    }
+
+                    CurrentWeatherAlertScreen.Event.AboutAppClicked -> {
+                        Timber.d("About app clicked.")
+                        // TODO https://github.com/hossain-khan/android-weather-alert/issues/211
                     }
                 }
             }
