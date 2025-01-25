@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.data
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import dev.hossain.weatheralert.datamodel.WeatherService
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.runner.RunWith

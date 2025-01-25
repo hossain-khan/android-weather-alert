@@ -65,7 +65,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig

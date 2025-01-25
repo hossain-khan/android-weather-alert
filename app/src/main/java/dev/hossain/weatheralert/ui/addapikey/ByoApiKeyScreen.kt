@@ -64,7 +64,7 @@ import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen

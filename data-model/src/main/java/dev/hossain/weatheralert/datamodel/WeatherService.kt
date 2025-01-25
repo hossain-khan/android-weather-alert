@@ -1,12 +1,6 @@
-package dev.hossain.weatheralert.data
+package dev.hossain.weatheralert.datamodel
 
 import androidx.annotation.Keep
-import com.openmeteo.api.OpenMeteoService
-import com.squareup.anvil.annotations.ContributesBinding
-import dev.hossain.weatheralert.di.AppScope
-import io.tomorrow.api.TomorrowIoService
-import org.openweathermap.api.OpenWeatherService
-import javax.inject.Inject
 
 /**
  * List of supported weather services.
@@ -48,20 +42,3 @@ enum class WeatherService(
         isEnabled = false,
     ),
 }
-
-interface ActiveWeatherService {
-    fun selectedService(): WeatherService
-}
-
-/**
- * Implementation of the [ActiveWeatherService] interface.
- * This class provides the selected weather service based on user preference.
- */
-@ContributesBinding(AppScope::class)
-class ActiveWeatherServiceImpl
-    @Inject
-    constructor(
-        private val preferencesManager: PreferencesManager,
-    ) : ActiveWeatherService {
-        override fun selectedService(): WeatherService = preferencesManager.preferredWeatherServiceSync
-    }

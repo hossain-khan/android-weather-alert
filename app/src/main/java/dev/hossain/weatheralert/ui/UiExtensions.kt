@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 
 /**
  * Internal config to show logo with right sizing and description for each weather service.

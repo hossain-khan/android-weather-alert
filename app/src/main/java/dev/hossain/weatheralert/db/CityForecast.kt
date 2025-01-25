@@ -3,7 +3,7 @@ package dev.hossain.weatheralert.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 
 @Entity(tableName = "city_forecasts")
 data class CityForecast(

@@ -7,7 +7,7 @@ import com.google.firebase.analytics.logEvent
 import com.slack.circuit.runtime.screen.Screen
 import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.optional.SingleIn
-import dev.hossain.weatheralert.data.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_ADD_SERVICE_API_KEY
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLETED
