@@ -56,7 +56,7 @@ interface WeatherRepository {
 class WeatherRepositoryImpl
     @Inject
     constructor(
-        private val apiKey: ApiKey,
+        private val apiKeyProvider: ApiKeyProvider,
         private val openWeatherService: OpenWeatherService,
         private val tomorrowIoService: TomorrowIoService,
         private val openMeteoService: OpenMeteoService,
@@ -189,7 +189,7 @@ class WeatherRepositoryImpl
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
-                    apiKey = apiKey.activeServiceApiKey,
+                    apiKey = apiKeyProvider.activeServiceApiKey,
                     latitude = latitude,
                     longitude = longitude,
                 )
@@ -216,7 +216,7 @@ class WeatherRepositoryImpl
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
-                    apiKey = apiKey.activeServiceApiKey,
+                    apiKey = apiKeyProvider.activeServiceApiKey,
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {

@@ -66,7 +66,7 @@ class WeatherRepositoryTest {
 
         weatherRepository =
             WeatherRepositoryImpl(
-                apiKey = ApiKeyImpl(preferencesManager = preferencesManager),
+                apiKeyProvider = ApiKeyProviderImpl(preferencesManager = preferencesManager),
                 openWeatherService = openWeatherService,
                 tomorrowIoService = tomorrowIoService,
                 openMeteoService = openMeteoService,

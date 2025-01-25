@@ -60,7 +60,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.data.ApiKey
+import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -121,7 +121,7 @@ class BringYourOwnApiKeyPresenter
         @Assisted private val screen: BringYourOwnApiKeyScreen,
         private val weatherRepository: WeatherRepository,
         private val preferencesManager: PreferencesManager,
-        private val apiKeyProvider: ApiKey,
+        private val apiKeyProvider: ApiKeyProvider,
         private val analytics: Analytics,
     ) : Presenter<BringYourOwnApiKeyScreen.State> {
         @Composable
