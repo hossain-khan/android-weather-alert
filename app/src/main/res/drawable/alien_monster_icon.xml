@@ -1,0 +1,14 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <!--
+    Source: https://www.svgrepo.com/svg/404714/alien-monster
+    -->
+
+    <path
+        android:fillColor="#553986"
+        android:pathData="M26,31h4v4h-4zM6,31h4v4L6,35zM30,10h-2L28,8h-2L26,6h-3L23,2h-2v4h-6L15,2h-2v4h-3v2L8,8v2L6,10v7L2,17v2h4v7h4v5h5v-5h6v5h5v-5h4v-7h4v-2h-4v-7zM16,21h-4v-8h4v8zM20,21v-8h4v8h-4zM34,6h2v11h-2zM0,6h2v11L0,17z" />
+
+</vector>

@@ -84,6 +84,7 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
+import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
@@ -123,6 +124,8 @@ data class CurrentWeatherAlertScreen(
         data object SettingsClicked : Event()
 
         data object AboutAppClicked : Event()
+
+        data object CreditsClicked : Event()
 
         data class UndoDelete(
             val item: AlertTileData,
@@ -270,6 +273,11 @@ class CurrentWeatherAlertPresenter
                     CurrentWeatherAlertScreen.Event.AboutAppClicked -> {
                         Timber.d("About app clicked.")
                         // TODO https://github.com/hossain-khan/android-weather-alert/issues/211
+                    }
+
+                    CurrentWeatherAlertScreen.Event.CreditsClicked -> {
+                        Timber.d("Credits clicked.")
+                        navigator.goTo(AppCreditsScreen("credits"))
                     }
                 }
             }
