@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,14 +25,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.LinkAnnotation
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withLink
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -44,6 +39,7 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -66,38 +62,38 @@ data class AboutAppScreen(
 }
 
 class AboutAppPresenter
-@AssistedInject
-constructor(
-    @Assisted private val navigator: Navigator,
-    @Assisted private val screen: AboutAppScreen,
-    private val analytics: Analytics,
-) : Presenter<AboutAppScreen.State> {
-    @Composable
-    override fun present(): AboutAppScreen.State {
-        val appVersion = "1.0.0" // Replace with actual version retrieval logic
+    @AssistedInject
+    constructor(
+        @Assisted private val navigator: Navigator,
+        @Assisted private val screen: AboutAppScreen,
+        private val analytics: Analytics,
+    ) : Presenter<AboutAppScreen.State> {
+        @Composable
+        override fun present(): AboutAppScreen.State {
+            val appVersion = "v${BuildConfig.VERSION_NAME} (${BuildConfig.GIT_COMMIT_HASH})"
 
-        LaunchedImpressionEffect {
-            analytics.logScreenView(AboutAppScreen::class)
-        }
+            LaunchedImpressionEffect {
+                analytics.logScreenView(AboutAppScreen::class)
+            }
 
-        return AboutAppScreen.State(appVersion) { event ->
-            when (event) {
-                AboutAppScreen.Event.GoBack -> {
-                    navigator.pop()
+            return AboutAppScreen.State(appVersion) { event ->
+                when (event) {
+                    AboutAppScreen.Event.GoBack -> {
+                        navigator.pop()
+                    }
                 }
             }
         }
-    }
 
-    @CircuitInject(AboutAppScreen::class, AppScope::class)
-    @AssistedFactory
-    fun interface Factory {
-        fun create(
-            navigator: Navigator,
-            screen: AboutAppScreen,
-        ): AboutAppPresenter
+        @CircuitInject(AboutAppScreen::class, AppScope::class)
+        @AssistedFactory
+        fun interface Factory {
+            fun create(
+                navigator: Navigator,
+                screen: AboutAppScreen,
+            ): AboutAppPresenter
+        }
     }
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @CircuitInject(AboutAppScreen::class, AppScope::class)
@@ -125,27 +121,53 @@ fun AboutAppScreen(
     ) { contentPaddingValues ->
         Column(
             modifier =
-            modifier
-                .fillMaxSize()
-                .padding(contentPaddingValues)
-                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier
+                    .fillMaxSize()
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
+                    .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(
-                text = "Weather Alert App",
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(top = 16.dp),
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.weather_alert_icon),
+                    contentDescription = "App icon",
+                    modifier =
+                        Modifier
+                            .size(84.dp)
+                            .align(Alignment.CenterHorizontally),
+                )
+                Text(
+                    text = "Your no-fuss, personal weather alerter.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = R.drawable.github_logo_outline),
+                    contentDescription = "GitHub Logo Icon",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary),
+                    modifier =
+                        Modifier
+                            .size(84.dp)
+                            .align(Alignment.CenterHorizontally),
+                )
+                Text(
+                    text = "Proudly open-source on GitHub",
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                )
+            }
             Text(
                 text = "Version: ${state.appVersion}",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 16.dp),
             )
-            Text(
-                text = "This app provides weather alerts for your selected locations.",
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            // Add more information as needed
         }
     }
 }
@@ -156,7 +178,7 @@ fun AboutAppScreen(
 fun AboutAppScreenPreview() {
     val sampleState =
         AboutAppScreen.State(
-            appVersion = "1.0.0",
+            appVersion = "v1.0.0 (b135e2a)",
             eventSink = {},
         )
     WeatherAlertAppTheme {
