@@ -59,8 +59,8 @@ fun AppMenuItems(
 
             DropdownMenuItem(
                 text = { Text("Send Feedback") },
-                leadingIcon = { Icon(painter = painterResource(R.drawable.feedback_24dp), contentDescription = null) },
-                trailingIcon = { Icon(painter = painterResource(R.drawable.open_in_new_24dp), contentDescription = null) },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.github_logo), contentDescription = "Github Logo Icon") },
+                trailingIcon = { Icon(painter = painterResource(R.drawable.open_in_new_24dp), contentDescription = "External Link Icon") },
                 onClick = {
                     expanded = false
                     // Take user to GitHub issues page to report issue or provide feedback.
