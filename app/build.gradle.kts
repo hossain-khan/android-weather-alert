@@ -44,8 +44,8 @@ android {
         applicationId = "dev.hossain.weatheralert"
         minSdk = 30
         targetSdk = 35
-        versionCode = 8
-        versionName = "1.7"
+        versionCode = 9
+        versionName = "2.0"
 
         // Read bundled API key from local.properties
         val openWeatherApiKey: String =
