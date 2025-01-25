@@ -75,7 +75,14 @@ class AboutAppPresenter
         @Composable
         override fun present(): AboutAppScreen.State {
             val uriHandler = LocalUriHandler.current
-            val appVersion = "v${BuildConfig.VERSION_NAME} (${BuildConfig.GIT_COMMIT_HASH})"
+            val appVersion =
+                buildString {
+                    append("v")
+                    append(BuildConfig.VERSION_NAME)
+                    append(" (")
+                    append(BuildConfig.GIT_COMMIT_HASH)
+                    append(")")
+                }
 
             LaunchedImpressionEffect {
                 analytics.logScreenView(AboutAppScreen::class)
@@ -175,11 +182,23 @@ fun AboutAppScreen(
                     state.eventSink(AboutAppScreen.Event.OpenGitHubProject)
                 }, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text("View Source") }
             }
-            Text(
-                text = "Version: ${state.appVersion}",
-                style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 16.dp),
-            )
+            Column(modifier = Modifier.fillMaxWidth()) {
+                if (BuildConfig.DEBUG) {
+                    // For fun, show Kodee in debug build
+                    Image(
+                        painter = painterResource(id = R.drawable.kodee_sharing_love),
+                        contentDescription = "Kotlin Kodee Mascot",
+                        modifier =
+                            Modifier
+                                .align(Alignment.CenterHorizontally),
+                    )
+                }
+                Text(
+                    text = "Version: ${state.appVersion}",
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(bottom = 16.dp),
+                )
+            }
         }
     }
 }
