@@ -7,7 +7,8 @@ import dev.hossain.weatheralert.di.AppScope
 import javax.inject.Inject
 
 /**
- * Interface representing an API key.
+ * Provides API key for the supported weather services.
+ * @see WeatherService
  */
 interface ApiKeyProvider {
     /**
