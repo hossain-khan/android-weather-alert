@@ -10,6 +10,9 @@ import java.util.UUID
 const val DEFAULT_SNOW_THRESHOLD = 20.0f // mm
 const val DEFAULT_RAIN_THRESHOLD = 10.0f // mm
 
+/**
+ * Data class used by the UI to display alert card.
+ */
 @Parcelize
 data class AlertTileData constructor(
     val alertId: Long,
@@ -28,6 +31,9 @@ data class AlertTileData constructor(
     val uuid: String = UUID.randomUUID().toString(),
 ) : Parcelable
 
+/**
+ * Returns the icon resource for the [WeatherAlertCategory].
+ */
 @DrawableRes
 internal fun WeatherAlertCategory.iconRes(): Int =
     when (this) {
@@ -35,6 +41,9 @@ internal fun WeatherAlertCategory.iconRes(): Int =
         WeatherAlertCategory.RAIN_FALL -> R.drawable.rain_umbrella_bold_icon
     }
 
+/**
+ * Data class used by the UI to display snackbar with optional [action].
+ */
 data class SnackbarData(
     val message: String,
     val actionLabel: String? = null,

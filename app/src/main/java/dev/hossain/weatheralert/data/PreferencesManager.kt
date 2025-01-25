@@ -132,6 +132,12 @@ class PreferencesManager
             }
         }
 
+        /**
+         * Retrieves the user selected update interval for weather alerts.
+         *
+         * @see preferredUpdateIntervalSync
+         * @see savePreferredUpdateInterval
+         */
         val preferredUpdateInterval: Flow<Long> =
             dataStore.data
                 .map { preferences: Preferences ->
@@ -145,6 +151,9 @@ class PreferencesManager
                 return@runBlocking interval
             }
 
+        /**
+         * @see preferredUpdateInterval
+         */
         suspend fun savePreferredUpdateInterval(interval: Long) {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[UserPreferences.preferredUpdateIntervalKey] = interval
