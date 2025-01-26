@@ -1,0 +1,590 @@
+<svg aria-roledescription="er" role="graphics-document document" viewBox="0 0 680.9765625 540"
+    style="max-width: 680.9765625px;" xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://www.w3.org/2000/svg" width="100%" id="mermaid-1737852180762">
+    <style>#mermaid-1737852180762{font-family:"trebuchet
+        ms",verdana,arial,sans-serif;font-size:16px;fill:#333;}#mermaid-1737852180762
+        .error-icon{fill:#552222;}#mermaid-1737852180762
+        .error-text{fill:#552222;stroke:#552222;}#mermaid-1737852180762
+        .edge-thickness-normal{stroke-width:1px;}#mermaid-1737852180762
+        .edge-thickness-thick{stroke-width:3.5px;}#mermaid-1737852180762
+        .edge-pattern-solid{stroke-dasharray:0;}#mermaid-1737852180762
+        .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-1737852180762
+        .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-1737852180762
+        .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-1737852180762
+        .marker{fill:#333333;stroke:#333333;}#mermaid-1737852180762
+        .marker.cross{stroke:#333333;}#mermaid-1737852180762 svg{font-family:"trebuchet
+        ms",verdana,arial,sans-serif;font-size:16px;}#mermaid-1737852180762
+        p{margin:0;}#mermaid-1737852180762
+        .entityBox{fill:#ECECFF;stroke:#9370DB;}#mermaid-1737852180762
+        .attributeBoxOdd{fill:#ffffff;stroke:#9370DB;}#mermaid-1737852180762
+        .attributeBoxEven{fill:#f2f2f2;stroke:#9370DB;}#mermaid-1737852180762
+        .relationshipLabelBox{fill:hsl(80, 100%,
+        96.2745098039%);opacity:0.7;background-color:hsl(80, 100%,
+        96.2745098039%);}#mermaid-1737852180762 .relationshipLabelBox
+        rect{opacity:0.5;}#mermaid-1737852180762
+        .relationshipLine{stroke:#333333;}#mermaid-1737852180762
+        .entityTitleText{text-anchor:middle;font-size:18px;fill:#333;}#mermaid-1737852180762
+        #MD_PARENT_START{fill:#f5f5f5!important;stroke:#333333!important;stroke-width:1;}#mermaid-1737852180762
+        #MD_PARENT_END{fill:#f5f5f5!important;stroke:#333333!important;stroke-width:1;}#mermaid-1737852180762
+        :root{--mermaid-font-family:"trebuchet ms",verdana,arial,sans-serif;}
+    </style>
+    <g />
+    <defs>
+        <marker orient="auto" markerHeight="240" markerWidth="190" refY="7" refX="0"
+            id="MD_PARENT_START">
+            <path d="M 18,7 L9,13 L1,7 L9,1 Z" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="28" markerWidth="20" refY="7" refX="19"
+            id="MD_PARENT_END">
+            <path d="M 18,7 L9,13 L1,7 L9,1 Z" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="18" markerWidth="18" refY="9" refX="0"
+            id="ONLY_ONE_START">
+            <path d="M9,0 L9,18 M15,0 L15,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="18" markerWidth="18" refY="9" refX="18"
+            id="ONLY_ONE_END">
+            <path d="M3,0 L3,18 M9,0 L9,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="18" markerWidth="30" refY="9" refX="0"
+            id="ZERO_OR_ONE_START">
+            <circle r="6" cy="9" cx="21" fill="white" stroke="gray" />
+            <path d="M9,0 L9,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="18" markerWidth="30" refY="9" refX="30"
+            id="ZERO_OR_ONE_END">
+            <circle r="6" cy="9" cx="9" fill="white" stroke="gray" />
+            <path d="M21,0 L21,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="36" markerWidth="45" refY="18" refX="18"
+            id="ONE_OR_MORE_START">
+            <path d="M0,18 Q 18,0 36,18 Q 18,36 0,18 M42,9 L42,27" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="36" markerWidth="45" refY="18" refX="27"
+            id="ONE_OR_MORE_END">
+            <path d="M3,9 L3,27 M9,18 Q27,0 45,18 Q27,36 9,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="36" markerWidth="57" refY="18" refX="18"
+            id="ZERO_OR_MORE_START">
+            <circle r="6" cy="18" cx="48" fill="white" stroke="gray" />
+            <path d="M0,18 Q18,0 36,18 Q18,36 0,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <defs>
+        <marker orient="auto" markerHeight="36" markerWidth="57" refY="18" refX="39"
+            id="ZERO_OR_MORE_END">
+            <circle r="6" cy="18" cx="9" fill="white" stroke="gray" />
+            <path d="M21,18 Q39,0 57,18 Q39,36 21,18" fill="none" stroke="gray" />
+        </marker>
+    </defs>
+    <path style="stroke: gray; fill: none;" marker-start="url(#ONLY_ONE_START)"
+        marker-end="url(#ZERO_OR_MORE_END)"
+        d="M93.75,286L93.75,294.333C93.75,302.667,93.75,319.333,93.75,336C93.75,352.667,93.75,369.333,93.75,377.667L93.75,386"
+        class="er relationshipLine" />
+    <g transform="translate(24.296875,20 )" id="entity-cities-6f0c0c08-d423-5592-917d-047838c3283c">
+        <rect height="266" width="138.90625" y="0" x="0" class="er entityBox" />
+        <text transform="translate(69.453125,12)"
+            style="dominant-baseline: middle; text-anchor: middle; font-size: 12px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c" class="er entityLabel">
+            cities
+        </text>
+        <rect height="22" width="68.3046875" y="24" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,35)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-1-type"
+            class="er entityLabel">city
+        </text>
+        <rect height="22" width="49.0390625" y="24" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-1-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="24" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-1-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="46" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,57)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-2-type"
+            class="er entityLabel">city_ascii
+        </text>
+        <rect height="22" width="49.0390625" y="46" x="68.3046875" class="er attributeBoxEven" />
+        <text transform="translate(73.3046875,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-2-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="46" x="117.34375" class="er attributeBoxEven" />
+        <text transform="translate(122.34375,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-2-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="68" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,79)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-3-type"
+            class="er entityLabel">lat
+        </text>
+        <rect height="22" width="49.0390625" y="68" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-3-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="68" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-3-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="90" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,101)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-4-type"
+            class="er entityLabel">lng
+        </text>
+        <rect height="22" width="49.0390625" y="90" x="68.3046875" class="er attributeBoxEven" />
+        <text transform="translate(73.3046875,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-4-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="90" x="117.34375" class="er attributeBoxEven" />
+        <text transform="translate(122.34375,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-4-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="112" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,123)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-5-type"
+            class="er entityLabel">country
+        </text>
+        <rect height="22" width="49.0390625" y="112" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-5-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="112" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-5-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="134" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,145)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-6-type"
+            class="er entityLabel">iso2
+        </text>
+        <rect height="22" width="49.0390625" y="134" x="68.3046875" class="er attributeBoxEven" />
+        <text transform="translate(73.3046875,145)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-6-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="134" x="117.34375" class="er attributeBoxEven" />
+        <text transform="translate(122.34375,145)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-6-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="156" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,167)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-7-type"
+            class="er entityLabel">iso3
+        </text>
+        <rect height="22" width="49.0390625" y="156" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,167)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-7-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="156" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,167)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-7-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="178" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,189)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-8-type"
+            class="er entityLabel">admin_name
+        </text>
+        <rect height="22" width="49.0390625" y="178" x="68.3046875" class="er attributeBoxEven" />
+        <text transform="translate(73.3046875,189)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-8-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="178" x="117.34375" class="er attributeBoxEven" />
+        <text transform="translate(122.34375,189)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-8-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="200" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,211)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-9-type"
+            class="er entityLabel">capital
+        </text>
+        <rect height="22" width="49.0390625" y="200" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,211)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-9-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="200" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,211)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-9-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="222" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,233)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-10-type"
+            class="er entityLabel">population
+        </text>
+        <rect height="22" width="49.0390625" y="222" x="68.3046875" class="er attributeBoxEven" />
+        <text transform="translate(73.3046875,233)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-10-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="222" x="117.34375" class="er attributeBoxEven" />
+        <text transform="translate(122.34375,233)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-10-key"
+            class="er entityLabel" />
+        <rect height="22" width="68.3046875" y="244" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,255)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-11-type"
+            class="er entityLabel">id
+        </text>
+        <rect height="22" width="49.0390625" y="244" x="68.3046875" class="er attributeBoxOdd" />
+        <text transform="translate(73.3046875,255)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-11-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="244" x="117.34375" class="er attributeBoxOdd" />
+        <text transform="translate(122.34375,255)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cities-6f0c0c08-d423-5592-917d-047838c3283c-attr-11-key"
+            class="er entityLabel">PK
+        </text>
+    </g>
+    <g transform="translate(20,386 )" id="entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be">
+        <rect height="134" width="147.5" y="0" x="0" class="er entityBox" />
+        <text transform="translate(73.75,12)"
+            style="dominant-baseline: middle; text-anchor: middle; font-size: 12px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be" class="er entityLabel">
+            alerts
+        </text>
+        <rect height="22" width="76.8984375" y="24" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,35)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-1-type"
+            class="er entityLabel">id
+        </text>
+        <rect height="22" width="49.0390625" y="24" x="76.8984375" class="er attributeBoxOdd" />
+        <text transform="translate(81.8984375,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-1-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="24" x="125.9375" class="er attributeBoxOdd" />
+        <text transform="translate(130.9375,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-1-key"
+            class="er entityLabel">PK
+        </text>
+        <rect height="22" width="76.8984375" y="46" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,57)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-2-type"
+            class="er entityLabel">city_id
+        </text>
+        <rect height="22" width="49.0390625" y="46" x="76.8984375" class="er attributeBoxEven" />
+        <text transform="translate(81.8984375,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-2-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="46" x="125.9375" class="er attributeBoxEven" />
+        <text transform="translate(130.9375,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-2-key"
+            class="er entityLabel" />
+        <rect height="22" width="76.8984375" y="68" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,79)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-3-type"
+            class="er entityLabel">alert_category
+        </text>
+        <rect height="22" width="49.0390625" y="68" x="76.8984375" class="er attributeBoxOdd" />
+        <text transform="translate(81.8984375,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-3-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="68" x="125.9375" class="er attributeBoxOdd" />
+        <text transform="translate(130.9375,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-3-key"
+            class="er entityLabel" />
+        <rect height="22" width="76.8984375" y="90" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,101)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-4-type"
+            class="er entityLabel">threshold
+        </text>
+        <rect height="22" width="49.0390625" y="90" x="76.8984375" class="er attributeBoxEven" />
+        <text transform="translate(81.8984375,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-4-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="90" x="125.9375" class="er attributeBoxEven" />
+        <text transform="translate(130.9375,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-4-key"
+            class="er entityLabel" />
+        <rect height="22" width="76.8984375" y="112" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,123)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0" id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-5-type"
+            class="er entityLabel">notes
+        </text>
+        <rect height="22" width="49.0390625" y="112" x="76.8984375" class="er attributeBoxOdd" />
+        <text transform="translate(81.8984375,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-5-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="112" x="125.9375" class="er attributeBoxOdd" />
+        <text transform="translate(130.9375,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-alerts-53f8f20f-237c-59df-9075-fc4c9626a4be-attr-5-key"
+            class="er entityLabel" />
+    </g>
+    <g transform="translate(263.203125,119 )"
+        id="entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7">
+        <rect height="68" width="116.3359375" y="0" x="0" class="er entityBox" />
+        <text transform="translate(58.16796875,12)"
+            style="dominant-baseline: middle; text-anchor: middle; font-size: 12px;" y="0" x="0"
+            id="text-entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7"
+            class="er entityLabel">sqlite_sequence
+        </text>
+        <rect height="22" width="59.15625" y="24" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,35)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7-attr-1-type"
+            class="er entityLabel">name
+        </text>
+        <rect height="22" width="57.1796875" y="24" x="59.15625" class="er attributeBoxOdd" />
+        <text transform="translate(64.15625,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7-attr-1-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="59.15625" y="46" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,57)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7-attr-2-type"
+            class="er entityLabel">seq
+        </text>
+        <rect height="22" width="57.1796875" y="46" x="59.15625" class="er attributeBoxEven" />
+        <text transform="translate(64.15625,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-sqlitesequence-ddbcd97c-504b-543f-b2f5-f0e7229837d7-attr-2-name"
+            class="er entityLabel">TEXT
+        </text>
+    </g>
+    <g transform="translate(479.5390625,31 )"
+        id="entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44">
+        <rect height="244" width="181.4375" y="0" x="0" class="er entityBox" />
+        <text transform="translate(90.71875,12)"
+            style="dominant-baseline: middle; text-anchor: middle; font-size: 12px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44"
+            class="er entityLabel">city_forecasts
+        </text>
+        <rect height="22" width="110.8359375" y="24" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,35)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-1-type"
+            class="er entityLabel">forecast_id
+        </text>
+        <rect height="22" width="49.0390625" y="24" x="110.8359375" class="er attributeBoxOdd" />
+        <text transform="translate(115.8359375,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-1-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="24" x="159.875" class="er attributeBoxOdd" />
+        <text transform="translate(164.875,35)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-1-key"
+            class="er entityLabel">PK
+        </text>
+        <rect height="22" width="110.8359375" y="46" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,57)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-2-type"
+            class="er entityLabel">cityId
+        </text>
+        <rect height="22" width="49.0390625" y="46" x="110.8359375" class="er attributeBoxEven" />
+        <text transform="translate(115.8359375,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-2-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="46" x="159.875" class="er attributeBoxEven" />
+        <text transform="translate(164.875,57)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-2-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="68" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,79)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-3-type"
+            class="er entityLabel">latitude
+        </text>
+        <rect height="22" width="49.0390625" y="68" x="110.8359375" class="er attributeBoxOdd" />
+        <text transform="translate(115.8359375,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-3-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="68" x="159.875" class="er attributeBoxOdd" />
+        <text transform="translate(164.875,79)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-3-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="90" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,101)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-4-type"
+            class="er entityLabel">longitude
+        </text>
+        <rect height="22" width="49.0390625" y="90" x="110.8359375" class="er attributeBoxEven" />
+        <text transform="translate(115.8359375,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-4-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="90" x="159.875" class="er attributeBoxEven" />
+        <text transform="translate(164.875,101)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-4-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="112" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,123)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-5-type"
+            class="er entityLabel">dailyCumulativeSnow
+        </text>
+        <rect height="22" width="49.0390625" y="112" x="110.8359375" class="er attributeBoxOdd" />
+        <text transform="translate(115.8359375,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-5-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="112" x="159.875" class="er attributeBoxOdd" />
+        <text transform="translate(164.875,123)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-5-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="134" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,145)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-6-type"
+            class="er entityLabel">nextDaySnow
+        </text>
+        <rect height="22" width="49.0390625" y="134" x="110.8359375" class="er attributeBoxEven" />
+        <text transform="translate(115.8359375,145)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-6-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="134" x="159.875" class="er attributeBoxEven" />
+        <text transform="translate(164.875,145)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-6-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="156" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,167)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-7-type"
+            class="er entityLabel">dailyCumulativeRain
+        </text>
+        <rect height="22" width="49.0390625" y="156" x="110.8359375" class="er attributeBoxOdd" />
+        <text transform="translate(115.8359375,167)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-7-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="156" x="159.875" class="er attributeBoxOdd" />
+        <text transform="translate(164.875,167)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-7-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="178" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,189)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-8-type"
+            class="er entityLabel">nextDayRain
+        </text>
+        <rect height="22" width="49.0390625" y="178" x="110.8359375" class="er attributeBoxEven" />
+        <text transform="translate(115.8359375,189)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-8-name"
+            class="er entityLabel">REAL
+        </text>
+        <rect height="22" width="21.5625" y="178" x="159.875" class="er attributeBoxEven" />
+        <text transform="translate(164.875,189)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-8-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="200" x="0" class="er attributeBoxOdd" />
+        <text transform="translate(5,211)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-9-type"
+            class="er entityLabel">forecastSourceService
+        </text>
+        <rect height="22" width="49.0390625" y="200" x="110.8359375" class="er attributeBoxOdd" />
+        <text transform="translate(115.8359375,211)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-9-name"
+            class="er entityLabel">TEXT
+        </text>
+        <rect height="22" width="21.5625" y="200" x="159.875" class="er attributeBoxOdd" />
+        <text transform="translate(164.875,211)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-9-key"
+            class="er entityLabel" />
+        <rect height="22" width="110.8359375" y="222" x="0" class="er attributeBoxEven" />
+        <text transform="translate(5,233)" style="dominant-baseline: middle; font-size: 10.2px;"
+            y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-10-type"
+            class="er entityLabel">created_at
+        </text>
+        <rect height="22" width="49.0390625" y="222" x="110.8359375" class="er attributeBoxEven" />
+        <text transform="translate(115.8359375,233)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-10-name"
+            class="er entityLabel">INTEGER
+        </text>
+        <rect height="22" width="21.5625" y="222" x="159.875" class="er attributeBoxEven" />
+        <text transform="translate(164.875,233)"
+            style="dominant-baseline: middle; font-size: 10.2px;" y="0" x="0"
+            id="text-entity-cityforecasts-cab7a3b8-30b5-57fe-b12e-1ac1012e2d44-attr-10-key"
+            class="er entityLabel" />
+    </g>
+    <rect height="0" width="0" y="336" x="93.75" class="er relationshipLabelBox" />
+    <text style="text-anchor: middle; dominant-baseline: middle; font-size: 12px;" y="336" x="93.75"
+        id="rel1" class="er relationshipLabel" />
+</svg>
