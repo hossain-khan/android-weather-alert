@@ -23,6 +23,8 @@ Here is a snapshot of app database schema
 ## Sample CSV Data
 Here is snapshot of CSV data from each source
 
+[//]: # (Generated with: https://tableconvert.com/csv-to-markdown and https://www.convertcsv.com/csv-to-markdown.htm)
+
 ### World Cities
 | city      | city_ascii | lat     | lng      | country   | iso2 | iso3 | admin_name | capital | population | id         |
 |-----------|------------|---------|----------|-----------|------|------|------------|---------|------------|------------|
