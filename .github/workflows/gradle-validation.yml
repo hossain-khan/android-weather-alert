@@ -4,7 +4,6 @@ name: "Validate Gradle Wrapper"
 # Source: https://github.com/gradle/actions?tab=readme-ov-file#the-wrapper-validation-action
 
 on:
-  push:
   pull_request:
 
 jobs:
