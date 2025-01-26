@@ -15,6 +15,11 @@ The data sources are:
 * Merged cities records: **`76,984`**
 * Difference: **`29,116`** new cities added (60.83% more than original)
 
+## App Database Diagram
+Here is a snapshot of app database schema 
+
+![](../../../app/schemas/alertapp-db-diagram-SNAPSHOT.png)
+
 ## Sample CSV Data
 Here is snapshot of CSV data from each source
 
