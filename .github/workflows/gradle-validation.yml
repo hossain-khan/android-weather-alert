@@ -1,0 +1,16 @@
+name: "Validate Gradle Wrapper"
+# The wrapper-validation action validates the checksums of all Gradle Wrapper JAR files
+# present in the repository and fails if any unknown Gradle Wrapper JAR files are found.
+# Source: https://github.com/gradle/actions?tab=readme-ov-file#the-wrapper-validation-action
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gradle-validation:
+    name: "Gradle Wrapper Validation"
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gradle/actions/wrapper-validation@v4
