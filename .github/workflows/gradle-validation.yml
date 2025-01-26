@@ -9,7 +9,7 @@ on:
 
 jobs:
   gradle-validation:
-    name: "Gradle Wrapper Validation"
+    name: "Validate"
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
