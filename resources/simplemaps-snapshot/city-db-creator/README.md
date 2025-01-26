@@ -6,6 +6,11 @@ You need the base DB with world cities data first. And then run following kotlin
 - [CityDbBuilder.kt](src/main/kotlin/CityDbBuilder.kt)
 
 The data sources are:
-* World Cities - https://simplemaps.com/data/world-cities
-* USA Cities - https://simplemaps.com/data/us-cities
-* Canada Cities - https://simplemaps.com/data/canada-cities
+* 🌐 World Cities - https://simplemaps.com/data/world-cities
+* 🇺🇸 USA Cities - https://simplemaps.com/data/us-cities
+* 🇨🇦 Canada Cities - https://simplemaps.com/data/canada-cities
+
+### Merge Result 📈
+* Original world cities: **`47,868`**
+* Merged cities records: **`76,984`**
+* Difference: **`29,116`** new cities added (60.83% more than original)
