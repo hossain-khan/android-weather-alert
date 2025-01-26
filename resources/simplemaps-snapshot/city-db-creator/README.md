@@ -21,7 +21,7 @@ Here is a snapshot of app database schema.
 ![](../../../app/schemas/alertapp-db-diagram-SNAPSHOT.png)
 
 ## Sample CSV Data
-Here is snapshot of CSV data from each source
+Here is a snapshot of CSV data from each source
 
 [//]: # (Generated with: https://tableconvert.com/csv-to-markdown and https://www.convertcsv.com/csv-to-markdown.htm)
 
