@@ -1,5 +1,6 @@
 name: Post Merge Check
 # Run extra build and checks to ensure `main` is functioning right.
+# Runs all build and checks for linting, test, and build.
 
 on:
   push:

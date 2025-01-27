@@ -21,6 +21,21 @@ dependencyResolutionManagement {
     }
 }
 
+plugins {
+    // Develocity - for Gradle build scan publishing
+    // https://scans.gradle.com/
+    // https://docs.gradle.com/develocity/gradle-plugin/current/
+    id("com.gradle.develocity") version("3.19.1")
+}
+
+develocity {
+    // configurations - https://scans.gradle.com/
+    buildScan {
+        termsOfUseAgree = "yes"
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
+    }
+}
+
 rootProject.name = "Weather Alert"
 include(":data-model")
 include(":service:tomorrowio")
