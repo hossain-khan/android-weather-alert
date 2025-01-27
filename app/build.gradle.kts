@@ -1,4 +1,3 @@
-import java.io.ByteArrayOutputStream
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -252,10 +251,10 @@ ksp {
 
 // Helper function to get the current Git commit hash
 fun getGitCommitHash(): String {
-    val stdout = ByteArrayOutputStream()
-    exec {
-        commandLine = listOf("git", "rev-parse", "--short", "HEAD")
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
+    val processBuilder = ProcessBuilder("git", "rev-parse", "--short", "HEAD")
+    val output = File.createTempFile("git-short-commit-hash", "")
+    processBuilder.redirectOutput(output)
+    val process = processBuilder.start()
+    process.waitFor()
+    return output.readText().trim()
 }
