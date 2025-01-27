@@ -1,7 +1,7 @@
 [versions]
 agp = "8.8.0"
 firebaseBom = "33.8.0"
-kotlin = "2.1.10"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitKtx = "1.2.1"
