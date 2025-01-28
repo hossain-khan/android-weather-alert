@@ -27,7 +27,7 @@ circuit = "0.25.0"
 # Kotlin Symbol Processing API
 # https://kotlinlang.org/docs/ksp-overview.html
 # https://github.com/google/ksp/releases
-ksp = "2.1.0-1.0.29"
+ksp = "2.1.10-1.0.29"
 
 # Forked Anvil
 # https://github.com/ZacSweers/anvil
