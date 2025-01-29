@@ -1,87 +1,90 @@
 [versions]
-agp = "8.8.0"
-firebaseBom = "33.8.0"
-kotlin = "2.1.0"
-coreKtx = "1.15.0"
-junit = "4.13.2"
-junitKtx = "1.2.1"
-# https://developer.android.com/jetpack/androidx/releases/test
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
-kotlinxSerializationJson = "1.8.0"
-kotlinxSerializationProperties = "1.8.0"
-testCore = "1.6.1"
-coroutinesTest = "1.10.1"
-lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
-composeBom = "2025.01.00"
-composeMaterial3 = "1.3.1"
 
-# Fluent assertions for Java and Android
-# https://truth.dev/ | https://github.com/google/truth
-googleTruth = "1.4.4"
+# Adaptive library to create adaptive UIs
+# https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
+adaptiveAndroid = "1.1.0-alpha09"
 
-
-# https://github.com/slackhq/circuit/releases
-circuit = "0.25.0"
-
-# Kotlin Symbol Processing API
-# https://kotlinlang.org/docs/ksp-overview.html
-# https://github.com/google/ksp/releases
-ksp = "2.1.0-1.0.29"
+agp = "8.8.0"
 
 # Forked Anvil
 # https://github.com/ZacSweers/anvil
 # Original Anvil - https://github.com/square/anvil
 anvil = "0.4.1"
 
+# https://github.com/slackhq/circuit/releases
+circuit = "0.25.0"
+
+composeBom = "2025.01.00"
+composeMaterial3 = "1.3.1"
+coreKtx = "1.15.0"
+coroutinesTest = "1.10.1"
+
 # https://dagger.dev/dev-guide/ksp
 dagger = "2.55"
 
-# https://developer.android.com/develop/ui/compose/text/fonts
-googleFonts = "1.7.6"
-
-# https://github.com/JakeWharton/timber
-timber = "5.0.1"
-
-retrofit = "2.11.0"
-
-# https://developer.android.com/jetpack/androidx/releases/work
-workManager = "2.10.0"
-
 dataStore = "1.1.2"
-
-# Android Widgets using Compose
-# https://developer.android.com/jetpack/androidx/releases/glance
-glance = "1.1.1"
-
-# Http client for Android
-# https://square.github.io/okhttp/
-okhttp = "4.12.0"
-
-# A modern JSON library for Kotlin and Java.
-# https://github.com/square/moshi
-moshi = "1.15.2"
-
-# Navigation for Jetpack Compose
-navigationCompose = "2.8.5"
 
 # API result type for modeling network API responses.
 # https://github.com/slackhq/EitherNet
 eithernet = "2.0.0"
+espressoCore = "3.6.1"
+firebaseBom = "33.8.0"
+
+# https://developer.android.com/develop/ui/compose/text/fonts
+googleFonts = "1.7.6"
+
+# Fluent assertions for Java and Android
+# https://truth.dev/ | https://github.com/google/truth
+googleTruth = "1.4.4"
+
+junit = "4.13.2"
+junitKtx = "1.2.1"
+
+# https://developer.android.com/jetpack/androidx/releases/test
+junitVersion = "1.2.1"
+
+kotlin = "2.1.0"
 
 # Kotlin linter with built-in formatter
 # https://github.com/jeremymailen/kotlinter-gradle
 # https://github.com/pinterest/ktlint
 kotlinter = "5.0.1"
 
+kotlinxSerializationJson = "1.8.0"
+kotlinxSerializationProperties = "1.8.0"
+
+# Kotlin Symbol Processing API
+# https://kotlinlang.org/docs/ksp-overview.html
+# https://github.com/google/ksp/releases
+ksp = "2.1.0-1.0.29"
+
+lifecycleRuntimeKtx = "2.8.7"
+
+# A modern JSON library for Kotlin and Java.
+# https://github.com/square/moshi
+moshi = "1.15.2"
+
+# Navigation for Jetpack Compose
+# https://developer.android.com/develop/ui/compose/navigation
+navigationCompose = "2.8.5"
+
+# Http client for Android
+# https://square.github.io/okhttp/
+okhttp = "4.12.0"
+retrofit = "2.11.0"
+
 # Room Database
 # https://developer.android.com/training/data-storage/room
 roomDb = "2.6.1"
 
-# Adaptive library to create adaptive UIs
-# https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
-adaptiveAndroid = "1.1.0-alpha09"
+testCore = "1.6.1"
+
+# https://github.com/JakeWharton/timber
+timber = "5.0.1"
+
+# https://developer.android.com/jetpack/androidx/releases/work
+workManager = "2.10.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -92,8 +95,6 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-datastore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "dataStore" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-#androidx-glance = { group = "androidx.glance", name = "glance", version.ref = "glance" }
-#androidx-glance-appwidget = { group = "androidx.glance", name = "glance-appwidget", version.ref = "glance" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
