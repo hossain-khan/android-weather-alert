@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.ui.details
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,11 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
@@ -24,6 +25,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
@@ -45,10 +49,12 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
+import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
@@ -81,6 +87,7 @@ data class WeatherAlertDetailsScreen(
         val cityForecast: CityForecast?,
         val alertNote: String,
         val isEditingNote: Boolean,
+        val isForecastRefreshing: Boolean,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -90,6 +97,8 @@ data class WeatherAlertDetailsScreen(
         ) : Event()
 
         data object DeleteAlert : Event()
+
+        data object RefreshForecast : Event()
 
         data object SaveNote : Event()
 
@@ -104,16 +113,19 @@ class WeatherAlertDetailsPresenter
         @Assisted private val screen: WeatherAlertDetailsScreen,
         private val alertDao: AlertDao,
         private val cityForecastDao: CityForecastDao,
+        private val weatherRepository: WeatherRepository,
         private val analytics: Analytics,
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
         override fun present(): WeatherAlertDetailsScreen.State {
+            val context = LocalContext.current
             val scope = rememberCoroutineScope()
             var alertNote by remember { mutableStateOf("") }
             var alertCity by remember { mutableStateOf<City?>(null) }
             var alertConfig by remember { mutableStateOf<Alert?>(null) }
             var cityForecast by remember { mutableStateOf<CityForecast?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
+            var isForecastRefreshing by remember { mutableStateOf(false) }
 
             LaunchedImpressionEffect {
                 val city = alertDao.getAlertWithCity(screen.alertId).city
@@ -123,11 +135,20 @@ class WeatherAlertDetailsPresenter
 
             LaunchedEffect(Unit) {
                 val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
-                val forecast = cityForecastDao.getCityForecastsByCityId(alert.city.id)
                 alertConfig = alert.alert
                 alertNote = alert.alert.notes
                 alertCity = alert.city
-                cityForecast = forecast.firstOrNull()
+
+                cityForecastDao
+                    .getCityForecastsByCityIdFlow(cityId = alert.city.id)
+                    .collect { newForecast ->
+                        // Update forecast data when new data is available.
+                        // Data is updated on initial load and when user triggers refresh.
+                        // 🧪 TEST REFRESH: ?.copy(nextDayRain = Random.nextDouble() * 100, nextDaySnow = Random.nextDouble() * 100)
+                        cityForecast = newForecast.firstOrNull()
+
+                        isForecastRefreshing = false
+                    }
             }
 
             return WeatherAlertDetailsScreen.State(
@@ -136,6 +157,7 @@ class WeatherAlertDetailsPresenter
                 cityForecast = cityForecast,
                 alertNote = alertNote,
                 isEditingNote = isEditingNote,
+                isForecastRefreshing = isForecastRefreshing,
             ) { event ->
                 when (event) {
                     is WeatherAlertDetailsScreen.Event.EditNoteChanged -> {
@@ -156,6 +178,38 @@ class WeatherAlertDetailsPresenter
                         scope.launch {
                             alertDao.deleteAlertById(screen.alertId)
                             navigator.pop()
+                        }
+                    }
+
+                    WeatherAlertDetailsScreen.Event.RefreshForecast -> {
+                        isForecastRefreshing = true
+                        scope.launch {
+                            val currentForecast: CityForecast? = cityForecast
+                            val city: City? = alertCity
+                            if (city != null && currentForecast != null) {
+                                val result =
+                                    weatherRepository.getDailyForecast(
+                                        cityId = city.id,
+                                        latitude = city.lat,
+                                        longitude = city.lng,
+                                        skipCache = true,
+                                    )
+                                if (result is ApiResult.Success) {
+                                    // NOTE: This will trigger LaunchedEffect to update forecast data automatically.
+                                    // TODO Show snackbar here
+                                    Timber.d("Refreshed forecast data: $result")
+
+                                    // Temp show toast for now - will be replaced with snackbar
+                                    Toast.makeText(context, "Forecast data refreshed", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    // TODO Show snackbar here
+                                    Timber.e("Failed to refresh forecast data: $result")
+
+                                    // Temp show toast for now - will be replaced with snackbar
+                                    Toast.makeText(context, "Failed to refresh forecast data", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            isForecastRefreshing = false
                         }
                     }
                 }
@@ -179,6 +233,8 @@ fun WeatherAlertDetailsScreen(
     state: WeatherAlertDetailsScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val pullToRefreshState = rememberPullToRefreshState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -202,37 +258,51 @@ fun WeatherAlertDetailsScreen(
                             contentDescription = "Delete alert",
                         )
                     }
+                    IconButton(onClick = {
+                        state.eventSink(WeatherAlertDetailsScreen.Event.RefreshForecast)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Refresh,
+                            contentDescription = "Refresh Forecast Data",
+                        )
+                    }
                 },
             )
         },
     ) { contentPaddingValues ->
-        Column(
-            modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(contentPaddingValues)
-                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
-                    .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+        // https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary
+        PullToRefreshBox(
+            modifier = Modifier.padding(contentPaddingValues),
+            state = pullToRefreshState,
+            isRefreshing = state.isForecastRefreshing,
+            onRefresh = {
+                state.eventSink(WeatherAlertDetailsScreen.Event.RefreshForecast)
+            },
         ) {
-            val alert = state.alertConfig
-            val city = state.cityInfo
-            val cityForecast = state.cityForecast
+            LazyColumn(
+                modifier =
+                    modifier
+                        .fillMaxSize()
+                        .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                val alert = state.alertConfig
+                val city = state.cityInfo
+                val cityForecast = state.cityForecast
 
-            if (alert == null || city == null || cityForecast == null) {
-                Timber.d("Loading alerts info...")
-                // Add loading indicator
-                CircularProgressIndicator()
-            } else {
-                CityInfoUi(city = city)
-
-                WeatherAlertConfigUi(alert = alert, forecast = cityForecast)
-
-                WeatherAlertNoteUi(state = state)
-
-                WeatherAlertUpdateOnUi(forecast = cityForecast)
-
-                WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService)
+                if (alert == null || city == null || cityForecast == null) {
+                    item {
+                        Timber.d("Loading alerts info...")
+                        // Add loading indicator
+                        CircularProgressIndicator()
+                    }
+                } else {
+                    item { CityInfoUi(city = city) }
+                    item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
+                    item { WeatherAlertNoteUi(state = state) }
+                    item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
+                    item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
+                }
             }
         }
     }
@@ -565,6 +635,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                         ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
+                    isForecastRefreshing = false,
                     eventSink = {},
                 ),
         )

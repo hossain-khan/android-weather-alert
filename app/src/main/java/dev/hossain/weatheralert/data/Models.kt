@@ -43,6 +43,42 @@ internal fun WeatherAlertCategory.iconRes(): Int =
 
 /**
  * Data class used by the UI to display snackbar with optional [action].
+ *
+ * Usage in the app:
+ * ```kotlin
+ * // In your presenter
+ * var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
+ *
+ * // Pass the data using state
+ * State(snackbarData = snackbarData)
+ *
+ * // Finally when handling state events
+ * snackbarData = SnackbarData("Message", "Action Label") {}
+ * ```
+ *
+ * In your main composable screen:
+ * ```kotlin
+ * val snackbarHostState = remember { SnackbarHostState() }
+ *
+ * LaunchedEffect(state.snackbarData) {
+ *     val data = state.snackbarData
+ *     if (data != null) {
+ *         val snackbarResult = snackbarHostState.showSnackbar(data.message, data.actionLabel)
+ *         when (snackbarResult) {
+ *             SnackbarResult.Dismissed -> {
+ *                 Timber.d("Snackbar dismissed")
+ *             }
+ *
+ *             SnackbarResult.ActionPerformed -> {
+ *                 data.action()
+ *             }
+ *         }
+ *     } else {
+ *         Timber.d("Snackbar data is null - hide")
+ *         snackbarHostState.currentSnackbarData?.dismiss()
+ *     }
+ * }
+ * ```
  */
 data class SnackbarData(
     val message: String,

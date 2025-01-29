@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CityForecastDao {
@@ -32,4 +33,7 @@ interface CityForecastDao {
      */
     @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastsByCityId(cityId: Long): List<CityForecast>
+
+    @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
+    fun getCityForecastsByCityIdFlow(cityId: Long): Flow<List<CityForecast>>
 }
