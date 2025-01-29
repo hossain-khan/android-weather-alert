@@ -40,6 +40,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -70,6 +71,7 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
@@ -342,7 +344,7 @@ fun CityInfoUi(
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(city.city, style = MaterialTheme.typography.titleLarge)
                     Text(
-                        "${city.provStateName?.let { "${it}, " } ?: ""}${city.country}",
+                        "${city.provStateName?.let { "$it, " } ?: ""}${city.country}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -535,6 +537,12 @@ fun WeatherAlertUpdateOnUi(
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
                         modifier = Modifier.padding(end = 24.dp),
+                    )
+                    Text(
+                        text = "(${formatTimestampToElapsedTime(forecast.createdAt)})",
+                        style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp).padding(top = 2.dp),
                     )
                 }
             }
