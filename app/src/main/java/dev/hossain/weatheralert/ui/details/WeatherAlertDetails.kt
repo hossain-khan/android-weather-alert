@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.ui.details
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -35,6 +36,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
@@ -116,6 +118,7 @@ class WeatherAlertDetailsPresenter
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
         override fun present(): WeatherAlertDetailsScreen.State {
+            val context = LocalContext.current
             val scope = rememberCoroutineScope()
             var alertNote by remember { mutableStateOf("") }
             var alertCity by remember { mutableStateOf<City?>(null) }
@@ -181,8 +184,9 @@ class WeatherAlertDetailsPresenter
                     WeatherAlertDetailsScreen.Event.RefreshForecast -> {
                         isForecastRefreshing = true
                         scope.launch {
-                            val city = alertCity
-                            if (city != null) {
+                            val currentForecast: CityForecast? = cityForecast
+                            val city: City? = alertCity
+                            if (city != null && currentForecast != null) {
                                 val result =
                                     weatherRepository.getDailyForecast(
                                         cityId = city.id,
@@ -194,9 +198,15 @@ class WeatherAlertDetailsPresenter
                                     // NOTE: This will trigger LaunchedEffect to update forecast data automatically.
                                     // TODO Show snackbar here
                                     Timber.d("Refreshed forecast data: $result")
+
+                                    // Temp show toast for now - will be replaced with snackbar
+                                    Toast.makeText(context, "Forecast data refreshed", Toast.LENGTH_SHORT).show()
                                 } else {
                                     // TODO Show snackbar here
                                     Timber.e("Failed to refresh forecast data: $result")
+
+                                    // Temp show toast for now - will be replaced with snackbar
+                                    Toast.makeText(context, "Failed to refresh forecast data", Toast.LENGTH_SHORT).show()
                                 }
                             }
                             isForecastRefreshing = false
