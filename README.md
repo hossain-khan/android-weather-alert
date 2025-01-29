@@ -9,7 +9,7 @@ A simple app to alert you about specific weather condition based on your configu
 
 <img width="300" align="right" src="https://github.com/user-attachments/assets/79dc8278-9e12-4325-a16d-0e2ab89b3e3a" alt="Weather Alert Banner Image">
 
-This app helps you to prepare for weather condition like snow & rain, for example if there would be heavy snow ❄️ 
+This app helps you to prepare for weather conditions like snow and rain, for example if there would be heavy snow ❄️ 
 this will allow you charge your snow blower batteries, put car in the garage, and other related activities.
 
 > _This app is a result from personal need to have focused alert compared to all existing apps available in the Play Store._
