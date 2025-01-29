@@ -1,3 +1,13 @@
+## Weather Alert v2.1
+
+### What's new
+* Added pull-to-refresh forecast data from the alert details screen.
+* Added Deep Linking support to navigate directly city details screen from notification.
+* Added a new "About App" screen and a "Learn More" bottom sheet for an enhanced educational experience.
+* New Credits Screen with proper attribution to external resources.
+* Minor code cleanup, added sample data for testing, and refined API key handling.
+* Updated libraries and dependencies for improved performance and stability.
+
 ## Weather Alert v2.0
 
 ### What's new
