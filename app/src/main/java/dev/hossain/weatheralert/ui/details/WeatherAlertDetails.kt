@@ -1,6 +1,11 @@
 package dev.hossain.weatheralert.ui.details
 
 import android.widget.Toast
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,6 +41,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
@@ -146,7 +152,7 @@ class WeatherAlertDetailsPresenter
                     .collect { newForecast ->
                         // Update forecast data when new data is available.
                         // Data is updated on initial load and when user triggers refresh.
-                        // 🧪 TEST REFRESH: ?.copy(nextDayRain = Random.nextDouble() * 100, nextDaySnow = Random.nextDouble() * 100)
+                        // 🧪 TEST REFRESH: ?.copy(dailyCumulativeRain = Random.nextDouble() * 100, dailyCumulativeSnow = Random.nextDouble() * 100)
                         cityForecast = newForecast.firstOrNull()
 
                         isForecastRefreshing = false
@@ -359,10 +365,27 @@ fun WeatherAlertConfigUi(
     forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
+    // When the forecast exceeds the threshold the icon color to pulsate between red and primary color.
+    val infiniteTransition = rememberInfiniteTransition()
+    val animatedColor by infiniteTransition.animateColor(
+        initialValue = MaterialTheme.colorScheme.primary,
+        targetValue = MaterialTheme.colorScheme.error,
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis = 1000),
+                repeatMode = RepeatMode.Reverse,
+            ),
+    )
+
+    val iconTint: Color =
+        if (forecast.dailyCumulativeSnow > alert.threshold || forecast.dailyCumulativeRain > alert.threshold) {
+            animatedColor
+        } else {
+            MaterialTheme.colorScheme.primary
+        }
+
     Column(
-        modifier =
-            modifier
-                .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Text(
             text = "Alert Configuration",
@@ -376,11 +399,8 @@ fun WeatherAlertConfigUi(
                 Icon(
                     painter = painterResource(id = alert.alertCategory.iconRes()),
                     contentDescription = "Alert Category",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier =
-                        Modifier
-                            .padding(16.dp)
-                            .align(Alignment.TopEnd),
+                    tint = iconTint,
+                    modifier = Modifier.padding(16.dp).align(Alignment.TopEnd),
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
