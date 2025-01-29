@@ -342,7 +342,7 @@ fun CityInfoUi(
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(city.city, style = MaterialTheme.typography.titleLarge)
                     Text(
-                        "${city.provStateName ?: ""}, ${city.iso3}",
+                        "${city.provStateName ?: ""}, ${city.country}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
