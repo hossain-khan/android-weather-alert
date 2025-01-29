@@ -9,11 +9,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
@@ -25,6 +24,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -68,13 +69,10 @@ import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
-import androidx.compose.material3.pulltorefresh.PullToRefreshState
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
-import androidx.compose.material3.pulltorefresh.pullToRefreshIndicator
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
@@ -184,6 +182,17 @@ fun WeatherAlertDetailsScreen(
     state: WeatherAlertDetailsScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    var isRefreshing by remember { mutableStateOf(false) }
+    val pullToRefreshState = rememberPullToRefreshState()
+    val coroutineScope = rememberCoroutineScope()
+    val onRefresh: () -> Unit = {
+        isRefreshing = true
+        coroutineScope.launch {
+            delay(5000)
+            isRefreshing = false
+        }
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -207,34 +216,44 @@ fun WeatherAlertDetailsScreen(
                             contentDescription = "Delete alert",
                         )
                     }
+                    IconButton(onClick = onRefresh) {
+                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
+                    }
                 },
             )
         },
     ) { contentPaddingValues ->
-        LazyColumn(
-            modifier =
-            modifier
-                .fillMaxSize()
-                .padding(contentPaddingValues)
-                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+        // https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary
+        PullToRefreshBox(
+            modifier = Modifier.padding(contentPaddingValues),
+            state = pullToRefreshState,
+            isRefreshing = isRefreshing,
+            onRefresh = onRefresh,
         ) {
-            val alert = state.alertConfig
-            val city = state.cityInfo
-            val cityForecast = state.cityForecast
+            LazyColumn(
+                modifier =
+                    modifier
+                        .fillMaxSize()
+                        .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                val alert = state.alertConfig
+                val city = state.cityInfo
+                val cityForecast = state.cityForecast
 
-            if (alert == null || city == null || cityForecast == null) {
-                item {
-                    Timber.d("Loading alerts info...")
-                    // Add loading indicator
-                    CircularProgressIndicator()
+                if (alert == null || city == null || cityForecast == null) {
+                    item {
+                        Timber.d("Loading alerts info...")
+                        // Add loading indicator
+                        CircularProgressIndicator()
+                    }
+                } else {
+                    item { CityInfoUi(city = city) }
+                    item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
+                    item { WeatherAlertNoteUi(state = state) }
+                    item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
+                    item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
                 }
-            } else {
-                item { CityInfoUi(city = city) }
-                item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
-                item { WeatherAlertNoteUi(state = state) }
-                item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
-                item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
             }
         }
     }
