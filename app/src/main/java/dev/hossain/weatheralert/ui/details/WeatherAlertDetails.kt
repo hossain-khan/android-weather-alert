@@ -47,10 +47,12 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
+import com.slack.eithernet.ApiResult
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
@@ -69,7 +71,6 @@ import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -110,6 +111,7 @@ class WeatherAlertDetailsPresenter
         @Assisted private val screen: WeatherAlertDetailsScreen,
         private val alertDao: AlertDao,
         private val cityForecastDao: CityForecastDao,
+        private val weatherRepository: WeatherRepository,
         private val analytics: Analytics,
     ) : Presenter<WeatherAlertDetailsScreen.State> {
         @Composable
@@ -130,11 +132,20 @@ class WeatherAlertDetailsPresenter
 
             LaunchedEffect(Unit) {
                 val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
-                val forecast = cityForecastDao.getCityForecastsByCityId(alert.city.id)
                 alertConfig = alert.alert
                 alertNote = alert.alert.notes
                 alertCity = alert.city
-                cityForecast = forecast.firstOrNull()
+
+                cityForecastDao
+                    .getCityForecastsByCityIdFlow(cityId = alert.city.id)
+                    .collect { newForecast ->
+                        // Update forecast data when new data is available.
+                        // Data is updated on initial load and when user triggers refresh.
+                        // 🧪 TEST REFRESH: ?.copy(nextDayRain = Random.nextDouble() * 100, nextDaySnow = Random.nextDouble() * 100)
+                        cityForecast = newForecast.firstOrNull()
+
+                        isForecastRefreshing = false
+                    }
             }
 
             return WeatherAlertDetailsScreen.State(
@@ -170,7 +181,24 @@ class WeatherAlertDetailsPresenter
                     WeatherAlertDetailsScreen.Event.RefreshForecast -> {
                         isForecastRefreshing = true
                         scope.launch {
-                            delay(5000)
+                            val city = alertCity
+                            if (city != null) {
+                                val result =
+                                    weatherRepository.getDailyForecast(
+                                        cityId = city.id,
+                                        latitude = city.lat,
+                                        longitude = city.lng,
+                                        skipCache = true,
+                                    )
+                                if (result is ApiResult.Success) {
+                                    // NOTE: This will trigger LaunchedEffect to update forecast data automatically.
+                                    // TODO Show snackbar here
+                                    Timber.d("Refreshed forecast data: $result")
+                                } else {
+                                    // TODO Show snackbar here
+                                    Timber.e("Failed to refresh forecast data: $result")
+                                }
+                            }
                             isForecastRefreshing = false
                         }
                     }
