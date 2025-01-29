@@ -84,6 +84,7 @@ data class WeatherAlertDetailsScreen(
         val cityForecast: CityForecast?,
         val alertNote: String,
         val isEditingNote: Boolean,
+        val isForecastRefreshing: Boolean,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -93,6 +94,8 @@ data class WeatherAlertDetailsScreen(
         ) : Event()
 
         data object DeleteAlert : Event()
+
+        data object RefreshForecast : Event()
 
         data object SaveNote : Event()
 
@@ -117,6 +120,7 @@ class WeatherAlertDetailsPresenter
             var alertConfig by remember { mutableStateOf<Alert?>(null) }
             var cityForecast by remember { mutableStateOf<CityForecast?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
+            var isForecastRefreshing by remember { mutableStateOf(false) }
 
             LaunchedImpressionEffect {
                 val city = alertDao.getAlertWithCity(screen.alertId).city
@@ -139,6 +143,7 @@ class WeatherAlertDetailsPresenter
                 cityForecast = cityForecast,
                 alertNote = alertNote,
                 isEditingNote = isEditingNote,
+                isForecastRefreshing = isForecastRefreshing,
             ) { event ->
                 when (event) {
                     is WeatherAlertDetailsScreen.Event.EditNoteChanged -> {
@@ -159,6 +164,14 @@ class WeatherAlertDetailsPresenter
                         scope.launch {
                             alertDao.deleteAlertById(screen.alertId)
                             navigator.pop()
+                        }
+                    }
+
+                    WeatherAlertDetailsScreen.Event.RefreshForecast -> {
+                        isForecastRefreshing = true
+                        scope.launch {
+                            delay(5000)
+                            isForecastRefreshing = false
                         }
                     }
                 }
@@ -182,16 +195,7 @@ fun WeatherAlertDetailsScreen(
     state: WeatherAlertDetailsScreen.State,
     modifier: Modifier = Modifier,
 ) {
-    var isRefreshing by remember { mutableStateOf(false) }
     val pullToRefreshState = rememberPullToRefreshState()
-    val coroutineScope = rememberCoroutineScope()
-    val onRefresh: () -> Unit = {
-        isRefreshing = true
-        coroutineScope.launch {
-            delay(5000)
-            isRefreshing = false
-        }
-    }
 
     Scaffold(
         topBar = {
@@ -216,8 +220,13 @@ fun WeatherAlertDetailsScreen(
                             contentDescription = "Delete alert",
                         )
                     }
-                    IconButton(onClick = onRefresh) {
-                        Icon(Icons.Filled.Refresh, "Trigger Refresh")
+                    IconButton(onClick = {
+                        state.eventSink(WeatherAlertDetailsScreen.Event.RefreshForecast)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Refresh,
+                            contentDescription = "Refresh Forecast Data",
+                        )
                     }
                 },
             )
@@ -227,8 +236,10 @@ fun WeatherAlertDetailsScreen(
         PullToRefreshBox(
             modifier = Modifier.padding(contentPaddingValues),
             state = pullToRefreshState,
-            isRefreshing = isRefreshing,
-            onRefresh = onRefresh,
+            isRefreshing = state.isForecastRefreshing,
+            onRefresh = {
+                state.eventSink(WeatherAlertDetailsScreen.Event.RefreshForecast)
+            },
         ) {
             LazyColumn(
                 modifier =
@@ -586,6 +597,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                         ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
+                    isForecastRefreshing = false,
                     eventSink = {},
                 ),
         )
