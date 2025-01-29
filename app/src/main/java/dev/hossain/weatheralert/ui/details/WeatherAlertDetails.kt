@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.details
 
-import android.widget.Toast
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -28,6 +27,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -61,6 +63,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
@@ -96,6 +99,7 @@ data class WeatherAlertDetailsScreen(
         val alertNote: String,
         val isEditingNote: Boolean,
         val isForecastRefreshing: Boolean,
+        val snackbarData: SnackbarData?,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -134,6 +138,7 @@ class WeatherAlertDetailsPresenter
             var cityForecast by remember { mutableStateOf<CityForecast?>(null) }
             var isEditingNote by remember { mutableStateOf(false) }
             var isForecastRefreshing by remember { mutableStateOf(false) }
+            var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
 
             LaunchedImpressionEffect {
                 val city = alertDao.getAlertWithCity(screen.alertId).city
@@ -166,6 +171,7 @@ class WeatherAlertDetailsPresenter
                 alertNote = alertNote,
                 isEditingNote = isEditingNote,
                 isForecastRefreshing = isForecastRefreshing,
+                snackbarData = snackbarData,
             ) { event ->
                 when (event) {
                     is WeatherAlertDetailsScreen.Event.EditNoteChanged -> {
@@ -204,17 +210,11 @@ class WeatherAlertDetailsPresenter
                                     )
                                 if (result is ApiResult.Success) {
                                     // NOTE: This will trigger LaunchedEffect to update forecast data automatically.
-                                    // TODO Show snackbar here
                                     Timber.d("Refreshed forecast data: $result")
-
-                                    // Temp show toast for now - will be replaced with snackbar
-                                    Toast.makeText(context, "Forecast data refreshed", Toast.LENGTH_SHORT).show()
+                                    snackbarData = SnackbarData("Forecast data has been refreshed.") {}
                                 } else {
-                                    // TODO Show snackbar here
                                     Timber.e("Failed to refresh forecast data: $result")
-
-                                    // Temp show toast for now - will be replaced with snackbar
-                                    Toast.makeText(context, "Failed to refresh forecast data", Toast.LENGTH_SHORT).show()
+                                    snackbarData = SnackbarData("Oops! Failed to refresh forecast data.") {}
                                 }
                             }
                             isForecastRefreshing = false
@@ -242,6 +242,7 @@ fun WeatherAlertDetailsScreen(
     modifier: Modifier = Modifier,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
         topBar = {
@@ -277,6 +278,7 @@ fun WeatherAlertDetailsScreen(
                 },
             )
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPaddingValues ->
         // https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary
         PullToRefreshBox(
@@ -312,6 +314,25 @@ fun WeatherAlertDetailsScreen(
                     item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
                 }
             }
+        }
+    }
+
+    LaunchedEffect(state.snackbarData) {
+        val data = state.snackbarData
+        if (data != null) {
+            val snackbarResult = snackbarHostState.showSnackbar(data.message, data.actionLabel)
+            when (snackbarResult) {
+                SnackbarResult.Dismissed -> {
+                    Timber.d("Snackbar dismissed")
+                }
+
+                SnackbarResult.ActionPerformed -> {
+                    data.action()
+                }
+            }
+        } else {
+            Timber.d("Snackbar data is null - hide")
+            snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
 }
@@ -664,6 +685,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
                     isForecastRefreshing = false,
+                    snackbarData = null,
                     eventSink = {},
                 ),
         )
