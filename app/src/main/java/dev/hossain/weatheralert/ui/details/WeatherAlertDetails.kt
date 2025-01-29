@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -70,6 +71,10 @@ import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
+import androidx.compose.material3.pulltorefresh.pullToRefreshIndicator
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
@@ -206,13 +211,12 @@ fun WeatherAlertDetailsScreen(
             )
         },
     ) { contentPaddingValues ->
-        Column(
+        LazyColumn(
             modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(contentPaddingValues)
-                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
-                    .verticalScroll(rememberScrollState()),
+            modifier
+                .fillMaxSize()
+                .padding(contentPaddingValues)
+                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             val alert = state.alertConfig
@@ -220,19 +224,17 @@ fun WeatherAlertDetailsScreen(
             val cityForecast = state.cityForecast
 
             if (alert == null || city == null || cityForecast == null) {
-                Timber.d("Loading alerts info...")
-                // Add loading indicator
-                CircularProgressIndicator()
+                item {
+                    Timber.d("Loading alerts info...")
+                    // Add loading indicator
+                    CircularProgressIndicator()
+                }
             } else {
-                CityInfoUi(city = city)
-
-                WeatherAlertConfigUi(alert = alert, forecast = cityForecast)
-
-                WeatherAlertNoteUi(state = state)
-
-                WeatherAlertUpdateOnUi(forecast = cityForecast)
-
-                WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService)
+                item { CityInfoUi(city = city) }
+                item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
+                item { WeatherAlertNoteUi(state = state) }
+                item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
+                item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
             }
         }
     }
