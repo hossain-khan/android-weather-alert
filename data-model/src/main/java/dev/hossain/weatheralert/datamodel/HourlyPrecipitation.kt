@@ -8,6 +8,6 @@ data class HourlyPrecipitation(
      * @see DateTimeFormatter.ISO_DATE_TIME
      */
     val isoDateTime: String,
-    val rain: Double,
-    val snow: Double,
+    val rain: Double = 0.0,
+    val snow: Double = 0.0,
 )
