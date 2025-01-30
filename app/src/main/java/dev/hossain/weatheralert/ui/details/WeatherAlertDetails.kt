@@ -415,9 +415,6 @@ fun WeatherAlertConfigUi(
             MaterialTheme.colorScheme.primary
         }
 
-    val precipitationValues: List<Double> = List(24) { Random.nextDouble() * 100 }
-    val maxValue = precipitationValues.maxOrNull() ?: 100.0
-
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
@@ -462,10 +459,10 @@ fun WeatherAlertConfigUi(
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
-                    if (precipitationValues.any { it > 0 }) {
+                    if (forecast.hourlyPrecipitation.any { it.rain > 0 || it.snow > 0 }) {
                         // Show precipitation chart only if there is any precipitation data.
                         Spacer(modifier = Modifier.height(16.dp))
-                        PrecipitationChartUi(precipitationValues, maxValue)
+                        PrecipitationChartUi(alert.alertCategory, forecast.hourlyPrecipitation)
                     }
                 }
             }
@@ -475,10 +472,14 @@ fun WeatherAlertConfigUi(
 
 @Composable
 private fun PrecipitationChartUi(
-    precipitationValues: List<Double>,
-    maxValue: Double,
+    weatherAlertCategory: WeatherAlertCategory,
+    precipitationValues: List<HourlyPrecipitation>,
     modifier: Modifier = Modifier,
 ) {
+    val chartItems = if (precipitationValues.size > CUMULATIVE_DATA_HOURS_24) CUMULATIVE_DATA_HOURS_24 else precipitationValues.size
+    val maxRainValue = precipitationValues.maxOfOrNull { it.rain } ?: 100.0
+    val maxSnowValue = precipitationValues.maxOfOrNull { it.snow } ?: 100.0
+
     Column(modifier = modifier) {
         Text(
             text = "24 Hour Forecast",
@@ -489,9 +490,27 @@ private fun PrecipitationChartUi(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(24) { hour ->
-                val value = precipitationValues[hour]
-                BarChartItem(hour = hour, value = value, maxValue = maxValue)
+            items(chartItems) { hour ->
+                val value =
+                    if (weatherAlertCategory ==
+                        WeatherAlertCategory.SNOW_FALL
+                    ) {
+                        precipitationValues[hour].snow
+                    } else {
+                        precipitationValues[hour].rain
+                    }
+                BarChartItem(
+                    hour = hour,
+                    value = value,
+                    maxValue =
+                        if (weatherAlertCategory ==
+                            WeatherAlertCategory.SNOW_FALL
+                        ) {
+                            maxSnowValue
+                        } else {
+                            maxRainValue
+                        },
+                )
             }
         }
     }
@@ -830,8 +849,15 @@ private fun CityInfoUiPreview() {
 fun PreviewPrecipitationChartUi() {
     WeatherAlertAppTheme {
         PrecipitationChartUi(
-            precipitationValues = List(24) { Random.nextDouble() * 100 },
-            maxValue = 100.0,
+            WeatherAlertCategory.SNOW_FALL,
+            precipitationValues =
+                List(12) {
+                    HourlyPrecipitation(
+                        isoDateTime = "2025-01-15T21:42:00Z",
+                        rain = Random.nextDouble() * 100,
+                        snow = Random.nextDouble() * 100,
+                    )
+                },
             modifier = Modifier.padding(16.dp),
         )
     }
