@@ -2,6 +2,7 @@ package io.tomorrow.api.model
 
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
+import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
 
@@ -41,4 +42,12 @@ internal fun WeatherResponse.toForecastData(): AppForecastData =
                         ?.rainAccumulation ?: 0.0,
                 weeklyCumulativeRain = 0.0,
             ),
+        hourlyPrecipitation = timelines.hourly.map { it.toHourlyPrecipitation() },
+    )
+
+private fun TimelineData.toHourlyPrecipitation(): HourlyPrecipitation =
+    HourlyPrecipitation(
+        isoDateTime = time,
+        snow = values.snowDepth ?: 0.0,
+        rain = values.rainAccumulation ?: 0.0,
     )
