@@ -459,7 +459,13 @@ fun WeatherAlertConfigUi(
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
-                    if (forecast.hourlyPrecipitation.any { it.rain > 0 || it.snow > 0 }) {
+                    if (forecast.hourlyPrecipitation
+                            .take(CUMULATIVE_DATA_HOURS_24)
+                            .any {
+                                (alert.alertCategory == WeatherAlertCategory.RAIN_FALL && it.rain > 0) ||
+                                    (alert.alertCategory == WeatherAlertCategory.SNOW_FALL && it.snow > 0)
+                            }
+                    ) {
                         // Show precipitation chart only if there is any precipitation data.
                         Spacer(modifier = Modifier.height(16.dp))
                         PrecipitationChartUi(alert.alertCategory, forecast.hourlyPrecipitation)
