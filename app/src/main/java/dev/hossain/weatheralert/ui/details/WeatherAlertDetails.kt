@@ -6,14 +6,20 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -43,6 +49,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -51,6 +58,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
@@ -87,6 +95,7 @@ import dev.hossain.weatheralert.util.parseMarkdown
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
+import kotlin.random.Random
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
@@ -386,7 +395,6 @@ fun WeatherAlertConfigUi(
     forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
-    // When the forecast exceeds the threshold the icon color to pulsate between red and primary color.
     val infiniteTransition = rememberInfiniteTransition()
     val animatedColor by infiniteTransition.animateColor(
         initialValue = MaterialTheme.colorScheme.primary,
@@ -404,6 +412,9 @@ fun WeatherAlertConfigUi(
         } else {
             MaterialTheme.colorScheme.primary
         }
+
+    val precipitationValues: List<Double> = List(24) { Random.nextDouble() * 100 }
+    val maxValue = precipitationValues.maxOrNull() ?: 100.0
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -433,22 +444,75 @@ fun WeatherAlertConfigUi(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Next $CUMULATIVE_DATA_HOURS_24 Hours: ${when (alert.alertCategory){
+                        text = "Next $CUMULATIVE_DATA_HOURS_24 Hours: ${when (alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow.formatUnit(alert.alertCategory.unit)
                             WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain.formatUnit(alert.alertCategory.unit)
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Tomorrow: ${when (alert.alertCategory){
+                        text = "Tomorrow: ${when (alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> forecast.nextDaySnow.formatUnit(alert.alertCategory.unit)
                             WeatherAlertCategory.RAIN_FALL -> forecast.nextDayRain.formatUnit(alert.alertCategory.unit)
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(
+                        text = "24 Hour Forecast (mm)",
+                        style = MaterialTheme.typography.labelMedium,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                    LazyRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(24) { hour ->
+                            val value = precipitationValues[hour]
+                            BarChartItem(hour = hour, value = value, maxValue = maxValue)
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun BarChartItem(
+    hour: Int,
+    value: Double,
+    maxValue: Double,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+        modifier =
+            modifier
+                .height(100.dp)
+                .width(30.dp),
+    ) {
+        Text(
+            text = "%.1f".format(value),
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+            modifier =
+                Modifier
+                    .padding(bottom = 8.dp)
+                    .rotate(270f),
+        )
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxHeight(fraction = (value / maxValue).toFloat() * 0.7f)
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.primary),
+        )
+        Text(
+            text = "$hour",
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(top = 4.dp),
+        )
     }
 }
 
@@ -720,5 +784,18 @@ private fun CityInfoUiPreview() {
                 modifier = Modifier.padding(paddingValues),
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "BarChartItem Preview")
+@Composable
+fun PreviewBarChartItem() {
+    WeatherAlertAppTheme {
+        BarChartItem(
+            hour = 12,
+            value = 62.0,
+            maxValue = 70.00,
+            modifier = Modifier.padding(8.dp),
+        )
     }
 }
