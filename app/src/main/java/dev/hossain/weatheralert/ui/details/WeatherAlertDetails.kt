@@ -432,7 +432,10 @@ fun WeatherAlertConfigUi(
                     painter = painterResource(id = alert.alertCategory.iconRes()),
                     contentDescription = "Alert Category",
                     tint = iconTint,
-                    modifier = Modifier.padding(16.dp).align(Alignment.TopEnd),
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
@@ -457,20 +460,10 @@ fun WeatherAlertConfigUi(
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = "24 Hour Forecast (mm)",
-                        style = MaterialTheme.typography.labelMedium,
-                        modifier = Modifier.padding(bottom = 8.dp),
-                    )
-                    LazyRow(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items(24) { hour ->
-                            val value = precipitationValues[hour]
-                            BarChartItem(hour = hour, value = value, maxValue = maxValue)
-                        }
+                    if (precipitationValues.any { it > 0 }) {
+                        // Show precipitation chart only if there is any precipitation data.
+                        Spacer(modifier = Modifier.height(16.dp))
+                        PrecipitationChartUi(precipitationValues, maxValue)
                     }
                 }
             }
@@ -479,7 +472,31 @@ fun WeatherAlertConfigUi(
 }
 
 @Composable
-fun BarChartItem(
+private fun PrecipitationChartUi(
+    precipitationValues: List<Double>,
+    maxValue: Double,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = "24 Hour Forecast",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp),
+        )
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(24) { hour ->
+                val value = precipitationValues[hour]
+                BarChartItem(hour = hour, value = value, maxValue = maxValue)
+            }
+        }
+    }
+}
+
+@Composable
+private fun BarChartItem(
     hour: Int,
     value: Double,
     maxValue: Double,
@@ -504,6 +521,7 @@ fun BarChartItem(
         Box(
             modifier =
                 Modifier
+                    // Use 0.7 multiplier to avoid full height bar and keep space for labels
                     .fillMaxHeight(fraction = (value / maxValue).toFloat() * 0.7f)
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.primary),
@@ -647,7 +665,10 @@ fun WeatherAlertUpdateOnUi(
                         text = "(${formatTimestampToElapsedTime(forecast.createdAt)})",
                         style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
                         // Extra padding for the icon on the right, to avoid overlap
-                        modifier = Modifier.padding(end = 24.dp).padding(top = 2.dp),
+                        modifier =
+                            Modifier
+                                .padding(end = 24.dp)
+                                .padding(top = 2.dp),
                     )
                 }
             }
@@ -784,6 +805,23 @@ private fun CityInfoUiPreview() {
                 modifier = Modifier.padding(paddingValues),
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "PrecipitationChartUi Preview")
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    name = "PrecipitationChartUi Dark Mode",
+)
+@Composable
+fun PreviewPrecipitationChartUi() {
+    WeatherAlertAppTheme {
+        PrecipitationChartUi(
+            precipitationValues = List(24) { Random.nextDouble() * 100 },
+            maxValue = 100.0,
+            modifier = Modifier.padding(16.dp),
+        )
     }
 }
 
