@@ -8,6 +8,7 @@ data class AppForecastData(
     val longitude: Double = 0.0,
     val snow: Snow = Snow(),
     val rain: Rain = Rain(),
+    val hourlyPrecipitation: List<HourlyPrecipitation>,
 )
 
 data class Snow(

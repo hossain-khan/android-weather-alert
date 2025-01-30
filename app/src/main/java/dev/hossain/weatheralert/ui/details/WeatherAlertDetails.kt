@@ -6,14 +6,21 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -43,6 +50,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -51,6 +59,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
@@ -67,6 +76,7 @@ import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
+import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.db.Alert
@@ -80,13 +90,16 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.convertIsoToHourAmPm
 import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
+import dev.hossain.weatheralert.util.slimTimeLabel
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
+import kotlin.random.Random
 
 @Parcelize
 data class WeatherAlertDetailsScreen(
@@ -308,7 +321,7 @@ fun WeatherAlertDetailsScreen(
                     }
                 } else {
                     item { CityInfoUi(city = city) }
-                    item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
+                    item { WeatherAlertForecastUi(alert = alert, forecast = cityForecast) }
                     item { WeatherAlertNoteUi(state = state) }
                     item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
                     item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
@@ -381,12 +394,11 @@ fun CityInfoUi(
 }
 
 @Composable
-fun WeatherAlertConfigUi(
+fun WeatherAlertForecastUi(
     alert: Alert,
     forecast: CityForecast,
     modifier: Modifier = Modifier,
 ) {
-    // When the forecast exceeds the threshold the icon color to pulsate between red and primary color.
     val infiniteTransition = rememberInfiniteTransition()
     val animatedColor by infiniteTransition.animateColor(
         initialValue = MaterialTheme.colorScheme.primary,
@@ -421,7 +433,10 @@ fun WeatherAlertConfigUi(
                     painter = painterResource(id = alert.alertCategory.iconRes()),
                     contentDescription = "Alert Category",
                     tint = iconTint,
-                    modifier = Modifier.padding(16.dp).align(Alignment.TopEnd),
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
@@ -433,22 +448,129 @@ fun WeatherAlertConfigUi(
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Next $CUMULATIVE_DATA_HOURS_24 Hours: ${when (alert.alertCategory){
+                        text = "Next $CUMULATIVE_DATA_HOURS_24 Hours: ${when (alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> forecast.dailyCumulativeSnow.formatUnit(alert.alertCategory.unit)
                             WeatherAlertCategory.RAIN_FALL -> forecast.dailyCumulativeRain.formatUnit(alert.alertCategory.unit)
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Text(
-                        text = "Tomorrow: ${when (alert.alertCategory){
+                        text = "Tomorrow: ${when (alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> forecast.nextDaySnow.formatUnit(alert.alertCategory.unit)
                             WeatherAlertCategory.RAIN_FALL -> forecast.nextDayRain.formatUnit(alert.alertCategory.unit)
                         }}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
+                    if (forecast.hourlyPrecipitation
+                            .take(CUMULATIVE_DATA_HOURS_24)
+                            .any {
+                                (alert.alertCategory == WeatherAlertCategory.RAIN_FALL && it.rain > 0) ||
+                                    (alert.alertCategory == WeatherAlertCategory.SNOW_FALL && it.snow > 0)
+                            }
+                    ) {
+                        // Show precipitation chart only if there is any precipitation data.
+                        Spacer(modifier = Modifier.height(16.dp))
+                        PrecipitationChartUi(alert.alertCategory, forecast.hourlyPrecipitation)
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun PrecipitationChartUi(
+    weatherAlertCategory: WeatherAlertCategory,
+    precipitationValues: List<HourlyPrecipitation>,
+    modifier: Modifier = Modifier,
+) {
+    val chartItems = if (precipitationValues.size > CUMULATIVE_DATA_HOURS_24) CUMULATIVE_DATA_HOURS_24 else precipitationValues.size
+    val maxRainValue = precipitationValues.maxOfOrNull { it.rain } ?: 100.0
+    val maxSnowValue = precipitationValues.maxOfOrNull { it.snow } ?: 100.0
+
+    Column(modifier = modifier) {
+        Text(
+            text = "24 Hour Forecast",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp),
+        )
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            items(chartItems) { itemIndex ->
+                val value =
+                    if (weatherAlertCategory ==
+                        WeatherAlertCategory.SNOW_FALL
+                    ) {
+                        precipitationValues[itemIndex].snow
+                    } else {
+                        precipitationValues[itemIndex].rain
+                    }
+
+                BarChartItem(
+                    // Convert ISO 8601 date-time string to hour of the day.
+                    hourOfDayLabel =
+                        slimTimeLabel(
+                            hourOfDayLabel =
+                                convertIsoToHourAmPm(
+                                    isoDateTime = precipitationValues[itemIndex].isoDateTime,
+                                ),
+                        ),
+                    value = value,
+                    maxValue =
+                        if (weatherAlertCategory ==
+                            WeatherAlertCategory.SNOW_FALL
+                        ) {
+                            maxSnowValue
+                        } else {
+                            maxRainValue
+                        },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BarChartItem(
+    hourOfDayLabel: String,
+    value: Double,
+    maxValue: Double,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+        modifier =
+            modifier
+                .height(100.dp)
+                .width(30.dp),
+    ) {
+        Text(
+            text = "%.1f".format(value),
+            style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
+            modifier =
+                Modifier
+                    .padding(bottom = 8.dp)
+                    .rotate(270f),
+        )
+        Box(
+            modifier =
+                Modifier
+                    // Use 0.7 multiplier to avoid full height bar and keep space for labels
+                    .fillMaxHeight(fraction = (value / maxValue).toFloat() * 0.7f)
+                    .fillMaxWidth()
+                    .background(
+                        color = MaterialTheme.colorScheme.secondary,
+                        shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
+                    ),
+        )
+        Text(
+            text = hourOfDayLabel,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(top = 4.dp),
+        )
     }
 }
 
@@ -583,7 +705,10 @@ fun WeatherAlertUpdateOnUi(
                         text = "(${formatTimestampToElapsedTime(forecast.createdAt)})",
                         style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
                         // Extra padding for the icon on the right, to avoid overlap
-                        modifier = Modifier.padding(end = 24.dp).padding(top = 2.dp),
+                        modifier =
+                            Modifier
+                                .padding(end = 24.dp)
+                                .padding(top = 2.dp),
                     )
                 }
             }
@@ -681,6 +806,13 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             dailyCumulativeRain = 100.0,
                             nextDayRain = 50.0,
                             forecastSourceService = WeatherService.OPEN_WEATHER_MAP,
+                            hourlyPrecipitation =
+                                listOf(
+                                    HourlyPrecipitation("2025-01-15T21:42:00Z", 5.0, 2.0),
+                                    HourlyPrecipitation("2025-01-15T22:42:00Z", 3.0, 1.5),
+                                    HourlyPrecipitation("2025-01-15T23:42:00Z", 4.0, 2.2),
+                                    HourlyPrecipitation("2025-01-16T00:42:00Z", 6.0, 3.1),
+                                ),
                         ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
@@ -720,5 +852,42 @@ private fun CityInfoUiPreview() {
                 modifier = Modifier.padding(paddingValues),
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "PrecipitationChartUi Preview")
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    name = "PrecipitationChartUi Dark Mode",
+)
+@Composable
+fun PreviewPrecipitationChartUi() {
+    WeatherAlertAppTheme {
+        PrecipitationChartUi(
+            WeatherAlertCategory.SNOW_FALL,
+            precipitationValues =
+                List(12) {
+                    HourlyPrecipitation(
+                        isoDateTime = "2025-01-15T21:42:00Z",
+                        rain = Random.nextDouble() * 100,
+                        snow = Random.nextDouble() * 100,
+                    )
+                },
+            modifier = Modifier.padding(16.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "BarChartItem Preview")
+@Composable
+fun PreviewBarChartItem() {
+    WeatherAlertAppTheme {
+        BarChartItem(
+            hourOfDayLabel = "12p",
+            value = 62.0,
+            maxValue = 70.00,
+            modifier = Modifier.padding(8.dp),
+        )
     }
 }

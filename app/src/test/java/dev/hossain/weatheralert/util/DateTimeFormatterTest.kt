@@ -46,4 +46,32 @@ class DateTimeFormatterTest {
         val result = formatTimestampToElapsedTime(timestamp)
         assertThat(result).isEqualTo("1 hour ago")
     }
+
+    @Test
+    fun convertIsoToHourAmPm_validIsoDateTime() {
+        val isoDateTime = "2023-10-10T14:30:00Z"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("2PM")
+    }
+
+    @Test
+    fun convertIsoToHourAmPm_isoDateTimeWithMilliseconds() {
+        val isoDateTime = "2023-10-10T14:30:00.123Z"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("2PM")
+    }
+
+    @Test
+    fun convertIsoToHourAmPm_isoDateTimeWithOffset() {
+        val isoDateTime = "2023-10-10T14:30:00+02:00"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("2PM")
+    }
+
+    @Test
+    fun convertIsoToHourAmPm_isoDateTimeWithDifferentTimeZone() {
+        val isoDateTime = "2023-10-10T14:30:00-05:00"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("2PM")
+    }
 }

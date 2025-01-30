@@ -102,6 +102,7 @@ class OpenMeteoServiceImpl constructor() : OpenMeteoService {
                                 nextDayRain = nextDayRain,
                                 weeklyCumulativeRain = 0.0,
                             ),
+                        hourlyPrecipitation = emptyList(), // NOT IMPLEMENTED YET
                     ),
             )
         }
