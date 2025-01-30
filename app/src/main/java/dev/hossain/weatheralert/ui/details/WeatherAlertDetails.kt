@@ -90,10 +90,12 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.convertIsoToHourAmPm
 import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
+import dev.hossain.weatheralert.util.slimTimeLabel
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -319,7 +321,7 @@ fun WeatherAlertDetailsScreen(
                     }
                 } else {
                     item { CityInfoUi(city = city) }
-                    item { WeatherAlertConfigUi(alert = alert, forecast = cityForecast) }
+                    item { WeatherAlertForecastUi(alert = alert, forecast = cityForecast) }
                     item { WeatherAlertNoteUi(state = state) }
                     item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
                     item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
@@ -392,7 +394,7 @@ fun CityInfoUi(
 }
 
 @Composable
-fun WeatherAlertConfigUi(
+fun WeatherAlertForecastUi(
     alert: Alert,
     forecast: CityForecast,
     modifier: Modifier = Modifier,
@@ -496,17 +498,25 @@ private fun PrecipitationChartUi(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(chartItems) { hour ->
+            items(chartItems) { itemIndex ->
                 val value =
                     if (weatherAlertCategory ==
                         WeatherAlertCategory.SNOW_FALL
                     ) {
-                        precipitationValues[hour].snow
+                        precipitationValues[itemIndex].snow
                     } else {
-                        precipitationValues[hour].rain
+                        precipitationValues[itemIndex].rain
                     }
+
                 BarChartItem(
-                    hour = hour,
+                    // Convert ISO 8601 date-time string to hour of the day.
+                    hourOfDayLabel =
+                        slimTimeLabel(
+                            hourOfDayLabel =
+                                convertIsoToHourAmPm(
+                                    isoDateTime = precipitationValues[itemIndex].isoDateTime,
+                                ),
+                        ),
                     value = value,
                     maxValue =
                         if (weatherAlertCategory ==
@@ -524,7 +534,7 @@ private fun PrecipitationChartUi(
 
 @Composable
 private fun BarChartItem(
-    hour: Int,
+    hourOfDayLabel: String,
     value: Double,
     maxValue: Double,
     modifier: Modifier = Modifier,
@@ -557,7 +567,7 @@ private fun BarChartItem(
                     ),
         )
         Text(
-            text = "$hour",
+            text = hourOfDayLabel,
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.padding(top = 4.dp),
         )
@@ -874,7 +884,7 @@ fun PreviewPrecipitationChartUi() {
 fun PreviewBarChartItem() {
     WeatherAlertAppTheme {
         BarChartItem(
-            hour = 12,
+            hourOfDayLabel = "12p",
             value = 62.0,
             maxValue = 70.00,
             modifier = Modifier.padding(8.dp),
