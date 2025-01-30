@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -524,7 +525,10 @@ private fun BarChartItem(
                     // Use 0.7 multiplier to avoid full height bar and keep space for labels
                     .fillMaxHeight(fraction = (value / maxValue).toFloat() * 0.7f)
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.primary),
+                    .background(
+                        color = MaterialTheme.colorScheme.secondary,
+                        shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
+                    ),
         )
         Text(
             text = "$hour",
