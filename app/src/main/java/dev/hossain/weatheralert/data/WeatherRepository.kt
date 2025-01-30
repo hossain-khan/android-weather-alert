@@ -272,6 +272,7 @@ class WeatherRepositoryImpl
                     dailyCumulativeRain = convertToAppForecastData.rain.dailyCumulativeRain,
                     nextDayRain = convertToAppForecastData.rain.nextDayRain,
                     forecastSourceService = weatherService,
+                    hourlyPrecipitation = emptyList(), // TODO - Add hourly precipitation data
                 ),
             )
         }

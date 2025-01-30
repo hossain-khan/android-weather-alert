@@ -76,6 +76,7 @@ import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
+import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.db.Alert
@@ -770,6 +771,13 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             dailyCumulativeRain = 100.0,
                             nextDayRain = 50.0,
                             forecastSourceService = WeatherService.OPEN_WEATHER_MAP,
+                            hourlyPrecipitation =
+                                listOf(
+                                    HourlyPrecipitation("2025-01-15T21:42:00Z", 5.0, 2.0),
+                                    HourlyPrecipitation("2025-01-15T22:42:00Z", 3.0, 1.5),
+                                    HourlyPrecipitation("2025-01-15T23:42:00Z", 4.0, 2.2),
+                                    HourlyPrecipitation("2025-01-16T00:42:00Z", 6.0, 3.1),
+                                ),
                         ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
                     isEditingNote = false,
