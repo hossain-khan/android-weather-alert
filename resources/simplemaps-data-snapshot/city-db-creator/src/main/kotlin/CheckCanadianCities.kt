@@ -1,7 +1,6 @@
 package dev.hossain.citydb
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import androidx.sqlite.use
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import dev.hossain.citydb.config.*
 import java.io.File
