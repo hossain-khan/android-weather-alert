@@ -22,10 +22,12 @@ internal const val CANADA_COUNTRY_NAME = "Canada"
 internal const val DB_FILE_NAME_TODO_TEST = "db/todos.db"
 
 // File path for the original world cities database used by the alert app
+// File is location at PROJECT-ROOT/resources/simplemaps-data-snapshot
 internal const val DB_FILE_NAME_ALERT_APP = "../alertapp-original-world-cities.db"
 
 // File path for the enhanced database with additional USA and Canada cities
-internal const val DB_FILE_NAME_ENHANCED_DB = "../alertapp-add-on-usa-canada-cities.db"
+// File is location at PROJECT-ROOT/resources/simplemaps-data-snapshot
+internal const val DB_FILE_NAME_ENHANCED_DB = "../alertapp-merged-cities.db"
 
 // Table name for cities in the database
 internal const val DB_TABLE_NAME_CITIES = "cities"
