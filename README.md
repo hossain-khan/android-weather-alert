@@ -1,7 +1,7 @@
 # Android - Weather Alert
 A simple app to alert you about specific weather condition based on your configured threshold.
 
-![](resources/app-screenshot-array.png)
+![](resources/banner-art/app-screenshot-array.png)
 
 > [!NOTE]  
 > _The app has been co-created with the help of GitHub Copilot, ChatGPT and Google Gemini._ 🤖
