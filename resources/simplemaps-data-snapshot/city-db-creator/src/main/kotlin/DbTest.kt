@@ -2,7 +2,6 @@ package dev.hossain.citydb
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
-import androidx.sqlite.use
 import dev.hossain.citydb.config.DB_FILE_NAME_TODO_TEST
 
 /**
