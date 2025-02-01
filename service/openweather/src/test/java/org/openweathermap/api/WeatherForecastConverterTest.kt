@@ -4,13 +4,30 @@ import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import org.openweathermap.api.model.WeatherForecast
+import java.util.TimeZone
 
 /**
  * Tests [WeatherForecast] to [AppForecastData] conversion.
  */
 class WeatherForecastConverterTest {
+    private val originalTimeZone = TimeZone.getDefault()
+
+    @Before
+    fun setUp() {
+        // Set the default time zone to a specific time zone (e.g., "America/Toronto")
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"))
+    }
+
+    @After
+    fun tearDown() {
+        // Restore the original time zone after the test
+        TimeZone.setDefault(originalTimeZone)
+    }
+
     @Test
     fun convertsWeatherForecastToAppForecastData() {
         val weatherForecast = loadWeatherForecastFromJson("open-weather-hourly-snow-oshawa.json")
@@ -26,6 +43,7 @@ class WeatherForecastConverterTest {
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
+
     @Test
     fun convertsWeatherForecastToAppForecastData_withHourlyData() {
         val weatherForecast = loadWeatherForecastFromJson("open-weather-hourly-rain-colombo.json")
@@ -34,7 +52,6 @@ class WeatherForecastConverterTest {
 
         // Validate hourly data
         assertThat(result.hourlyPrecipitation.size).isEqualTo(48)
-
 
         // First timestamp is 1738375200
         // GMT	Sat Feb 01 2025 02:00:00 GMT+0000

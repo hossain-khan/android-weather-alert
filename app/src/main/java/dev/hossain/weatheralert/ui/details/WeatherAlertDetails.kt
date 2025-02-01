@@ -551,7 +551,7 @@ private fun BarChartItem(
                 .width(30.dp),
     ) {
         Text(
-            text = if(value == 0.0) "•" else "%.1f".format(value),
+            text = if (value == 0.0) "•" else "%.1f".format(value),
             style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
             modifier =
                 Modifier

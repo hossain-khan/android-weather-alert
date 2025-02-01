@@ -5,12 +5,29 @@ import com.squareup.moshi.Moshi
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
 import io.tomorrow.api.model.WeatherResponse
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
+import java.util.TimeZone
 
 /**
  * Tests tomorrow.io [WeatherResponse] to [AppForecastData] converter.
  */
 class WeatherResponseConverterTest {
+    private val originalTimeZone = TimeZone.getDefault()
+
+    @Before
+    fun setUp() {
+        // Set the default time zone to a specific time zone (e.g., "America/Toronto")
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Toronto"))
+    }
+
+    @After
+    fun tearDown() {
+        // Restore the original time zone after the test
+        TimeZone.setDefault(originalTimeZone)
+    }
+
     @Test
     fun convertsBostonWeatherResponseToAppForecastData() {
         val weatherResponse = loadWeatherResponseFromJson("tomorrow-io-boston-forecast-2025-01-10.json")
@@ -25,6 +42,19 @@ class WeatherResponseConverterTest {
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
+    @Test
+    fun convertsBostonWeatherResponseToAppForecastData_hourlyDateTimeUpdatedToLocalZone() {
+        val weatherResponse = loadWeatherResponseFromJson("tomorrow-io-boston-forecast-2025-01-10.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.hourlyPrecipitation.size).isEqualTo(120)
+
+        // First item is: 2025-01-11T03:00:00Z in UTC | Jan 11, 2025, 3:00:00 a.m.
+        // In local timezone (EST), it should be 2025-01-10T22:00:00-05:00 | Jan 10, 2025, 10:00:00 p.m.
+        assertThat(result.hourlyPrecipitation[0].isoDateTime).isEqualTo("2025-01-10T22:00:00-05:00")
     }
 
     @Test

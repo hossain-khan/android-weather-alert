@@ -5,6 +5,9 @@ import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 /**
  * Extension function to convert a WeatherResponse object to an AppForecastData object.
@@ -45,9 +48,14 @@ internal fun WeatherResponse.toForecastData(): AppForecastData =
         hourlyPrecipitation = timelines.hourly.map { it.toHourlyPrecipitation() },
     )
 
-private fun TimelineData.toHourlyPrecipitation(): HourlyPrecipitation =
-    HourlyPrecipitation(
-        isoDateTime = time,
+private fun TimelineData.toHourlyPrecipitation(): HourlyPrecipitation {
+    val utcDateTime = ZonedDateTime.parse(time, DateTimeFormatter.ISO_DATE_TIME)
+    val localDateTime = utcDateTime.withZoneSameInstant(ZoneId.systemDefault())
+    val localIsoDateTime = localDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+
+    return HourlyPrecipitation(
+        isoDateTime = localIsoDateTime,
         snow = values.snowDepth ?: 0.0,
         rain = values.rainAccumulation ?: 0.0,
     )
+}
