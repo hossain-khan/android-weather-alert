@@ -7,9 +7,11 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -492,13 +494,30 @@ private fun PrecipitationChartUi(
     val maxSnowValue = precipitationValues.maxOfOrNull { it.snow } ?: 100.0
 
     Column(modifier = modifier) {
-        Text(
-            text = "24 Hour Forecast",
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(bottom = 8.dp),
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(bottom = 4.dp),
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.bar_chart_24dp),
+                contentDescription = "Bar Chart Icon",
+                modifier = Modifier.size(20.dp),
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(
+                text = "24 Hour Forecast",
+                style = MaterialTheme.typography.labelLarge,
+            )
+        }
         LazyRow(
-            modifier = Modifier.fillMaxWidth(),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .border(
+                        width = 1.dp,
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                        shape = RoundedCornerShape(4.dp),
+                    ).padding(4.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(chartItems) { itemIndex ->
@@ -535,6 +554,9 @@ private fun PrecipitationChartUi(
     }
 }
 
+/**
+ * Single bar containing labels for hour and precipitation value.
+ */
 @Composable
 private fun BarChartItem(
     hourOfDayLabel: String,
@@ -547,7 +569,7 @@ private fun BarChartItem(
         verticalArrangement = Arrangement.Bottom,
         modifier =
             modifier
-                .height(100.dp)
+                .height(120.dp)
                 .width(30.dp),
     ) {
         Text(
@@ -815,6 +837,11 @@ private fun PreviewWeatherAlertDetailsScreen() {
                                     HourlyPrecipitation("2025-01-15T22:42:00Z", 3.0, 1.5),
                                     HourlyPrecipitation("2025-01-15T23:42:00Z", 4.0, 2.2),
                                     HourlyPrecipitation("2025-01-16T00:42:00Z", 6.0, 3.1),
+                                    HourlyPrecipitation("2025-01-16T01:42:00Z", 0.0, 0.0),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 0.0),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 0.2),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 0.6),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 1.2),
                                 ),
                         ),
                     alertNote = "Sample alert note\n* item 1\n* item 2",
