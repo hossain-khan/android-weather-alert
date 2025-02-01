@@ -17,18 +17,28 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
@@ -55,6 +65,7 @@ data class AboutAppScreen(
 ) : Screen {
     data class State(
         val appVersion: String,
+        val showLearnMoreSheet: Boolean,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -62,6 +73,10 @@ data class AboutAppScreen(
         data object GoBack : Event()
 
         data object OpenGitHubProject : Event()
+
+        data object OpenAppEducationDialog : Event()
+
+        data object CloseAppEducationDialog : Event()
     }
 }
 
@@ -75,6 +90,8 @@ class AboutAppPresenter
         @Composable
         override fun present(): AboutAppScreen.State {
             val uriHandler = LocalUriHandler.current
+            var showLearnMoreBottomSheet by remember { mutableStateOf(false) }
+
             val appVersion =
                 buildString {
                     append("v")
@@ -88,7 +105,10 @@ class AboutAppPresenter
                 analytics.logScreenView(AboutAppScreen::class)
             }
 
-            return AboutAppScreen.State(appVersion) { event ->
+            return AboutAppScreen.State(
+                appVersion,
+                showLearnMoreSheet = showLearnMoreBottomSheet,
+            ) { event ->
                 when (event) {
                     AboutAppScreen.Event.GoBack -> {
                         navigator.pop()
@@ -96,6 +116,14 @@ class AboutAppPresenter
 
                     AboutAppScreen.Event.OpenGitHubProject -> {
                         uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert")
+                    }
+
+                    AboutAppScreen.Event.OpenAppEducationDialog -> {
+                        showLearnMoreBottomSheet = true
+                    }
+
+                    AboutAppScreen.Event.CloseAppEducationDialog -> {
+                        showLearnMoreBottomSheet = false
                     }
                 }
             }
@@ -118,6 +146,8 @@ fun AboutAppScreen(
     state: AboutAppScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -156,9 +186,8 @@ fun AboutAppScreen(
                             .size(84.dp)
                             .align(Alignment.CenterHorizontally),
                 )
-                Text(
-                    text = "Your no-fuss, personal weather alerter.",
-                    style = MaterialTheme.typography.bodyMedium,
+                AppTagLineWithLinkedText(
+                    eventSink = state.eventSink,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                 )
                 Spacer(modifier = Modifier.height(32.dp))
@@ -201,6 +230,55 @@ fun AboutAppScreen(
             }
         }
     }
+
+    if (state.showLearnMoreSheet) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                state.eventSink(AboutAppScreen.Event.CloseAppEducationDialog)
+            },
+            sheetState = sheetState,
+        ) {
+            LearnMoreAboutAlerts {
+                state.eventSink(AboutAppScreen.Event.CloseAppEducationDialog)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AppTagLineWithLinkedText(
+    eventSink: (AboutAppScreen.Event) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    // Tag line: Your no-fuss, personal weather alerter.
+    val annotatedLinkString =
+        buildAnnotatedString {
+            append("Your no-fuss, personal weather ")
+            withLink(
+                LinkAnnotation.Url(
+                    // Dummy URL, not used for this use case.
+                    url = "https://hossain.dev",
+                    styles =
+                        TextLinkStyles(
+                            style = SpanStyle(color = MaterialTheme.colorScheme.primary),
+                            hoveredStyle = SpanStyle(color = MaterialTheme.colorScheme.secondary),
+                        ),
+                    linkInteractionListener = {
+                        eventSink(AboutAppScreen.Event.OpenAppEducationDialog)
+                    },
+                ),
+            ) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
+                    append("alerter")
+                }
+            }
+            append(".")
+        }
+    Text(
+        text = annotatedLinkString,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = modifier,
+    )
 }
 
 @Preview(showBackground = true, name = "Light Mode")
@@ -210,6 +288,7 @@ fun AboutAppScreenPreview() {
     val sampleState =
         AboutAppScreen.State(
             appVersion = "v1.0.0 (b135e2a)",
+            showLearnMoreSheet = false,
             eventSink = {},
         )
     WeatherAlertAppTheme {
