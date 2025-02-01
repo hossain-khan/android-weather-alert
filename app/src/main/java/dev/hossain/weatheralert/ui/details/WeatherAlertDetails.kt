@@ -101,6 +101,9 @@ import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 import kotlin.random.Random
 
+/**
+ * Screen to show details of a weather alert.
+ */
 @Parcelize
 data class WeatherAlertDetailsScreen(
     val alertId: Long,
@@ -548,7 +551,7 @@ private fun BarChartItem(
                 .width(30.dp),
     ) {
         Text(
-            text = "%.1f".format(value),
+            text = if(value == 0.0) "•" else "%.1f".format(value),
             style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
             modifier =
                 Modifier
