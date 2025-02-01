@@ -26,6 +26,23 @@ class WeatherForecastConverterTest {
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
+    @Test
+    fun convertsWeatherForecastToAppForecastData_withHourlyData() {
+        val weatherForecast = loadWeatherForecastFromJson("open-weather-hourly-rain-colombo.json")
+
+        val result = weatherForecast.convertToForecastData()
+
+        // Validate hourly data
+        assertThat(result.hourlyPrecipitation.size).isEqualTo(48)
+
+
+        // First timestamp is 1738375200
+        // GMT	Sat Feb 01 2025 02:00:00 GMT+0000
+        // Your Time Zone Fri Jan 31 2025 21:00:00 GMT-0500 (Eastern Standard Time)
+        // Expected: Unix timestamp should be converted to local time zone
+
+        assertThat(result.hourlyPrecipitation[0].isoDateTime).isEqualTo("2025-01-31T21:00-05:00")
+    }
 
     @Test
     fun handlesEmptyHourlyAndDailyForecasts() {
