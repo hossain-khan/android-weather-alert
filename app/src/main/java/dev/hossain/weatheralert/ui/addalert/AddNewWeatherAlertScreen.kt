@@ -466,12 +466,14 @@ fun AddNewWeatherAlertScreen(
                                     state.snowThreshold,
                                 )} ${WeatherAlertCategory.SNOW_FALL.unit}",
                             )
+                            // https://m3.material.io/components/sliders/overview
+                            // https://developer.android.com/develop/ui/compose/components/slider?hl=en
                             Slider(
                                 value = state.snowThreshold,
                                 onValueChange = {
                                     state.eventSink(
                                         AddNewWeatherAlertScreen.Event.SnowThresholdChanged(
-                                            it,
+                                            value = it,
                                         ),
                                     )
                                 },
@@ -486,12 +488,14 @@ fun AddNewWeatherAlertScreen(
                                     state.rainThreshold,
                                 )} ${WeatherAlertCategory.RAIN_FALL.unit}",
                             )
+                            // https://m3.material.io/components/sliders/overview
+                            // https://developer.android.com/develop/ui/compose/components/slider?hl=en
                             Slider(
                                 value = state.rainThreshold,
                                 onValueChange = {
                                     state.eventSink(
                                         AddNewWeatherAlertScreen.Event.RainThresholdChanged(
-                                            it,
+                                            value = it,
                                         ),
                                     )
                                 },
@@ -504,7 +508,7 @@ fun AddNewWeatherAlertScreen(
             NotificationPermissionStatusUi()
 
             ReminderNotesUi {
-                state.eventSink(AddNewWeatherAlertScreen.Event.OnReminderNotesUpdated(it))
+                state.eventSink(AddNewWeatherAlertScreen.Event.OnReminderNotesUpdated(notes = it))
             }
 
             Button(
