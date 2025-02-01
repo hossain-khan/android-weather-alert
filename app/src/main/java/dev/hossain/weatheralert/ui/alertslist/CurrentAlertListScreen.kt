@@ -1,7 +1,12 @@
 package dev.hossain.weatheralert.ui.alertslist
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,7 +23,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -53,6 +60,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -300,6 +308,24 @@ fun CurrentWeatherAlerts(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+    val listState = rememberLazyListState()
+    var isFabVisible by remember { mutableStateOf(true) }
+
+    LaunchedEffect(listState) {
+        var previousIndex = listState.firstVisibleItemIndex
+        var previousScrollOffset = listState.firstVisibleItemScrollOffset
+
+        snapshotFlow { listState.firstVisibleItemIndex to listState.firstVisibleItemScrollOffset }
+            .collect { (index, scrollOffset) ->
+                if (index > previousIndex || (index == previousIndex && scrollOffset > previousScrollOffset)) {
+                    isFabVisible = false
+                } else if (index < previousIndex || (index == previousIndex && scrollOffset < previousScrollOffset)) {
+                    isFabVisible = true
+                }
+                previousIndex = index
+                previousScrollOffset = scrollOffset
+            }
+    }
 
     Scaffold(
         topBar = {
@@ -326,13 +352,19 @@ fun CurrentWeatherAlerts(
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {
-                    state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
-                },
-                text = { Text("Add Alert") },
-                icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
-            )
+            AnimatedVisibility(
+                visible = isFabVisible,
+                enter = slideInVertically(initialOffsetY = { it }) + fadeIn(),
+                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
+            ) {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
+                    },
+                    text = { Text("Add Alert") },
+                    icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+                )
+            }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
@@ -348,6 +380,7 @@ fun CurrentWeatherAlerts(
                 AlertTileGrid(
                     tiles = state.tiles,
                     eventSink = state.eventSink,
+                    listState = listState,
                 )
             }
         }
@@ -372,7 +405,6 @@ fun CurrentWeatherAlerts(
 
     LaunchedEffect(state.recentlyDeletedAlert) {
         state.recentlyDeletedAlert?.let { alert ->
-            // userMessage = "Alert for ${event.item.cityInfo} removed."
             val result =
                 snackbarHostState.showSnackbar(
                     message = "Alert for ${alert.cityInfo} removed.",
@@ -392,8 +424,10 @@ fun CurrentWeatherAlerts(
 fun AlertTileGrid(
     tiles: List<AlertTileData>,
     eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
+    listState: LazyListState,
 ) {
     LazyColumn(
+        state = listState,
         modifier = Modifier.fillMaxSize(),
         contentPadding =
             PaddingValues(
@@ -597,9 +631,9 @@ fun CurrentWeatherAlertsPreview() {
                 lon = 0.0,
                 category = WeatherAlertCategory.SNOW_FALL,
                 threshold = "5 mm",
-                currentStatus = "Tomorrow: 7 mm",
+                currentStatus = "7 mm",
                 isAlertActive = false,
-                alertNote = "test note",
+                alertNote = "Charge batteries\nGet car in **garage**",
             ),
             AlertTileData(
                 alertId = 2,
@@ -608,9 +642,20 @@ fun CurrentWeatherAlertsPreview() {
                 lon = 0.0,
                 category = WeatherAlertCategory.RAIN_FALL,
                 threshold = "10 mm",
-                currentStatus = "Tomorrow: 12 mm",
+                currentStatus = "12 mm",
                 isAlertActive = true,
                 alertNote = "Note when alert is reached.\n* Charge batteries\n* Get car in **garage**",
+            ),
+            AlertTileData(
+                alertId = 1,
+                cityInfo = "Toronto, Canada",
+                lat = 0.0,
+                lon = 0.0,
+                category = WeatherAlertCategory.SNOW_FALL,
+                threshold = "25 mm",
+                currentStatus = "11 mm",
+                isAlertActive = false,
+                alertNote = "",
             ),
         )
     CurrentWeatherAlerts(
