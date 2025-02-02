@@ -32,7 +32,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.ui.about.LearnMoreAboutAlerts
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 
@@ -78,44 +80,20 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         .copy(color = MaterialTheme.colorScheme.tertiary),
                 fontStyle = FontStyle.Italic,
             )
-            Image(
-                painter = painterResource(id = R.drawable.openweather_logo),
-                contentDescription = "Open Weather Map Logo",
-                modifier =
-                    Modifier
-                        // Original: width="176dp" height="79dp"
-                        .padding(top = 16.dp, start = 56.dp)
-                        // Reduces intensity by a bit
-                        .alpha(0.9f),
-            )
-            Image(
-                painter = painterResource(id = R.drawable.tomorrow_io_logo),
-                modifier =
-                    Modifier
-                        .padding(top = 24.dp, start = 56.dp)
-                        // Original: width="134dp" height="25dp"
-                        // Increase by 30% to match the OpenWeather logo
-                        .size(174.dp, 32.dp)
-                        // Reduces intensity by a bit
-                        .alpha(0.9f),
-                contentDescription = "Tomorrow.io Logo",
-            )
-
-            // Open-Mateo is disabled due to some inconsistencies discovered
-            // See https://github.com/hossain-khan/android-weather-alert/pull/165
-
-            /*Image(
-                painter = painterResource(id = R.drawable.open_mateo_logo),
-                modifier =
-                    Modifier
-                        .padding(top = 20.dp, start = 56.dp)
-                        // Original: width="140dp" height="30dp"
-                        // Increase by 30% to match the OpenWeather logo
-                        .size(175.dp, 40.dp)
-                        // Reduces intensity by a bit
-                        .alpha(0.9f),
-                contentDescription = "Tomorrow.io Logo",
-            )*/
+            WeatherService.entries.filter { it.isEnabled }.forEach { service ->
+                val serviceConfig = service.serviceConfig()
+                Image(
+                    painter = painterResource(id = serviceConfig.logoResId),
+                    contentDescription = "${serviceConfig.serviceName} Logo",
+                    modifier =
+                        Modifier
+                            .padding(top = 16.dp, start = 56.dp)
+                            // Add multiplier to make the logo bigger
+                            .size(serviceConfig.logoWidth * 1.2f, serviceConfig.logoHeight * 1.2f)
+                            // Reduces intensity by a bit
+                            .alpha(0.9f),
+                )
+            }
         }
     }
 
