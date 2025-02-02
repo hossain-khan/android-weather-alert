@@ -1,3 +1,12 @@
+## Weather Alert v2.2
+
+### What's new
+* Added 24-hour forecast visualization for better data insights.
+* Added pull-to-refresh forecast data from the alert details screen.
+* Added a new "About App" screen and a "Learn More" bottom sheet for an enhanced educational experience.
+* New Credits Screen with proper attribution to external resources.
+* Minor code cleanup, UX improvements, libraries and dependencies updates, and refined API key handling.
+
 ## Weather Alert v2.1
 
 ### What's new
