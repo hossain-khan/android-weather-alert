@@ -2,6 +2,7 @@ package dev.hossain.weatheralert.datamodel
 
 /**
  * Contains minimum data required for weather alert app.
+ * This data is cached in app database for offline use.
  */
 data class AppForecastData(
     val latitude: Double = 0.0,
