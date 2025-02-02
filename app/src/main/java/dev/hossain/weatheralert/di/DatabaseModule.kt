@@ -22,8 +22,10 @@ object DatabaseModule {
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
             .createFromAsset("alertapp.db")
-            .fallbackToDestructiveMigration()
-            .fallbackToDestructiveMigrationFrom(3)
+            // ⚠️ UPDATE: Disabled destructive migration for now.
+            // To ensure user data is not lost, we need to handle migration properly.
+            // .fallbackToDestructiveMigration()
+            // .fallbackToDestructiveMigrationFrom(3)
             .build()
 
     @Provides
