@@ -60,9 +60,7 @@ import dev.hossain.weatheralert.util.Analytics
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AboutAppScreen(
-    val requestId: String,
-) : Screen {
+data object AboutAppScreen : Screen {
     data class State(
         val appVersion: String,
         val showLearnMoreSheet: Boolean,
@@ -84,7 +82,6 @@ class AboutAppPresenter
     @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
-        @Assisted private val screen: AboutAppScreen,
         private val analytics: Analytics,
     ) : Presenter<AboutAppScreen.State> {
         @Composable
@@ -132,10 +129,7 @@ class AboutAppPresenter
         @CircuitInject(AboutAppScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
-            fun create(
-                navigator: Navigator,
-                screen: AboutAppScreen,
-            ): AboutAppPresenter
+            fun create(navigator: Navigator): AboutAppPresenter
         }
     }
 

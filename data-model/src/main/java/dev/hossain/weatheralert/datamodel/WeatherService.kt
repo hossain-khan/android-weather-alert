@@ -15,24 +15,18 @@ enum class WeatherService(
     /**
      * OpenWeatherMap API for weather forecast.
      * - https://openweathermap.org/api
-     *
-     * @see OpenWeatherService
      */
     OPEN_WEATHER_MAP,
 
     /**
      * Tomorrow.io API for weather forecast.
      * - https://app.tomorrow.io/home
-     *
-     * @see TomorrowIoService
      */
     TOMORROW_IO,
 
     /**
      * Open-Meteo API for weather forecast.
      * - https://open-meteo.com/en/docs
-     *
-     * @see OpenMeteoService
      */
     OPEN_METEO(
         /**
