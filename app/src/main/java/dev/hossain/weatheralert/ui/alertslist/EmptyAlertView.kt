@@ -84,7 +84,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                 val serviceConfig = service.serviceConfig()
                 Image(
                     painter = painterResource(id = serviceConfig.logoResId),
-                    contentDescription = "${serviceConfig.serviceName} Logo",
+                    contentDescription = "${serviceConfig.serviceName} Forecast Service Logo",
                     modifier =
                         Modifier
                             .padding(top = 16.dp, start = 56.dp)

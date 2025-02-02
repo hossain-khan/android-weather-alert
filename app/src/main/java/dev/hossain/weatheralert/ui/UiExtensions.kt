@@ -8,8 +8,10 @@ import dev.hossain.weatheralert.datamodel.WeatherService
 
 /**
  * Internal config to show logo with right sizing and description for each weather service.
+ *
+ * DEVELOPER NOTE: This data essentially could be merged with [WeatherService] enum, but keeping it separate for now.
  */
-data class WeatherServiceLogoConfig(
+data class WeatherServiceConfig(
     /**
      * Can be used to display name of the service.
      */
@@ -42,10 +44,10 @@ data class WeatherServiceLogoConfig(
     val requiresApiKey: Boolean,
 )
 
-internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
+internal fun WeatherService.serviceConfig(): WeatherServiceConfig =
     when (this) {
         WeatherService.OPEN_WEATHER_MAP ->
-            WeatherServiceLogoConfig(
+            WeatherServiceConfig(
                 serviceName = "OpenWeather",
                 logoResId = R.drawable.openweather_logo,
                 logoWidth = 100.dp,
@@ -61,7 +63,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
                 requiresApiKey = true,
             )
         WeatherService.TOMORROW_IO ->
-            WeatherServiceLogoConfig(
+            WeatherServiceConfig(
                 serviceName = "Tomorrow.io",
                 logoResId = R.drawable.tomorrow_io_logo,
                 logoWidth = 120.dp,
@@ -78,7 +80,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceLogoConfig =
             )
 
         WeatherService.OPEN_METEO ->
-            WeatherServiceLogoConfig(
+            WeatherServiceConfig(
                 serviceName = "Open-Meteo",
                 logoResId = R.drawable.open_mateo_logo,
                 logoWidth = 140.dp,
