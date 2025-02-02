@@ -241,7 +241,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     CurrentWeatherAlertScreen.Event.AddNewAlertClicked -> {
-                        navigator.goTo(AddNewWeatherAlertScreen("add-new-alert"))
+                        navigator.goTo(AddNewWeatherAlertScreen)
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
@@ -276,15 +276,15 @@ class CurrentWeatherAlertPresenter
                     }
 
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
-                        navigator.goTo(UserSettingsScreen("settings"))
+                        navigator.goTo(UserSettingsScreen)
                     }
 
                     CurrentWeatherAlertScreen.Event.AboutAppClicked -> {
-                        navigator.goTo(AboutAppScreen("about-app"))
+                        navigator.goTo(AboutAppScreen)
                     }
 
                     CurrentWeatherAlertScreen.Event.CreditsClicked -> {
-                        navigator.goTo(AppCreditsScreen("credits"))
+                        navigator.goTo(AppCreditsScreen)
                     }
                 }
             }

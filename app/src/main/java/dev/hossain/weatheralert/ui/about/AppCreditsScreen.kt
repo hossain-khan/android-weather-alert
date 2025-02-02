@@ -20,8 +20,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -52,9 +50,7 @@ import dev.hossain.weatheralert.util.Analytics
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class AppCreditsScreen(
-    val requestId: String,
-) : Screen {
+data object AppCreditsScreen : Screen {
     data class State(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
@@ -68,7 +64,6 @@ class AppCreditsPresenter
     @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
-        @Assisted private val screen: AppCreditsScreen,
         private val analytics: Analytics,
     ) : Presenter<AppCreditsScreen.State> {
         @Composable
@@ -89,10 +84,7 @@ class AppCreditsPresenter
         @CircuitInject(AppCreditsScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
-            fun create(
-                navigator: Navigator,
-                screen: AppCreditsScreen,
-            ): AppCreditsPresenter
+            fun create(navigator: Navigator): AppCreditsPresenter
         }
     }
 

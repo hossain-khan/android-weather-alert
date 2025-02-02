@@ -28,7 +28,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
@@ -110,9 +109,7 @@ import org.openweathermap.api.OpenWeatherService
 import timber.log.Timber
 
 @Parcelize
-data class AddNewWeatherAlertScreen(
-    val requestId: String,
-) : Screen {
+data object AddNewWeatherAlertScreen : Screen {
     data class State(
         val selectedApiService: WeatherService?,
         val citySuggestions: List<City>,
@@ -161,7 +158,6 @@ class AddWeatherAlertPresenter
     @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
-        @Assisted private val screen: AddNewWeatherAlertScreen,
         private val preferencesManager: PreferencesManager,
         private val database: AppDatabase,
         private val weatherRepository: WeatherRepository,
@@ -179,7 +175,7 @@ class AddWeatherAlertPresenter
             var selectedCity: City? by remember { mutableStateOf(null) }
             var selectedApiService by remember { mutableStateOf<WeatherService?>(null) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
-            var reminderNotes: String = ""
+            var reminderNotes = ""
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherService.collect { service ->
@@ -367,7 +363,7 @@ class AddWeatherAlertPresenter
                     }
 
                     AddNewWeatherAlertScreen.Event.ForecastServiceIconClicked -> {
-                        navigator.goTo(UserSettingsScreen("change-service"))
+                        navigator.goTo(UserSettingsScreen)
                     }
                 }
             }
@@ -376,10 +372,7 @@ class AddWeatherAlertPresenter
         @CircuitInject(AddNewWeatherAlertScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
-            fun create(
-                navigator: Navigator,
-                screen: AddNewWeatherAlertScreen,
-            ): AddWeatherAlertPresenter
+            fun create(navigator: Navigator): AddWeatherAlertPresenter
         }
     }
 
@@ -418,7 +411,7 @@ fun AddNewWeatherAlertScreen(
                     .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf<Int>() }
+            val checkedList: SnapshotStateList<Int> = remember { mutableStateListOf() }
             var selectedIndex: Int by remember { mutableIntStateOf(0) }
             val selectedAlertCategory: WeatherAlertCategory by remember {
                 derivedStateOf { WeatherAlertCategory.entries[selectedIndex] }

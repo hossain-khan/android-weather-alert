@@ -79,9 +79,7 @@ import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
 @Parcelize
-data class UserSettingsScreen(
-    val requestId: String,
-) : Screen {
+data object UserSettingsScreen : Screen {
     data class State(
         val selectedService: WeatherService,
         val selectedUpdateFrequency: Long,
@@ -112,7 +110,6 @@ class UserSettingsPresenter
     @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
-        @Assisted private val screen: UserSettingsScreen,
         private val preferencesManager: PreferencesManager,
         private val apiKeyProvider: ApiKeyProvider,
         private val analytics: Analytics,
@@ -179,10 +176,7 @@ class UserSettingsPresenter
         @CircuitInject(UserSettingsScreen::class, AppScope::class)
         @AssistedFactory
         fun interface Factory {
-            fun create(
-                navigator: Navigator,
-                screen: UserSettingsScreen,
-            ): UserSettingsPresenter
+            fun create(navigator: Navigator): UserSettingsPresenter
         }
     }
 
