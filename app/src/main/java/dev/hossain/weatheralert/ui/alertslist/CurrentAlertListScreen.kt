@@ -110,7 +110,7 @@ data class CurrentWeatherAlertScreen(
     val id: String,
 ) : Screen {
     data class State(
-        val tiles: List<AlertTileData>,
+        val tiles: List<AlertTileData>?,
         val recentlyDeletedAlert: AlertTileData?,
         val userMessage: String? = null,
         val isNetworkUnavailable: Boolean = false,
@@ -155,7 +155,7 @@ class CurrentWeatherAlertPresenter
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
-            var weatherTiles by remember { mutableStateOf(emptyList<AlertTileData>()) }
+            var weatherTiles by remember { mutableStateOf<List<AlertTileData>?>(null) }
             var recentlyDeletedAlert by remember { mutableStateOf<AlertTileData?>(null) }
             var deletedItemIndex by remember { mutableIntStateOf(-1) }
             var forecastAlerts by remember { mutableStateOf(emptyList<UserCityAlert>()) }
@@ -245,7 +245,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.AlertRemoved -> {
-                        val updatedTiles = weatherTiles.toMutableList()
+                        val updatedTiles = requireNotNull(weatherTiles).toMutableList()
                         deletedItemIndex = updatedTiles.indexOf(event.item)
                         updatedTiles.remove(event.item)
                         weatherTiles = updatedTiles
@@ -257,7 +257,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     is CurrentWeatherAlertScreen.Event.UndoDelete -> {
-                        val updatedTiles = weatherTiles.toMutableList()
+                        val updatedTiles = requireNotNull(weatherTiles).toMutableList()
                         updatedTiles.add(deletedItemIndex, event.item)
                         weatherTiles = updatedTiles
                         scope.launch {
@@ -374,14 +374,19 @@ fun CurrentWeatherAlerts(
                     .fillMaxSize()
                     .padding(paddingValues),
         ) {
-            if (state.tiles.isEmpty()) {
-                EmptyAlertState()
+            if (state.tiles == null) {
+                // Show loading indicator in the middle of the screen
+                LoadingAlertsProgressUi()
             } else {
-                AlertTileGrid(
-                    tiles = state.tiles,
-                    eventSink = state.eventSink,
-                    listState = listState,
-                )
+                if (state.tiles.isEmpty()) {
+                    EmptyAlertState()
+                } else {
+                    AlertTileGrid(
+                        tiles = state.tiles,
+                        eventSink = state.eventSink,
+                        listState = listState,
+                    )
+                }
             }
         }
     }
