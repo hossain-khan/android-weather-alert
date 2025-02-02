@@ -61,4 +61,21 @@ Simple application generated from Android App template that uses:
 
 Here is simple diagram of Gradle modules for this app.
 
-<img src="https://github.com/user-attachments/assets/c783723c-4303-4287-bf10-54890f4ca058" alt="App Module Diagram" width="400"/>
+```mermaid
+flowchart TB
+    DTO[:data-model]
+    Service[services - Weather API]
+    Service_OW[:openweather]
+    Service_TI[:tomorrowio]
+    Service_OM[:openmeteo]
+    App[:app]
+
+    DTO --> Service
+    Service --> Service_OW
+    Service --> Service_TI
+    Service --> Service_OM
+    DTO ---> App
+    Service_OW ---> App
+    Service_TI ---> App
+    Service_OM ---> App
+```
