@@ -13,6 +13,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -27,6 +28,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -96,6 +99,7 @@ import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
+import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
@@ -148,6 +152,8 @@ data class AddNewWeatherAlertScreen(
         ) : Event()
 
         data object GoBack : Event()
+
+        data object ForecastServiceIconClicked : Event()
     }
 }
 
@@ -359,6 +365,10 @@ class AddWeatherAlertPresenter
                         snackbarData = null
                         navigator.pop()
                     }
+
+                    AddNewWeatherAlertScreen.Event.ForecastServiceIconClicked -> {
+                        navigator.goTo(UserSettingsScreen("change-service"))
+                    }
                 }
             }
         }
@@ -420,7 +430,7 @@ fun AddNewWeatherAlertScreen(
             }
 
             state.selectedApiService?.let {
-                CurrentApiServiceStateUi(it)
+                CurrentApiServiceStateUi(it, state.eventSink)
             }
 
             EditableCityInputDropdownMenu(
@@ -552,6 +562,7 @@ fun AddNewWeatherAlertScreen(
 @Composable
 private fun CurrentApiServiceStateUi(
     weatherService: WeatherService,
+    eventSink: (AddNewWeatherAlertScreen.Event) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val serviceConfig = weatherService.serviceConfig()
@@ -560,12 +571,27 @@ private fun CurrentApiServiceStateUi(
         modifier = modifier,
     ) {
         Text("ℹ️ Forecast data source: ", style = MaterialTheme.typography.labelSmall)
-        Image(
-            painter = painterResource(id = serviceConfig.logoResId),
-            // tint = MaterialTheme.colorScheme.secondary,
-            modifier = Modifier.size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
-            contentDescription = "${weatherService.name} logo image",
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.clickable { eventSink(AddNewWeatherAlertScreen.Event.ForecastServiceIconClicked) },
+        ) {
+            Image(
+                painter = painterResource(id = serviceConfig.logoResId),
+                modifier =
+                    Modifier
+                        .size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
+                contentDescription = "${weatherService.name} logo image",
+            )
+            Spacer(modifier = Modifier.size(6.dp))
+            Icon(
+                imageVector = Icons.Outlined.Edit,
+                contentDescription = "Change forecast service",
+                tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.3f),
+                modifier =
+                    Modifier
+                        .size(14.dp),
+            )
+        }
     }
 }
 
