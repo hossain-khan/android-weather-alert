@@ -6,7 +6,7 @@ import androidx.annotation.Keep
 enum class WeatherAlertCategory(
     val label: String,
     /**
-     * 🛑 THIS IS A BIG MESS. Fix it in the app. ⚠️
+     * 🛑 Got a great way to keep unit label. Ideally should allow user to configure it. ⚠️
      * - https://github.com/hossain-khan/android-weather-alert/issues/60
      */
     val unit: String,
