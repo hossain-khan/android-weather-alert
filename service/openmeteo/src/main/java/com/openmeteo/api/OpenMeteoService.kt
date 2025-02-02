@@ -12,6 +12,8 @@ import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.time.Instant
+import java.time.ZoneId
 
 /**
  * Service to interact with OpenMeteo API.
@@ -58,10 +60,12 @@ class OpenMeteoServiceImpl constructor() : OpenMeteoService {
                         timezone = Timezone.auto
                     }.getOrThrow()
 
+            val currentTimestamp = System.currentTimeMillis()
             var dailyCumulativeSnow = 0.0
             var nextDaySnow = 0.0
             var dailyCumulativeRain = 0.0
             var nextDayRain = 0.0
+            var hourlyData: List<dev.hossain.weatheralert.datamodel.HourlyPrecipitation> = emptyList()
             Forecast.Daily.run {
                 forecast.daily.getValue(snowfallSum).run {
                     nextDaySnow = values.values.firstOrNull() ?: 0.0
@@ -72,17 +76,45 @@ class OpenMeteoServiceImpl constructor() : OpenMeteoService {
             }
             Forecast.Hourly.run {
                 forecast.hourly.getValue(snowfall).run {
-                    values.values.mapNotNull { it }.take(CUMULATIVE_DATA_HOURS_24).forEach { v ->
-                        dailyCumulativeSnow += v
-                    }
+                    values
+                        .filterKeys { it.time > currentTimestamp }
+                        .values
+                        .mapNotNull { it }
+                        .take(CUMULATIVE_DATA_HOURS_24)
+                        .forEach { v ->
+                            dailyCumulativeSnow += v
+                        }
+
+                    hourlyData =
+                        values
+                            .filterKeys { it.time > currentTimestamp }
+                            .map {
+                                dev.hossain.weatheralert.datamodel.HourlyPrecipitation(
+                                    // ISO-8601 date-time string.
+                                    isoDateTime =
+                                        Instant
+                                            .ofEpochMilli(it.key.time)
+                                            .atZone(ZoneId.systemDefault())
+                                            .toOffsetDateTime()
+                                            .toString(),
+                                    // Value is in cm, convert to mm
+                                    snow = (it.value?.toDouble() ?: 0.0) * 10,
+                                    rain = 0.0, // TODO - for rain loop again
+                                )
+                            }
                 }
                 forecast.hourly.getValue(snowDepth).run {
-                    // TODO - check if we really need this data
+                    // This data is not used in the app.
                 }
                 forecast.hourly.getValue(rain).run {
-                    values.values.mapNotNull { it }.take(CUMULATIVE_DATA_HOURS_24).forEach { v ->
-                        dailyCumulativeRain += v
-                    }
+                    values
+                        .filterKeys { it.time > currentTimestamp }
+                        .values
+                        .mapNotNull { it }
+                        .take(CUMULATIVE_DATA_HOURS_24)
+                        .forEach { v ->
+                            dailyCumulativeRain += v
+                        }
                 }
             }
             OpenMeteoForecastResponse(
@@ -92,17 +124,19 @@ class OpenMeteoServiceImpl constructor() : OpenMeteoService {
                         longitude = longitude.toDouble(),
                         snow =
                             Snow(
-                                dailyCumulativeSnow = dailyCumulativeSnow,
-                                nextDaySnow = nextDaySnow,
+                                // Value is in cm, convert to mm
+                                dailyCumulativeSnow = dailyCumulativeSnow * 10,
+                                nextDaySnow = nextDaySnow * 10,
                                 weeklyCumulativeSnow = 0.0,
                             ),
                         rain =
                             Rain(
-                                dailyCumulativeRain = dailyCumulativeRain,
-                                nextDayRain = nextDayRain,
+                                // Value is in cm, convert to mm
+                                dailyCumulativeRain = dailyCumulativeRain * 10,
+                                nextDayRain = nextDayRain * 10,
                                 weeklyCumulativeRain = 0.0,
                             ),
-                        hourlyPrecipitation = emptyList(), // NOT IMPLEMENTED YET
+                        hourlyPrecipitation = hourlyData,
                     ),
             )
         }
