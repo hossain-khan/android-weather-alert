@@ -48,6 +48,7 @@ class WeatherAlertApp :
         scheduleWeatherAlertsWork(context = this, preferencesManager.preferredUpdateIntervalSync)
 
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
+        // scheduleOneTimeWeatherAlertWorkerDebug(context = this)
     }
 
     private fun installLoggingTree() {

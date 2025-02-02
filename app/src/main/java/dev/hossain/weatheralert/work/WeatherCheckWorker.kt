@@ -40,14 +40,21 @@ class WeatherCheckWorker
         override suspend fun doWork(): Result {
             val userConfiguredAlerts = alertDao.getAllAlertsWithCities()
             val weatherService: WeatherService = preferencesManager.preferredWeatherService.first()
-            Timber.d("WeatherCheckWorker: Checking weather forecast for ${userConfiguredAlerts.size} alerts using $weatherService.")
+            val updateIntervalHours = preferencesManager.preferredUpdateInterval.first()
+            Timber.tag(WORKER_LOG_TAG).d(
+                "WeatherCheckWorker: Checking weather forecast " +
+                    "for %s alerts using %s. Updates every %s hours.",
+                userConfiguredAlerts.size,
+                weatherService,
+                updateIntervalHours,
+            )
 
             if (userConfiguredAlerts.isEmpty()) {
-                Timber.d("No user configured alerts found.")
+                Timber.tag(WORKER_LOG_TAG).d("No user configured alerts found.")
                 return Result.success()
             }
 
-            logWorkerStarted(weatherService, userConfiguredAlerts)
+            logWorkerStarted(weatherService, updateIntervalHours, userConfiguredAlerts)
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -83,7 +90,7 @@ class WeatherCheckWorker
                                 }
                             }
 
-                        Timber.d("Snow: $snowTomorrow, Rain: $rainTomorrow")
+                        Timber.tag(WORKER_LOG_TAG).d("${configuredAlert.city.cityName} Forecast: Snow: $snowTomorrow, Rain: $rainTomorrow")
 
                         when (configuredAlert.alert.alertCategory) {
                             WeatherAlertCategory.SNOW_FALL -> {
@@ -119,7 +126,7 @@ class WeatherCheckWorker
 
                     is ApiResult.Failure.HttpFailure -> {
                         logWorkerFailed(weatherService, forecastApiResult.code.toLong())
-                        Timber.e(
+                        Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
                             "HttpFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
                         )
@@ -127,7 +134,7 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.ApiFailure -> {
-                        Timber.e(
+                        Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
                             "ApiFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
                         )
@@ -135,7 +142,7 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.NetworkFailure -> {
-                        Timber.e(
+                        Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
                             "NetworkFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
                         )
@@ -143,7 +150,7 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.UnknownFailure -> {
-                        Timber.e(
+                        Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
                             "UnknownFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherService.",
                         )
@@ -169,12 +176,13 @@ class WeatherCheckWorker
 
         private suspend fun logWorkerStarted(
             weatherService: WeatherService,
+            updateInterval: Long,
             userConfiguredAlerts: List<UserCityAlert>,
         ) {
             // Log worker initiative to ensure the worker is working fine
             analytics.logWorkerJob(
                 weatherService = weatherService,
-                interval = preferencesManager.preferredUpdateInterval.first(),
+                interval = updateInterval,
                 alertsCount = userConfiguredAlerts.size.toLong(),
             )
         }
