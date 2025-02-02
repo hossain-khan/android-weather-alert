@@ -4,6 +4,7 @@ import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -70,7 +71,10 @@ class ApiKeyProviderImpl
                     preferencesManager.savedApiKey(weatherService) ?: BuildConfig.TOMORROW_IO_API_KEY
                 }
 
-                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                WeatherService.OPEN_METEO -> {
+                    Timber.w("No API key required for Open-Meteo")
+                    ""
+                }
             }
 
         override fun isValidKey(
@@ -85,7 +89,10 @@ class ApiKeyProviderImpl
                     apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
                 }
 
-                WeatherService.OPEN_METEO -> true
+                WeatherService.OPEN_METEO -> {
+                    Timber.w("No API key required for Open-Meteo")
+                    true
+                }
             }
 
         override fun hasUserProvidedApiKey(weatherApiService: WeatherService): Boolean {
