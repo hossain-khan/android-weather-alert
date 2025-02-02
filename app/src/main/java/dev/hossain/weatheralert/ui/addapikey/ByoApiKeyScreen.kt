@@ -66,7 +66,7 @@ import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.datamodel.WeatherService
 import dev.hossain.weatheralert.di.AppScope
-import dev.hossain.weatheralert.ui.WeatherServiceLogoConfig
+import dev.hossain.weatheralert.ui.WeatherServiceConfig
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -238,7 +238,7 @@ fun BringYourOwnApiKeyScreen(
     state: BringYourOwnApiKeyScreen.State,
     modifier: Modifier = Modifier,
 ) {
-    val serviceConfig: WeatherServiceLogoConfig = state.weatherService.serviceConfig()
+    val serviceConfig: WeatherServiceConfig = state.weatherService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -356,7 +356,7 @@ fun BringYourOwnApiKeyScreen(
  * Visual representation of weather service with clouds and servers.
  */
 @Composable
-private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceLogoConfig) {
+private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceConfig) {
     Box(modifier = Modifier.fillMaxWidth()) {
         Image(
             painter = painterResource(id = R.drawable.servers),
@@ -385,7 +385,7 @@ private fun WeatherServiceImageAsset(serviceConfig: WeatherServiceLogoConfig) {
 }
 
 @Composable
-private fun WeatherApiServiceLinkedText(serviceConfig: WeatherServiceLogoConfig) {
+private fun WeatherApiServiceLinkedText(serviceConfig: WeatherServiceConfig) {
     var clickedUrl by remember { mutableStateOf(false) }
     val uriHandler = LocalUriHandler.current
 

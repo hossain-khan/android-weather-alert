@@ -37,6 +37,7 @@ android {
 dependencies {
     implementation(project(":data-model"))
     implementation(libs.androidx.core.ktx)
+    implementation(libs.timber)
 
     // https://github.com/open-meteo/open-meteo-api-kotlin/wiki/Examples
     implementation(libs.openmeteo.api.kotlin)
