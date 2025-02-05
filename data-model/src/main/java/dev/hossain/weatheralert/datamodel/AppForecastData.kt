@@ -15,11 +15,19 @@ data class AppForecastData(
 data class Snow(
     val dailyCumulativeSnow: Double = 0.0,
     val nextDaySnow: Double = 0.0,
+    /**
+     * Weekly cumulative snowfall in millimeters.
+     * NOTE: This data is not used in the app yet.
+     */
     val weeklyCumulativeSnow: Double = 0.0,
 )
 
 data class Rain(
     val dailyCumulativeRain: Double = 0.0,
     val nextDayRain: Double = 0.0,
+    /**
+     * Weekly cumulative rainfall in millimeters.
+     * NOTE: This data is not used in the app yet.
+     */
     val weeklyCumulativeRain: Double = 0.0,
 )

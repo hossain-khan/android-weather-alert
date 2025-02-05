@@ -10,7 +10,7 @@ import org.junit.Test
 import java.util.TimeZone
 
 /**
- * Tests tomorrow.io [ForecastWeatherResponse] to [AppForecastData] converter.
+ * Tests WeatherAPI [ForecastWeatherResponse] to [AppForecastData] converter.
  */
 class WeatherApiResponseConverterTest {
     private val originalTimeZone = TimeZone.getDefault()
@@ -28,7 +28,7 @@ class WeatherApiResponseConverterTest {
     }
 
     @Test
-    fun convertsBostonWeatherResponseToAppForecastData() {
+    fun convertsBuffaloWeatherResponseToAppForecastData() {
         val weatherResponse = loadWeatherResponseFromJson("weatherapi-buffalo-2025-02-05.json")
 
         val result = weatherResponse.convertToForecastData()
@@ -38,8 +38,56 @@ class WeatherApiResponseConverterTest {
         assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(5.16)
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
+    @Test
+    fun convertsEdmontonWeatherResponseToAppForecastData() {
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-edmonton-2025-02-05.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(53.55)
+        assertThat(result.longitude).isEqualTo(-113.5)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(7.4)
+        assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(1.02)
+        assertThat(result.rain.nextDayRain).isEqualTo(0.0)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
+    @Test
+    fun convertsMaringaWeatherResponseToAppForecastData() {
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-maringa-brazil-2025-02-05-rain.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(-23.4167)
+        assertThat(result.longitude).isEqualTo(-51.9167)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(80.19)
+        assertThat(result.rain.nextDayRain).isEqualTo(50.09)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
+    @Test
+    fun convertsUozoWeatherResponseToAppForecastData() {
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-uozo-japan-2025-02-05-snow.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(36.8)
+        assertThat(result.longitude).isEqualTo(137.4)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(107.2)
+        assertThat(result.snow.nextDaySnow).isEqualTo(214.20000000000002)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(91.74)
+        assertThat(result.rain.nextDayRain).isEqualTo(37.37)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
 
