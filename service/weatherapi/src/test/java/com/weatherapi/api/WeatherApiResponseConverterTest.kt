@@ -29,7 +29,7 @@ class WeatherApiResponseConverterTest {
 
     @Test
     fun convertsBostonWeatherResponseToAppForecastData() {
-        val weatherResponse = loadWeatherResponseFromJson("weatherapi-buffalo-2025-02-04.json")
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-buffalo-2025-02-05.json")
 
         val result = weatherResponse.convertToForecastData()
 

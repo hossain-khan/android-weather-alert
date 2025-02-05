@@ -38,12 +38,12 @@ class WeatherApiServiceTest {
     }
 
     @Test
-    fun `given simplified response - parses data`() =
+    fun `given buffalo forecast response - parses data`() =
         runTest {
             mockWebServer.enqueue(
                 MockResponse()
                     .setResponseCode(200)
-                    .setBody(loadJsonFromResources("weatherapi-buffalo-2025-02-04.json")),
+                    .setBody(loadJsonFromResources("weatherapi-buffalo-2025-02-05.json")),
             )
 
             val result =
@@ -56,6 +56,27 @@ class WeatherApiServiceTest {
             val forecast: ForecastWeatherResponse = (result as ApiResult.Success).value
             assertThat(forecast.location.lat).isEqualTo(42.8864)
             assertThat(forecast.location.lon).isEqualTo(-78.8786)
+        }
+
+    @Test
+    fun `given regina forecast response - parses data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("weatherapi-regina-2025-02-05.json")),
+            )
+
+            val result =
+                weatherApiService.getForecastWeather(
+                    location = "50.45,-104.6167",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val forecast: ForecastWeatherResponse = (result as ApiResult.Success).value
+            assertThat(forecast.location.lat).isEqualTo(50.45)
+            assertThat(forecast.location.lon).isEqualTo(-104.6167)
         }
 
     // Helper method to load JSON from resources
