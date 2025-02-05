@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "82d0e241898f6906048eb27c23f8daa1",
+    "identityHash": "7c8898f148beed0c23ab06a06e188930",
     "entities": [
       {
         "tableName": "cities",
@@ -263,7 +263,17 @@
             "forecast_id"
           ]
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_city_forecasts_alert_id",
+            "unique": false,
+            "columnNames": [
+              "alert_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_city_forecasts_alert_id` ON `${TABLE_NAME}` (`alert_id`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "alerts",
@@ -282,7 +292,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '82d0e241898f6906048eb27c23f8daa1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7c8898f148beed0c23ab06a06e188930')"
     ]
   }
 }
