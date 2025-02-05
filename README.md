@@ -1,3 +1,5 @@
+[![Android CI](https://github.com/hossain-khan/android-weather-alert/actions/workflows/android.yml/badge.svg)](https://github.com/hossain-khan/android-weather-alert/actions/workflows/android.yml) [![Post Merge Check](https://github.com/hossain-khan/android-weather-alert/actions/workflows/android-lint.yml/badge.svg)](https://github.com/hossain-khan/android-weather-alert/actions/workflows/android-lint.yml) [![codecov](https://codecov.io/gh/hossain-khan/android-weather-alert/graph/badge.svg?token=09IAE88BBC)](https://codecov.io/gh/hossain-khan/android-weather-alert)
+
 # Android - Weather Alert
 A simple app to alert you about specific weather condition based on your configured threshold.
 
