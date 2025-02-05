@@ -14,9 +14,7 @@ data class ForecastWeatherResponse(
     val current: Current,
     val forecast: Forecast,
 ) : WeatherApiServiceResponse {
-    override fun convertToForecastData(): AppForecastData {
-        TODO("Not yet implemented")
-    }
+    override fun convertToForecastData(): AppForecastData = this.toForecastData()
 }
 
 @JsonClass(generateAdapter = true)

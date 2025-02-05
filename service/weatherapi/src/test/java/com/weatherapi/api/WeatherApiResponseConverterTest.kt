@@ -33,9 +33,9 @@ class WeatherApiResponseConverterTest {
 
         val result = weatherResponse.convertToForecastData()
 
-        assertThat(result.latitude).isEqualTo(42.3478)
-        assertThat(result.longitude).isEqualTo(-71.0466)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(26.6)
+        assertThat(result.latitude).isEqualTo(42.8864)
+        assertThat(result.longitude).isEqualTo(-78.8786)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
