@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.data
 
 import android.content.Context
+import androidx.room.Room.inMemoryDatabaseBuilder
 import androidx.room.withTransaction
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
@@ -54,17 +55,10 @@ class WeatherRepositoryTest {
     @Inject
     lateinit var weatherapiService: WeatherApiService
 
-    @Inject
-    lateinit var cityForecastDao: CityForecastDao
-
-    @Inject
-    lateinit var alertDao: AlertDao
-
-    @Inject
-    lateinit var cityDao: CityDao
-
-    @Inject
-    lateinit var appDatabase: AppDatabase
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var cityForecastDao: CityForecastDao
+    private lateinit var alertDao: AlertDao
+    private lateinit var cityDao: CityDao
 
     @Inject
     lateinit var timeUtil: TimeUtil
@@ -84,6 +78,16 @@ class WeatherRepositoryTest {
 
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
+
+        appDatabase =
+            inMemoryDatabaseBuilder(
+                context = context,
+                klass = AppDatabase::class.java,
+            ).allowMainThreadQueries()
+                .build()
+        cityForecastDao = appDatabase.forecastDao()
+        alertDao = appDatabase.alertDao()
+        cityDao = appDatabase.cityDao()
 
         runBlocking {
             insertCityAndAlert()
@@ -105,6 +109,7 @@ class WeatherRepositoryTest {
     @After
     fun tearDown() {
         mockWebServer.shutdown()
+        appDatabase.close()
     }
 
     @Test
@@ -360,11 +365,6 @@ class WeatherRepositoryTest {
         // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
 
         appDatabase.clearAllTables()
-
-        // https://www.sqlite.org/foreignkeys.html
-        appDatabase.withTransaction {
-            appDatabase.query("PRAGMA foreign_keys=OFF", null)
-        }
 
         appDatabase.withTransaction {
             cityDao.insertCity(
