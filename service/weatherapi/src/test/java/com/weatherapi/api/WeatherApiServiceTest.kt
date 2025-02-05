@@ -79,6 +79,48 @@ class WeatherApiServiceTest {
             assertThat(forecast.location.lon).isEqualTo(-104.6167)
         }
 
+    @Test
+    fun `given maringa forecast response - parses data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("weatherapi-maringa-brazil-2025-02-05-rain.json")),
+            )
+
+            val result =
+                weatherApiService.getForecastWeather(
+                    location = "-23.4167,-51.9167",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val forecast: ForecastWeatherResponse = (result as ApiResult.Success).value
+            assertThat(forecast.location.lat).isEqualTo(-23.4167)
+            assertThat(forecast.location.lon).isEqualTo(-51.9167)
+        }
+
+    @Test
+    fun `given uozo forecast response - parses data`() =
+        runTest {
+            mockWebServer.enqueue(
+                MockResponse()
+                    .setResponseCode(200)
+                    .setBody(loadJsonFromResources("weatherapi-uozo-japan-2025-02-05-snow.json")),
+            )
+
+            val result =
+                weatherApiService.getForecastWeather(
+                    location = "36.8,137.4",
+                    apiKey = "fake-api-key",
+                )
+
+            assertThat(result).isInstanceOf(ApiResult.Success::class.java)
+            val forecast: ForecastWeatherResponse = (result as ApiResult.Success).value
+            assertThat(forecast.location.lat).isEqualTo(36.8)
+            assertThat(forecast.location.lon).isEqualTo(137.4)
+        }
+
     // Helper method to load JSON from resources
     private fun loadJsonFromResources(fileName: String): String {
         val classLoader = javaClass.classLoader
