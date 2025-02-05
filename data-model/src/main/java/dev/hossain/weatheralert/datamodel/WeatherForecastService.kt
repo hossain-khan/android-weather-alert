@@ -37,4 +37,10 @@ enum class WeatherForecastService(
          */
         isEnabled = BuildConfig.DEBUG,
     ),
+
+    /**
+     * WeatherAPI API for weather forecast. (Yes, very generic name for the product)
+     * - https://www.weatherapi.com/docs/
+     */
+    WEATHER_API,
 }

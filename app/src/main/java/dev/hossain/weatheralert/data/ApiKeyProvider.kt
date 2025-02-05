@@ -72,7 +72,12 @@ class ApiKeyProviderImpl
                 }
 
                 WeatherForecastService.OPEN_METEO -> {
-                    Timber.w("No API key required for Open-Meteo")
+                    Timber.w("No API key required for $weatherForecastService")
+                    ""
+                }
+
+                WeatherForecastService.WEATHER_API -> {
+                    Timber.w("No API key required for $weatherForecastService")
                     ""
                 }
             }
@@ -90,7 +95,12 @@ class ApiKeyProviderImpl
                 }
 
                 WeatherForecastService.OPEN_METEO -> {
-                    Timber.w("No API key required for Open-Meteo")
+                    Timber.w("No API key required for $weatherForecastService")
+                    true
+                }
+
+                WeatherForecastService.WEATHER_API -> {
+                    Timber.w("No API key required for $weatherForecastService")
                     true
                 }
             }
@@ -101,6 +111,7 @@ class ApiKeyProviderImpl
                 WeatherForecastService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
                 WeatherForecastService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
                 WeatherForecastService.OPEN_METEO -> false
+                WeatherForecastService.WEATHER_API -> false
             }
         }
     }

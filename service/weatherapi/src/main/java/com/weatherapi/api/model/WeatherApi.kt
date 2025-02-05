@@ -57,7 +57,7 @@ data class Current(
     @Json(name = "dewpoint_f") val dewPointF: Double,
     @Json(name = "vis_km") val visKm: Double,
     @Json(name = "vis_miles") val visMiles: Double,
-    val uv: Int,
+    val uv: Double,
     @Json(name = "gust_mph") val gustMph: Double,
     @Json(name = "gust_kph") val gustKph: Double,
 )
