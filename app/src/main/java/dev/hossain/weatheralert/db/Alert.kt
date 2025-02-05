@@ -33,7 +33,7 @@ data class Alert(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     /**
      * Foreign key to City table.
-     * @see [City.id]
+     * @see City.id
      */
     @ColumnInfo(name = "city_id") val cityId: Long,
     @ColumnInfo(name = "alert_category") val alertCategory: WeatherAlertCategory,

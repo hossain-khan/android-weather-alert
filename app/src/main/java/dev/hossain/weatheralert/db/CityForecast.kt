@@ -22,8 +22,16 @@ data class CityForecast constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
     val forecastId: Long = 0,
+    /**
+     * Foreign key to City table.
+     * @see City.id
+     */
     @ColumnInfo(name = "city_id")
     val cityId: Long,
+    /**
+     * Foreign key to Alert table.
+     * @see Alert.id
+     */
     @ColumnInfo(name = "alert_id", defaultValue = ALERT_ID_NONE.toString())
     val alertId: Long,
     val latitude: Double,
