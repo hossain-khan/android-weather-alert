@@ -78,12 +78,6 @@ data class Forecast(
 @JsonClass(generateAdapter = true)
 data class ForecastDay(
     val date: String,
-    val day: Day,
-)
-
-@JsonClass(generateAdapter = true)
-data class WeatherData(
-    val date: String,
     @Json(name = "date_epoch") val dateEpoch: Long,
     val day: Day,
     val astro: Astro,
@@ -161,5 +155,5 @@ data class Hour(
     @Json(name = "vis_miles") val visMiles: Double,
     @Json(name = "gust_mph") val gustMph: Double,
     @Json(name = "gust_kph") val gustKph: Double,
-    val uv: Int,
+    val uv: Double,
 )
