@@ -30,6 +30,7 @@ interface WeatherRepository {
      *
      * **NOTE:** The weather data is loaded using [ActiveWeatherService] automatically.
      *
+     * @param alertId The ID of the alert from the database.
      * @param cityId The ID of the city from the database.
      * @param latitude The latitude of the city.
      * @param longitude The longitude of the city.
@@ -37,6 +38,7 @@ interface WeatherRepository {
      * @return An [ApiResult] containing the [AppForecastData] or an error.
      */
     suspend fun getDailyForecast(
+        alertId: Long,
         cityId: Long,
         latitude: Double,
         longitude: Double,
@@ -69,12 +71,13 @@ class WeatherRepositoryImpl
         private val activeWeatherService: ActiveWeatherService,
     ) : WeatherRepository {
         override suspend fun getDailyForecast(
+            alertId: Long,
             cityId: Long,
             latitude: Double,
             longitude: Double,
             skipCache: Boolean,
         ): ApiResult<AppForecastData, Unit> {
-            val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
+            val cityForecast = cityForecastDao.getCityForecastByAlertIdAndCityId(alertId, cityId)
 
             return if (skipCache.not() &&
                 cityForecast != null &&
@@ -90,7 +93,7 @@ class WeatherRepositoryImpl
                     cityId,
                     skipCache,
                 )
-                loadForecastFromNetwork(latitude, longitude, cityId)
+                loadForecastFromNetwork(latitude, longitude, alertId, cityId)
             }
         }
 
@@ -152,6 +155,7 @@ class WeatherRepositoryImpl
         private suspend fun loadForecastFromNetwork(
             latitude: Double,
             longitude: Double,
+            alertId: Long,
             cityId: Long,
         ): ApiResult<AppForecastData, Unit> =
             when (val selectedForecastService = activeWeatherService.selectedService()) {
@@ -160,6 +164,7 @@ class WeatherRepositoryImpl
                         weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
+                        alertId = alertId,
                         cityId = cityId,
                     )
                 }
@@ -169,6 +174,7 @@ class WeatherRepositoryImpl
                         weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
+                        alertId = alertId,
                         cityId = cityId,
                     )
                 }
@@ -178,6 +184,7 @@ class WeatherRepositoryImpl
                         weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
+                        alertId = alertId,
                         cityId = cityId,
                     )
                 }
@@ -187,6 +194,7 @@ class WeatherRepositoryImpl
                         weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
+                        alertId = alertId,
                         cityId = cityId,
                     )
                 }
@@ -196,6 +204,7 @@ class WeatherRepositoryImpl
             weatherForecastService: WeatherForecastService,
             latitude: Double,
             longitude: Double,
+            alertId: Long,
             cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
@@ -207,7 +216,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
-                    cacheCityForecastData(weatherForecastService, cityId, convertToForecastData)
+                    cacheCityForecastData(alertId, cityId, weatherForecastService, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -222,6 +231,7 @@ class WeatherRepositoryImpl
             weatherForecastService: WeatherForecastService,
             latitude: Double,
             longitude: Double,
+            alertId: Long,
             cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
@@ -232,7 +242,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
-                    cacheCityForecastData(weatherForecastService, cityId, convertToForecastData)
+                    cacheCityForecastData(alertId, cityId, weatherForecastService, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -247,6 +257,7 @@ class WeatherRepositoryImpl
             weatherForecastService: WeatherForecastService,
             latitude: Double,
             longitude: Double,
+            alertId: Long,
             cityId: Long,
         ): ApiResult<AppForecastData, Unit> =
             runCatching {
@@ -255,7 +266,7 @@ class WeatherRepositoryImpl
                     longitude = longitude.toFloat(),
                 )
             }.onSuccess {
-                cacheCityForecastData(weatherForecastService, cityId, it.appForecastData)
+                cacheCityForecastData(alertId, cityId, weatherForecastService, it.appForecastData)
             }.onFailure {
                 Timber.e(it, "Failed to fetch Open-Meteo forecast data")
             }.fold(
@@ -271,6 +282,7 @@ class WeatherRepositoryImpl
             weatherForecastService: WeatherForecastService,
             latitude: Double,
             longitude: Double,
+            alertId: Long,
             cityId: Long,
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
@@ -281,7 +293,7 @@ class WeatherRepositoryImpl
             return when (apiResult) {
                 is ApiResult.Success -> {
                     val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
-                    cacheCityForecastData(weatherForecastService, cityId, convertToForecastData)
+                    cacheCityForecastData(alertId, cityId, weatherForecastService, convertToForecastData)
                     ApiResult.success(convertToForecastData)
                 }
 
@@ -293,12 +305,14 @@ class WeatherRepositoryImpl
         }
 
         private suspend fun cacheCityForecastData(
-            weatherForecastService: WeatherForecastService,
+            alertId: Long,
             cityId: Long,
+            weatherForecastService: WeatherForecastService,
             convertToAppForecastData: AppForecastData,
         ) {
             cityForecastDao.insertCityForecast(
                 CityForecast(
+                    alertId = alertId,
                     cityId = cityId,
                     latitude = convertToAppForecastData.latitude,
                     longitude = convertToAppForecastData.longitude,

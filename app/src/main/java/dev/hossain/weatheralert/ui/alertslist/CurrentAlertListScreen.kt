@@ -177,6 +177,7 @@ class CurrentWeatherAlertPresenter
                 userCityAlerts.forEach { alert ->
                     val apiResult =
                         weatherRepository.getDailyForecast(
+                            alertId = alert.alert.id,
                             cityId = alert.city.id,
                             latitude = alert.city.lat,
                             longitude = alert.city.lng,

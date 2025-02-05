@@ -1,12 +1,19 @@
 package dev.hossain.weatheralert.data
 
 import android.content.Context
+import androidx.room.Room.inMemoryDatabaseBuilder
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.openmeteo.api.OpenMeteoService
 import com.slack.eithernet.ApiResult
 import com.weatherapi.api.WeatherApiService
 import dev.hossain.weatheralert.datamodel.AppForecastData
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.db.Alert
+import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AppDatabase
+import dev.hossain.weatheralert.db.City
+import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
@@ -46,8 +53,10 @@ class WeatherRepositoryTest {
     @Inject
     lateinit var weatherapiService: WeatherApiService
 
-    @Inject
-    lateinit var cityForecastDao: CityForecastDao
+    private lateinit var appDatabase: AppDatabase
+    private lateinit var cityForecastDao: CityForecastDao
+    private lateinit var alertDao: AlertDao
+    private lateinit var cityDao: CityDao
 
     @Inject
     lateinit var timeUtil: TimeUtil
@@ -68,6 +77,8 @@ class WeatherRepositoryTest {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
 
+        setUpDatabaseWithData()
+
         weatherRepository =
             WeatherRepositoryImpl(
                 apiKeyProvider = ApiKeyProviderImpl(preferencesManager = preferencesManager),
@@ -81,9 +92,24 @@ class WeatherRepositoryTest {
             )
     }
 
+    private fun setUpDatabaseWithData() {
+        appDatabase =
+            inMemoryDatabaseBuilder(
+                context = context,
+                klass = AppDatabase::class.java,
+            ).allowMainThreadQueries()
+                .build()
+        cityForecastDao = appDatabase.forecastDao()
+        alertDao = appDatabase.alertDao()
+        cityDao = appDatabase.cityDao()
+
+        prepopulateCityAndAlertData()
+    }
+
     @After
     fun tearDown() {
         mockWebServer.shutdown()
+        appDatabase.close()
     }
 
     @Test
@@ -107,6 +133,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -127,6 +154,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -148,6 +176,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -169,6 +198,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -190,6 +220,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -211,6 +242,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -233,6 +265,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -255,6 +288,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -277,6 +311,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -302,6 +337,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -321,5 +357,42 @@ class WeatherRepositoryTest {
         val classLoader = javaClass.classLoader
         val inputStream = classLoader?.getResourceAsStream(fileName)
         return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+    }
+
+    private fun prepopulateCityAndAlertData() {
+        // Avoid this error by inserting an alert first.
+        // android.database.sqlite.SQLiteConstraintException:
+        // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
+
+        appDatabase.clearAllTables()
+
+        cityDao.insertCitySync(
+            City(
+                id = 1,
+                city = "Salt Lake City",
+                cityName = "Salt Lake City",
+                lat = 0.0,
+                lng = 0.0,
+                country = "US",
+                iso2 = "US",
+                iso3 = "USA",
+                provStateName = "California",
+                capital = "Sacramento",
+                population = 1000000,
+            ),
+        )
+
+        // Insert an alert first to satisfy the foreign key constraint
+        val alertId =
+            alertDao.insertAlertSync(
+                Alert(
+                    id = 1,
+                    cityId = 1,
+                    alertCategory = WeatherAlertCategory.SNOW_FALL,
+                    threshold = 1.0f,
+                    notes = "Test alert",
+                ),
+            )
+        println("Inserted alert with ID: $alertId")
     }
 }

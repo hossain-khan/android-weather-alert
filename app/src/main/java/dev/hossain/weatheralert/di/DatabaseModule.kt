@@ -24,8 +24,8 @@ object DatabaseModule {
             .createFromAsset("alertapp.db")
             // ⚠️ UPDATE: Disabled destructive migration for now.
             // To ensure user data is not lost, we need to handle migration properly.
-            // .fallbackToDestructiveMigration()
             // .fallbackToDestructiveMigrationFrom(3)
+            .fallbackToDestructiveMigration()
             .build()
 
     @Provides
