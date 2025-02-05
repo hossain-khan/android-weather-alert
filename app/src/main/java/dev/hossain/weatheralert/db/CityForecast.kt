@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
@@ -16,6 +17,10 @@ import dev.hossain.weatheralert.datamodel.WeatherForecastService
             childColumns = ["alert_id"],
             onDelete = ForeignKey.CASCADE,
         ),
+    ],
+    indices = [
+        // Index for performance on foreign key queries (required for foreign key)
+        Index(value = ["alert_id"]),
     ],
 )
 data class CityForecast constructor(
