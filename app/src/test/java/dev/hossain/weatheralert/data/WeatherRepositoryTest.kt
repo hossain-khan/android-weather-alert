@@ -2,7 +2,6 @@ package dev.hossain.weatheralert.data
 
 import android.content.Context
 import androidx.room.Room.inMemoryDatabaseBuilder
-import androidx.room.withTransaction
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.openmeteo.api.OpenMeteoService
@@ -20,7 +19,6 @@ import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -79,19 +77,7 @@ class WeatherRepositoryTest {
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
 
-        appDatabase =
-            inMemoryDatabaseBuilder(
-                context = context,
-                klass = AppDatabase::class.java,
-            ).allowMainThreadQueries()
-                .build()
-        cityForecastDao = appDatabase.forecastDao()
-        alertDao = appDatabase.alertDao()
-        cityDao = appDatabase.cityDao()
-
-        runBlocking {
-            insertCityAndAlert()
-        }
+        setUpDatabaseWithData()
 
         weatherRepository =
             WeatherRepositoryImpl(
@@ -104,6 +90,20 @@ class WeatherRepositoryTest {
                 timeUtil = timeUtil,
                 activeWeatherService = activeWeatherService,
             )
+    }
+
+    private fun setUpDatabaseWithData() {
+        appDatabase =
+            inMemoryDatabaseBuilder(
+                context = context,
+                klass = AppDatabase::class.java,
+            ).allowMainThreadQueries()
+                .build()
+        cityForecastDao = appDatabase.forecastDao()
+        alertDao = appDatabase.alertDao()
+        cityDao = appDatabase.cityDao()
+
+        prepopulateCityAndAlertData()
     }
 
     @After
@@ -359,44 +359,40 @@ class WeatherRepositoryTest {
         return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
     }
 
-    private suspend fun insertCityAndAlert() {
+    private fun prepopulateCityAndAlertData() {
         // Avoid this error by inserting an alert first.
         // android.database.sqlite.SQLiteConstraintException:
         // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
 
         appDatabase.clearAllTables()
 
-        appDatabase.withTransaction {
-            cityDao.insertCity(
-                City(
+        cityDao.insertCitySync(
+            City(
+                id = 1,
+                city = "Salt Lake City",
+                cityName = "Salt Lake City",
+                lat = 0.0,
+                lng = 0.0,
+                country = "US",
+                iso2 = "US",
+                iso3 = "USA",
+                provStateName = "California",
+                capital = "Sacramento",
+                population = 1000000,
+            ),
+        )
+
+        // Insert an alert first to satisfy the foreign key constraint
+        val alertId =
+            alertDao.insertAlertSync(
+                Alert(
                     id = 1,
-                    city = "Salt Lake City",
-                    cityName = "Salt Lake City",
-                    lat = 0.0,
-                    lng = 0.0,
-                    country = "US",
-                    iso2 = "US",
-                    iso3 = "USA",
-                    provStateName = "California",
-                    capital = "Sacramento",
-                    population = 1000000,
+                    cityId = 1,
+                    alertCategory = WeatherAlertCategory.SNOW_FALL,
+                    threshold = 1.0f,
+                    notes = "Test alert",
                 ),
             )
-        }
-
-        appDatabase.withTransaction {
-            // Insert an alert first to satisfy the foreign key constraint
-            val alertId =
-                alertDao.insertAlert(
-                    Alert(
-                        id = 1,
-                        cityId = 1,
-                        alertCategory = WeatherAlertCategory.SNOW_FALL,
-                        threshold = 1.0f,
-                        notes = "Test alert",
-                    ),
-                )
-            println("Inserted alert with ID: $alertId")
-        }
+        println("Inserted alert with ID: $alertId")
     }
 }
