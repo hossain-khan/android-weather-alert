@@ -14,15 +14,16 @@ import dev.hossain.weatheralert.db.converter.Converters
  */
 @Database(
     entities = [City::class, Alert::class, CityForecast::class],
-    version = 5,
+    version = 6,
     exportSchema = true,
     // https://developer.android.com/training/data-storage/room/migrating-db-versions
     // https://github.com/hossain-khan/android-weather-alert/issues/272#issuecomment-2629512823
+    // https://medium.com/androiddevelopers/room-auto-migrations-d5370b0ca6eb
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
-        // AutoMigration(from = 5, to = 6, spec = AutoMigrationFrom5to6Spec::class),
+        AutoMigration(from = 5, to = 6),
     ],
 )
 @TypeConverters(Converters::class)
