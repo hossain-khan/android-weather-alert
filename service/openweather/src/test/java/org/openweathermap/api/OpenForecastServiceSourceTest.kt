@@ -16,7 +16,7 @@ import org.robolectric.RobolectricTestRunner
  * Tests [OpenWeatherService] using [MockWebServer].
  */
 @RunWith(RobolectricTestRunner::class)
-class OpenWeatherServiceTest {
+class OpenForecastServiceSourceTest {
     // Guide @ https://github.com/square/okhttp/tree/master/mockwebserver
     private lateinit var mockWebServer: MockWebServer
 

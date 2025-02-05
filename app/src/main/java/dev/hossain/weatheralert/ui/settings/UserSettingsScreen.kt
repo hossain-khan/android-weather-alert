@@ -65,7 +65,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.ForecastServiceSource
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
@@ -81,7 +81,7 @@ import timber.log.Timber
 @Parcelize
 data object UserSettingsScreen : Screen {
     data class State(
-        val selectedService: WeatherService,
+        val selectedService: ForecastServiceSource,
         val selectedUpdateFrequency: Long,
         val isUserProvidedApiKeyInUse: Boolean,
         val eventSink: (Event) -> Unit,
@@ -89,11 +89,11 @@ data object UserSettingsScreen : Screen {
 
     sealed class Event : CircuitUiEvent {
         data class ServiceSelected(
-            val service: WeatherService,
+            val service: ForecastServiceSource,
         ) : Event()
 
         data class RemoveServiceApiKey(
-            val service: WeatherService,
+            val service: ForecastServiceSource,
         ) : Event()
 
         data class UpdateFrequencySelected(
@@ -118,11 +118,11 @@ class UserSettingsPresenter
         override fun present(): UserSettingsScreen.State {
             val scope = rememberCoroutineScope()
             val context = LocalContext.current
-            var selectedService by remember { mutableStateOf(WeatherService.OPEN_WEATHER_MAP) }
+            var selectedService by remember { mutableStateOf(ForecastServiceSource.OPEN_WEATHER_MAP) }
             var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
 
             LaunchedEffect(Unit) {
-                preferencesManager.preferredWeatherService.collect { service ->
+                preferencesManager.preferredForecastServiceSource.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedService = service
                     isUserProvidedApiKeyInUse = apiKeyProvider.hasUserProvidedApiKey(service)
@@ -244,7 +244,7 @@ fun UserSettingsScreen(
 
 @Composable
 private fun AddServiceApiKeyUi(
-    selectedService: WeatherService,
+    selectedService: ForecastServiceSource,
     isServiceApiKeyRequired: Boolean,
     isUserProvidedApiKeyInUse: Boolean,
     eventSink: (UserSettingsScreen.Event) -> Unit,
@@ -339,8 +339,8 @@ fun WeatherUpdateFrequencyUi(
 
 @Composable
 fun WeatherServiceSelectionGroupUi(
-    selectedService: WeatherService,
-    onServiceSelected: (WeatherService) -> Unit,
+    selectedService: ForecastServiceSource,
+    onServiceSelected: (ForecastServiceSource) -> Unit,
 ) {
     Column(
         modifier =
@@ -349,7 +349,7 @@ fun WeatherServiceSelectionGroupUi(
                 .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        WeatherService.entries.forEach { service ->
+        ForecastServiceSource.entries.forEach { service ->
             if (!service.isEnabled) {
                 return@forEach
             }
@@ -404,7 +404,7 @@ fun WeatherServiceSelectionGroupUi(
 fun UserSettingsScreenPreview() {
     val sampleState =
         UserSettingsScreen.State(
-            selectedService = WeatherService.OPEN_WEATHER_MAP,
+            selectedService = ForecastServiceSource.OPEN_WEATHER_MAP,
             selectedUpdateFrequency = 12,
             isUserProvidedApiKeyInUse = true,
             eventSink = {},

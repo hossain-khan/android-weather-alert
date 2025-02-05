@@ -1,7 +1,7 @@
 package dev.hossain.weatheralert.data
 
 import com.squareup.anvil.annotations.ContributesBinding
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.ForecastServiceSource
 import dev.hossain.weatheralert.di.AppScope
 import javax.inject.Inject
 
@@ -9,7 +9,7 @@ import javax.inject.Inject
  * Interface for providing the active weather service based on user preference.
  */
 interface ActiveWeatherService {
-    fun selectedService(): WeatherService
+    fun selectedService(): ForecastServiceSource
 }
 
 /**
@@ -22,5 +22,5 @@ class ActiveWeatherServiceImpl
     constructor(
         private val preferencesManager: PreferencesManager,
     ) : ActiveWeatherService {
-        override fun selectedService(): WeatherService = preferencesManager.preferredWeatherServiceSync
+        override fun selectedService(): ForecastServiceSource = preferencesManager.preferredForecastServiceSourceSync
     }

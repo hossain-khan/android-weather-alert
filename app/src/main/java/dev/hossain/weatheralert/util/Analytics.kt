@@ -7,7 +7,7 @@ import com.google.firebase.analytics.logEvent
 import com.slack.circuit.runtime.screen.Screen
 import com.squareup.anvil.annotations.ContributesBinding
 import com.squareup.anvil.annotations.optional.SingleIn
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.ForecastServiceSource
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_ADD_SERVICE_API_KEY
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLETED
@@ -35,15 +35,15 @@ interface Analytics {
     suspend fun logScreenView(circuitScreen: KClass<out Screen>)
 
     suspend fun logWorkerJob(
-        weatherService: WeatherService,
+        forecastServiceSource: ForecastServiceSource,
         interval: Long,
         alertsCount: Long,
     )
 
-    suspend fun logWorkSuccess(weatherService: WeatherService)
+    suspend fun logWorkSuccess(forecastServiceSource: ForecastServiceSource)
 
     suspend fun logWorkFailed(
-        weatherService: WeatherService,
+        forecastServiceSource: ForecastServiceSource,
         errorCode: Long = 0L,
     )
 
@@ -59,7 +59,7 @@ interface Analytics {
      * Logs attempt to add service API key.
      */
     suspend fun logAddServiceApiKey(
-        weatherService: WeatherService,
+        forecastServiceSource: ForecastServiceSource,
         isApiKeyAdded: Boolean,
         initiatedFromApiError: Boolean,
     )
@@ -88,33 +88,33 @@ class AnalyticsImpl
         }
 
         override suspend fun logWorkerJob(
-            weatherService: WeatherService,
+            forecastServiceSource: ForecastServiceSource,
             interval: Long,
             alertsCount: Long,
         ) {
             firebaseAnalytics.logEvent(EVENT_WORKER_JOB_STARTED) {
                 param("update_interval", interval)
                 param("alerts_count", alertsCount)
-                param(FirebaseAnalytics.Param.METHOD, weatherService.name)
+                param(FirebaseAnalytics.Param.METHOD, forecastServiceSource.name)
             }
         }
 
-        override suspend fun logWorkSuccess(weatherService: WeatherService) {
+        override suspend fun logWorkSuccess(forecastServiceSource: ForecastServiceSource) {
             firebaseAnalytics.logEvent(EVENT_WORKER_JOB_COMPLETED) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, 1L)
-                param(FirebaseAnalytics.Param.METHOD, weatherService.name)
+                param(FirebaseAnalytics.Param.METHOD, forecastServiceSource.name)
             }
         }
 
         override suspend fun logWorkFailed(
-            weatherService: WeatherService,
+            forecastServiceSource: ForecastServiceSource,
             errorCode: Long,
         ) {
             firebaseAnalytics.logEvent(EVENT_WORKER_JOB_FAILED) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, 0L)
-                param(FirebaseAnalytics.Param.METHOD, weatherService.name)
+                param(FirebaseAnalytics.Param.METHOD, forecastServiceSource.name)
                 param("error_code", errorCode)
             }
         }
@@ -131,14 +131,14 @@ class AnalyticsImpl
         }
 
         override suspend fun logAddServiceApiKey(
-            weatherService: WeatherService,
+            forecastServiceSource: ForecastServiceSource,
             isApiKeyAdded: Boolean,
             initiatedFromApiError: Boolean,
         ) {
             firebaseAnalytics.logEvent(EVENT_ADD_SERVICE_API_KEY) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, if (isApiKeyAdded) 1L else 0L)
-                param(FirebaseAnalytics.Param.METHOD, weatherService.name)
+                param(FirebaseAnalytics.Param.METHOD, forecastServiceSource.name)
                 param("directed_from_error", initiatedFromApiError.toString())
             }
         }

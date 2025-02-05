@@ -6,7 +6,7 @@ import androidx.annotation.Keep
  * List of supported weather services.
  */
 @Keep
-enum class WeatherService(
+enum class ForecastServiceSource(
     /**
      * Indicates if the weather forecast service is enabled or disabled at build time.
      */

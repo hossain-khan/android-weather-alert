@@ -18,7 +18,6 @@ interface WeatherApiService {
      * @param language Returns 'condition:text' field in API in the desired language.
      * @param alerts Enable/Disable alerts in forecast API output. Example, alerts=yes or alerts=no.
      * @param airQuality Enable/Disable Air Quality data in forecast API output. Example, aqi=yes or aqi=no.
-     * @param timePeriod Get 15 min interval or 24 hour average data for Forecast and History API. Available for Enterprise clients only. E.g:- tp=15.
      * @return A [ApiResult] object with [ForecastWeatherResponse].
      */
     @GET("v1/forecast.json")

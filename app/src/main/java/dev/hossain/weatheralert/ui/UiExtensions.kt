@@ -4,12 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.ForecastServiceSource
 
 /**
  * Internal config to show logo with right sizing and description for each weather service.
  *
- * DEVELOPER NOTE: This data essentially could be merged with [WeatherService] enum, but keeping it separate for now.
+ * DEVELOPER NOTE: This data essentially could be merged with [ForecastServiceSource] enum, but keeping it separate for now.
  */
 data class WeatherServiceConfig(
     /**
@@ -44,9 +44,9 @@ data class WeatherServiceConfig(
     val requiresApiKey: Boolean,
 )
 
-internal fun WeatherService.serviceConfig(): WeatherServiceConfig =
+internal fun ForecastServiceSource.serviceConfig(): WeatherServiceConfig =
     when (this) {
-        WeatherService.OPEN_WEATHER_MAP ->
+        ForecastServiceSource.OPEN_WEATHER_MAP ->
             WeatherServiceConfig(
                 serviceName = "OpenWeather",
                 logoResId = R.drawable.openweather_logo,
@@ -62,7 +62,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceConfig =
                 apiServiceProductName = "One Call API 3.0",
                 requiresApiKey = true,
             )
-        WeatherService.TOMORROW_IO ->
+        ForecastServiceSource.TOMORROW_IO ->
             WeatherServiceConfig(
                 serviceName = "Tomorrow.io",
                 logoResId = R.drawable.tomorrow_io_logo,
@@ -79,7 +79,7 @@ internal fun WeatherService.serviceConfig(): WeatherServiceConfig =
                 requiresApiKey = true,
             )
 
-        WeatherService.OPEN_METEO ->
+        ForecastServiceSource.OPEN_METEO ->
             WeatherServiceConfig(
                 serviceName = "Open-Meteo",
                 logoResId = R.drawable.open_mateo_logo,
