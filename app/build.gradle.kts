@@ -154,6 +154,7 @@ dependencies {
     implementation(project(":service:tomorrowio"))
     implementation(project(":service:openweather"))
     implementation(project(":service:openmeteo"))
+    implementation(project(":service:weatherapi"))
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.adaptive.android)
