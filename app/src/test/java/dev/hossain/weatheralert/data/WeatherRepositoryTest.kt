@@ -1,17 +1,25 @@
 package dev.hossain.weatheralert.data
 
 import android.content.Context
+import androidx.room.withTransaction
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.openmeteo.api.OpenMeteoService
 import com.slack.eithernet.ApiResult
 import com.weatherapi.api.WeatherApiService
 import dev.hossain.weatheralert.datamodel.AppForecastData
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.db.Alert
+import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AppDatabase
+import dev.hossain.weatheralert.db.City
+import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -50,6 +58,15 @@ class WeatherRepositoryTest {
     lateinit var cityForecastDao: CityForecastDao
 
     @Inject
+    lateinit var alertDao: AlertDao
+
+    @Inject
+    lateinit var cityDao: CityDao
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
+    @Inject
     lateinit var timeUtil: TimeUtil
 
     @Inject
@@ -67,6 +84,10 @@ class WeatherRepositoryTest {
 
         val testAppComponent = DaggerTestAppComponent.factory().create(context)
         testAppComponent.inject(this)
+
+        runBlocking {
+            insertCityAndAlert()
+        }
 
         weatherRepository =
             WeatherRepositoryImpl(
@@ -331,5 +352,51 @@ class WeatherRepositoryTest {
         val classLoader = javaClass.classLoader
         val inputStream = classLoader?.getResourceAsStream(fileName)
         return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+    }
+
+    private suspend fun insertCityAndAlert() {
+        // Avoid this error by inserting an alert first.
+        // android.database.sqlite.SQLiteConstraintException:
+        // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
+
+        appDatabase.clearAllTables()
+
+        // https://www.sqlite.org/foreignkeys.html
+        appDatabase.withTransaction {
+            appDatabase.query("PRAGMA foreign_keys=OFF", null)
+        }
+
+        appDatabase.withTransaction {
+            cityDao.insertCity(
+                City(
+                    id = 1,
+                    city = "Salt Lake City",
+                    cityName = "Salt Lake City",
+                    lat = 0.0,
+                    lng = 0.0,
+                    country = "US",
+                    iso2 = "US",
+                    iso3 = "USA",
+                    provStateName = "California",
+                    capital = "Sacramento",
+                    population = 1000000,
+                ),
+            )
+        }
+
+        appDatabase.withTransaction {
+            // Insert an alert first to satisfy the foreign key constraint
+            val alertId =
+                alertDao.insertAlert(
+                    Alert(
+                        id = 1,
+                        cityId = 1,
+                        alertCategory = WeatherAlertCategory.SNOW_FALL,
+                        threshold = 1.0f,
+                        notes = "Test alert",
+                    ),
+                )
+            println("Inserted alert with ID: $alertId")
+        }
     }
 }

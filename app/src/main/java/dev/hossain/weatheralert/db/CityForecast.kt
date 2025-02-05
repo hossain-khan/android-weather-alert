@@ -22,6 +22,7 @@ data class CityForecast constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
     val forecastId: Long = 0,
+    @ColumnInfo(name = "city_id")
     val cityId: Long,
     @ColumnInfo(name = "alert_id", defaultValue = ALERT_ID_NONE.toString())
     val alertId: Long,

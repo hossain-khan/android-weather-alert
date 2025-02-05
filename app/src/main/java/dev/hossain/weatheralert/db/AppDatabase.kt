@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import dev.hossain.weatheralert.db.converter.Converters
+import dev.hossain.weatheralert.db.migration.AutoMigrationFrom5to6Spec
 
 /**
  * Room database for the weather alert app.
@@ -23,7 +24,7 @@ import dev.hossain.weatheralert.db.converter.Converters
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 3, to = 4),
         AutoMigration(from = 4, to = 5),
-        AutoMigration(from = 5, to = 6),
+        AutoMigration(from = 5, to = 6, spec = AutoMigrationFrom5to6Spec::class),
     ],
 )
 @TypeConverters(Converters::class)

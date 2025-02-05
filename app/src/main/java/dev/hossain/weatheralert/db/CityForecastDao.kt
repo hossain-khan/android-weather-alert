@@ -31,16 +31,16 @@ interface CityForecastDao {
      * In future, we may have to cleanup the table to keep only latest forecast for each city.
      * However, this is not required for now.
      */
-    @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
+    @Query("SELECT * FROM city_forecasts WHERE city_id = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastsByCityId(cityId: Long): List<CityForecast>
 
-    @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
+    @Query("SELECT * FROM city_forecasts WHERE city_id = :cityId ORDER BY created_at DESC")
     fun getCityForecastsByCityIdFlow(cityId: Long): Flow<List<CityForecast>>
 
     /**
      * Get forecast by alert id and city id.
      */
-    @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND cityId = :cityId ORDER BY created_at DESC")
+    @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND city_id = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastByAlertIdAndCityId(
         alertId: Long,
         cityId: Long,
@@ -49,7 +49,7 @@ interface CityForecastDao {
     /**
      * Get forecast by alert id and city id.
      */
-    @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND cityId = :cityId ORDER BY created_at DESC")
+    @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND city_id = :cityId ORDER BY created_at DESC")
     fun getCityForecastByAlertIdAndCityIdFlow(
         alertId: Long,
         cityId: Long,

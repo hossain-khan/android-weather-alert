@@ -23,6 +23,9 @@ interface AlertDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAlert(alert: Alert): Long
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAlertSync(alert: Alert): Long
+
     @Update
     suspend fun updateAlert(alert: Alert)
 
