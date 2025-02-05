@@ -48,18 +48,14 @@ android {
         versionName = "2.3"
 
         // Read bundled API key from local.properties
-        val openWeatherApiKey: String =
-            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
-                Properties().apply { load(it) }.getProperty("OPEN_WEATHER_API_KEY")
-            } ?: "API_KEY_FROM_local.properties"
-        val tomorrowIoApiKey: String =
-            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
-                Properties().apply { load(it) }.getProperty("TOMORROW_IO_API_KEY")
-            } ?: "API_KEY_FROM_local.properties"
-        val weatherapiApiKey: String =
-            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
-                Properties().apply { load(it) }.getProperty("WEATHERAPI_API_KEY")
-            } ?: "API_KEY_FROM_local.properties"
+        val localProperties = project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+            Properties().apply { load(it) }
+        }
+
+        val openWeatherApiKey = localProperties?.getProperty("OPEN_WEATHER_API_KEY") ?: "MISSING-KEY"
+        val tomorrowIoApiKey = localProperties?.getProperty("TOMORROW_IO_API_KEY") ?: "MISSING-KEY"
+        val weatherapiApiKey = localProperties?.getProperty("WEATHERAPI_API_KEY") ?: "MISSING-KEY"
+
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
         buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
         buildConfigField("String", "WEATHERAPI_API_KEY", "\"$weatherapiApiKey\"")
