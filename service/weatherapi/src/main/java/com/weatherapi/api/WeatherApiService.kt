@@ -10,7 +10,7 @@ interface WeatherApiService {
      * Fetches the weather forecast data.
      *
      * @param apiKey The API key for authentication.
-     * @param location Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name.
+     * @param location Pass US Zipcode, UK Postcode, Canada Postalcode, IP address, Latitude/Longitude (decimal degree) or city name. Latitude and Longitude (Decimal degree) e.g: q=48.8567,2.3508
      * @param days Number of days of weather forecast. Value ranges from 1 to 14.
      * @param date Date should be between today and next 14 day in yyyy-MM-dd format. e.g. '2015-01-01'.
      * @param unixDate Please either pass 'dt' or 'unixdt' and not both in same request. unixdt should be between today and next 14 day in Unix format. e.g. 1490227200.
