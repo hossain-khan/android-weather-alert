@@ -215,9 +215,25 @@ class AddWeatherAlertPresenter
                             // ❌ Wrong, should show toast message instead that you must select from dropdown
                             val city = selectedCity ?: throw IllegalStateException("City not selected")
 
+                            // Preemptively add alert record to database to get the alert id
+                            val addedAlertId =
+                                database.alertDao().insertAlert(
+                                    Alert(
+                                        cityId = city.id,
+                                        alertCategory = event.selectedAlertType,
+                                        threshold =
+                                            when (event.selectedAlertType) {
+                                                WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
+                                                WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
+                                            },
+                                        notes = reminderNotes,
+                                    ),
+                                )
+                            Timber.d("Added new alert for ${city.cityName} city with ID: $addedAlertId")
+
                             val dailyForecast =
                                 weatherRepository.getDailyForecast(
-                                    alertId = 0,
+                                    alertId = addedAlertId,
                                     cityId = city.id,
                                     latitude = city.lat,
                                     longitude = city.lng,
@@ -225,20 +241,8 @@ class AddWeatherAlertPresenter
                                 )
                             when (dailyForecast) {
                                 is ApiResult.Success -> {
-                                    database.alertDao().insertAlert(
-                                        Alert(
-                                            cityId = city.id,
-                                            alertCategory = event.selectedAlertType,
-                                            threshold =
-                                                when (event.selectedAlertType) {
-                                                    WeatherAlertCategory.SNOW_FALL -> event.snowThreshold
-                                                    WeatherAlertCategory.RAIN_FALL -> event.rainThreshold
-                                                },
-                                            notes = reminderNotes,
-                                        ),
-                                    )
-
-                                    // Finally after saving, navigate back
+                                    // Indicates forecast is loaded and alert record was already added above
+                                    // Go back to alert list on success
                                     navigator.pop()
                                 }
                                 is ApiResult.Failure.ApiFailure -> {
@@ -250,6 +254,10 @@ class AddWeatherAlertPresenter
                                 }
                                 is ApiResult.Failure.HttpFailure -> {
                                     Timber.w("HTTP error, failed to save alert settings")
+
+                                    // Rollback the alert if forecast loading fails
+                                    removeAlertRecordOnFailedForecast(addedAlertId)
+
                                     isApiCallInProgress = false
                                     isSaveButtonEnabled = true
                                     when (dailyForecast.code) {
@@ -315,6 +323,10 @@ class AddWeatherAlertPresenter
                                 }
                                 is ApiResult.Failure.NetworkFailure -> {
                                     Timber.e(dailyForecast.error, "Network error, failed to save alert settings")
+
+                                    // Rollback the alert if forecast loading fails
+                                    removeAlertRecordOnFailedForecast(addedAlertId)
+
                                     isApiCallInProgress = false
                                     isSaveButtonEnabled = true
                                     snackbarData =
@@ -322,6 +334,10 @@ class AddWeatherAlertPresenter
                                 }
                                 is ApiResult.Failure.UnknownFailure -> {
                                     Timber.e(dailyForecast.error, "Unknown failure, failed to save alert settings")
+
+                                    // Rollback the alert if forecast loading fails
+                                    removeAlertRecordOnFailedForecast(addedAlertId)
+
                                     isApiCallInProgress = false
                                     isSaveButtonEnabled = true
                                     snackbarData =
@@ -368,6 +384,10 @@ class AddWeatherAlertPresenter
                     }
                 }
             }
+        }
+
+        private suspend fun removeAlertRecordOnFailedForecast(addedAlertId: Long) {
+            database.alertDao().deleteAlertById(addedAlertId)
         }
 
         @CircuitInject(AddNewWeatherAlertScreen::class, AppScope::class)

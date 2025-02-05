@@ -77,7 +77,7 @@ class WeatherRepositoryImpl
             longitude: Double,
             skipCache: Boolean,
         ): ApiResult<AppForecastData, Unit> {
-            val cityForecast = cityForecastDao.getCityForecastsByCityId(cityId).firstOrNull()
+            val cityForecast = cityForecastDao.getCityForecastByAlertIdAndCityId(alertId, cityId)
 
             return if (skipCache.not() &&
                 cityForecast != null &&

@@ -34,6 +34,15 @@ interface CityForecastDao {
     @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
     suspend fun getCityForecastsByCityId(cityId: Long): List<CityForecast>
 
+    /**
+     * Get forecast by alert id and city id.
+     */
+    @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND cityId = :cityId ORDER BY created_at DESC")
+    suspend fun getCityForecastByAlertIdAndCityId(
+        alertId: Long,
+        cityId: Long,
+    ): CityForecast?
+
     @Query("SELECT * FROM city_forecasts WHERE cityId = :cityId ORDER BY created_at DESC")
     fun getCityForecastsByCityIdFlow(cityId: Long): Flow<List<CityForecast>>
 }
