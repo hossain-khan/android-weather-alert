@@ -2,16 +2,29 @@ package dev.hossain.weatheralert.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
 
-@Entity(tableName = "city_forecasts")
+@Entity(
+    tableName = "city_forecasts",
+    foreignKeys = [
+        ForeignKey(
+            entity = Alert::class,
+            parentColumns = ["id"],
+            childColumns = ["alert_id"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
 data class CityForecast constructor(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "forecast_id")
     val forecastId: Long = 0,
     val cityId: Long,
+    @ColumnInfo(name = "alert_id", defaultValue = ALERT_ID_NONE.toString())
+    val alertId: Long,
     val latitude: Double,
     val longitude: Double,
     val dailyCumulativeSnow: Double,

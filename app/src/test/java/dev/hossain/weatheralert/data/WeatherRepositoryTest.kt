@@ -107,6 +107,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -127,6 +128,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -148,6 +150,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -169,6 +172,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -190,6 +194,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -211,6 +216,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -233,6 +239,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -255,6 +262,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -277,6 +285,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,
@@ -302,6 +311,7 @@ class WeatherRepositoryTest {
 
             val result =
                 weatherRepository.getDailyForecast(
+                    alertId = 1,
                     cityId = 1,
                     latitude = 0.0,
                     longitude = -0.0,

@@ -81,6 +81,7 @@ import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
+import dev.hossain.weatheralert.db.ALERT_ID_NONE
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
@@ -221,6 +222,7 @@ class WeatherAlertDetailsPresenter
                             if (city != null && currentForecast != null) {
                                 val result =
                                     weatherRepository.getDailyForecast(
+                                        alertId = screen.alertId,
                                         cityId = city.id,
                                         latitude = city.lat,
                                         longitude = city.lng,
@@ -823,6 +825,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                         ),
                     cityForecast =
                         CityForecast(
+                            alertId = ALERT_ID_NONE,
                             cityId = 1,
                             latitude = 0.0,
                             longitude = 0.0,

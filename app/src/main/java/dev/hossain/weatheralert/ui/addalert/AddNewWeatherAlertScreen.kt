@@ -217,6 +217,7 @@ class AddWeatherAlertPresenter
 
                             val dailyForecast =
                                 weatherRepository.getDailyForecast(
+                                    alertId = 0,
                                     cityId = city.id,
                                     latitude = city.lat,
                                     longitude = city.lng,

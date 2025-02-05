@@ -7,6 +7,8 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 
+internal const val ALERT_ID_NONE = 0L
+
 /**
  * Represents a user's alert for a specific city.
  */

@@ -60,6 +60,7 @@ class WeatherCheckWorker
                 // Fetch forecast
                 val forecastApiResult =
                     weatherRepository.getDailyForecast(
+                        alertId = configuredAlert.alert.id,
                         cityId = configuredAlert.city.id,
                         latitude = configuredAlert.city.lat,
                         longitude = configuredAlert.city.lng,
