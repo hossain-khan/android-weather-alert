@@ -4,6 +4,8 @@ import com.openmeteo.api.model.OpenMeteoForecastResponse
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
 import com.squareup.anvil.annotations.ContributesBinding
+import com.weatherapi.api.WeatherApiService
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
@@ -61,6 +63,7 @@ class WeatherRepositoryImpl
         private val openWeatherService: OpenWeatherService,
         private val tomorrowIoService: TomorrowIoService,
         private val openMeteoService: OpenMeteoService,
+        private val weatherApiService: WeatherApiService,
         private val cityForecastDao: CityForecastDao,
         private val timeUtil: TimeUtil,
         private val activeWeatherService: ActiveWeatherService,
@@ -142,7 +145,7 @@ class WeatherRepositoryImpl
                         }
                 }
 
-                WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                else -> throw IllegalStateException("No API key needed for $weatherForecastService")
             }
         }
 
@@ -150,12 +153,11 @@ class WeatherRepositoryImpl
             latitude: Double,
             longitude: Double,
             cityId: Long,
-        ): ApiResult<AppForecastData, Unit> {
-            val selectedService = activeWeatherService.selectedService()
-            return when (selectedService) {
+        ): ApiResult<AppForecastData, Unit> =
+            when (val selectedForecastService = activeWeatherService.selectedService()) {
                 WeatherForecastService.OPEN_WEATHER_MAP -> {
                     loadForecastUseOpenWeather(
-                        weatherForecastService = selectedService,
+                        weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
                         cityId = cityId,
@@ -164,7 +166,7 @@ class WeatherRepositoryImpl
 
                 WeatherForecastService.TOMORROW_IO -> {
                     loadForecastUseTomorrowIo(
-                        weatherForecastService = selectedService,
+                        weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
                         cityId = cityId,
@@ -173,14 +175,22 @@ class WeatherRepositoryImpl
 
                 WeatherForecastService.OPEN_METEO -> {
                     loadForecastUseOpenMeteo(
-                        weatherForecastService = selectedService,
+                        weatherForecastService = selectedForecastService,
+                        latitude = latitude,
+                        longitude = longitude,
+                        cityId = cityId,
+                    )
+                }
+
+                WeatherForecastService.WEATHER_API -> {
+                    loadForecastUseWeatherApi(
+                        weatherForecastService = selectedForecastService,
                         latitude = latitude,
                         longitude = longitude,
                         cityId = cityId,
                     )
                 }
             }
-        }
 
         private suspend fun WeatherRepositoryImpl.loadForecastUseOpenWeather(
             weatherForecastService: WeatherForecastService,
@@ -256,6 +266,31 @@ class WeatherRepositoryImpl
                     ApiResult.unknownFailure(error)
                 },
             )
+
+        private suspend fun WeatherRepositoryImpl.loadForecastUseWeatherApi(
+            weatherForecastService: WeatherForecastService,
+            latitude: Double,
+            longitude: Double,
+            cityId: Long,
+        ): ApiResult<AppForecastData, Unit> {
+            val apiResult =
+                weatherApiService.getForecastWeather(
+                    apiKey = BuildConfig.WEATHERAPI_API_KEY,
+                    location = "$latitude,$longitude",
+                )
+            return when (apiResult) {
+                is ApiResult.Success -> {
+                    val convertToForecastData = (apiResult.value as WeatherApiServiceResponse).convertToForecastData()
+                    cacheCityForecastData(weatherForecastService, cityId, convertToForecastData)
+                    ApiResult.success(convertToForecastData)
+                }
+
+                is ApiResult.Failure -> {
+                    Timber.e(apiResult.exceptionOrNull(), "Failed to fetch WeatherAPI forecast data")
+                    apiResult
+                }
+            }
+        }
 
         private suspend fun cacheCityForecastData(
             weatherForecastService: WeatherForecastService,

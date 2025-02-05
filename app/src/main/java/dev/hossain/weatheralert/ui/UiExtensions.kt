@@ -93,4 +93,20 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiServiceProductName = "Weather API",
                 requiresApiKey = false,
             )
+
+        WeatherForecastService.WEATHER_API ->
+            WeatherServiceConfig(
+                serviceName = "WeatherAPI",
+                logoResId = R.drawable.weatherapi_logo,
+                // Original: 150x70, Medium: 107x50, Small: 86x40
+                logoWidth = 86.dp,
+                logoHeight = 40.dp,
+                description = "Free API service with high limit.",
+                apiServiceUrl = "https://www.weatherapi.com/docs/",
+                apiServiceUrlLabel = "weatherapi.com",
+                apiExhaustedMessage = "Not applicable for WeatherAPI.",
+                apiFormatGuide = "Not applicable.",
+                apiServiceProductName = "WeatherAPI",
+                requiresApiKey = false,
+            )
     }

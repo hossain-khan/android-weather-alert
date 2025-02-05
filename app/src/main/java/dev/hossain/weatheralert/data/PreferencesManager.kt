@@ -34,7 +34,7 @@ class PreferencesManager
                     when (service) {
                         WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
                         WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
-                        WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                        else -> throw IllegalStateException("No API key needed for $service")
                     }
                 }
 
@@ -48,7 +48,7 @@ class PreferencesManager
                         when (service) {
                             WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
                             WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
-                            WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                            else -> throw IllegalStateException("No API key needed for $service")
                         }
                     }.firstOrNull()
             }
@@ -61,7 +61,7 @@ class PreferencesManager
                 when (service) {
                     WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey] = apiKey
                     WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey] = apiKey
-                    WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                    else -> throw IllegalStateException("No API key needed for $service")
                 }
             }
         }
@@ -89,7 +89,7 @@ class PreferencesManager
                     dataStore.edit { preferences: MutablePreferences ->
                         preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
                     }
-                WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                else -> throw IllegalStateException("No API key needed for $service")
             }
         }
 

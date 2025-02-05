@@ -56,8 +56,13 @@ android {
             project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
                 Properties().apply { load(it) }.getProperty("TOMORROW_IO_API_KEY")
             } ?: "API_KEY_FROM_local.properties"
+        val weatherapiApiKey: String =
+            project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
+                Properties().apply { load(it) }.getProperty("WEATHERAPI_API_KEY")
+            } ?: "API_KEY_FROM_local.properties"
         buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
         buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
+        buildConfigField("String", "WEATHERAPI_API_KEY", "\"$weatherapiApiKey\"")
 
         // Git commit hash to identify build source
         buildConfigField("String", "GIT_COMMIT_HASH", "\"${getGitCommitHash()}\"")
