@@ -172,12 +172,12 @@ class WeatherAlertDetailsPresenter
                 alertCity = alert.city
 
                 cityForecastDao
-                    .getCityForecastsByCityIdFlow(cityId = alert.city.id)
+                    .getCityForecastByAlertIdAndCityIdFlow(alertId = alert.alert.id, cityId = alert.city.id)
                     .collect { newForecast ->
                         // Update forecast data when new data is available.
                         // Data is updated on initial load and when user triggers refresh.
                         // 🧪 TEST REFRESH: ?.copy(dailyCumulativeRain = Random.nextDouble() * 100, dailyCumulativeSnow = Random.nextDouble() * 100)
-                        cityForecast = newForecast.firstOrNull()
+                        cityForecast = newForecast
 
                         isForecastRefreshing = false
                     }
