@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.ui.about.LearnMoreAboutAlerts
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -80,7 +80,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
                         .copy(color = MaterialTheme.colorScheme.tertiary),
                 fontStyle = FontStyle.Italic,
             )
-            WeatherService.entries.filter { it.isEnabled }.forEach { service ->
+            WeatherForecastService.entries.filter { it.isEnabled }.forEach { service ->
                 val serviceConfig = service.serviceConfig()
                 Image(
                     painter = painterResource(id = serviceConfig.logoResId),

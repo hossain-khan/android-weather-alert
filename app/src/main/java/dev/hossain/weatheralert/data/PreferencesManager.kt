@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.di.ApplicationContext
 import dev.hossain.weatheralert.work.DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
 import kotlinx.coroutines.flow.Flow
@@ -26,42 +26,42 @@ class PreferencesManager
         @ApplicationContext private val context: Context,
     ) {
         private val dataStore = context.dataStore
-        private val defaultWeatherService = WeatherService.OPEN_WEATHER_MAP
+        private val defaultWeatherForecastService = WeatherForecastService.OPEN_WEATHER_MAP
 
-        fun userApiKey(service: WeatherService): Flow<String?> =
+        fun userApiKey(service: WeatherForecastService): Flow<String?> =
             dataStore.data
                 .map { preferences: Preferences ->
                     when (service) {
-                        WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
-                        WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
-                        WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                        WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
+                        WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                        WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
                     }
                 }
 
         /**
          * Retrieves the saved API key from the user preferences in synchronous manner.
          */
-        fun savedApiKey(service: WeatherService): String? =
+        fun savedApiKey(service: WeatherForecastService): String? =
             runBlocking {
                 dataStore.data
                     .map { preferences: Preferences ->
                         when (service) {
-                            WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
-                            WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
-                            WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                            WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey]
+                            WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey]
+                            WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
                         }
                     }.firstOrNull()
             }
 
         suspend fun saveUserApiKey(
-            service: WeatherService,
+            service: WeatherForecastService,
             apiKey: String,
         ) {
             dataStore.edit { preferences: MutablePreferences ->
                 when (service) {
-                    WeatherService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey] = apiKey
-                    WeatherService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey] = apiKey
-                    WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                    WeatherForecastService.OPEN_WEATHER_MAP -> preferences[UserPreferences.openWeatherServiceApiKey] = apiKey
+                    WeatherForecastService.TOMORROW_IO -> preferences[UserPreferences.tomorrowIoServiceApiKey] = apiKey
+                    WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
                 }
             }
         }
@@ -79,54 +79,54 @@ class PreferencesManager
         /**
          * @see clearUserApiKeys
          */
-        suspend fun removeApiKey(service: WeatherService) {
+        suspend fun removeApiKey(service: WeatherForecastService) {
             when (service) {
-                WeatherService.OPEN_WEATHER_MAP ->
+                WeatherForecastService.OPEN_WEATHER_MAP ->
                     dataStore.edit { preferences: MutablePreferences ->
                         preferences.remove(UserPreferences.openWeatherServiceApiKey)
                     }
-                WeatherService.TOMORROW_IO ->
+                WeatherForecastService.TOMORROW_IO ->
                     dataStore.edit { preferences: MutablePreferences ->
                         preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
                     }
-                WeatherService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
+                WeatherForecastService.OPEN_METEO -> throw IllegalStateException("No API key needed for Open-Meteo")
             }
         }
 
         /**
          * Retrieves the active weather service based on user preference.
          * If user has not selected any service, it will return the default service.
-         * @see defaultWeatherService
+         * @see defaultWeatherForecastService
          * @see savePreferredWeatherService
          */
-        val preferredWeatherService: Flow<WeatherService> =
+        val preferredWeatherForecastService: Flow<WeatherForecastService> =
             dataStore.data
                 .map { preferences: Preferences ->
                     preferences[UserPreferences.preferredWeatherServiceKey]?.let {
-                        WeatherService.valueOf(it)
-                    } ?: defaultWeatherService
+                        WeatherForecastService.valueOf(it)
+                    } ?: defaultWeatherForecastService
                 }
 
         /**
          * Retrieves the active weather service based on user preference in synchronous manner.
          */
-        val preferredWeatherServiceSync: WeatherService =
+        val preferredWeatherForecastServiceSync: WeatherForecastService =
             runBlocking {
-                val weatherService =
+                val weatherForecastService =
                     dataStore.data
                         .map { preferences: Preferences ->
                             preferences[UserPreferences.preferredWeatherServiceKey]?.let {
-                                WeatherService.valueOf(it)
-                            } ?: defaultWeatherService
+                                WeatherForecastService.valueOf(it)
+                            } ?: defaultWeatherForecastService
                         }.first()
-                Timber.d("Returning preferredWeatherServiceSync: $weatherService")
-                return@runBlocking weatherService
+                Timber.d("Returning preferredWeatherServiceSync: $weatherForecastService")
+                return@runBlocking weatherForecastService
             }
 
         /**
-         * @see preferredWeatherService
+         * @see preferredWeatherForecastService
          */
-        suspend fun savePreferredWeatherService(service: WeatherService) {
+        suspend fun savePreferredWeatherService(service: WeatherForecastService) {
             dataStore.edit { preferences: MutablePreferences ->
                 preferences[UserPreferences.preferredWeatherServiceKey] = service.name
             }

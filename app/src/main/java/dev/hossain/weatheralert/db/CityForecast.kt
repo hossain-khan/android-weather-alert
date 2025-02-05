@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 
 @Entity(tableName = "city_forecasts")
 data class CityForecast constructor(
@@ -18,7 +18,7 @@ data class CityForecast constructor(
     val nextDaySnow: Double,
     val dailyCumulativeRain: Double,
     val nextDayRain: Double,
-    val forecastSourceService: WeatherService,
+    val forecastSourceService: WeatherForecastService,
     @ColumnInfo(name = "created_at")
     val createdAt: Long = System.currentTimeMillis(),
     // Empty JSON array list by default

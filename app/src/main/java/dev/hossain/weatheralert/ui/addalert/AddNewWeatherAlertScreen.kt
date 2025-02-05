@@ -91,7 +91,7 @@ import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.City
@@ -111,7 +111,7 @@ import timber.log.Timber
 @Parcelize
 data object AddNewWeatherAlertScreen : Screen {
     data class State(
-        val selectedApiService: WeatherService?,
+        val selectedApiService: WeatherForecastService?,
         val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
@@ -173,12 +173,12 @@ class AddWeatherAlertPresenter
             var isSaveButtonEnabled by remember { mutableStateOf(false) }
             var isApiCallInProgress by remember { mutableStateOf(false) }
             var selectedCity: City? by remember { mutableStateOf(null) }
-            var selectedApiService by remember { mutableStateOf<WeatherService?>(null) }
+            var selectedApiService by remember { mutableStateOf<WeatherForecastService?>(null) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
             var reminderNotes = ""
 
             LaunchedEffect(Unit) {
-                preferencesManager.preferredWeatherService.collect { service ->
+                preferencesManager.preferredWeatherForecastService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
                     selectedApiService = service
                 }
@@ -554,11 +554,11 @@ fun AddNewWeatherAlertScreen(
 
 @Composable
 private fun CurrentApiServiceStateUi(
-    weatherService: WeatherService,
+    weatherForecastService: WeatherForecastService,
     eventSink: (AddNewWeatherAlertScreen.Event) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val serviceConfig = weatherService.serviceConfig()
+    val serviceConfig = weatherForecastService.serviceConfig()
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
@@ -573,7 +573,7 @@ private fun CurrentApiServiceStateUi(
                 modifier =
                     Modifier
                         .size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
-                contentDescription = "${weatherService.name} logo image",
+                contentDescription = "${weatherForecastService.name} logo image",
             )
             Spacer(modifier = Modifier.size(6.dp))
             Icon(
@@ -789,7 +789,7 @@ private fun AddWeatherAlertScreenPreview() {
     WeatherAlertAppTheme {
         AddNewWeatherAlertScreen(
             AddNewWeatherAlertScreen.State(
-                selectedApiService = WeatherService.OPEN_WEATHER_MAP,
+                selectedApiService = WeatherForecastService.OPEN_WEATHER_MAP,
                 citySuggestions = emptyList(),
                 snowThreshold = 5.0f,
                 rainThreshold = 10.0f,
