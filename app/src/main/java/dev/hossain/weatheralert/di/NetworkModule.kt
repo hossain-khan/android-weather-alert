@@ -7,6 +7,7 @@ import com.slack.eithernet.integration.retrofit.ApiResultCallAdapterFactory
 import com.slack.eithernet.integration.retrofit.ApiResultConverterFactory
 import com.squareup.anvil.annotations.ContributesTo
 import com.squareup.anvil.annotations.optional.SingleIn
+import com.weatherapi.api.WeatherApiService
 import dagger.Module
 import dagger.Provides
 import io.tomorrow.api.TomorrowIoService
@@ -26,11 +27,13 @@ import javax.inject.Named
 object NetworkModule {
     private const val NAMED_SERVICE_OPEN_WEATHER = "OpenWeather"
     private const val NAMED_SERVICE_TOMORROW_IO = "TomorrowIo"
+    private const val NAMED_SERVICE_WEATHERAPI = "WeatherApi"
 
     // Unit test backdoor to allow setting base URL using mock server
     // By default, it's set weather service base URL.
     internal var openWeatherBaseUrl: HttpUrl = "https://api.openweathermap.org/".toHttpUrl()
     internal var tomorrowIoBaseUrl: HttpUrl = "https://api.tomorrow.io/".toHttpUrl()
+    internal var weatherApiBaseUrl: HttpUrl = "https://api.weatherapi.com/".toHttpUrl()
 
     @Provides
     fun provideOkHttpClient(
@@ -91,6 +94,19 @@ object NetworkModule {
 
     @Provides
     @SingleIn(AppScope::class)
+    @Named(NAMED_SERVICE_WEATHERAPI)
+    fun provideWeatherApiRetrofit(okHttpClient: OkHttpClient): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(weatherApiBaseUrl)
+            .addConverterFactory(ApiResultConverterFactory)
+            .addCallAdapterFactory(ApiResultCallAdapterFactory)
+            .addConverterFactory(MoshiConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+
+    @Provides
+    @SingleIn(AppScope::class)
     fun provideOpenWeatherService(
         @Named(NAMED_SERVICE_OPEN_WEATHER) retrofit: Retrofit,
     ): OpenWeatherService =
@@ -104,6 +120,14 @@ object NetworkModule {
     ): TomorrowIoService =
         retrofit
             .create(TomorrowIoService::class.java)
+
+    @Provides
+    @SingleIn(AppScope::class)
+    fun provideWeatherApiService(
+        @Named(NAMED_SERVICE_WEATHERAPI) retrofit: Retrofit,
+    ): WeatherApiService =
+        retrofit
+            .create(WeatherApiService::class.java)
 
     @Provides
     @SingleIn(AppScope::class)
