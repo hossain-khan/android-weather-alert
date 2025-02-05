@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.openmeteo.api.OpenMeteoService
 import com.slack.eithernet.ApiResult
+import com.weatherapi.api.WeatherApiService
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
@@ -43,6 +44,9 @@ class WeatherRepositoryTest {
     lateinit var openMeteoService: OpenMeteoService
 
     @Inject
+    lateinit var weatherapiService: WeatherApiService
+
+    @Inject
     lateinit var cityForecastDao: CityForecastDao
 
     @Inject
@@ -70,6 +74,7 @@ class WeatherRepositoryTest {
                 openWeatherService = openWeatherService,
                 tomorrowIoService = tomorrowIoService,
                 openMeteoService = openMeteoService,
+                weatherApiService = weatherapiService,
                 cityForecastDao = cityForecastDao,
                 timeUtil = timeUtil,
                 activeWeatherService = activeWeatherService,
