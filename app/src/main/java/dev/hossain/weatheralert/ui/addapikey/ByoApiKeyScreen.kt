@@ -64,7 +64,7 @@ import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.SnackbarData
 import dev.hossain.weatheralert.data.WeatherRepository
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.WeatherServiceConfig
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
@@ -81,14 +81,14 @@ data class BringYourOwnApiKeyScreen(
     /**
      * The service API key is being added for, e.g., OpenWeatherMap, Tomorrow.io, etc.
      */
-    val weatherApiService: WeatherService,
+    val weatherApiService: WeatherForecastService,
     /**
      * Indicates if API error is received and then user is navigated to this screen.
      */
     val isOriginatedFromError: Boolean = false,
 ) : Screen {
     data class State(
-        val weatherService: WeatherService,
+        val weatherForecastService: WeatherForecastService,
         val originatedFromApiError: Boolean,
         val apiKeyInput: String,
         val isApiKeyValid: Boolean,
@@ -147,7 +147,7 @@ class BringYourOwnApiKeyPresenter
             }
 
             return BringYourOwnApiKeyScreen.State(
-                weatherService = screen.weatherApiService,
+                weatherForecastService = screen.weatherApiService,
                 originatedFromApiError = screen.isOriginatedFromError,
                 apiKeyInput = apiKey,
                 isApiKeyValid = isApiKeyValid,
@@ -215,7 +215,7 @@ class BringYourOwnApiKeyPresenter
 
         private suspend fun logAddServiceApiKey(isApiKeyAdded: Boolean) {
             analytics.logAddServiceApiKey(
-                weatherService = screen.weatherApiService,
+                weatherForecastService = screen.weatherApiService,
                 isApiKeyAdded = isApiKeyAdded,
                 initiatedFromApiError = screen.isOriginatedFromError,
             )
@@ -238,7 +238,7 @@ fun BringYourOwnApiKeyScreen(
     state: BringYourOwnApiKeyScreen.State,
     modifier: Modifier = Modifier,
 ) {
-    val serviceConfig: WeatherServiceConfig = state.weatherService.serviceConfig()
+    val serviceConfig: WeatherServiceConfig = state.weatherForecastService.serviceConfig()
     val snackbarHostState = remember { SnackbarHostState() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -427,7 +427,7 @@ fun BringYourOwnApiKeyScreenPreview() {
         BringYourOwnApiKeyScreen(
             state =
                 BringYourOwnApiKeyScreen.State(
-                    weatherService = WeatherService.OPEN_WEATHER_MAP,
+                    weatherForecastService = WeatherForecastService.OPEN_WEATHER_MAP,
                     originatedFromApiError = true,
                     apiKeyInput = "123456abcdef123456abcdef123456ab",
                     isApiKeyValid = false,

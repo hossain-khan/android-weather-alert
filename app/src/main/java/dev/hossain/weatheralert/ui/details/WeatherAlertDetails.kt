@@ -80,7 +80,7 @@ import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
-import dev.hossain.weatheralert.datamodel.WeatherService
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.Alert
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.City
@@ -743,7 +743,7 @@ fun WeatherAlertUpdateOnUi(
 
 @Composable
 fun WeatherForecastSourceUi(
-    forecastSourceService: WeatherService,
+    forecastSourceService: WeatherForecastService,
     modifier: Modifier = Modifier,
 ) {
     val serviceConfig = forecastSourceService.serviceConfig()
@@ -830,7 +830,7 @@ private fun PreviewWeatherAlertDetailsScreen() {
                             nextDaySnow = 50.0,
                             dailyCumulativeRain = 100.0,
                             nextDayRain = 50.0,
-                            forecastSourceService = WeatherService.OPEN_WEATHER_MAP,
+                            forecastSourceService = WeatherForecastService.OPEN_WEATHER_MAP,
                             hourlyPrecipitation =
                                 listOf(
                                     HourlyPrecipitation("2025-01-15T21:42:00Z", 5.0, 2.0),
