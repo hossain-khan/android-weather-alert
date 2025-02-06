@@ -134,7 +134,7 @@ data class WeatherValues(
     @Json(name = "precipitationProbability") val precipitationProbability: Int?,
     /** Surface level pressure (hPa). */
     @Json(name = "pressureSurfaceLevel") val pressureSurfaceLevel: Double?,
-    /** Rain accumulation (mm). */
+    /** The accumulated amount of liquid rain that has or will accumulate for the past or future hour of the requested time. */
     @Json(name = "rainAccumulation") val rainAccumulation: Double?,
     /** Rain accumulation liquid water equivalent (mm). */
     @Json(name = "rainAccumulationLwe") val rainAccumulationLwe: Double?,
@@ -146,9 +146,16 @@ data class WeatherValues(
     @Json(name = "sleetAccumulationLwe") val sleetAccumulationLwe: Double?,
     /** Sleet intensity (mm/hr). */
     @Json(name = "sleetIntensity") val sleetIntensity: Double?,
-    /** Snow accumulation (mm). */
+    /**
+     * The accumulated amount of new snowfall that has or will accumulate for the past or future hour of the requested time
+     * Will always return hourly data and does not aggregate - eg. if you request snowAccumulationMax over a daily timestep, the max hourly value of that day will be returned, not the accumulation for the whole day.
+     */
     @Json(name = "snowAccumulation") val snowAccumulation: Double?,
-    /** Snow accumulation liquid water equivalent (mm). */
+    /**
+     * The liquid water equivalent of accumulated amount of new snowfall that has or will accumulate for the past or future hour of the requested time
+     *
+     * Will always return hourly data and does not aggregate - eg. if you request snowAccumulationMax over a daily timestep, the max hourly value of that day will be returned, not the accumulation for the whole day.
+     */
     @Json(name = "snowAccumulationLwe") val snowAccumulationLwe: Double?,
     /** Snow depth (cm). */
     @Json(name = "snowDepth") val snowDepth: Double?,

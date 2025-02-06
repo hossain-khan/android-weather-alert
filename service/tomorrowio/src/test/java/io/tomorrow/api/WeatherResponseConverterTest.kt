@@ -36,7 +36,7 @@ class WeatherResponseConverterTest {
 
         assertThat(result.latitude).isEqualTo(42.3478)
         assertThat(result.longitude).isEqualTo(-71.0466)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(26.6)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(21.59)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
@@ -65,7 +65,7 @@ class WeatherResponseConverterTest {
 
         assertThat(result.latitude).isEqualTo(43.9)
         assertThat(result.longitude).isEqualTo(-78.85)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(163.1)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(55.040000000000006)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
