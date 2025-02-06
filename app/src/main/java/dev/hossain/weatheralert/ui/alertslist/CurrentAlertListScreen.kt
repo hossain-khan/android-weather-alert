@@ -82,6 +82,7 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -175,6 +176,11 @@ class CurrentWeatherAlertPresenter
 
                 val alertTileData = mutableListOf<AlertTileData>()
                 userCityAlerts.forEach { alert ->
+                    // NOTE: Currently it's a list, because everytime there is a refresh
+                    // a new city forecast is added, old one is not deleted at the moment.
+                    // Only the latest city forecast data is used.
+                    val cityForecast = alert.cityForecasts.maxByOrNull { it.createdAt }
+
                     val apiResult =
                         weatherRepository.getDailyForecast(
                             alertId = alert.alert.id,
@@ -211,6 +217,14 @@ class CurrentWeatherAlertPresenter
                                             WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
                                         },
                                     alertNote = alert.alert.notes,
+                                    forecastSourceName =
+                                        if (BuildConfig.DEBUG &&
+                                            cityForecast != null
+                                        ) {
+                                            cityForecast.forecastSourceService.name
+                                        } else {
+                                            ""
+                                        },
                                 ),
                             )
                         }
@@ -594,6 +608,15 @@ fun AlertListItem(
                             style = MaterialTheme.typography.bodySmall,
                         )
                     }
+
+                    // Show forecast source in debug builds
+                    if (data.forecastSourceName.isNotEmpty()) {
+                        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+                        Text(
+                            text = "Source: ${data.forecastSourceName}",
+                            style = MaterialTheme.typography.bodySmall,
+                        )
+                    }
                 }
             },
             colors = colors,
@@ -640,6 +663,7 @@ fun CurrentWeatherAlertsPreview() {
                 currentStatus = "7 mm",
                 isAlertActive = false,
                 alertNote = "Charge batteries\nGet car in **garage**",
+                forecastSourceName = "Tomorrow.io",
             ),
             AlertTileData(
                 alertId = 2,
@@ -651,6 +675,7 @@ fun CurrentWeatherAlertsPreview() {
                 currentStatus = "12 mm",
                 isAlertActive = true,
                 alertNote = "Note when alert is reached.\n* Charge batteries\n* Get car in **garage**",
+                forecastSourceName = "Tomorrow.io",
             ),
             AlertTileData(
                 alertId = 1,
@@ -662,6 +687,7 @@ fun CurrentWeatherAlertsPreview() {
                 currentStatus = "11 mm",
                 isAlertActive = false,
                 alertNote = "",
+                forecastSourceName = "OpenWeatherMap",
             ),
         )
     CurrentWeatherAlerts(

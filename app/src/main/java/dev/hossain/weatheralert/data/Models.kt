@@ -22,8 +22,15 @@ data class AlertTileData constructor(
     val category: WeatherAlertCategory,
     val threshold: String,
     val currentStatus: String,
+    /**
+     * Indicates the alert exceeded the threshold set by the user.
+     */
     val isAlertActive: Boolean,
     val alertNote: String,
+    /**
+     * Weather forecast service name that provided the forecast data for the city.
+     */
+    val forecastSourceName: String,
     /**
      * Unique identifier for the alert item in the lazy column.
      * Added to avoid app crashing due to duplicate keys.
