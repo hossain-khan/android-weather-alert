@@ -24,7 +24,7 @@ internal fun WeatherResponse.toForecastData(): AppForecastData =
                 dailyCumulativeSnow =
                     timelines.hourly
                         .take(CUMULATIVE_DATA_HOURS_24)
-                        .sumOf { it.values.snowDepth ?: 0.0 },
+                        .sumOf { it.values.snowAccumulation ?: 0.0 },
                 nextDaySnow =
                     timelines.daily
                         .firstOrNull()
@@ -55,7 +55,7 @@ private fun TimelineData.toHourlyPrecipitation(): HourlyPrecipitation {
 
     return HourlyPrecipitation(
         isoDateTime = localIsoDateTime,
-        snow = values.snowDepth ?: 0.0,
+        snow = values.snowAccumulation ?: 0.0,
         rain = values.rainAccumulation ?: 0.0,
     )
 }
