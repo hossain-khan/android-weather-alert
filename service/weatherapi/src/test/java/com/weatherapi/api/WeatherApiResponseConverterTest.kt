@@ -91,6 +91,23 @@ class WeatherApiResponseConverterTest {
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
 
+    @Test
+    fun convertsOshawaNotMuchSnowWeatherResponseToAppForecastData() {
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-oshawa-2025-02-06-no-snow.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(43.9)
+        assertThat(result.longitude).isEqualTo(-78.867)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
+        assertThat(result.rain.nextDayRain).isEqualTo(0.0)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+        assertThat(result.hourlyPrecipitation).hasSize(28)
+    }
+
     // Helper method to load WeatherResponse from JSON
     private fun loadWeatherResponseFromJson(fileName: String): ForecastWeatherResponse {
         val classLoader = javaClass.classLoader
