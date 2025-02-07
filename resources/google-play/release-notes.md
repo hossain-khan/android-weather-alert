@@ -3,7 +3,7 @@
 ### What's new
 * Added new weather data sources for improved forecast accuracy and reliability.
 * Added ability to add alert for same city using different weather data sources. 
-* Added pull-to-refresh forecast data from the alert details screen.
+* Added pull-to-refresh functionality for forecast data on the alert details screen.
 * Fixed issues with database migration, and forecast data inconsistencies for the same city.
 
 ## Weather Alert v2.2
