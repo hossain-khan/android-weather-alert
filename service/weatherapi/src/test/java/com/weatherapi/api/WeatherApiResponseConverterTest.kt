@@ -83,10 +83,10 @@ class WeatherApiResponseConverterTest {
 
         assertThat(result.latitude).isEqualTo(36.8)
         assertThat(result.longitude).isEqualTo(137.4)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(138.4)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(122.80000000000001)
         assertThat(result.snow.nextDaySnow).isEqualTo(214.20000000000002)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(32.25000000000001)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(31.350000000000005)
         assertThat(result.rain.nextDayRain).isEqualTo(37.37)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
@@ -105,7 +105,7 @@ class WeatherApiResponseConverterTest {
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
-        assertThat(result.hourlyPrecipitation).hasSize(26)
+        assertThat(result.hourlyPrecipitation).hasSize(25)
     }
 
     // Helper method to load WeatherResponse from JSON

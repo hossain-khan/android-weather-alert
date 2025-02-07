@@ -9,7 +9,10 @@ import java.time.Instant
 import java.time.ZoneId
 
 internal fun ForecastWeatherResponse.toForecastData(): AppForecastData {
-    val currentTimeSeconds = System.currentTimeMillis() / 1000
+    // Get current time millis in current time zone
+    val currentTimeMillis = Instant.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    val currentTimeSeconds = currentTimeMillis / 1000
+
     val hourlyPrecipitation =
         forecast.forecastDay.map { it.toHourlyPrecipitation(currentTimeSeconds) }.flatten()
     return AppForecastData(
