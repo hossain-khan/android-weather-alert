@@ -2,7 +2,7 @@
 
 ### What's new
 * Added new weather data sources for improved forecast accuracy and reliability.
-* Added ability to add alert for same city using different weather data sources. 
+* Added the ability to set multiple alerts for the same city using different weather data sources.
 * Added pull-to-refresh functionality for forecast data on the alert details screen.
 * Fixed issues with database migration, and forecast data inconsistencies for the same city.
 
