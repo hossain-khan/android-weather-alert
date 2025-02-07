@@ -5,11 +5,15 @@ import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
+import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
 
-internal fun ForecastWeatherResponse.toForecastData(): AppForecastData {
-    val currentTimeSeconds = System.currentTimeMillis() / 1000
+internal fun ForecastWeatherResponse.toForecastData(clock: Clock): AppForecastData {
+    // Get current time millis in current time zone
+    val currentTimeMillis = getCurrentTimeMillis(clock)
+    val currentTimeSeconds = currentTimeMillis / 1000
+
     val hourlyPrecipitation =
         forecast.forecastDay.map { it.toHourlyPrecipitation(currentTimeSeconds) }.flatten()
     return AppForecastData(
@@ -60,3 +64,11 @@ private fun Forecast.toRain(nextHourlyPrecipitation: List<HourlyPrecipitation>):
         weeklyCumulativeRain = 0.0,
     )
 }
+
+// Get current time millis in current time zone
+private fun getCurrentTimeMillis(clock: Clock): Long =
+    Instant
+        .now(clock)
+        .atZone(ZoneId.systemDefault())
+        .toInstant()
+        .toEpochMilli()

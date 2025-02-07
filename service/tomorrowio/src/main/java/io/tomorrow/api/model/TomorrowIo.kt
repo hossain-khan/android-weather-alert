@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
+import java.time.Clock
 
 /**
  * Represents the main response from the Tomorrow.io API.
@@ -15,7 +16,7 @@ data class WeatherResponse(
     /** Timelines providing weather data across different intervals. */
     @Json(name = "timelines") val timelines: Timelines,
 ) : WeatherApiServiceResponse {
-    override fun convertToForecastData(): AppForecastData = this.toForecastData()
+    override fun convertToForecastData(clock: Clock): AppForecastData = this.toForecastData()
 }
 
 /**

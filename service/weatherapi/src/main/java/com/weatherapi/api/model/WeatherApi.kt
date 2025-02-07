@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
+import java.time.Clock
 
 /**
  * Root response for WeatherAPI forecast request.
@@ -14,7 +15,7 @@ data class ForecastWeatherResponse(
     val current: Current,
     val forecast: Forecast,
 ) : WeatherApiServiceResponse {
-    override fun convertToForecastData(): AppForecastData = this.toForecastData()
+    override fun convertToForecastData(clock: Clock): AppForecastData = this.toForecastData(clock)
 }
 
 @JsonClass(generateAdapter = true)
