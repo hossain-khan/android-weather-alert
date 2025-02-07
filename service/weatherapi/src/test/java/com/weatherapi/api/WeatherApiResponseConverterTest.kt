@@ -38,7 +38,7 @@ class WeatherApiResponseConverterTest {
         assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(5.16)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
@@ -51,10 +51,10 @@ class WeatherApiResponseConverterTest {
 
         assertThat(result.latitude).isEqualTo(53.55)
         assertThat(result.longitude).isEqualTo(-113.5)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(7.4)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(1.02)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
         assertThat(result.rain.nextDayRain).isEqualTo(0.0)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
@@ -70,7 +70,7 @@ class WeatherApiResponseConverterTest {
         assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(80.19)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.99)
         assertThat(result.rain.nextDayRain).isEqualTo(50.09)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
@@ -83,12 +83,29 @@ class WeatherApiResponseConverterTest {
 
         assertThat(result.latitude).isEqualTo(36.8)
         assertThat(result.longitude).isEqualTo(137.4)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(107.2)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(156.2)
         assertThat(result.snow.nextDaySnow).isEqualTo(214.20000000000002)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
-        assertThat(result.rain.dailyCumulativeRain).isEqualTo(91.74)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(34.73000000000001)
         assertThat(result.rain.nextDayRain).isEqualTo(37.37)
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
+    @Test
+    fun convertsOshawaNotMuchSnowWeatherResponseToAppForecastData() {
+        val weatherResponse = loadWeatherResponseFromJson("weatherapi-oshawa-2025-02-06-no-snow.json")
+
+        val result = weatherResponse.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(43.9)
+        assertThat(result.longitude).isEqualTo(-78.867)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
+        assertThat(result.rain.nextDayRain).isEqualTo(0.0)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+        assertThat(result.hourlyPrecipitation).hasSize(28)
     }
 
     // Helper method to load WeatherResponse from JSON

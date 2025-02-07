@@ -18,6 +18,16 @@ data class UserCityAlert(
         entityColumn = "id",
     )
     val city: City,
+    /**
+     * NOTE: Currently it's a list, because everytime there is a refresh
+     * a new city forecast is added, old one is not deleted at the moment.
+     * Only the latest city forecast data should be used.
+     */
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "alert_id",
+    )
+    val cityForecasts: List<CityForecast>,
 ) {
     fun toNotificationTag(): String = "${city.id}_${alert.id}_${alert.alertCategory.name}"
 }

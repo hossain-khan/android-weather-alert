@@ -1,24 +1,28 @@
 package com.weatherapi.api.model
 
 import dev.hossain.weatheralert.datamodel.AppForecastData
+import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.datamodel.Rain
 import dev.hossain.weatheralert.datamodel.Snow
 import java.time.Instant
 import java.time.ZoneId
 
-internal fun ForecastWeatherResponse.toForecastData(): AppForecastData =
-    AppForecastData(
+internal fun ForecastWeatherResponse.toForecastData(): AppForecastData {
+    val currentTimeSeconds = System.currentTimeMillis() / 1000
+    val hourlyPrecipitation =
+        forecast.forecastDay.map { it.toHourlyPrecipitation(currentTimeSeconds) }.flatten()
+    return AppForecastData(
         latitude = location.lat,
         longitude = location.lon,
-        snow = forecast.toSnow(),
-        rain = forecast.toRain(),
-        hourlyPrecipitation = forecast.forecastDay.map { it.toHourlyPrecipitation() }.flatten(),
+        snow = forecast.toSnow(hourlyPrecipitation),
+        rain = forecast.toRain(hourlyPrecipitation),
+        hourlyPrecipitation = hourlyPrecipitation,
     )
+}
 
-private fun ForecastDay.toHourlyPrecipitation(): List<HourlyPrecipitation> {
-    val currentTimeSeconds = System.currentTimeMillis() / 1000
-    return this.hour.filter { it.timeEpoch > currentTimeSeconds }.map {
+private fun ForecastDay.toHourlyPrecipitation(currentTimeSeconds: Long): List<HourlyPrecipitation> =
+    this.hour.filter { it.timeEpoch > currentTimeSeconds }.map {
         HourlyPrecipitation(
             // ISO-8601 date-time string.
             isoDateTime =
@@ -31,15 +35,9 @@ private fun ForecastDay.toHourlyPrecipitation(): List<HourlyPrecipitation> {
             snow = it.snowCm * 10.0,
         )
     }
-}
 
-private fun Forecast.toSnow(): Snow {
-    val dailyCumulativeSnow =
-        forecastDay
-            .firstOrNull()
-            ?.day
-            ?.totalSnowCm
-            ?.times(10.0) ?: 0.0
+private fun Forecast.toSnow(nextHourlyPrecipitation: List<HourlyPrecipitation>): Snow {
+    val dailyCumulativeSnow = nextHourlyPrecipitation.take(CUMULATIVE_DATA_HOURS_24).sumOf { it.snow }
     val nextDaySnow =
         forecastDay
             .getOrNull(1)
@@ -53,8 +51,8 @@ private fun Forecast.toSnow(): Snow {
     )
 }
 
-private fun Forecast.toRain(): Rain {
-    val dailyCumulativeRain = forecastDay.take(24).sumOf { it.day.totalPrecipMm }
+private fun Forecast.toRain(nextHourlyPrecipitation: List<HourlyPrecipitation>): Rain {
+    val dailyCumulativeRain = nextHourlyPrecipitation.take(CUMULATIVE_DATA_HOURS_24).sumOf { it.rain }
     val nextDayRain = forecastDay.getOrNull(1)?.day?.totalPrecipMm ?: 0.0
     return Rain(
         dailyCumulativeRain = dailyCumulativeRain,
