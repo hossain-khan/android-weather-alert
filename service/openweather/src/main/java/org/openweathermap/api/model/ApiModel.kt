@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import dev.hossain.weatheralert.datamodel.AppForecastData
 import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
+import java.time.Clock
 
 /**
  * Weather forecast data.
@@ -31,7 +32,7 @@ data class WeatherForecast(
     val hourly: List<HourlyForecast> = emptyList(),
     val daily: List<DailyForecast> = emptyList(),
 ) : WeatherApiServiceResponse {
-    override fun convertToForecastData(): AppForecastData = this.toForecastData()
+    override fun convertToForecastData(clock: Clock): AppForecastData = this.toForecastData()
 }
 
 @JsonClass(generateAdapter = true)
