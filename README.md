@@ -65,7 +65,7 @@ Here is simple diagram of Gradle modules for this app.
 
 ```mermaid
 flowchart TB
-    subgraph Service[:service - Weather Forecast APIs]
+    subgraph Service[:service - Forecast APIs]
         direction LR  'Layout within the subgraph
         Service_OW[:openweather]
         Service_TI[:tomorrowio]
