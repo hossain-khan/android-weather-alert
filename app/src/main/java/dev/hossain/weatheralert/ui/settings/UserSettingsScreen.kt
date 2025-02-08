@@ -234,7 +234,7 @@ fun UserSettingsScreen(
 
             AddServiceApiKeyUi(
                 selectedService = state.selectedService,
-                isServiceApiKeyRequired = state.selectedService.serviceConfig().requiresApiKey,
+                isServiceApiKeyRequired = state.selectedService.requiresApiKey,
                 isUserProvidedApiKeyInUse = state.isUserProvidedApiKeyInUse,
                 eventSink = state.eventSink,
             )
