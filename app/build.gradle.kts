@@ -75,6 +75,7 @@ android {
         }
     }
 
+    // https://developer.android.com/build/build-variants
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -83,6 +84,20 @@ android {
                 "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    // Creates flavor to have separate Application ID to install side-by-side.
+    // https://developer.android.com/build/build-variants#product-flavors
+    flavorDimensions += "appflavor"
+    productFlavors {
+        create("internal") {
+            dimension = "appflavor"
+            applicationIdSuffix = ".internal"
+            versionNameSuffix = "-internal"
+        }
+        create("prod") {
+            dimension = "appflavor"
         }
     }
 
@@ -138,7 +153,7 @@ kover {
             }
         }
 
-        variant("release") {
+        variant("prodRelease") {
             // verification only for 'release' build variant
             verify {
                 rule {

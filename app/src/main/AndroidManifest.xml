@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:name=".WeatherAlertApp"
-        android:appComponentFactory=".di.WeatherAlertAppComponentFactory"
+        android:name="dev.hossain.weatheralert.WeatherAlertApp"
+        android:appComponentFactory="dev.hossain.weatheralert.di.WeatherAlertAppComponentFactory"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
