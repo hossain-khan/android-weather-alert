@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.ui.alertslist
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
@@ -20,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen.Event
 
@@ -60,7 +62,13 @@ fun AppMenuItems(
             DropdownMenuItem(
                 text = { Text("Send Feedback") },
                 leadingIcon = { Icon(painter = painterResource(R.drawable.github_logo), contentDescription = "Github Logo Icon") },
-                trailingIcon = { Icon(painter = painterResource(R.drawable.open_in_new_24dp), contentDescription = "External Link Icon") },
+                trailingIcon = {
+                    Icon(
+                        painter = painterResource(R.drawable.open_in_new_24dp),
+                        contentDescription = "External Link Icon",
+                        modifier = Modifier.size(16.dp),
+                    )
+                },
                 onClick = {
                     expanded = false
                     // Take user to GitHub issues page to report issue or provide feedback.
