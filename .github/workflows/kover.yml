@@ -33,7 +33,7 @@ jobs:
       # - app/build/reports/kover/htmlDebug/index.html
       # - app/build/reports/kover/reportDebug.xml
       - name: Build and run tests
-        run: ./gradlew koverHtmlReportDebug koverXmlReportDebug
+        run: ./gradlew koverHtmlReportInternalDebug koverXmlReportInternalDebug
 
       # https://github.com/actions/upload-artifact
       - name: Upload Kover report
