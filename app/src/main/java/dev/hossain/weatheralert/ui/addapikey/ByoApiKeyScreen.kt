@@ -136,7 +136,7 @@ class BringYourOwnApiKeyPresenter
             LaunchedEffect(Unit) {
                 // Prepopulates the API key, IFF it was provided by user.
                 if (apiKeyProvider.hasUserProvidedApiKey(screen.weatherApiService)) {
-                    apiKey = apiKeyProvider.activeServiceApiKey
+                    apiKey = apiKeyProvider.apiKey(screen.weatherApiService)
                     isUserProvidedApiKey = true
                     isApiKeyValid = apiKeyProvider.isValidKey(screen.weatherApiService, apiKey)
                 }

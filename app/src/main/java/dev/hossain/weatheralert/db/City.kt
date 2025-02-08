@@ -20,7 +20,7 @@ import androidx.room.PrimaryKey
         Index(name = "idx_city", value = ["city"], unique = false),
     ],
 )
-data class City(
+data class City constructor(
     val city: String,
     @ColumnInfo(name = "city_ascii") val cityName: String,
     val lat: Double,

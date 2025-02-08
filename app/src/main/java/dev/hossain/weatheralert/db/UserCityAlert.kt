@@ -29,5 +29,12 @@ data class UserCityAlert(
     )
     val cityForecasts: List<CityForecast>,
 ) {
+    fun latestCityForecast(): CityForecast? {
+        // NOTE: Currently it's a list, because everytime there is a refresh
+        // a new city forecast is added, old one is not deleted at the moment.
+        // Only the latest city forecast data is used.
+        return cityForecasts.maxByOrNull { it.createdAt }
+    }
+
     fun toNotificationTag(): String = "${city.id}_${alert.id}_${alert.alertCategory.name}"
 }

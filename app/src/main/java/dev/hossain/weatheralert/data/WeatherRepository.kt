@@ -93,7 +93,7 @@ class WeatherRepositoryImpl
                     cityId,
                     skipCache,
                 )
-                loadForecastFromNetwork(latitude, longitude, alertId, cityId)
+                loadForecastFromNetwork(cityForecast?.forecastSourceService, latitude, longitude, alertId, cityId)
             }
         }
 
@@ -153,12 +153,14 @@ class WeatherRepositoryImpl
         }
 
         private suspend fun loadForecastFromNetwork(
+            weatherForecastService: WeatherForecastService?,
             latitude: Double,
             longitude: Double,
             alertId: Long,
             cityId: Long,
-        ): ApiResult<AppForecastData, Unit> =
-            when (val selectedForecastService = activeWeatherService.selectedService()) {
+        ): ApiResult<AppForecastData, Unit> {
+            val selectedForecastService = weatherForecastService ?: activeWeatherService.selectedService()
+            return when (selectedForecastService) {
                 WeatherForecastService.OPEN_WEATHER_MAP -> {
                     loadForecastUseOpenWeather(
                         weatherForecastService = selectedForecastService,
@@ -199,6 +201,7 @@ class WeatherRepositoryImpl
                     )
                 }
             }
+        }
 
         private suspend fun WeatherRepositoryImpl.loadForecastUseOpenWeather(
             weatherForecastService: WeatherForecastService,
@@ -209,7 +212,7 @@ class WeatherRepositoryImpl
         ): ApiResult<AppForecastData, Unit> {
             val apiResult =
                 openWeatherService.getDailyForecast(
-                    apiKey = apiKeyProvider.activeServiceApiKey,
+                    apiKey = apiKeyProvider.apiKey(WeatherForecastService.OPEN_WEATHER_MAP),
                     latitude = latitude,
                     longitude = longitude,
                 )
@@ -237,7 +240,7 @@ class WeatherRepositoryImpl
             val apiResult =
                 tomorrowIoService.getWeatherForecast(
                     location = "$latitude,$longitude",
-                    apiKey = apiKeyProvider.activeServiceApiKey,
+                    apiKey = apiKeyProvider.apiKey(WeatherForecastService.TOMORROW_IO),
                 )
             return when (apiResult) {
                 is ApiResult.Success -> {

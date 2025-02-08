@@ -13,12 +13,7 @@ import javax.inject.Inject
  */
 interface ApiKeyProvider {
     /**
-     * The API key as a string for active API service (user preferred service).
-     */
-    val activeServiceApiKey: String
-
-    /**
-     * Unlike [activeServiceApiKey], this method provides the API key for the given weather service.
+     * Provides the API key for the given weather service from user-preference or build config.
      */
     fun apiKey(weatherForecastService: WeatherForecastService): String
 
@@ -50,15 +45,6 @@ class ApiKeyProviderImpl
     constructor(
         private val preferencesManager: PreferencesManager,
     ) : ApiKeyProvider {
-        /**
-         * Retrieves the API key from the build configuration.
-         */
-        override val activeServiceApiKey: String
-            get() {
-                val activeWeatherServiceSync = preferencesManager.preferredWeatherForecastServiceSync
-                return apiKey(activeWeatherServiceSync)
-            }
-
         override fun apiKey(weatherForecastService: WeatherForecastService): String =
             when (weatherForecastService) {
                 WeatherForecastService.OPEN_WEATHER_MAP -> {

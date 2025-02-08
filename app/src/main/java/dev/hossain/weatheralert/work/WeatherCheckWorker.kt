@@ -38,7 +38,7 @@ class WeatherCheckWorker
         private val preferencesManager: PreferencesManager,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
-            val userConfiguredAlerts = alertDao.getAllAlertsWithCities()
+            val userConfiguredAlerts: List<UserCityAlert> = alertDao.getAllAlertsWithCities()
             val weatherForecastService: WeatherForecastService = preferencesManager.preferredWeatherForecastService.first()
             val updateIntervalHours = preferencesManager.preferredUpdateInterval.first()
             Timber.tag(WORKER_LOG_TAG).d(

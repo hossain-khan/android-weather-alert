@@ -179,7 +179,7 @@ class CurrentWeatherAlertPresenter
                     // NOTE: Currently it's a list, because everytime there is a refresh
                     // a new city forecast is added, old one is not deleted at the moment.
                     // Only the latest city forecast data is used.
-                    val cityForecast = alert.cityForecasts.maxByOrNull { it.createdAt }
+                    val cityForecast = alert.latestCityForecast()
 
                     val apiResult =
                         weatherRepository.getDailyForecast(
