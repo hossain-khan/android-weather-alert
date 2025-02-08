@@ -1,3 +1,14 @@
+## Weather Alert v2.4   
+
+### What's new
+* Fixed issue where refreshing forecast would replace previously used weather data sources.
+* Added new weather data sources for improved forecast accuracy and reliability.
+* Added the ability to set multiple alerts for the same city using different weather data sources.
+* Added pull-to-refresh functionality for forecast data on the alert details screen.
+* Improved analytics tracking for better insights into app usage to improve UX.
+
+💬 Feedback and comments are welcome via Google Play.
+
 ## Weather Alert v2.3   
 
 ### What's new
@@ -5,6 +16,8 @@
 * Added the ability to set multiple alerts for the same city using different weather data sources.
 * Added pull-to-refresh functionality for forecast data on the alert details screen.
 * Fixed issues with database migration, and forecast data inconsistencies for the same city.
+
+💬 Feedback and comments are welcome via Google Play.
 
 ## Weather Alert v2.2
 
