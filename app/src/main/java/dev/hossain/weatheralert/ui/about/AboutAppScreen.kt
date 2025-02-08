@@ -117,10 +117,12 @@ class AboutAppPresenter
 
                     AboutAppScreen.Event.OpenAppEducationDialog -> {
                         showLearnMoreBottomSheet = true
+                        analytics.logViewTutorial(isComplete = false)
                     }
 
                     AboutAppScreen.Event.CloseAppEducationDialog -> {
                         showLearnMoreBottomSheet = false
+                        analytics.logViewTutorial(isComplete = true)
                     }
                 }
             }

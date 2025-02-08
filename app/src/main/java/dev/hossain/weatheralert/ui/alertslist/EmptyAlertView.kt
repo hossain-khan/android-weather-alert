@@ -40,7 +40,11 @@ import dev.hossain.weatheralert.ui.theme.dimensions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EmptyAlertState(modifier: Modifier = Modifier) {
+fun EmptyAlertState(
+    onLearnMoreOpened: () -> Unit = {},
+    onLearnMoreClose: () -> Unit = {},
+    modifier: Modifier = Modifier,
+) {
     // https://developer.android.com/develop/ui/compose/components/bottom-sheets
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
@@ -69,6 +73,7 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(2.dp))
         TextButton(onClick = {
+            onLearnMoreOpened()
             showBottomSheet = true
         }) { Text("Learn more") }
 
@@ -100,11 +105,13 @@ fun EmptyAlertState(modifier: Modifier = Modifier) {
     if (showBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = {
+                onLearnMoreClose()
                 showBottomSheet = false
             },
             sheetState = sheetState,
         ) {
             LearnMoreAboutAlerts {
+                onLearnMoreClose()
                 showBottomSheet = false
             }
         }
