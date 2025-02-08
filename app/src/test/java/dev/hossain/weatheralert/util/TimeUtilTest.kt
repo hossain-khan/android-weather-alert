@@ -4,13 +4,12 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class TimeUtilTest {
-    private val timeUtil: TimeUtil = TimeUtilImpl()
-    private val clockProvider: ClockProvider = DefaultClockProvider()
+    private val timeUtil: TimeUtil = TimeUtilImpl(DefaultClockProvider())
 
     @Test
     fun testGetCurrentTimeMillis() {
         val currentTime = System.currentTimeMillis()
-        assertThat(timeUtil.getCurrentTimeMillis(clockProvider.getClock()) >= currentTime).isTrue()
+        assertThat(timeUtil.getCurrentTimeMillis() >= currentTime).isTrue()
     }
 
     @Test
@@ -19,7 +18,6 @@ class TimeUtilTest {
         val oneHourInMillis = 1 * 60 * 60 * 1000
         assertThat(
             timeUtil.isOlderThan24Hours(
-                clock = clockProvider.getClock(),
                 timeInMillis = currentTime - oneHourInMillis,
             ),
         ).isFalse()
@@ -31,7 +29,6 @@ class TimeUtilTest {
         val twentyThreeHoursInMillis = 23 * 60 * 60 * 1000
         assertThat(
             timeUtil.isOlderThan24Hours(
-                clock = clockProvider.getClock(),
                 timeInMillis = currentTime - twentyThreeHoursInMillis,
             ),
         ).isFalse()
@@ -43,7 +40,6 @@ class TimeUtilTest {
         val fortyEightHoursInMillis = 48 * 60 * 60 * 1000
         assertThat(
             timeUtil.isOlderThan24Hours(
-                clock = clockProvider.getClock(),
                 timeInMillis = currentTime - fortyEightHoursInMillis,
             ),
         ).isTrue()
