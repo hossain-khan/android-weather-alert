@@ -13,7 +13,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -377,7 +376,7 @@ fun CurrentWeatherAlerts(
                             painter = painterResource(R.drawable.weather_alert_icon_no_fill),
                             contentDescription = "Weather Alerts",
                             tint = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.size(20.dp).offset(y = (-3).dp),
+                            modifier = Modifier.size(20.dp).offset(y = (-2).dp),
                         )
                     }
                 },
@@ -404,12 +403,13 @@ fun CurrentWeatherAlerts(
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { paddingValues ->
+    ) { contentPaddingValues ->
         Column(
             modifier =
                 modifier
                     .fillMaxSize()
-                    .padding(paddingValues),
+                    .padding(contentPaddingValues)
+                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
         ) {
             if (state.tiles == null) {
                 // Show loading indicator in the middle of the screen
@@ -474,11 +474,6 @@ fun AlertTileGrid(
     LazyColumn(
         state = listState,
         modifier = Modifier.fillMaxSize(),
-        contentPadding =
-            PaddingValues(
-                vertical = MaterialTheme.dimensions.verticalScreenPadding,
-                horizontal = MaterialTheme.dimensions.horizontalScreenPadding,
-            ),
     ) {
         itemsIndexed(
             items = tiles,
