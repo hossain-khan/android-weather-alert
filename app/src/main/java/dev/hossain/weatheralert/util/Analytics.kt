@@ -34,13 +34,15 @@ interface Analytics {
      */
     suspend fun logScreenView(circuitScreen: KClass<out Screen>)
 
+    /**
+     * Logs worker job initiated event.
+     */
     suspend fun logWorkerJob(
-        weatherForecastService: WeatherForecastService,
         interval: Long,
         alertsCount: Long,
     )
 
-    suspend fun logWorkSuccess(weatherForecastService: WeatherForecastService)
+    suspend fun logWorkSuccess()
 
     suspend fun logWorkFailed(
         weatherForecastService: WeatherForecastService,
@@ -88,22 +90,19 @@ class AnalyticsImpl
         }
 
         override suspend fun logWorkerJob(
-            weatherForecastService: WeatherForecastService,
             interval: Long,
             alertsCount: Long,
         ) {
             firebaseAnalytics.logEvent(EVENT_WORKER_JOB_STARTED) {
                 param("update_interval", interval)
                 param("alerts_count", alertsCount)
-                param(FirebaseAnalytics.Param.METHOD, weatherForecastService.name)
             }
         }
 
-        override suspend fun logWorkSuccess(weatherForecastService: WeatherForecastService) {
+        override suspend fun logWorkSuccess() {
             firebaseAnalytics.logEvent(EVENT_WORKER_JOB_COMPLETED) {
                 // The result of an operation (long). Specify 1 to indicate success and 0 to indicate failure.
                 param(FirebaseAnalytics.Param.SUCCESS, 1L)
-                param(FirebaseAnalytics.Param.METHOD, weatherForecastService.name)
             }
         }
 

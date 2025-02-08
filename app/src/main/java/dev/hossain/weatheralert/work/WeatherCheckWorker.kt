@@ -39,13 +39,11 @@ class WeatherCheckWorker
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
             val userConfiguredAlerts: List<UserCityAlert> = alertDao.getAllAlertsWithCities()
-            val weatherForecastService: WeatherForecastService = preferencesManager.preferredWeatherForecastService.first()
             val updateIntervalHours = preferencesManager.preferredUpdateInterval.first()
             Timber.tag(WORKER_LOG_TAG).d(
                 "WeatherCheckWorker: Checking weather forecast " +
-                    "for %s alerts using %s. Updates every %s hours.",
+                    "for %s alerts. Updates every %s hours.",
                 userConfiguredAlerts.size,
-                weatherForecastService,
                 updateIntervalHours,
             )
 
@@ -54,7 +52,7 @@ class WeatherCheckWorker
                 return Result.success()
             }
 
-            logWorkerStarted(weatherForecastService, updateIntervalHours, userConfiguredAlerts)
+            logWorkerStarted(updateIntervalHours, userConfiguredAlerts)
 
             userConfiguredAlerts.forEach { configuredAlert ->
                 // Fetch forecast
@@ -66,6 +64,10 @@ class WeatherCheckWorker
                         longitude = configuredAlert.city.lng,
                         skipCache = true,
                     )
+                val alertWeatherService =
+                    requireNotNull(
+                        configuredAlert.latestCityForecast()?.forecastSourceService,
+                    ) { "The city forecast must be there when refresh is happening." }
 
                 when (forecastApiResult) {
                     is ApiResult.Success -> {
@@ -126,10 +128,10 @@ class WeatherCheckWorker
                     }
 
                     is ApiResult.Failure.HttpFailure -> {
-                        logWorkerFailed(weatherForecastService, forecastApiResult.code.toLong())
+                        logWorkerFailed(alertWeatherService, forecastApiResult.code.toLong())
                         Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
-                            "HttpFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherForecastService.",
+                            "HttpFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $alertWeatherService.",
                         )
                         return Result.retry()
                     }
@@ -137,7 +139,7 @@ class WeatherCheckWorker
                     is ApiResult.Failure.ApiFailure -> {
                         Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
-                            "ApiFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherForecastService.",
+                            "ApiFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $alertWeatherService.",
                         )
                         return Result.failure()
                     }
@@ -145,7 +147,7 @@ class WeatherCheckWorker
                     is ApiResult.Failure.NetworkFailure -> {
                         Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
-                            "NetworkFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherForecastService.",
+                            "NetworkFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $alertWeatherService.",
                         )
                         return Result.retry()
                     }
@@ -153,18 +155,18 @@ class WeatherCheckWorker
                     is ApiResult.Failure.UnknownFailure -> {
                         Timber.tag(WORKER_LOG_TAG).e(
                             forecastApiResult.exceptionOrNull(),
-                            "UnknownFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $weatherForecastService.",
+                            "UnknownFailure: Failed to fetch forecast for city: ${configuredAlert.city.cityName} using $alertWeatherService.",
                         )
-                        logWorkerFailed(weatherForecastService, 0L)
+                        logWorkerFailed(alertWeatherService, 0L)
                         return Result.failure()
                     }
                 }
 
-                // Before checking next city, delay for 1 second to avoid rate limiting
-                delay(1_000)
+                // Before checking next city, delay for 2 second to avoid rate limiting
+                delay(2_000)
             }
 
-            logWorkerCompleted(weatherForecastService)
+            logWorkerCompleted()
             return Result.success()
         }
 
@@ -176,19 +178,17 @@ class WeatherCheckWorker
         }
 
         private suspend fun logWorkerStarted(
-            weatherForecastService: WeatherForecastService,
             updateInterval: Long,
             userConfiguredAlerts: List<UserCityAlert>,
         ) {
             // Log worker initiative to ensure the worker is working fine
             analytics.logWorkerJob(
-                weatherForecastService = weatherForecastService,
                 interval = updateInterval,
                 alertsCount = userConfiguredAlerts.size.toLong(),
             )
         }
 
-        private suspend fun logWorkerCompleted(weatherForecastService: WeatherForecastService) {
-            analytics.logWorkSuccess(weatherForecastService)
+        private suspend fun logWorkerCompleted() {
+            analytics.logWorkSuccess()
         }
     }
