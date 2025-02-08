@@ -1,10 +1,13 @@
 package dev.hossain.weatheralert.ui.about
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -28,6 +31,7 @@ import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,7 +47,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
@@ -128,9 +134,11 @@ fun AppCreditsScreen(
             )
             Text(
                 text = "City Database",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
             SimpleMapsLinkedText()
+
+            // - - - - - - - - - - - - - - - - - - -
             Spacer(modifier = Modifier.height(8.dp))
 
             Image(
@@ -140,7 +148,7 @@ fun AppCreditsScreen(
             )
             Text(
                 text = "Icons",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
             Text(
                 text = "- Material Design Icons",
@@ -150,6 +158,21 @@ fun AppCreditsScreen(
                 text = "- Vector icons from various sources",
                 style = MaterialTheme.typography.bodyMedium,
             )
+
+            // - - - - - - - - - - - - - - - - - - -
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Image(
+                painter = painterResource(R.drawable.cloud_servers),
+                contentDescription = "Cloud Server for API Services",
+                modifier = Modifier.padding(top = 0.dp).align(Alignment.CenterHorizontally).size(100.dp),
+            )
+
+            Text(
+                text = "Weather Forecast API Services",
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            )
+            WeatherServiceCredits()
         }
     }
 }
@@ -181,6 +204,51 @@ private fun SimpleMapsLinkedText() {
             append(".")
         }
     Text(text = annotatedLinkString)
+}
+
+@Composable
+fun WeatherServiceCredits() {
+    val uriHandler = LocalUriHandler.current
+
+    Column(
+        modifier =
+            Modifier
+                .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        WeatherForecastService.entries.filter { it.isEnabled }.forEach { service ->
+            val config = service.serviceConfig()
+            Row(
+                modifier =
+                    Modifier
+                        .clickable { uriHandler.openUri(config.apiServiceUrl) }
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = config.serviceName,
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Icon(
+                        painter = painterResource(R.drawable.open_in_new_24dp),
+                        tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f),
+                        contentDescription = "External link",
+                        modifier = Modifier.size(16.dp).padding(start = 4.dp),
+                    )
+                }
+                Image(
+                    painter = painterResource(config.logoResId),
+                    contentDescription = config.serviceName,
+                    modifier = Modifier.size(config.logoWidth, config.logoHeight),
+                )
+            }
+        }
+    }
 }
 
 @Preview(showBackground = true, name = "Light Mode")
