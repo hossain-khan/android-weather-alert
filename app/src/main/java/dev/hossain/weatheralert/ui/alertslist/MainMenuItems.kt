@@ -19,7 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
@@ -36,7 +35,6 @@ fun AppMenuItems(
     eventSink: (Event) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val uriHandler = LocalUriHandler.current
 
     Box(
         modifier = modifier.wrapContentSize(),
@@ -71,8 +69,7 @@ fun AppMenuItems(
                 },
                 onClick = {
                     expanded = false
-                    // Take user to GitHub issues page to report issue or provide feedback.
-                    uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert/issues")
+                    eventSink(Event.SendFeedbackClicked)
                 },
             )
 

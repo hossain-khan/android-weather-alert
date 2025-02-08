@@ -65,6 +65,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -137,6 +138,12 @@ data class CurrentWeatherAlertScreen(
 
         data object CreditsClicked : Event()
 
+        data object SendFeedbackClicked : Event()
+
+        data class LearnMoreClicked(
+            val isOpened: Boolean,
+        ) : Event()
+
         data class UndoDelete(
             val item: AlertTileData,
         ) : Event()
@@ -156,6 +163,7 @@ class CurrentWeatherAlertPresenter
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
             val scope = rememberCoroutineScope()
+            val uriHandler = LocalUriHandler.current
             var weatherTiles by remember { mutableStateOf<List<AlertTileData>?>(null) }
             var recentlyDeletedAlert by remember { mutableStateOf<AlertTileData?>(null) }
             var deletedItemIndex by remember { mutableIntStateOf(-1) }
@@ -301,6 +309,20 @@ class CurrentWeatherAlertPresenter
                     CurrentWeatherAlertScreen.Event.CreditsClicked -> {
                         navigator.goTo(AppCreditsScreen)
                     }
+
+                    CurrentWeatherAlertScreen.Event.SendFeedbackClicked -> {
+                        // Take user to GitHub issues page to report issue or provide feedback.
+                        analytics.logSendFeedback()
+                        uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert/issues")
+                    }
+
+                    is CurrentWeatherAlertScreen.Event.LearnMoreClicked -> {
+                        if (event.isOpened) {
+                            analytics.logViewTutorial(isComplete = false)
+                        } else {
+                            analytics.logViewTutorial(isComplete = true)
+                        }
+                    }
                 }
             }
         }
@@ -394,7 +416,10 @@ fun CurrentWeatherAlerts(
                 LoadingAlertsProgressUi()
             } else {
                 if (state.tiles.isEmpty()) {
-                    EmptyAlertState()
+                    EmptyAlertState(
+                        onLearnMoreOpened = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = true)) },
+                        onLearnMoreClosed = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = false)) },
+                    )
                 } else {
                     AlertTileGrid(
                         tiles = state.tiles,

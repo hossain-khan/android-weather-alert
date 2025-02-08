@@ -63,6 +63,11 @@ data object AppCreditsScreen : Screen {
 
     sealed class Event : CircuitUiEvent {
         data object GoBack : Event()
+
+        data class VisitServiceUrl(
+            val weatherForecastService: WeatherForecastService,
+            val serviceWebUrl: String,
+        ) : Event()
     }
 }
 
@@ -74,6 +79,7 @@ class AppCreditsPresenter
     ) : Presenter<AppCreditsScreen.State> {
         @Composable
         override fun present(): AppCreditsScreen.State {
+            val uriHandler = LocalUriHandler.current
             LaunchedImpressionEffect {
                 analytics.logScreenView(AppCreditsScreen::class)
             }
@@ -82,6 +88,11 @@ class AppCreditsPresenter
                 when (event) {
                     AppCreditsScreen.Event.GoBack -> {
                         navigator.pop()
+                    }
+
+                    is AppCreditsScreen.Event.VisitServiceUrl -> {
+                        analytics.logViewServiceExternalUrl(event.weatherForecastService)
+                        uriHandler.openUri(event.serviceWebUrl)
                     }
                 }
             }
@@ -172,7 +183,9 @@ fun AppCreditsScreen(
                 text = "Weather Forecast API Services",
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
             )
-            WeatherServiceCredits()
+            WeatherServiceCredits { service, serviceWebUrl ->
+                state.eventSink(AppCreditsScreen.Event.VisitServiceUrl(service, serviceWebUrl))
+            }
         }
     }
 }
@@ -207,9 +220,7 @@ private fun SimpleMapsLinkedText() {
 }
 
 @Composable
-fun WeatherServiceCredits() {
-    val uriHandler = LocalUriHandler.current
-
+fun WeatherServiceCredits(onServiceUrlVisit: (weatherForecastService: WeatherForecastService, serviceWebUrl: String) -> Unit) {
     Column(
         modifier =
             Modifier
@@ -221,8 +232,9 @@ fun WeatherServiceCredits() {
             Row(
                 modifier =
                     Modifier
-                        .clickable { uriHandler.openUri(config.apiServiceUrl) }
-                        .fillMaxWidth()
+                        .clickable {
+                            onServiceUrlVisit(service, config.apiServiceUrl)
+                        }.fillMaxWidth()
                         .padding(vertical = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
