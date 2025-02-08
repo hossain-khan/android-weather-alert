@@ -82,7 +82,7 @@ class WeatherRepositoryImpl
             return if (skipCache.not() &&
                 cityForecast != null &&
                 !timeUtil.isOlderThan24Hours(
-                    cityForecast.createdAt,
+                    timeInMillis = cityForecast.createdAt,
                 )
             ) {
                 Timber.d("Using cached forecast data for cityId: %s, skipCache: %s", cityId, skipCache)
