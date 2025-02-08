@@ -14,6 +14,7 @@ import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.AppScope
+import dev.hossain.weatheralert.util.ClockProvider
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
 import org.openweathermap.api.OpenWeatherService
@@ -67,6 +68,7 @@ class WeatherRepositoryImpl
         private val openMeteoService: OpenMeteoService,
         private val weatherApiService: WeatherApiService,
         private val cityForecastDao: CityForecastDao,
+        private val clockProvider: ClockProvider,
         private val timeUtil: TimeUtil,
         private val activeWeatherService: ActiveWeatherService,
     ) : WeatherRepository {
@@ -82,7 +84,8 @@ class WeatherRepositoryImpl
             return if (skipCache.not() &&
                 cityForecast != null &&
                 !timeUtil.isOlderThan24Hours(
-                    cityForecast.createdAt,
+                    clock = clockProvider.getClock(),
+                    timeInMillis = cityForecast.createdAt,
                 )
             ) {
                 Timber.d("Using cached forecast data for cityId: %s, skipCache: %s", cityId, skipCache)

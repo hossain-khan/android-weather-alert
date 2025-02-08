@@ -17,6 +17,7 @@ import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.DaggerTestAppComponent
 import dev.hossain.weatheralert.di.NetworkModule
+import dev.hossain.weatheralert.util.ClockProvider
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
 import kotlinx.coroutines.test.runTest
@@ -59,6 +60,9 @@ class WeatherRepositoryTest {
     private lateinit var cityDao: CityDao
 
     @Inject
+    lateinit var clockProvider: ClockProvider
+
+    @Inject
     lateinit var timeUtil: TimeUtil
 
     @Inject
@@ -87,6 +91,7 @@ class WeatherRepositoryTest {
                 openMeteoService = openMeteoService,
                 weatherApiService = weatherapiService,
                 cityForecastDao = cityForecastDao,
+                clockProvider = clockProvider,
                 timeUtil = timeUtil,
                 activeWeatherService = activeWeatherService,
             )
