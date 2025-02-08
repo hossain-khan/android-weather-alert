@@ -36,7 +36,6 @@ import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.ui.about.LearnMoreAboutAlerts
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
-import dev.hossain.weatheralert.ui.theme.dimensions
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,8 +52,7 @@ fun EmptyAlertState(
         modifier =
             modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+                .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -92,7 +90,7 @@ fun EmptyAlertState(
                     contentDescription = "${serviceConfig.serviceName} Forecast Service Logo",
                     modifier =
                         Modifier
-                            .padding(top = 16.dp, start = 56.dp)
+                            .padding(top = 16.dp, start = 24.dp)
                             // Add multiplier to make the logo bigger
                             .size(serviceConfig.logoWidth * 1.2f, serviceConfig.logoHeight * 1.2f)
                             // Reduces intensity by a bit
