@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "510701824725",
+    "project_id": "weather-alert-android",
+    "storage_bucket": "weather-alert-android.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510701824725:android:3117d8d925e9b6504c905c",
+        "android_client_info": {
+          "package_name": "dev.hossain.weatheralert"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ6oIaBqba5A1wB8cgZujiHHmzx62HR28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510701824725:android:f036a9643a7750934c905c",
+        "android_client_info": {
+          "package_name": "dev.hossain.weatheralert.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ6oIaBqba5A1wB8cgZujiHHmzx62HR28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510701824725:android:4d80395ceb23cb3d4c905c",
+        "android_client_info": {
+          "package_name": "dev.hossain.weatheralert.internal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ6oIaBqba5A1wB8cgZujiHHmzx62HR28"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
