@@ -474,6 +474,8 @@ fun AlertTileGrid(
     LazyColumn(
         state = listState,
         modifier = Modifier.fillMaxSize(),
+        // Add spacing between items (on top of list item card paddings)
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         itemsIndexed(
             items = tiles,
@@ -577,7 +579,7 @@ fun AlertListItem(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(4.dp)
                 .then(
                     if (isSystemInDarkTheme()) {
                         Modifier.border(1.dp, Color.Gray.copy(alpha = 0.1f), RoundedCornerShape(12.dp))
