@@ -77,6 +77,11 @@ interface Analytics {
      * Logs event when user views tutorial.
      */
     fun logViewTutorial(isComplete: Boolean)
+
+    /**
+     * Logs event when user views external URL for weather forecast service.
+     */
+    fun logViewServiceExternalUrl(weatherForecastService: WeatherForecastService)
 }
 
 /**
@@ -130,11 +135,14 @@ class AnalyticsImpl
             }
         }
 
+        /**
+         * - https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Event#SELECT_CONTENT()
+         */
         override suspend fun logCityDetails(
             cityId: Long,
             cityName: String,
         ) {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
                 param(FirebaseAnalytics.Param.ITEM_ID, cityId)
                 param(FirebaseAnalytics.Param.ITEM_NAME, cityName)
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "city")
@@ -167,6 +175,16 @@ class AnalyticsImpl
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE) {}
             } else {
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN) {}
+            }
+        }
+
+        /**
+         * - https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Event#SELECT_CONTENT()
+         */
+        override fun logViewServiceExternalUrl(weatherForecastService: WeatherForecastService) {
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+                param(FirebaseAnalytics.Param.ITEM_ID, weatherForecastService.name)
+                param(FirebaseAnalytics.Param.CONTENT_TYPE, "service_website")
             }
         }
     }

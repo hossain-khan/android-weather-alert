@@ -418,7 +418,7 @@ fun CurrentWeatherAlerts(
                 if (state.tiles.isEmpty()) {
                     EmptyAlertState(
                         onLearnMoreOpened = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = true)) },
-                        onLearnMoreClose = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = false)) },
+                        onLearnMoreClosed = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = false)) },
                     )
                 } else {
                     AlertTileGrid(

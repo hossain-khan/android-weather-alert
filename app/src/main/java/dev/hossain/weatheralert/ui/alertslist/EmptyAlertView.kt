@@ -42,7 +42,7 @@ import dev.hossain.weatheralert.ui.theme.dimensions
 @Composable
 fun EmptyAlertState(
     onLearnMoreOpened: () -> Unit = {},
-    onLearnMoreClose: () -> Unit = {},
+    onLearnMoreClosed: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     // https://developer.android.com/develop/ui/compose/components/bottom-sheets
@@ -105,13 +105,13 @@ fun EmptyAlertState(
     if (showBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = {
-                onLearnMoreClose()
+                onLearnMoreClosed()
                 showBottomSheet = false
             },
             sheetState = sheetState,
         ) {
             LearnMoreAboutAlerts {
-                onLearnMoreClose()
+                onLearnMoreClosed()
                 showBottomSheet = false
             }
         }
