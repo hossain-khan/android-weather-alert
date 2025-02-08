@@ -37,11 +37,6 @@ data class WeatherServiceConfig(
      * Optional API service name that is required for the API key.
      */
     val apiServiceProductName: String,
-    /**
-     * Indicates API key is required to avoid rate limiting or overuse.
-     * Some services does not require API key or has high limit making it not required to provide API key.
-     */
-    val requiresApiKey: Boolean,
 )
 
 internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
@@ -60,7 +55,6 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                         "To continue to use this app, you need to provide your own API key from OpenWeatherMap.",
                 apiFormatGuide = "API key should be 32 characters long and contain only hexadecimal characters.",
                 apiServiceProductName = "One Call API 3.0",
-                requiresApiKey = true,
             )
         WeatherForecastService.TOMORROW_IO ->
             WeatherServiceConfig(
@@ -76,7 +70,6 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                         "To continue to use this app, you need to provide your own API key from Tomorrow.io.",
                 apiFormatGuide = "API key should be 32 characters long and contain only letters and numbers.",
                 apiServiceProductName = "Weather API",
-                requiresApiKey = true,
             )
 
         WeatherForecastService.OPEN_METEO ->
@@ -91,7 +84,6 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiExhaustedMessage = "Not applicable for Open-Meteo API.",
                 apiFormatGuide = "Not applicable.",
                 apiServiceProductName = "Weather API",
-                requiresApiKey = false,
             )
 
         WeatherForecastService.WEATHER_API ->
@@ -107,6 +99,5 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiExhaustedMessage = "Not applicable for WeatherAPI.",
                 apiFormatGuide = "Not applicable.",
                 apiServiceProductName = "WeatherAPI",
-                requiresApiKey = false,
             )
     }
