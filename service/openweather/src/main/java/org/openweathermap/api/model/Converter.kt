@@ -22,7 +22,7 @@ internal fun WeatherForecast.toForecastData(): AppForecastData =
             Snow(
                 dailyCumulativeSnow =
                     hourly
-                        .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 },
+                        .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 } * 10,
                 nextDaySnow =
                     daily
                         .take(CUMULATIVE_DATA_HOURS_24)
@@ -54,6 +54,6 @@ private fun HourlyForecast.toHourlyPrecipitation(): HourlyPrecipitation =
                 .atZone(ZoneId.systemDefault())
                 .toOffsetDateTime()
                 .toString(),
-        snow = snow?.snowVolumeInAnHour ?: 0.0,
+        snow = (snow?.snowVolumeInAnHour ?: 0.0) * 10,
         rain = rain?.rainVolumeInAnHour ?: 0.0,
     )
