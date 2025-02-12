@@ -3,7 +3,7 @@ activityCompose = "1.10.0"
 
 # Adaptive library to create adaptive UIs
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
-adaptiveAndroid = "1.1.0-beta01"
+adaptiveAndroid = "1.1.0-beta02"
 
 agp = "8.8.0"
 
@@ -32,7 +32,7 @@ espressoCore = "3.6.1"
 firebaseBom = "33.9.0"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
-googleFonts = "1.7.7"
+googleFonts = "1.7.8"
 
 # Fluent assertions for Java and Android
 # https://truth.dev/ | https://github.com/google/truth
@@ -67,7 +67,7 @@ moshi = "1.15.2"
 
 # Navigation for Jetpack Compose
 # https://developer.android.com/develop/ui/compose/navigation
-navigationCompose = "2.8.6"
+navigationCompose = "2.8.7"
 
 # Http client for Android
 # https://square.github.io/okhttp/

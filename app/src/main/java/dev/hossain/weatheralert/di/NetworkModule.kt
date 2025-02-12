@@ -51,6 +51,8 @@ object NetworkModule {
         return OkHttpClient
             .Builder()
             .cache(cache)
+            // Added to simulate and test with static forecast response
+            // .addInterceptor(SimulatedResponseInterceptor(context))
             .addInterceptor(loggingInterceptor)
             .build()
     }
