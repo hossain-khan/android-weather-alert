@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.1.10"
 }
 
 group = "dev.hossain.citydb"
@@ -14,7 +14,7 @@ repositories {
 dependencies {
     // https://developer.android.com/kotlin/multiplatform/sqlite
     // https://mvnrepository.com/artifact/androidx.sqlite/sqlite-bundled
-    // https://developer.android.com/jetpack/androidx/releases/sqlite#2.5.0-alpha12
+    // https://developer.android.com/jetpack/androidx/releases/sqlite
     val sqliteVersion = "2.5.0-beta01"
 
     // androidx.sqlite:sqlite-bundled
