@@ -92,6 +92,11 @@ class MainActivity
         }
 
         private fun handleDeepLink(intent: Intent) {
+            if (!::navigator.isInitialized) {
+                Timber.w("Navigator is not initialized. Can not deeplink.")
+                return
+            }
+
             val destinationScreen =
                 intent.extras?.let {
                     BundleCompat.getParcelable(
@@ -113,6 +118,7 @@ class MainActivity
                     BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
                     Screen::class.java,
                 )
+            Timber.d("parseDeepLinkedScreens: $screen")
             // Builds stack of screens to navigate to.
             return screen?.let { persistentListOf(CurrentWeatherAlertScreen("root"), it) }
         }
