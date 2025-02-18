@@ -36,6 +36,8 @@ google-services.json
 *.aab
 app/debug/*
 app/release/*
+app/prod/*
+app/internal/*
 *.salive
 
 # Weather Alert Project Files
