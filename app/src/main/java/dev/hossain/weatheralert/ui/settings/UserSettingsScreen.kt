@@ -74,6 +74,7 @@ import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -227,15 +228,10 @@ fun UserSettingsScreen(
             )
             WeatherServiceSelectionGroupUi(
                 selectedService = state.selectedService,
+                isUserProvidedApiKeyInUse = state.isUserProvidedApiKeyInUse,
                 onServiceSelected = { service ->
                     state.eventSink(UserSettingsScreen.Event.ServiceSelected(service))
                 },
-            )
-
-            AddServiceApiKeyUi(
-                selectedService = state.selectedService,
-                isServiceApiKeyRequired = state.selectedService.requiresApiKey,
-                isUserProvidedApiKeyInUse = state.isUserProvidedApiKeyInUse,
                 eventSink = state.eventSink,
             )
         }
@@ -245,14 +241,23 @@ fun UserSettingsScreen(
 @Composable
 private fun AddServiceApiKeyUi(
     selectedService: WeatherForecastService,
-    isServiceApiKeyRequired: Boolean,
     isUserProvidedApiKeyInUse: Boolean,
     eventSink: (UserSettingsScreen.Event) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+    var isVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        // Delay added to force animation to be visible
+        delay(100)
+        isVisible = true
+    }
+
     AnimatedVisibility(
-        visible = isServiceApiKeyRequired,
+        visible = isVisible,
         enter = fadeIn() + slideInVertically(),
         exit = fadeOut() + slideOutVertically(),
+        modifier = modifier,
     ) {
         Column {
             ElevatedButton(
@@ -261,7 +266,7 @@ private fun AddServiceApiKeyUi(
                 },
                 modifier =
                     Modifier
-                        .padding(top = 24.dp)
+                        .padding(top = 4.dp)
                         .align(Alignment.CenterHorizontally),
             ) {
                 Text(if (isUserProvidedApiKeyInUse) "Modify API Service Key" else "Add API Service Key")
@@ -340,7 +345,9 @@ fun WeatherUpdateFrequencyUi(
 @Composable
 fun WeatherServiceSelectionGroupUi(
     selectedService: WeatherForecastService,
+    isUserProvidedApiKeyInUse: Boolean,
     onServiceSelected: (WeatherForecastService) -> Unit,
+    eventSink: (UserSettingsScreen.Event) -> Unit,
 ) {
     Column(
         modifier =
@@ -354,44 +361,56 @@ fun WeatherServiceSelectionGroupUi(
                 return@forEach
             }
 
-            Card(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { onServiceSelected(service) },
-                elevation = CardDefaults.cardElevation(8.dp),
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.padding(16.dp),
+            Column {
+                Card(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { onServiceSelected(service) },
+                    elevation = CardDefaults.cardElevation(8.dp),
                 ) {
-                    RadioButton(
-                        selected = selectedService == service,
-                        onClick = { onServiceSelected(service) },
-                    )
-
-                    val serviceConfig = service.serviceConfig()
-
-                    Column {
-                        Image(
-                            painter = painterResource(id = serviceConfig.logoResId),
-                            contentDescription = service.name,
-                            modifier =
-                                Modifier.size(
-                                    width = serviceConfig.logoWidth,
-                                    height = serviceConfig.logoHeight,
-                                ),
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.padding(16.dp),
+                    ) {
+                        RadioButton(
+                            selected = selectedService == service,
+                            onClick = { onServiceSelected(service) },
                         )
-                        Text(
-                            text = serviceConfig.description,
-                            style = MaterialTheme.typography.labelSmall,
-                            modifier =
-                                Modifier
-                                    .alpha(0.6f)
-                                    .padding(top = 4.dp),
-                        )
+
+                        val serviceConfig = service.serviceConfig()
+
+                        Column {
+                            Image(
+                                painter = painterResource(id = serviceConfig.logoResId),
+                                contentDescription = service.name,
+                                modifier =
+                                    Modifier.size(
+                                        width = serviceConfig.logoWidth,
+                                        height = serviceConfig.logoHeight,
+                                    ),
+                            )
+                            Text(
+                                text = serviceConfig.description,
+                                style = MaterialTheme.typography.labelSmall,
+                                modifier =
+                                    Modifier
+                                        .alpha(0.6f)
+                                        .padding(top = 4.dp),
+                            )
+                        }
                     }
+                }
+
+                // Show API key UI only for the selected service that requires an API key
+                if (selectedService == service && service.requiresApiKey) {
+                    AddServiceApiKeyUi(
+                        selectedService = service,
+                        isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
+                        eventSink = eventSink,
+                        modifier = Modifier.padding(top = 8.dp),
+                    )
                 }
             }
         }
