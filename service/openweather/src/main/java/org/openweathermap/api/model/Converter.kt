@@ -22,6 +22,7 @@ internal fun WeatherForecast.toForecastData(): AppForecastData =
             Snow(
                 dailyCumulativeSnow =
                     hourly
+                        .take(CUMULATIVE_DATA_HOURS_24)
                         .sumOf { it.snow?.snowVolumeInAnHour ?: 0.0 } * 10,
                 nextDaySnow =
                     daily
