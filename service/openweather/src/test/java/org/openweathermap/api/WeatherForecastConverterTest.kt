@@ -93,6 +93,22 @@ class WeatherForecastConverterTest {
         assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
     }
 
+    @Test
+    fun `given light snow on oshawa city further out - does not show snow in next 24 hours`() {
+        val weatherForecast = loadWeatherForecastFromJson("open-weather-oshawa-2025-02-25-light-snow.json")
+
+        val result = weatherForecast.convertToForecastData()
+
+        assertThat(result.latitude).isEqualTo(43.9)
+        assertThat(result.longitude).isEqualTo(-78.85)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.snow.nextDaySnow).isEqualTo(0.0)
+        assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
+        assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.87)
+        assertThat(result.rain.nextDayRain).isEqualTo(0.87)
+        assertThat(result.rain.weeklyCumulativeRain).isEqualTo(0.0)
+    }
+
     // Helper method to load WeatherForecast from JSON
     private fun loadWeatherForecastFromJson(fileName: String): WeatherApiServiceResponse {
         val classLoader = javaClass.classLoader
