@@ -27,8 +27,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.hossain.weatheralert.R
@@ -56,8 +60,16 @@ fun EmptyAlertState(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Your no-fuss, personal weather alerter.",
+            text =
+                buildAnnotatedString {
+                    append("ℹ️ This is ")
+                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("not")
+                    }
+                    append(" your usual weather forecast app.")
+                },
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
         )
@@ -66,8 +78,9 @@ fun EmptyAlertState(
             contentDescription = "No alerts configured.",
         )
         Text(
-            text = "No custom weather alerts configured.",
+            text = "Set weather alerts and get notified when thresholds are met.",
             style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(2.dp))
         TextButton(onClick = {
