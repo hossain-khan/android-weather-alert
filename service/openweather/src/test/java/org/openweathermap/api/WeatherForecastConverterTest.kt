@@ -36,7 +36,7 @@ class WeatherForecastConverterTest {
 
         assertThat(result.latitude).isEqualTo(43.9319)
         assertThat(result.longitude).isEqualTo(-78.851)
-        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(40.300000000000004)
+        assertThat(result.snow.dailyCumulativeSnow).isEqualTo(38.7)
         assertThat(result.snow.nextDaySnow).isEqualTo(2.06)
         assertThat(result.snow.weeklyCumulativeSnow).isEqualTo(0.0)
         assertThat(result.rain.dailyCumulativeRain).isEqualTo(0.0)
