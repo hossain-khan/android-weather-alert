@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
@@ -34,12 +35,15 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType.Companion.PrimaryEditable
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -51,6 +55,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -151,7 +156,21 @@ data object AddNewWeatherAlertScreen : Screen {
         data object GoBack : Event()
 
         data object ForecastServiceIconClicked : Event()
+
+        data class ServiceSelected(
+            val service: WeatherForecastService,
+        ) : Event()
+
+        data object UseAllServicesSelected : Event()
     }
+}
+
+private sealed interface SelectedServiceType {
+    data class SingleService(
+        val service: WeatherForecastService,
+    ) : SelectedServiceType
+
+    data object AllServices : SelectedServiceType
 }
 
 class AddWeatherAlertPresenter
@@ -382,6 +401,14 @@ class AddWeatherAlertPresenter
                     AddNewWeatherAlertScreen.Event.ForecastServiceIconClicked -> {
                         navigator.goTo(UserSettingsScreen)
                     }
+
+                    is AddNewWeatherAlertScreen.Event.ServiceSelected -> {
+                        Timber.d("User selected service: ${event.service}")
+                        selectedApiService = event.service
+                    }
+                    AddNewWeatherAlertScreen.Event.UseAllServicesSelected -> {
+                        Timber.d("User selected to use all services")
+                    }
                 }
             }
         }
@@ -573,6 +600,7 @@ fun AddNewWeatherAlertScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CurrentApiServiceStateUi(
     weatherForecastService: WeatherForecastService,
@@ -580,6 +608,12 @@ private fun CurrentApiServiceStateUi(
     modifier: Modifier = Modifier,
 ) {
     val serviceConfig = weatherForecastService.serviceConfig()
+    val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    var showBottomSheet by remember { mutableStateOf(false) }
+    var selectedServiceType by remember { mutableStateOf<SelectedServiceType>(SelectedServiceType.SingleService(weatherForecastService)) }
+    var useAllServices by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
@@ -587,13 +621,11 @@ private fun CurrentApiServiceStateUi(
         Text("ℹ️ Forecast data source: ", style = MaterialTheme.typography.labelSmall)
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.clickable { eventSink(AddNewWeatherAlertScreen.Event.ForecastServiceIconClicked) },
+            modifier = Modifier.clickable { showBottomSheet = true },
         ) {
             Image(
                 painter = painterResource(id = serviceConfig.logoResId),
-                modifier =
-                    Modifier
-                        .size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
+                modifier = Modifier.size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
                 contentDescription = "${weatherForecastService.name} logo image",
             )
             Spacer(modifier = Modifier.size(6.dp))
@@ -601,10 +633,110 @@ private fun CurrentApiServiceStateUi(
                 imageVector = Icons.Outlined.Edit,
                 contentDescription = "Change forecast service",
                 tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.3f),
+                modifier = Modifier.size(14.dp),
+            )
+        }
+    }
+
+    if (showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = {
+                scope.launch {
+                    // Animate the hiding
+                    bottomSheetState.hide()
+                    showBottomSheet = false
+                }
+            },
+            sheetState = bottomSheetState,
+        ) {
+            Column(
                 modifier =
                     Modifier
-                        .size(14.dp),
-            )
+                        .fillMaxWidth()
+                        .padding(bottom = 32.dp),
+            ) {
+                Text(
+                    text = "Select Weather Service",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp),
+                )
+
+                WeatherForecastService.entries.forEach { service ->
+                    if (!service.isEnabled) return@forEach
+
+                    val config = service.serviceConfig()
+                    Row(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    selectedServiceType = SelectedServiceType.SingleService(service)
+                                    useAllServices = false
+                                    showBottomSheet = false
+                                    eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(service))
+                                }.padding(horizontal = 24.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        RadioButton(
+                            selected =
+                                selectedServiceType is SelectedServiceType.SingleService &&
+                                    (selectedServiceType as? SelectedServiceType.SingleService)?.service == service,
+                            onClick = {
+                                selectedServiceType = SelectedServiceType.SingleService(service)
+                                showBottomSheet = false
+                                eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(service))
+                            },
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Image(
+                            painter = painterResource(id = config.logoResId),
+                            contentDescription = service.name,
+                            modifier = Modifier.size(width = config.logoWidth, height = config.logoHeight),
+                        )
+                    }
+                }
+
+                HorizontalDivider(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp),
+                )
+
+                // Use All Services Option
+                Row(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                useAllServices = true
+                                showBottomSheet = false
+                                eventSink(AddNewWeatherAlertScreen.Event.UseAllServicesSelected)
+                            }.padding(horizontal = 24.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    RadioButton(
+                        selected = selectedServiceType is SelectedServiceType.AllServices,
+                        onClick = {
+                            selectedServiceType = SelectedServiceType.AllServices
+                            showBottomSheet = false
+                            eventSink(AddNewWeatherAlertScreen.Event.UseAllServicesSelected)
+                        },
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Column {
+                        Text(
+                            text = "Use All Services",
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        Text(
+                            text = "Same alert will be added using all services to maximize alert coverage",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                        )
+                    }
+                }
+            }
         }
     }
 }
