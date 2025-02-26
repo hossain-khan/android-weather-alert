@@ -26,7 +26,14 @@ class PreferencesManager
         @ApplicationContext private val context: Context,
     ) {
         private val dataStore = context.dataStore
-        private val defaultWeatherForecastService = WeatherForecastService.OPEN_WEATHER_MAP
+
+        /**
+         * This use default weather service provider with the highest API limit and good accuracy.
+         * Made this default to reduce load on other services that does require API key with daily and monthly limit.
+         *
+         * See https://github.com/hossain-khan/android-weather-alert/tree/main/service#readme
+         */
+        private val defaultWeatherForecastService = WeatherForecastService.WEATHER_API
 
         fun userApiKey(service: WeatherForecastService): Flow<String?> =
             dataStore.data
