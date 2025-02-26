@@ -251,6 +251,7 @@ class AddWeatherAlertPresenter
                                 )
                             Timber.d("Added new alert for ${city.cityName} city with ID: $addedAlertId")
 
+                            // TODO - refactor needed to handle multiple services
                             val dailyForecast =
                                 weatherRepository.getDailyForecast(
                                     alertId = addedAlertId,
@@ -259,6 +260,8 @@ class AddWeatherAlertPresenter
                                     longitude = city.lng,
                                     skipCache = true,
                                 )
+
+                            // TODO - Handle multiple services, the result will be different when using all services
                             when (dailyForecast) {
                                 is ApiResult.Success -> {
                                     // Indicates forecast is loaded and alert record was already added above
@@ -416,10 +419,6 @@ class AddWeatherAlertPresenter
                         Timber.d("User selected service: ${event.selectedServiceType}")
                         selectedServiceType = event.selectedServiceType
                     }
-//                    AddNewWeatherAlertScreen.Event.UseAllServicesSelected -> {
-//                        Timber.d("User selected to use all services")
-//                        selectedServiceType = SelectedServiceType.AllServices
-//                    }
                 }
             }
         }
