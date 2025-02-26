@@ -76,6 +76,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.CircuitUiEvent
@@ -116,7 +117,7 @@ import timber.log.Timber
 @Parcelize
 data object AddNewWeatherAlertScreen : Screen {
     data class State(
-        val selectedApiService: WeatherForecastService?,
+        val selectedApiService: SelectedServiceType?,
         val citySuggestions: List<City>,
         val snowThreshold: Float,
         val rainThreshold: Float,
@@ -158,14 +159,14 @@ data object AddNewWeatherAlertScreen : Screen {
         data object ForecastServiceIconClicked : Event()
 
         data class ServiceSelected(
-            val service: WeatherForecastService,
+            val selectedServiceType: SelectedServiceType,
         ) : Event()
 
-        data object UseAllServicesSelected : Event()
+        // data object UseAllServicesSelected : Event()
     }
 }
 
-private sealed interface SelectedServiceType {
+sealed interface SelectedServiceType {
     data class SingleService(
         val service: WeatherForecastService,
     ) : SelectedServiceType
@@ -192,14 +193,14 @@ class AddWeatherAlertPresenter
             var isSaveButtonEnabled by remember { mutableStateOf(false) }
             var isApiCallInProgress by remember { mutableStateOf(false) }
             var selectedCity: City? by remember { mutableStateOf(null) }
-            var selectedApiService by remember { mutableStateOf<WeatherForecastService?>(null) }
+            var selectedServiceType by remember { mutableStateOf<SelectedServiceType?>(null) }
             var snackbarData: SnackbarData? by remember { mutableStateOf(null) }
             var reminderNotes = ""
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherForecastService.collect { service ->
                     Timber.d("Active weather service from preferences: $service")
-                    selectedApiService = service
+                    selectedServiceType = SelectedServiceType.SingleService(service)
                 }
             }
 
@@ -208,7 +209,7 @@ class AddWeatherAlertPresenter
             }
 
             return AddNewWeatherAlertScreen.State(
-                selectedApiService = selectedApiService,
+                selectedApiService = selectedServiceType,
                 citySuggestions = suggestions,
                 snowThreshold = updatedSnowThreshold,
                 rainThreshold = updatedRainThreshold,
@@ -288,12 +289,15 @@ class AddWeatherAlertPresenter
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(
-                                                        BringYourOwnApiKeyScreen(
-                                                            weatherApiService = selectedApiService!!,
-                                                            isOriginatedFromError = true,
-                                                        ),
-                                                    )
+                                                    val serviceType = selectedServiceType
+                                                    if (serviceType is SelectedServiceType.SingleService) {
+                                                        navigator.goTo(
+                                                            BringYourOwnApiKeyScreen(
+                                                                weatherApiService = serviceType.service,
+                                                                isOriginatedFromError = true,
+                                                            ),
+                                                        )
+                                                    }
                                                 }
                                         }
                                         TomorrowIoService.ERROR_HTTP_FORBIDDEN -> {
@@ -304,12 +308,15 @@ class AddWeatherAlertPresenter
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(
-                                                        BringYourOwnApiKeyScreen(
-                                                            weatherApiService = selectedApiService!!,
-                                                            isOriginatedFromError = true,
-                                                        ),
-                                                    )
+                                                    val serviceType = selectedServiceType
+                                                    if (serviceType is SelectedServiceType.SingleService) {
+                                                        navigator.goTo(
+                                                            BringYourOwnApiKeyScreen(
+                                                                weatherApiService = serviceType.service,
+                                                                isOriginatedFromError = true,
+                                                            ),
+                                                        )
+                                                    }
                                                 }
                                         }
                                         OpenWeatherService.ERROR_HTTP_NOT_FOUND -> {
@@ -326,12 +333,15 @@ class AddWeatherAlertPresenter
                                                     message = "This public API key rate limit exceed. Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
-                                                    navigator.goTo(
-                                                        BringYourOwnApiKeyScreen(
-                                                            weatherApiService = selectedApiService!!,
-                                                            isOriginatedFromError = true,
-                                                        ),
-                                                    )
+                                                    val serviceType = selectedServiceType
+                                                    if (serviceType is SelectedServiceType.SingleService) {
+                                                        navigator.goTo(
+                                                            BringYourOwnApiKeyScreen(
+                                                                weatherApiService = serviceType.service,
+                                                                isOriginatedFromError = true,
+                                                            ),
+                                                        )
+                                                    }
                                                 }
                                         }
                                         else -> {
@@ -403,12 +413,13 @@ class AddWeatherAlertPresenter
                     }
 
                     is AddNewWeatherAlertScreen.Event.ServiceSelected -> {
-                        Timber.d("User selected service: ${event.service}")
-                        selectedApiService = event.service
+                        Timber.d("User selected service: ${event.selectedServiceType}")
+                        selectedServiceType = event.selectedServiceType
                     }
-                    AddNewWeatherAlertScreen.Event.UseAllServicesSelected -> {
-                        Timber.d("User selected to use all services")
-                    }
+//                    AddNewWeatherAlertScreen.Event.UseAllServicesSelected -> {
+//                        Timber.d("User selected to use all services")
+//                        selectedServiceType = SelectedServiceType.AllServices
+//                    }
                 }
             }
         }
@@ -603,15 +614,13 @@ fun AddNewWeatherAlertScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CurrentApiServiceStateUi(
-    weatherForecastService: WeatherForecastService,
+    selectedServiceType: SelectedServiceType,
     eventSink: (AddNewWeatherAlertScreen.Event) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val serviceConfig = weatherForecastService.serviceConfig()
     val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showBottomSheet by remember { mutableStateOf(false) }
-    var selectedServiceType by remember { mutableStateOf<SelectedServiceType>(SelectedServiceType.SingleService(weatherForecastService)) }
-    var useAllServices by remember { mutableStateOf(false) }
+    var selectedServiceTypeInternalTracker by remember { mutableStateOf(selectedServiceType) }
     val scope = rememberCoroutineScope()
 
     Row(
@@ -623,11 +632,24 @@ private fun CurrentApiServiceStateUi(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.clickable { showBottomSheet = true },
         ) {
-            Image(
-                painter = painterResource(id = serviceConfig.logoResId),
-                modifier = Modifier.size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
-                contentDescription = "${weatherForecastService.name} logo image",
-            )
+            when (selectedServiceType) {
+                is SelectedServiceType.SingleService -> {
+                    val serviceConfig = selectedServiceType.service.serviceConfig()
+                    Image(
+                        painter = painterResource(id = serviceConfig.logoResId),
+                        modifier = Modifier.size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
+                        contentDescription = "${selectedServiceType.service.name} logo image",
+                    )
+                }
+                is SelectedServiceType.AllServices -> {
+                    Icon(
+                        painter = painterResource(R.drawable.all_api_services),
+                        contentDescription = "Change forecast service",
+                        tint = MaterialTheme.colorScheme.secondary,
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.size(6.dp))
             Icon(
                 imageVector = Icons.Outlined.Edit,
@@ -670,21 +692,20 @@ private fun CurrentApiServiceStateUi(
                             Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    selectedServiceType = SelectedServiceType.SingleService(service)
-                                    useAllServices = false
-                                    showBottomSheet = false
-                                    eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(service))
+                                    selectedServiceTypeInternalTracker = SelectedServiceType.SingleService(service)
+                                    // showBottomSheet = false
+                                    eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(selectedServiceTypeInternalTracker))
                                 }.padding(horizontal = 24.dp, vertical = 12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         RadioButton(
                             selected =
-                                selectedServiceType is SelectedServiceType.SingleService &&
-                                    (selectedServiceType as? SelectedServiceType.SingleService)?.service == service,
+                                selectedServiceTypeInternalTracker is SelectedServiceType.SingleService &&
+                                    (selectedServiceTypeInternalTracker as? SelectedServiceType.SingleService)?.service == service,
                             onClick = {
-                                selectedServiceType = SelectedServiceType.SingleService(service)
+                                selectedServiceTypeInternalTracker = SelectedServiceType.SingleService(service)
                                 showBottomSheet = false
-                                eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(service))
+                                eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(selectedServiceTypeInternalTracker))
                             },
                         )
                         Spacer(modifier = Modifier.width(16.dp))
@@ -709,18 +730,18 @@ private fun CurrentApiServiceStateUi(
                         Modifier
                             .fillMaxWidth()
                             .clickable {
-                                useAllServices = true
                                 showBottomSheet = false
-                                eventSink(AddNewWeatherAlertScreen.Event.UseAllServicesSelected)
+                                selectedServiceTypeInternalTracker = SelectedServiceType.AllServices
+                                eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(selectedServiceTypeInternalTracker))
                             }.padding(horizontal = 24.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     RadioButton(
-                        selected = selectedServiceType is SelectedServiceType.AllServices,
+                        selected = selectedServiceTypeInternalTracker is SelectedServiceType.AllServices,
                         onClick = {
-                            selectedServiceType = SelectedServiceType.AllServices
+                            selectedServiceTypeInternalTracker = SelectedServiceType.AllServices
                             showBottomSheet = false
-                            eventSink(AddNewWeatherAlertScreen.Event.UseAllServicesSelected)
+                            eventSink(AddNewWeatherAlertScreen.Event.ServiceSelected(selectedServiceTypeInternalTracker))
                         },
                     )
                     Spacer(modifier = Modifier.width(16.dp))
@@ -728,10 +749,13 @@ private fun CurrentApiServiceStateUi(
                         Text(
                             text = "Use All Services",
                             style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = "Same alert will be added using all services to maximize alert coverage",
-                            style = MaterialTheme.typography.bodySmall,
+                            text =
+                                "Same alert will be added using all services to maximize " +
+                                    "alert reliability and coverage using all services.",
+                            style = MaterialTheme.typography.bodySmall.copy(fontSize = 10.sp),
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                         )
                     }
@@ -942,7 +966,7 @@ private fun AddWeatherAlertScreenPreview() {
     WeatherAlertAppTheme {
         AddNewWeatherAlertScreen(
             AddNewWeatherAlertScreen.State(
-                selectedApiService = WeatherForecastService.OPEN_WEATHER_MAP,
+                selectedApiService = SelectedServiceType.SingleService(WeatherForecastService.OPEN_WEATHER_MAP),
                 citySuggestions = emptyList(),
                 snowThreshold = 5.0f,
                 rainThreshold = 10.0f,
