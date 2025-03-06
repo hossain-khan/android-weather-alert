@@ -12,6 +12,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -643,26 +644,28 @@ fun AlertListItem(
             },
             colors = colors,
             leadingContent = {
-                Icon(
-                    painter = painterResource(iconResId),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(48.dp),
-                )
-            },
-            trailingContent = {
-                Icon(
-                    painter =
-                        if (data.isAlertActive) {
-                            painterResource(
-                                R.drawable.warning_24dp,
-                            )
-                        } else {
-                            painterResource(R.drawable.happy_face_24dp)
-                        },
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    // Main category icon
+                    Icon(
+                        painter = painterResource(iconResId),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(48.dp),
+                    )
+
+                    // Conditionally show warning icon as an overlay when alert is active
+                    if (data.isAlertActive) {
+                        Icon(
+                            painter = painterResource(R.drawable.warning_24dp),
+                            contentDescription = "Alert active",
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier =
+                                Modifier
+                                    .size(24.dp)
+                                    .align(Alignment.BottomEnd),
+                        )
+                    }
+                }
             },
             modifier = Modifier.padding(0.dp),
         )
