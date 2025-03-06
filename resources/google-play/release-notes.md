@@ -6,7 +6,7 @@
 
 ### What's new
 * 🆕 Updated the alert list to include the forecast source for each alert.
-* 🆕 Fixed a bug with next day forecast was wrong using Open Weather Map API
+* 🆕 Fixed a bug where the next day forecast was incorrect when using the OpenWeatherMap API.
 * Fixed issue where refreshing forecast would replace previously used weather data sources.
 * Added new weather data sources for improved forecast accuracy and reliability.
 * Added the ability to set multiple alerts for the same city using different weather data sources.
