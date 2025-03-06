@@ -83,7 +83,6 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -98,6 +97,7 @@ import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
@@ -226,10 +226,8 @@ class CurrentWeatherAlertPresenter
                                         },
                                     alertNote = alert.alert.notes,
                                     forecastSourceName =
-                                        if (BuildConfig.DEBUG &&
-                                            cityForecast != null
-                                        ) {
-                                            cityForecast.forecastSourceService.name
+                                        if (cityForecast != null) {
+                                            cityForecast.forecastSourceService.serviceConfig().serviceName
                                         } else {
                                             ""
                                         },
@@ -632,13 +630,25 @@ fun AlertListItem(
                         )
                     }
 
-                    // Show forecast source in debug builds
+                    // Show forecast source in case user has multiple alerts from different sources.
                     if (data.forecastSourceName.isNotEmpty()) {
                         HorizontalDivider(Modifier.padding(vertical = 8.dp))
-                        Text(
-                            text = "Source: ${data.forecastSourceName}",
-                            style = MaterialTheme.typography.bodySmall,
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(vertical = 2.dp),
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.info_24dp),
+                                contentDescription = null,
+                                modifier = Modifier.size(14.dp),
+                                tint = MaterialTheme.colorScheme.tertiary,
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "Forecast Source: ${data.forecastSourceName}",
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
                     }
                 }
             },
