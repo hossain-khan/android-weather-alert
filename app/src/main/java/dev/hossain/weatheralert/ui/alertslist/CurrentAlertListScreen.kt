@@ -12,11 +12,13 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -82,7 +84,6 @@ import com.slack.eithernet.exceptionOrNull
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -97,6 +98,7 @@ import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
@@ -224,14 +226,7 @@ class CurrentWeatherAlertPresenter
                                             WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
                                         },
                                     alertNote = alert.alert.notes,
-                                    forecastSourceName =
-                                        if (BuildConfig.DEBUG &&
-                                            cityForecast != null
-                                        ) {
-                                            cityForecast.forecastSourceService.name
-                                        } else {
-                                            ""
-                                        },
+                                    forecastSourceName = cityForecast?.forecastSourceService?.serviceConfig()?.serviceName ?: "",
                                 ),
                             )
                         }
@@ -631,38 +626,57 @@ fun AlertListItem(
                         )
                     }
 
-                    // Show forecast source in debug builds
+                    // Show forecast source in case user has multiple alerts from different sources.
                     if (data.forecastSourceName.isNotEmpty()) {
                         HorizontalDivider(Modifier.padding(vertical = 8.dp))
-                        Text(
-                            text = "Source: ${data.forecastSourceName}",
-                            style = MaterialTheme.typography.bodySmall,
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(vertical = 2.dp),
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.info_24dp),
+                                contentDescription = null,
+                                modifier = Modifier.size(14.dp),
+                                tint = MaterialTheme.colorScheme.tertiary,
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = "Forecast Source: ${data.forecastSourceName}",
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
                     }
                 }
             },
             colors = colors,
             leadingContent = {
-                Icon(
-                    painter = painterResource(iconResId),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(48.dp),
-                )
-            },
-            trailingContent = {
-                Icon(
-                    painter =
-                        if (data.isAlertActive) {
-                            painterResource(
-                                R.drawable.warning_24dp,
-                            )
-                        } else {
-                            painterResource(R.drawable.happy_face_24dp)
-                        },
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface,
-                )
+                Box(
+                    contentAlignment = Alignment.TopCenter,
+                    // Increased from default size to provide more vertical space
+                    // And push the warning icon bit more bottom
+                    modifier = Modifier.height(56.dp),
+                ) {
+                    // Main category icon
+                    Icon(
+                        painter = painterResource(iconResId),
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(48.dp),
+                    )
+
+                    // Conditionally show warning icon as an overlay when alert is active
+                    if (data.isAlertActive) {
+                        Icon(
+                            painter = painterResource(R.drawable.warning_24dp),
+                            contentDescription = "Alert active",
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier =
+                                Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .size(20.dp), // Slightly smaller for better proportions
+                        )
+                    }
+                }
             },
             modifier = Modifier.padding(0.dp),
         )
@@ -707,7 +721,7 @@ fun CurrentWeatherAlertsPreview() {
                 category = WeatherAlertCategory.SNOW_FALL,
                 threshold = "25 mm",
                 currentStatus = "11 mm",
-                isAlertActive = false,
+                isAlertActive = true,
                 alertNote = "",
                 forecastSourceName = "OpenWeatherMap",
             ),
