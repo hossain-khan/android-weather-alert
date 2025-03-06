@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -225,12 +226,7 @@ class CurrentWeatherAlertPresenter
                                             WeatherAlertCategory.RAIN_FALL -> rainStatus > alert.alert.threshold
                                         },
                                     alertNote = alert.alert.notes,
-                                    forecastSourceName =
-                                        if (cityForecast != null) {
-                                            cityForecast.forecastSourceService.serviceConfig().serviceName
-                                        } else {
-                                            ""
-                                        },
+                                    forecastSourceName = cityForecast?.forecastSourceService?.serviceConfig()?.serviceName ?: "",
                                 ),
                             )
                         }
@@ -654,7 +650,12 @@ fun AlertListItem(
             },
             colors = colors,
             leadingContent = {
-                Box(contentAlignment = Alignment.Center) {
+                Box(
+                    contentAlignment = Alignment.TopCenter,
+                    // Increased from default size to provide more vertical space
+                    // And push the warning icon bit more bottom
+                    modifier = Modifier.height(56.dp),
+                ) {
                     // Main category icon
                     Icon(
                         painter = painterResource(iconResId),
@@ -671,8 +672,8 @@ fun AlertListItem(
                             tint = MaterialTheme.colorScheme.error,
                             modifier =
                                 Modifier
-                                    .size(24.dp)
-                                    .align(Alignment.BottomEnd),
+                                    .align(Alignment.BottomEnd)
+                                    .size(20.dp), // Slightly smaller for better proportions
                         )
                     }
                 }
@@ -720,7 +721,7 @@ fun CurrentWeatherAlertsPreview() {
                 category = WeatherAlertCategory.SNOW_FALL,
                 threshold = "25 mm",
                 currentStatus = "11 mm",
-                isAlertActive = false,
+                isAlertActive = true,
                 alertNote = "",
                 forecastSourceName = "OpenWeatherMap",
             ),
