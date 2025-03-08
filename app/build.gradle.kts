@@ -84,6 +84,14 @@ android {
                 "proguard-rules.pro",
             )
             signingConfig = signingConfigs.getByName("release")
+
+            firebaseCrashlytics {
+                // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
+                // https://developer.android.com/studio/debug/stacktraces
+                // https://developer.android.com/tools/retrace
+                // https://www.guardsquare.com/manual/tools/retrace
+                mappingFileUploadEnabled = true
+            }
         }
     }
 
