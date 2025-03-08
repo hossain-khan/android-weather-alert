@@ -23,7 +23,7 @@ class ApiKeyProviderTest {
     fun isValidKey_returnsTrueForValidOpenWeatherMap_key1() {
         val validKey = "dccaeb06dd9f2cf5f8204df0f1428049"
         val isValid = apiKeyImpl.isValidKey(WeatherForecastService.OPEN_WEATHER_MAP, validKey)
-        assertThat(isValid).isFalse()
+        assertThat(isValid).isTrue()
     }
 
     @Test
