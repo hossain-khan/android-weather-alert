@@ -15,7 +15,7 @@ dependencies {
     // https://developer.android.com/kotlin/multiplatform/sqlite
     // https://mvnrepository.com/artifact/androidx.sqlite/sqlite-bundled
     // https://developer.android.com/jetpack/androidx/releases/sqlite
-    val sqliteVersion = "2.5.0-rc01"
+    val sqliteVersion = "2.5.0-rc02"
 
     // androidx.sqlite:sqlite-bundled
     implementation("androidx.sqlite:sqlite-bundled:$sqliteVersion")
