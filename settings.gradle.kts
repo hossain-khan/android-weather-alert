@@ -25,7 +25,7 @@ plugins {
     // Develocity - for Gradle build scan publishing
     // https://scans.gradle.com/
     // https://docs.gradle.com/develocity/gradle-plugin/current/
-    id("com.gradle.develocity") version("3.19.2")
+    id("com.gradle.develocity") version("4.0.1")
 }
 
 develocity {
