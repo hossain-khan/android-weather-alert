@@ -9,6 +9,14 @@
 
 -----------------------------------------------------------------------------
 
+
+## Weather Alert v2.8
+
+### What's new
+* Maintenance release with updated libraries and dependencies.
+
+💬 Feedback and comments are welcome via Google Play.
+
 ## Weather Alert v2.7
 
 ### What's new
