@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinter)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -31,6 +32,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+}
+
+kover {
+    reports {
+        filters {
+            androidGeneratedClasses()
+            annotatedBy("*Parcelize")
+        }
     }
 }
 

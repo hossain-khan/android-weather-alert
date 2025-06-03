@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "2.1.10"
+    alias(libs.plugins.kover)
 }
 
 group = "dev.hossain.citydb"
@@ -30,4 +31,9 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+kover {
+    // Configure Kover for a Kotlin JVM module.
+    // An empty block uses default settings.
 }

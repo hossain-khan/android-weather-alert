@@ -50,5 +50,47 @@ plugins {
 
     // Kover coverage for Kotlin projects
     // Project: https://github.com/Kotlin/kotlinx-kover
-    alias(libs.plugins.kotlinx.kover) apply false
+    alias(libs.plugins.kotlinx.kover) apply true
+}
+
+// Configure Kover for project-wide HTML and XML reports.
+// https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#reports
+kover {
+    // https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#merging-reports
+    merge {
+        // Enable project-wide report generation
+        html.set(true)
+        xml.set(true)
+
+        // Specifies directory to generate HTML reports.
+        htmlDir.set(layout.buildDirectory.dir("reports/kover/html"))
+        // Specifies file to generate XML report.
+        xmlFile.set(layout.buildDirectory.file("reports/kover/xml/report.xml"))
+    }
+}
+
+// Optional: Task to print coverage to console
+// https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#common-configuration
+tasks.register("koverLog", org.jetbrains.kotlinx.kover.gradle.plugin.tasks.KoverLogTask::class) {
+    coverageEngine.set(org.jetbrains.kotlinx.kover.gradle.plugin.dsl.CoverageEngine.INTELLIJ)
+    level.set(org.jetbrains.kotlinx.kover.gradle.plugin.dsl.CoverageLevel.PROJECT)
+
+    filters {
+        // Default Kover filters for Android and common exclusions
+        // https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#filtering
+        androidGeneratedClasses()
+        annotatedBy(
+            "*Generated",
+            "androidx.compose.runtime.Composable",
+            "androidx.compose.ui.tooling.preview.Preview"
+        )
+        packages(
+            "*.databinding.*",
+            "*.BuildConfig"
+        )
+    }
+
+    // Log coverage of the whole project to console
+    htmlPath.set(layout.buildDirectory.dir("reports/kover/html"))
+    xmlPath.set(layout.buildDirectory.file("reports/kover/xml/report.xml"))
 }
