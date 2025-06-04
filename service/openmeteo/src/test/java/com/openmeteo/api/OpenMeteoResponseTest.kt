@@ -2,23 +2,34 @@ package com.openmeteo.api
 
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.json.Json
+import org.junit.Assert.assertEquals // Ensure this import is present
 import org.junit.Test
 
 class OpenMeteoResponseTest {
-    @Test(expected = Exception::class)
+    @Test
     fun `test load and parse JSON file`() {
-        // Test is not working, because of following errors:
-        // 1. kotlinx.serialization.json.internal.JsonDecodingException: Unexpected JSON token at offset 937:
-        //    Failed to parse type 'double' for input '2025-01-21T00:00' at path: $.hourly['time'][0]
-        // 2. kotlinx.serialization.MissingFieldException: Fields [utcOffsetSeconds, timezoneAbbreviation, generationtimeMs]
-        //    are required for type with serial name 'com.openmeteo.api.Forecast.Response', but they were missing at path: $
-        // and so on...
         val response = loadWeatherForecastFromJson("open-meteo-forecast-lac-mann-snowing-2025-01-20.json")
 
         // Verify the parsed data
         assertThat(response).isNotNull()
-        assertThat(response.latitude).isEqualTo(49.592735)
-        assertThat(response.longitude).isEqualTo(-75.17785)
+        assertEquals(49.592735, response.latitude!!, 0.000001)
+        assertEquals(-75.17785, response.longitude!!, 0.000001)
+
+        // It might be good to add assertions for the renamed fields
+        // and the hourly times if we knew what to expect, but the primary goal
+        // is to make parsing successful.
+        // For example, we could check if the hourly time list is not empty if populated.
+        assertThat(response.hourly?.time).isNotNull()
+        assertThat(response.hourly?.time).isNotEmpty()
+        // And check one of the converted timestamps
+        assertEquals(1737456000000L, response.hourly?.time?.get(0))
+
+        // Check renamed fields (assuming they are not null)
+        assertThat(response.generationtimeMs).isNotNull()
+        assertThat(response.utcOffsetSeconds).isNotNull()
+        assertThat(response.timezoneAbbreviation).isNotNull()
+        assertThat(response.timezoneAbbreviation).isEqualTo("GMT")
+
     }
 
     // Helper method to load WeatherForecast from JSON
@@ -29,7 +40,7 @@ class OpenMeteoResponseTest {
 
         val json =
             Json {
-                ignoreUnknownKeys = true
+                ignoreUnknownKeys = true // This is good, helps with forward compatibility
             }
 
         return json.decodeFromString<Forecast.Response>(jsonText)

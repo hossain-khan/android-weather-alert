@@ -28,23 +28,20 @@ interface OpenMeteoService {
     ): OpenMeteoForecastResponse
 }
 
-class OpenMeteoServiceImpl constructor() : OpenMeteoService {
+class OpenMeteoServiceImpl constructor(
+    private val openMeteoClient: com.openmeteo.api.OpenMeteo
+) : OpenMeteoService {
     @OptIn(Response.ExperimentalGluedUnitTimeStepValues::class)
     override suspend fun getWeatherForecast(
         latitude: Float,
         longitude: Float,
     ): OpenMeteoForecastResponse =
         withContext(Dispatchers.IO) {
-            val om =
-                OpenMeteo(
-                    latitude = latitude,
-                    longitude = longitude,
-                    apikey = null,
-                    contexts = Contexts(),
-                )
+            //Latitude and longitude are now part of the injected openMeteoClient's state or configuration.
+            //The getWeatherForecast method's latitude and longitude parameters are used for the AppForecastData.
 
             val forecast: Forecast.Response =
-                om
+                openMeteoClient // Use the injected client
                     .forecast {
                         hourly =
                             Forecast.Hourly {
