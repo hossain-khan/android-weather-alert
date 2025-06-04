@@ -47,11 +47,11 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 logoResId = R.drawable.openweather_logo,
                 logoWidth = 100.dp,
                 logoHeight = 50.dp,
-                description = "Free API service with larger usage limits. However, requires credit card to activate free API subscription.",
+                description = "Free API service with larger usage limits. However, it requires a credit card to activate the free API subscription.",
                 apiServiceUrl = "https://openweathermap.org/api",
                 apiServiceUrlLabel = "openweathermap.org",
                 apiExhaustedMessage =
-                    "Unfortunately, API key provided with the app has been exhausted.\n\n" +
+                    "Unfortunately, the API key provided with the app has been exhausted.\n\n" +
                         "To continue to use this app, you need to provide your own API key from OpenWeatherMap.",
                 apiFormatGuide = "API key should be 32 characters long and contain only hexadecimal characters.",
                 apiServiceProductName = "One Call API 3.0",
@@ -66,7 +66,7 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiServiceUrl = "https://www.tomorrow.io/weather-api/",
                 apiServiceUrlLabel = "tomorrow.io",
                 apiExhaustedMessage =
-                    "Unfortunately, API key provided with the app has been exhausted.\n\n" +
+                    "Unfortunately, the API key provided with the app has been exhausted.\n\n" +
                         "To continue to use this app, you need to provide your own API key from Tomorrow.io.",
                 apiFormatGuide = "API key should be 32 characters long and contain only letters and numbers.",
                 apiServiceProductName = "Weather API",

@@ -195,7 +195,7 @@ class BringYourOwnApiKeyPresenter
                                     }
                                     snackbarData =
                                         SnackbarData(
-                                            message = "Invalid API key. Please double check and try again.$serverMessage",
+                                            message = "Invalid API key. Please double-check and try again.$serverMessage",
                                             actionLabel = "Okay",
                                         ) {
                                             snackbarData = null
@@ -305,7 +305,7 @@ fun BringYourOwnApiKeyScreen(
                     Text(
                         text =
                             if (state.isUserProvidedApiKey) {
-                                "⚡️ Your provided API key is being used for alert service."
+                                "⚡️ Your provided API key is being used for the alert service."
                             } else {
                                 serviceConfig.apiFormatGuide
                             },
