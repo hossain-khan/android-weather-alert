@@ -620,7 +620,7 @@ fun ReminderNotesUi(onValueChange: (String) -> Unit) {
         },
         label = { Text("Reminder Notes") },
         modifier = Modifier.fillMaxWidth(),
-        supportingText = { Text("📝 Supports some markdown: **bold**, _italic_, and * for list items.") },
+        supportingText = { Text("📝 Supports some markdown: **bold**, _italic_, and * list-items.") },
         placeholder = {
             Text(
                 text = "(Optional) Notes that will appear in the alert notification.",
