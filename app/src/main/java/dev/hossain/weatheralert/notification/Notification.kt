@@ -46,18 +46,17 @@ internal fun triggerNotification(
         buildString {
             when (alertCategory) {
                 WeatherAlertCategory.SNOW_FALL -> {
-                    append("Snow Alert")
+                    append("Snow Alert in $cityName")
                 }
                 WeatherAlertCategory.RAIN_FALL -> {
-                    append("Rain Alert")
+                    append("Rain Alert in $cityName")
                 }
             }
-            append(" - $cityName")
         }
 
     val notificationShortText =
         buildString {
-            append("About ")
+            append("Approximately ")
             when (alertCategory) {
                 WeatherAlertCategory.SNOW_FALL -> {
                     append("${currentValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)} snowfall expected.")
@@ -78,7 +77,7 @@ internal fun triggerNotification(
                             WeatherAlertCategory.SNOW_FALL.unit,
                         )} of snowfall within the next 24 hours, ",
                     )
-                    append("surpassing your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)}.")
+                    append("exceeding your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)}.")
                 }
                 WeatherAlertCategory.RAIN_FALL -> {
                     append(
@@ -86,7 +85,7 @@ internal fun triggerNotification(
                             WeatherAlertCategory.RAIN_FALL.unit,
                         )} of rainfall within the next 24 hours, ",
                     )
-                    append("surpassing your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.RAIN_FALL.unit)}.")
+                    append("exceeding your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.RAIN_FALL.unit)}.")
                 }
             }
             if (reminderNotes.isNotBlank()) {
