@@ -261,7 +261,8 @@ dependencies {
     testImplementation(libs.androidx.work.testing)
     testImplementation(libs.google.truth)
     testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.4.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1") // Existing kotlinx.coroutines.test was replaced as per requirement
     testImplementation(libs.okhttp.mock.webserver)
     testImplementation(libs.retrofit.mock.server)
     testImplementation(libs.robolectric)
