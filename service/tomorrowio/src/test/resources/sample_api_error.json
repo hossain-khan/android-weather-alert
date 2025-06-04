@@ -1,0 +1,5 @@
+{
+  "code": 429001,
+  "type": "Too Many Calls",
+  "message": "The request limit for this resource has been reached for the current rate limit window. Wait and retry the operation, or examine your API request volume."
+}
