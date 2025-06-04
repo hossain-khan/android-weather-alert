@@ -100,6 +100,10 @@ internal fun triggerNotification(
     val intent =
         context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+            // NOTE: This is not the right way to pass a deep link destination screen.
+            // Ideally, we should use a proper deep link mechanism or navigation component.
+            // See https://slackhq.github.io/circuit/deep-linking-android/
             putExtra(BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN, WeatherAlertDetailsScreen(userAlertId))
         }
     val pendingIntent =
