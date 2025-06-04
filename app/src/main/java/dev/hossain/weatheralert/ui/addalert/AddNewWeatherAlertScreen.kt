@@ -304,7 +304,9 @@ class AddWeatherAlertPresenter
                                         OpenWeatherService.ERROR_HTTP_TOO_MANY_REQUESTS -> {
                                             snackbarData =
                                                 SnackbarData(
-                                                    message = "This public API key's rate limit has been exceeded. Please add your own API key.",
+                                                    message =
+                                                        "This public API key's rate limit has been exceeded. " +
+                                                            "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
                                                     navigator.goTo(

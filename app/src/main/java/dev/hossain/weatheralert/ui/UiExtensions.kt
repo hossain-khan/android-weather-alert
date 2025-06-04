@@ -47,7 +47,9 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 logoResId = R.drawable.openweather_logo,
                 logoWidth = 100.dp,
                 logoHeight = 50.dp,
-                description = "Free API service with larger usage limits. However, it requires a credit card to activate the free API subscription.",
+                description =
+                    "Free API service with larger usage limits. " +
+                        "However, it requires a credit card to activate the free API subscription.",
                 apiServiceUrl = "https://openweathermap.org/api",
                 apiServiceUrlLabel = "openweathermap.org",
                 apiExhaustedMessage =
