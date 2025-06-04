@@ -195,7 +195,7 @@ class BringYourOwnApiKeyPresenter
                                     }
                                     snackbarData =
                                         SnackbarData(
-                                            message = "Invalid API key. Please double-check and try again.$serverMessage",
+                                            message = "Invalid API key. Please double-check and try again. $serverMessage",
                                             actionLabel = "Okay",
                                         ) {
                                             snackbarData = null
