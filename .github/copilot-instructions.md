@@ -1,4 +1,6 @@
-# GitHub Copilot Instructions - Weather Alert Android App
+# GitHub Copilot Custom Instructions
+
+This document provides context and coding guidelines for the Weather Alert Android App to help GitHub Copilot generate appropriate code suggestions.
 
 ## Project Overview
 
@@ -332,7 +334,6 @@ class WeatherRepositoryImpl @Inject constructor(
 
 ### WorkManager Example
 ```kotlin
-@HiltWorker
 class WeatherCheckWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
@@ -341,6 +342,11 @@ class WeatherCheckWorker @AssistedInject constructor(
     
     override suspend fun doWork(): Result {
         // Background weather checking logic
+    }
+    
+    @AssistedFactory
+    interface Factory {
+        fun create(context: Context, params: WorkerParameters): WeatherCheckWorker
     }
 }
 ```
