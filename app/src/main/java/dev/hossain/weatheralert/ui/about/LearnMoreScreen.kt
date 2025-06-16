@@ -96,8 +96,8 @@ fun LearnMoreAboutAlerts(
             text =
                 "This app does not provide daily weather forecast." +
                     " Instead, it allows you to set alerts based on weather conditions." +
-                    "\n\nSet alert threshold and forget it. Once set, you will receive a notification " +
-                    "when the weather condition matches your criteria.",
+                    "\n\nSet an alert threshold, and you'll be notified " +
+                    "when the conditions match your criteria.",
             style = MaterialTheme.typography.bodyLarge,
             modifier =
                 Modifier

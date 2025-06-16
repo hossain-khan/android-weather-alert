@@ -289,7 +289,7 @@ private fun AddServiceApiKeyUi(
             Text(
                 text =
                     buildAnnotatedString {
-                        append("[Optional] Use alert service uninterrupted by adding ")
+                        append("[Optional] Use the alert service without interruption by adding ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
                             append("your own")
                         }

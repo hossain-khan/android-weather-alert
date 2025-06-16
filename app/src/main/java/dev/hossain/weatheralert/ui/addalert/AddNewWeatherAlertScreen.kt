@@ -288,7 +288,7 @@ class AddWeatherAlertPresenter
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
-                                                        "The weather API is is likely exhausted or not active. " +
+                                                        "The weather API is likely exhausted or not active. " +
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
@@ -307,7 +307,7 @@ class AddWeatherAlertPresenter
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
-                                                        "The weather API is is likely exhausted or not active. " +
+                                                        "The weather API is likely exhausted or not active. " +
                                                             "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
@@ -326,14 +326,16 @@ class AddWeatherAlertPresenter
                                             snackbarData =
                                                 SnackbarData(
                                                     message =
-                                                        "Weather API is unable to find forecast for the city you have selected. " +
-                                                            "Please try different nearby city.",
+                                                        "The weather API is unable to find a forecast for the city you have selected. " +
+                                                            "Please try a different nearby city.",
                                                 ) {}
                                         }
                                         OpenWeatherService.ERROR_HTTP_TOO_MANY_REQUESTS -> {
                                             snackbarData =
                                                 SnackbarData(
-                                                    message = "This public API key rate limit exceed. Please add your own API key.",
+                                                    message =
+                                                        "This public API key's rate limit has been exceeded. " +
+                                                            "Please add your own API key.",
                                                     actionLabel = "Add Key",
                                                 ) {
                                                     val serviceType = selectedServiceType
@@ -775,10 +777,10 @@ fun ReminderNotesUi(onValueChange: (String) -> Unit) {
         },
         label = { Text("Reminder Notes") },
         modifier = Modifier.fillMaxWidth(),
-        supportingText = { Text("📝 Some markdown syntax are supported: **bold**, _italic_ and * list-item.") },
+        supportingText = { Text("📝 Supports some markdown: **bold**, _italic_, and * list-items.") },
         placeholder = {
             Text(
-                text = "(Optional) Notes that will show up in the alert notification.",
+                text = "(Optional) Notes that will appear in the alert notification.",
                 style = MaterialTheme.typography.labelSmall,
             )
         },
