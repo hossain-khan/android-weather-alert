@@ -80,25 +80,3 @@ flowchart TB
     DTO ---> App
     Service ---> App
 ```
-
-## 🤖 GitHub Copilot Configuration
-
-This project is optimized for GitHub Copilot coding agent with comprehensive configuration:
-
-### Copilot Instructions
-- **[`.github/copilot-instructions.md`](.github/copilot-instructions.md)**: Detailed project context, architecture patterns, and coding guidelines
-- Covers Android development best practices, testing strategies, and common code patterns
-- Includes specific examples for Circuit UDF, Dagger DI, and Compose components
-
-### Firewall Configuration
-- **[`.github/copilot-firewall.yml`](.github/copilot-firewall.yml)**: Secure network access rules for build dependencies
-- Allowlists essential domains: `dl.google.com`, Maven repositories, Gradle services
-- Includes weather API endpoints and development tools while maintaining security
-
-### Benefits for Developers
-- **Enhanced Code Suggestions**: Context-aware recommendations based on project architecture
-- **Consistent Patterns**: Enforced coding standards and architectural decisions
-- **Secure Development**: Controlled network access for dependencies and APIs
-- **Faster Onboarding**: Comprehensive documentation for new contributors
-
-Learn more about [GitHub Copilot customization](https://docs.github.com/en/copilot/customizing-copilot) in the official documentation.
