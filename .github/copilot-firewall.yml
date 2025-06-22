@@ -1,0 +1,73 @@
+# GitHub Copilot Firewall Configuration for Android Weather Alert App
+# This file defines the network access rules for GitHub Copilot coding agent
+# Documentation: https://docs.github.com/en/copilot/customizing-copilot/customizing-or-disabling-the-firewall-for-copilot-coding-agent
+
+# Allow access to essential domains for Android development and build dependencies
+allow:
+  # Google Maven Repository - Essential for Android Gradle Plugin (AGP) and Android dependencies
+  - "dl.google.com"
+  - "maven.google.com"
+  - "repo1.maven.org"  # Maven Central
+  - "central.sonatype.com"     # Maven Central CDN
+  - "oss.sonatype.org"         # Sonatype OSS repository
+  
+  # Gradle related repositories and services
+  - "services.gradle.org"  # Gradle distributions and services
+  - "plugins.gradle.org"   # Gradle Plugin Portal
+  - "repo.gradle.org"      # Gradle repository
+  - "scans.gradle.com"     # Gradle build scans (used by Develocity plugin)
+  - "scans-in.gradle.com"  # Gradle build scans ingestion endpoint
+  
+  # JitPack repository for GitHub-based dependencies
+  - "jitpack.io"
+  - "api.github.com"       # GitHub API for JitPack
+  
+  # Firebase and Google services (used in the app)
+  - "firebase.googleapis.com"
+  - "crashlytics.googleapis.com"
+  - "analytics.googleapis.com"
+  
+  # Weather API services used by the app
+  - "api.openweathermap.org"
+  - "api.tomorrow.io"
+  - "api.weatherapi.com"
+  - "api.open-meteo.com"
+  
+  # Additional Android development tools and dependencies
+  - "developer.android.com"    # Android documentation and resources
+  - "androidstudio.googleblog.com"
+  
+  # Kotlin related repositories
+  - "repo.kotlin.org"
+  - "kotlinlang.org"
+  
+  # GitHub for source code access and Git operations
+  - "github.com"
+  - "raw.githubusercontent.com"
+  - "codeload.github.com"
+  
+  # Additional development dependencies and tools
+  - "repo.spring.io"           # Spring repositories (for some Gradle plugins)
+  - "jcenter.bintray.com"      # Legacy JCenter (some older dependencies)
+  - "oss.jfrog.org"            # JFrog OSS repositories
+  
+  # Documentation and development resources
+  - "docs.gradle.org"
+  - "kotlinlang.org"
+  - "developer.android.com"
+  - "firebase.google.com"
+
+# Block all other domains by default for security
+# This ensures only explicitly allowed domains can be accessed
+block_by_default: true
+
+# Additional security settings
+settings:
+  # Enable logging of blocked requests for debugging
+  log_blocked_requests: true
+  
+  # Allow localhost for local development and testing
+  allow_localhost: true
+  
+  # Allow private IP ranges for local network access if needed
+  allow_private_ips: false
