@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Git pre-commit hook to run Kotlin formatting
+# This script runs './gradlew formatKotlin' before each commit.
+# If formatting succeeds and files are changed, they are automatically added to the commit.
+# If formatting fails, the commit is aborted.
+
+set -e
+
+echo "Running Kotlin formatting..."
+
+# Run formatKotlin and capture exit code
+if ./gradlew formatKotlin; then
+    echo "✅ Kotlin formatting completed successfully"
+    
+    # Check if any files were changed by the formatting
+    if ! git diff --quiet; then
+        echo "📝 Formatting changes detected, adding to commit..."
+        # Add all modified files to the staging area
+        git add -A
+        echo "✅ Formatted files added to commit"
+    else
+        echo "ℹ️  No formatting changes needed"
+    fi
+else
+    echo "❌ Kotlin formatting failed!"
+    echo "Please fix the formatting issues and try again."
+    exit 1
+fi
+
+echo "🚀 Pre-commit hook completed successfully"
