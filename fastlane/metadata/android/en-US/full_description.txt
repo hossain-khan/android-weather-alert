@@ -1,0 +1,38 @@
+Weather Alert is a simple, focused Android app that helps you prepare for specific weather conditions like snow and rain. Instead of overwhelming you with every weather detail, this app delivers clear, actionable notifications when conditions meet your configured thresholds.
+
+<b>Key Features:</b>
+
+🎯 <b>Custom Weather Alerts:</b>
+Set personalized alerts for snowfall and rainfall with user-defined thresholds. Get notified when conditions meet your criteria to help you prepare in advance.
+
+📊 <b>Multiple Weather Data Sources:</b>
+Choose from OpenWeatherMap, Tomorrow.io, OpenMeteo, or WeatherAPI for the most reliable forecast data. Switch between services or use multiple sources for better accuracy.
+
+⏰ <b>Configurable Alert Frequency:</b>
+Set alert intervals of 6, 12, or 18 hours to match your schedule and preferences.
+
+🔔 <b>Rich Notifications:</b>
+Receive detailed notifications with all the information you need to take action, including current conditions and forecast details.
+
+🛠 <b>Minimalist Interface:</b>
+Easily configure and view your alerts through a simple, intuitive tile-based design that focuses on what matters most.
+
+<b>Why Choose Weather Alert?</b>
+
+Weather Alert was created from a personal need for focused weather notifications. Unlike other weather apps that bombard you with information, this app delivers only what you need: alerts that meet your specific criteria.
+
+Perfect for:
+- Charging snow blower batteries before heavy snowfall
+- Moving cars to the garage before storms
+- Planning outdoor activities around weather conditions
+- Any situation where advance weather preparation is important
+
+The app is lightweight, efficient, and built for people who want actionable weather notifications without the clutter. It helps you stay prepared for weather conditions that matter to you personally.
+
+<b>Privacy & Open Source:</b>
+This F-Droid version is built without any tracking or analytics services, ensuring your privacy is protected. The app is open source and available on GitHub.
+
+<b>Weather API Support:</b>
+The app requires API keys for weather services. Free tier API keys are available from all supported weather providers. Setup instructions are provided within the app.
+
+Download Weather Alert today and let the app do the work of monitoring weather conditions for you!

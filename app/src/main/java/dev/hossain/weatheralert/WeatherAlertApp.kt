@@ -56,8 +56,14 @@ class WeatherAlertApp :
             // Plant a debug tree for development builds
             Timber.plant(Timber.DebugTree())
         } else {
-            // Plant the custom Crashlytics tree for production builds
-            Timber.plant(CrashlyticsTree())
+            // For F-Droid builds, use a simple debug tree instead of Crashlytics
+            if (BuildConfig.FIREBASE_ENABLED) {
+                // Plant the custom Crashlytics tree for production builds with Firebase
+                Timber.plant(CrashlyticsTree())
+            } else {
+                // Plant a simple debug tree for F-Droid builds (no external reporting)
+                Timber.plant(Timber.DebugTree())
+            }
         }
     }
 }

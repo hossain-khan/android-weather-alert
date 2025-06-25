@@ -1,0 +1,1 @@
+A simple app to alert you about specific weather condition based on your configured threshold.

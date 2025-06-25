@@ -29,6 +29,8 @@ keystore.properties
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
+# Exclude Firebase config for F-Droid builds
+app/src/fdroid/google-services.json
 
 # Android Profiling
 *.hprof

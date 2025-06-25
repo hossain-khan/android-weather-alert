@@ -1,0 +1,8 @@
+• F-Droid compatible release without proprietary dependencies
+• Privacy-focused build without tracking or analytics
+• Multiple weather data sources for improved forecast accuracy
+• Configurable alert frequency (6, 12, or 18 hours)  
+• Rich notifications with actionable weather information
+• Minimalist tile-based UI design
+• Background processing with WorkManager
+• Support for snowfall and rainfall alerts with custom thresholds

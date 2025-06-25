@@ -62,6 +62,9 @@ android {
 
         // Git commit hash to identify build source
         buildConfigField("String", "GIT_COMMIT_HASH", "\"${getGitCommitHash()}\"")
+        
+        // Enable Firebase by default, disabled for F-Droid builds
+        buildConfigField("boolean", "FIREBASE_ENABLED", "true")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -106,6 +109,13 @@ android {
         }
         create("prod") {
             dimension = "appflavor"
+        }
+        create("fdroid") {
+            dimension = "appflavor"
+            applicationIdSuffix = ".fdroid"
+            versionNameSuffix = "-fdroid"
+            // Disable Firebase services for F-Droid build
+            buildConfigField("boolean", "FIREBASE_ENABLED", "false")
         }
     }
 
@@ -189,7 +199,9 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.text.google.fonts)
+    // Google Fonts - only for non-F-Droid builds
+    "internalImplementation"(libs.androidx.ui.text.google.fonts)
+    "prodImplementation"(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.ui.tooling.preview)
 
     implementation(libs.androidx.room.runtime)
@@ -242,9 +254,14 @@ dependencies {
     implementation(libs.eithernet)
     implementation(libs.eithernet.integration.retrofit)
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-    implementation(libs.firebase.analytics)
+    // Firebase dependencies - only for non-F-Droid builds
+    "internalImplementation"(platform(libs.firebase.bom))
+    "internalImplementation"(libs.firebase.crashlytics)
+    "internalImplementation"(libs.firebase.analytics)
+    
+    "prodImplementation"(platform(libs.firebase.bom))
+    "prodImplementation"(libs.firebase.crashlytics)
+    "prodImplementation"(libs.firebase.analytics)
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // Testing
