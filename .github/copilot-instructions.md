@@ -252,6 +252,24 @@ object WeatherServiceModule {
 - Handle location data appropriately
 - Provide clear privacy disclosures
 
+## GitHub Copilot Configuration
+
+### Firewall Configuration
+- Firewall rules are configured in `.github/copilot-firewall.yml`
+- Essential domains are allowlisted for Android development:
+  - `dl.google.com` - Android Gradle Plugin and dependencies
+  - `maven.google.com` - Google Maven repository
+  - `repo1.maven.org` - Maven Central
+  - `services.gradle.org` - Gradle distributions
+  - `jitpack.io` - GitHub-based dependencies
+- Weather API endpoints are included for runtime functionality
+- Block-by-default policy ensures security while allowing necessary build dependencies
+
+### Development Environment Setup
+- The project includes comprehensive Copilot instructions for better code suggestions
+- Custom instructions cover architecture patterns, coding standards, and common examples
+- Firewall configuration ensures secure access to necessary external resources
+
 ## Common Patterns & Examples
 
 ### Circuit Presenter Example
