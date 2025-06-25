@@ -19,6 +19,8 @@ this will allow you charge your snow blower batteries, put car in the garage, an
 
 <a href="https://play.google.com/store/apps/details?id=dev.hossain.weatheralert&pcampaignid=web_share" target="_blank"><img src="resources/google-play/GetItOnGooglePlay_Badge_Web_color_English.png" height="45"></a>
 
+> **F-Droid Users**: A privacy-focused version without proprietary dependencies is being prepared for F-Droid submission. See [HOW_TO_FDROID.md](HOW_TO_FDROID.md) for details.
+
 ### **App Summary**  
 **Set it and forget it — get alerted when it matters!**  
 
