@@ -34,6 +34,7 @@ class WeatherCheckWorker
         @Assisted params: WorkerParameters,
         private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
+        private val historicalWeatherRepository: dev.hossain.weatheralert.data.HistoricalWeatherRepository,
         private val analytics: Analytics,
         private val preferencesManager: PreferencesManager,
     ) : CoroutineWorker(context, params) {
@@ -71,26 +72,33 @@ class WeatherCheckWorker
 
                 when (forecastApiResult) {
                     is ApiResult.Success -> {
-                        // Check if thresholds are exceeded
+                        // Record historical data
+                        val forecast = forecastApiResult.value
+                        val historicalWeather =
+                            dev.hossain.weatheralert.datamodel.HistoricalWeather(
+                                cityId = configuredAlert.city.id,
+                                date =
+                                    dev.hossain.weatheralert.util.TimeUtil
+                                        .getStartOfDayMillis(),
+                                latitude = configuredAlert.city.lat,
+                                longitude = configuredAlert.city.lng,
+                                snow = forecast.snow.dailyCumulativeSnow,
+                                rain = forecast.rain.dailyCumulativeRain,
+                                forecastSourceService = forecast.forecastSourceService,
+                                hourlyPrecipitation = forecast.hourlyPrecipitation,
+                            )
+                        historicalWeatherRepository.insertHistoricalWeather(historicalWeather)
+
+                        // ...existing code for notification logic...
                         val snowTomorrow =
                             when {
-                                forecastApiResult.value.snow.dailyCumulativeSnow > 0.0 -> {
-                                    forecastApiResult.value.snow.dailyCumulativeSnow
-                                }
-
-                                else -> {
-                                    forecastApiResult.value.snow.nextDaySnow
-                                }
+                                forecast.snow.dailyCumulativeSnow > 0.0 -> forecast.snow.dailyCumulativeSnow
+                                else -> forecast.snow.nextDaySnow
                             }
                         val rainTomorrow =
                             when {
-                                forecastApiResult.value.rain.dailyCumulativeRain > 0.0 -> {
-                                    forecastApiResult.value.rain.dailyCumulativeRain
-                                }
-
-                                else -> {
-                                    forecastApiResult.value.rain.nextDayRain
-                                }
+                                forecast.rain.dailyCumulativeRain > 0.0 -> forecast.rain.dailyCumulativeRain
+                                else -> forecast.rain.nextDayRain
                             }
 
                         Timber.tag(WORKER_LOG_TAG).d("${configuredAlert.city.cityName} Forecast: Snow: $snowTomorrow, Rain: $rainTomorrow")
