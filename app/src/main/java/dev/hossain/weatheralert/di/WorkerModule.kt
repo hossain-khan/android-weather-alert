@@ -21,6 +21,7 @@ object WorkerModule {
     fun provideWorkerFactory(
         alertDao: AlertDao,
         weatherRepository: WeatherRepository,
+        historicalWeatherRepository: dev.hossain.weatheralert.data.HistoricalWeatherRepository,
         analytics: Analytics,
         preferencesManager: PreferencesManager,
     ): WorkerFactory =
@@ -41,6 +42,7 @@ object WorkerModule {
                             params = workerParameters,
                             alertDao = alertDao,
                             weatherRepository = weatherRepository,
+                            historicalWeatherRepository = historicalWeatherRepository,
                             analytics = analytics,
                             preferencesManager = preferencesManager,
                         )

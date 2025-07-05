@@ -22,9 +22,6 @@ object DatabaseModule {
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
             .createFromAsset("alertapp.db")
-            // ⚠️ UPDATE: Disabled destructive migration for now.
-            // To ensure user data is not lost, we need to handle migration properly.
-            // .fallbackToDestructiveMigrationFrom(3)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -36,4 +33,8 @@ object DatabaseModule {
 
     @Provides
     fun provideCityForecastDao(database: AppDatabase): CityForecastDao = database.forecastDao()
+
+    @Provides
+    fun provideHistoricalWeatherDao(database: AppDatabase): dev.hossain.weatheralert.db.HistoricalWeatherDao =
+        database.historicalWeatherDao()
 }
