@@ -123,6 +123,11 @@ data class WeatherAlertDetailsScreen(
     ) : CircuitUiState
 
     sealed class Event : CircuitUiEvent {
+        data class ShowHistoricalData(
+            val cityId: Long,
+            val cityName: String,
+        ) : Event()
+
         data class EditNoteChanged(
             val note: String,
         ) : Event()
@@ -193,6 +198,15 @@ class WeatherAlertDetailsPresenter
                 snackbarData = snackbarData,
             ) { event ->
                 when (event) {
+                    is WeatherAlertDetailsScreen.Event.ShowHistoricalData -> {
+                        // Navigate to HistoricalDataScreen
+                        navigator.goTo(
+                            dev.hossain.weatheralert.ui.history.HistoricalDataScreen(
+                                cityId = event.cityId,
+                                cityName = event.cityName,
+                            ),
+                        )
+                    }
                     is WeatherAlertDetailsScreen.Event.EditNoteChanged -> {
                         isEditingNote = true
                         alertNote = event.note
@@ -332,6 +346,23 @@ fun WeatherAlertDetailsScreen(
                     item { WeatherAlertNoteUi(state = state) }
                     item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
                     item { WeatherForecastSourceUi(forecastSourceService = cityForecast.forecastSourceService) }
+                    item {
+                        androidx.compose.material3.Button(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                            onClick = {
+                                state.cityInfo?.let { city ->
+                                    state.eventSink(
+                                        WeatherAlertDetailsScreen.Event.ShowHistoricalData(
+                                            cityId = city.id,
+                                            cityName = city.city,
+                                        ),
+                                    )
+                                }
+                            },
+                        ) {
+                            Text("View Historical Data")
+                        }
+                    }
                 }
             }
         }
