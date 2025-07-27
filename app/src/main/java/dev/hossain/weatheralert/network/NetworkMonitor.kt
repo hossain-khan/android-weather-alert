@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import dev.hossain.weatheralert.di.ApplicationContext
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
@@ -21,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap
 @Inject
 class NetworkMonitor
     constructor(
-        @ApplicationContext context: Context,
+        context: Context,
     ) {
         private val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

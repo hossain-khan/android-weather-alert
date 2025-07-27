@@ -12,7 +12,7 @@ import dev.zacsweers.metro.Provides
 object AppBindings {
     @Provides
     fun provideFirebaseAnalytics(
-        @ApplicationContext context: Context,
+        context: Context,
     ): FirebaseAnalytics {
         FirebaseApp.initializeApp(context)
         return Firebase.analytics

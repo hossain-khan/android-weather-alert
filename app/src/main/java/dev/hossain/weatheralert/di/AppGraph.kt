@@ -42,7 +42,7 @@ interface AppGraph {
     @DependencyGraph.Factory
     fun interface Factory {
         fun create(
-            @ApplicationContext @Provides app: WeatherAlertApp,
+            @Provides app: WeatherAlertApp,
         ): AppGraph
     }
 }

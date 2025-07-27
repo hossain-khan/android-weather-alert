@@ -36,7 +36,7 @@ object NetworkBindings {
 
     @Provides
     fun provideOkHttpClient(
-        @ApplicationContext context: Context,
+        context: Context,
     ): OkHttpClient {
         val cacheSize = 10 * 1024 * 1024 // 10 MB
         val cacheDir = File(context.cacheDir, "http_cache")

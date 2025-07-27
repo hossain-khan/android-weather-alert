@@ -16,7 +16,7 @@ object DatabaseBindings {
     @Provides
     @SingleIn(AppScope::class)
     fun provideDatabase(
-        @ApplicationContext context: Context,
+        context: Context,
     ): AppDatabase =
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")

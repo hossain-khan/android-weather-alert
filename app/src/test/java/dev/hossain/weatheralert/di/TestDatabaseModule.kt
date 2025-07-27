@@ -15,7 +15,7 @@ import dev.hossain.weatheralert.db.CityForecastDao
 object TestDatabaseModule {
     @Provides
     fun provideInMemoryDatabase(
-        @ApplicationContext context: Context,
+        context: Context,
     ): AppDatabase =
         Room
             .inMemoryDatabaseBuilder(context, AppDatabase::class.java)
