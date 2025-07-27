@@ -13,17 +13,17 @@ agp = "8.10.0"
 anvil = "0.4.1"
 
 # https://github.com/slackhq/circuit/releases
-circuit = "0.28.0"
+circuit = "0.29.1"
 
-composeBom = "2025.06.00"
+composeBom = "2025.07.00"
 composeMaterial3 = "1.3.2"
 coreKtx = "1.16.0"
 coroutinesTest = "1.10.2"
 
 # https://dagger.dev/dev-guide/ksp
-dagger = "2.56.2"
+dagger = "2.57"
 
-dataStore = "1.1.4"
+dataStore = "1.1.7"
 
 # API result type for modeling network API responses.
 # https://github.com/slackhq/EitherNet
@@ -32,7 +32,7 @@ espressoCore = "3.6.1"
 firebaseBom = "33.15.0"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
-googleFonts = "1.8.2"
+googleFonts = "1.8.3"
 
 # Fluent assertions for Java and Android
 # https://truth.dev/ | https://github.com/google/truth
@@ -51,6 +51,10 @@ kotlin = "2.1.10"
 # https://github.com/pinterest/ktlint
 kotlinter = "5.1.1"
 
+googleGmsServices = "4.4.3"
+
+crashlyticsPlugin = "3.0.5"
+
 kotlinxSerializationJson = "1.8.1"
 kotlinxSerializationProperties = "1.8.1"
 
@@ -59,7 +63,7 @@ kotlinxSerializationProperties = "1.8.1"
 # https://github.com/google/ksp/releases
 ksp = "2.1.10-1.0.31"
 
-lifecycleRuntimeKtx = "2.9.1"
+lifecycleRuntimeKtx = "2.9.2"
 
 # A modern JSON library for Kotlin and Java.
 # https://github.com/square/moshi
@@ -67,16 +71,18 @@ moshi = "1.15.2"
 
 # Navigation for Jetpack Compose
 # https://developer.android.com/develop/ui/compose/navigation
-navigationCompose = "2.9.0"
+navigationCompose = "2.9.2"
 
 # Http client for Android
 # https://square.github.io/okhttp/
 okhttp = "4.12.0"
 retrofit = "3.0.0"
 
+robolectric = "4.14.1"
+
 # Room Database
 # https://developer.android.com/training/data-storage/room
-roomDb = "2.7.1"
+roomDb = "2.7.2"
 
 testCore = "1.6.1"
 
@@ -84,7 +90,7 @@ testCore = "1.6.1"
 timber = "5.0.1"
 
 # https://developer.android.com/jetpack/androidx/releases/work
-workManager = "2.10.1"
+workManager = "2.10.2"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -179,7 +185,7 @@ moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-code
 eithernet = { group = "com.slack.eithernet", name = "eithernet", version.ref = "eithernet" }
 eithernet-integration-retrofit = { group = "com.slack.eithernet", name = "eithernet-integration-retrofit", version.ref = "eithernet" }
 
-robolectric = { group = "org.robolectric", name = "robolectric", version = "4.14.1" }
+robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 
 # open-meteo-api-kotlin
 # https://github.com/open-meteo/open-meteo-api-kotlin/releases
@@ -226,9 +232,9 @@ anvil = { id = "dev.zacsweers.anvil", version.ref = "anvil" }
 kotlinter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
 
 # Google Services plugin
-google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsServices" }
 # https://firebase.google.com/docs/crashlytics/get-started?platform=android#add-sdk
-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version = "3.0.4" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlyticsPlugin" }
 
 # Kover is a set of solutions for collecting test coverage of Kotlin code compiled for JVM and Android platforms.
 # https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#kover-gradle-plugin
