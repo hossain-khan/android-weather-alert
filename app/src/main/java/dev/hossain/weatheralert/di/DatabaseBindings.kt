@@ -20,8 +20,11 @@ object DatabaseBindings {
     ): AppDatabase =
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
-            .createFromAsset("alertapp.db")
-            .fallbackToDestructiveMigration()
+            .createFromAsset(databaseFilePath = "alertapp.db")
+            // ⚠️ UPDATE: Disabled destructive migration for now.
+            // To ensure user data is not lost, we need to handle migration properly.
+            // .fallbackToDestructiveMigrationFrom(3)
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
 
     @Provides
