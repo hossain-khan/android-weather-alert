@@ -10,9 +10,10 @@ interface ClockProvider {
 }
 
 @Inject
-class DefaultClockProvider : ClockProvider {
-    override fun getClock(): Clock = Clock.systemDefaultZone()
-}
+class DefaultClockProvider
+    constructor() : ClockProvider {
+        override fun getClock(): Clock = Clock.systemDefaultZone()
+    }
 
 interface TimeUtil {
     fun getCurrentTimeMillis(): Long
@@ -21,18 +22,19 @@ interface TimeUtil {
 }
 
 @Inject
-class TimeUtilImpl(
-    private val clock: ClockProvider,
-) : TimeUtil {
-    override fun getCurrentTimeMillis(): Long =
-        Instant
-            .now(clock.getClock())
-            .atZone(ZoneId.systemDefault())
-            .toInstant()
-            .toEpochMilli()
+class TimeUtilImpl
+    constructor(
+        private val clock: ClockProvider,
+    ) : TimeUtil {
+        override fun getCurrentTimeMillis(): Long =
+            Instant
+                .now(clock.getClock())
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
 
-    override fun isOlderThan24Hours(timeInMillis: Long): Boolean {
-        val currentTime = getCurrentTimeMillis()
-        return (currentTime - timeInMillis) > 24 * 60 * 60 * 1000
+        override fun isOlderThan24Hours(timeInMillis: Long): Boolean {
+            val currentTime = getCurrentTimeMillis()
+            return (currentTime - timeInMillis) > 24 * 60 * 60 * 1000
+        }
     }
-}

@@ -19,62 +19,63 @@ import java.util.concurrent.ConcurrentHashMap
  */
 @SingleIn(AppScope::class)
 @Inject
-class NetworkMonitor(
-    @ApplicationContext context: Context,
-) {
-    private val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+class NetworkMonitor
+    constructor(
+        @ApplicationContext context: Context,
+    ) {
+        private val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    // StateFlow to expose network connectivity status
-    private val _isConnected = MutableStateFlow(false)
-    val isConnected: StateFlow<Boolean> get() = _isConnected
+        // StateFlow to expose network connectivity status
+        private val _isConnected = MutableStateFlow(false)
+        val isConnected: StateFlow<Boolean> get() = _isConnected
 
-    // Tracks active networks and their capabilities
-    private val activeNetworks = ConcurrentHashMap<Network, NetworkCapabilities>()
+        // Tracks active networks and their capabilities
+        private val activeNetworks = ConcurrentHashMap<Network, NetworkCapabilities>()
 
-    private val networkCallback =
-        object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                val capabilities = connectivityManager.getNetworkCapabilities(network)
-                if (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-                    activeNetworks[network] = capabilities
+        private val networkCallback =
+            object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    val capabilities = connectivityManager.getNetworkCapabilities(network)
+                    if (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                        activeNetworks[network] = capabilities
+                        updateNetworkStatus()
+                    }
+                }
+
+                override fun onLost(network: Network) {
+                    activeNetworks.remove(network)
+                    updateNetworkStatus()
+                }
+
+                override fun onCapabilitiesChanged(
+                    network: Network,
+                    capabilities: NetworkCapabilities,
+                ) {
+                    if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+                        activeNetworks[network] = capabilities
+                    } else {
+                        activeNetworks.remove(network)
+                    }
                     updateNetworkStatus()
                 }
             }
 
-            override fun onLost(network: Network) {
-                activeNetworks.remove(network)
-                updateNetworkStatus()
-            }
-
-            override fun onCapabilitiesChanged(
-                network: Network,
-                capabilities: NetworkCapabilities,
-            ) {
-                if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
-                    activeNetworks[network] = capabilities
-                } else {
-                    activeNetworks.remove(network)
-                }
-                updateNetworkStatus()
-            }
+        fun startMonitoring() {
+            val networkRequest =
+                NetworkRequest
+                    .Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+            connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
         }
 
-    fun startMonitoring() {
-        val networkRequest =
-            NetworkRequest
-                .Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .build()
-        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
-    }
+        fun stopMonitoring() {
+            connectivityManager.unregisterNetworkCallback(networkCallback)
+        }
 
-    fun stopMonitoring() {
-        connectivityManager.unregisterNetworkCallback(networkCallback)
+        private fun updateNetworkStatus() {
+            Timber.d("Is connected: ${activeNetworks.isNotEmpty()}. Active networks: ${activeNetworks.size}")
+            _isConnected.value = activeNetworks.isNotEmpty()
+        }
     }
-
-    private fun updateNetworkStatus() {
-        Timber.d("Is connected: ${activeNetworks.isNotEmpty()}. Active networks: ${activeNetworks.size}")
-        _isConnected.value = activeNetworks.isNotEmpty()
-    }
-}
