@@ -43,16 +43,16 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.Inject
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -71,8 +71,8 @@ data object AppCreditsScreen : Screen {
     }
 }
 
+@Inject
 class AppCreditsPresenter
-    @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
         private val analytics: Analytics,

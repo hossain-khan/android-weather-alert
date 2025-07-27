@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinter)
 }
@@ -39,11 +38,6 @@ dependencies {
     implementation(project(":data-model"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.timber)
-
-    implementation(libs.dagger)
-    // Dagger KSP support is in Alpha, not available yet. Using KAPT for now.
-    // https://dagger.dev/dev-guide/ksp.html
-    kapt(libs.dagger.compiler)
 
     // Retrofit
     implementation(libs.retrofit)

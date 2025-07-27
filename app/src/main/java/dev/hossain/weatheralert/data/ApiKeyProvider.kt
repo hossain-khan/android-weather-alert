@@ -1,11 +1,9 @@
 package dev.hossain.weatheralert.data
 
-import com.squareup.anvil.annotations.ContributesBinding
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
-import dev.hossain.weatheralert.di.AppScope
+import dev.zacsweers.metro.Inject
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Provides API key for the supported weather services.
@@ -39,65 +37,63 @@ interface ApiKeyProvider {
  * Implementation of the [ApiKeyProvider] interface.
  * This class provides the API key from the build configuration.
  */
-@ContributesBinding(AppScope::class)
-class ApiKeyProviderImpl
-    @Inject
-    constructor(
-        private val preferencesManager: PreferencesManager,
-    ) : ApiKeyProvider {
-        override fun apiKey(weatherForecastService: WeatherForecastService): String =
-            when (weatherForecastService) {
-                WeatherForecastService.OPEN_WEATHER_MAP -> {
-                    // Check if user has provided their own API key.
-                    preferencesManager.savedApiKey(weatherForecastService) ?: BuildConfig.OPEN_WEATHER_API_KEY
-                }
-
-                WeatherForecastService.TOMORROW_IO -> {
-                    // Check if user has provided their own API key.
-                    preferencesManager.savedApiKey(weatherForecastService) ?: BuildConfig.TOMORROW_IO_API_KEY
-                }
-
-                WeatherForecastService.OPEN_METEO -> {
-                    Timber.w("No API key required for $weatherForecastService")
-                    ""
-                }
-
-                WeatherForecastService.WEATHER_API -> {
-                    Timber.w("No API key required for $weatherForecastService")
-                    ""
-                }
+@Inject
+class ApiKeyProviderImpl(
+    private val preferencesManager: PreferencesManager,
+) : ApiKeyProvider {
+    override fun apiKey(weatherForecastService: WeatherForecastService): String =
+        when (weatherForecastService) {
+            WeatherForecastService.OPEN_WEATHER_MAP -> {
+                // Check if user has provided their own API key.
+                preferencesManager.savedApiKey(weatherForecastService) ?: BuildConfig.OPEN_WEATHER_API_KEY
             }
 
-        override fun isValidKey(
-            weatherForecastService: WeatherForecastService,
-            apiKey: String,
-        ): Boolean =
-            when (weatherForecastService) {
-                WeatherForecastService.OPEN_WEATHER_MAP -> {
-                    apiKey.matches(Regex("^[a-f0-9]{32}\$"))
-                }
-                WeatherForecastService.TOMORROW_IO -> {
-                    apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
-                }
-
-                WeatherForecastService.OPEN_METEO -> {
-                    Timber.w("No API key required for $weatherForecastService")
-                    true
-                }
-
-                WeatherForecastService.WEATHER_API -> {
-                    Timber.w("No API key required for $weatherForecastService")
-                    true
-                }
+            WeatherForecastService.TOMORROW_IO -> {
+                // Check if user has provided their own API key.
+                preferencesManager.savedApiKey(weatherForecastService) ?: BuildConfig.TOMORROW_IO_API_KEY
             }
 
-        override fun hasUserProvidedApiKey(weatherApiService: WeatherForecastService): Boolean {
-            val apiKey = apiKey(weatherApiService)
-            return when (weatherApiService) {
-                WeatherForecastService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
-                WeatherForecastService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
-                WeatherForecastService.OPEN_METEO -> false
-                WeatherForecastService.WEATHER_API -> false
+            WeatherForecastService.OPEN_METEO -> {
+                Timber.w("No API key required for $weatherForecastService")
+                ""
+            }
+
+            WeatherForecastService.WEATHER_API -> {
+                Timber.w("No API key required for $weatherForecastService")
+                ""
             }
         }
+
+    override fun isValidKey(
+        weatherForecastService: WeatherForecastService,
+        apiKey: String,
+    ): Boolean =
+        when (weatherForecastService) {
+            WeatherForecastService.OPEN_WEATHER_MAP -> {
+                apiKey.matches(Regex("^[a-f0-9]{32}\$"))
+            }
+            WeatherForecastService.TOMORROW_IO -> {
+                apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
+            }
+
+            WeatherForecastService.OPEN_METEO -> {
+                Timber.w("No API key required for $weatherForecastService")
+                true
+            }
+
+            WeatherForecastService.WEATHER_API -> {
+                Timber.w("No API key required for $weatherForecastService")
+                true
+            }
+        }
+
+    override fun hasUserProvidedApiKey(weatherApiService: WeatherForecastService): Boolean {
+        val apiKey = apiKey(weatherApiService)
+        return when (weatherApiService) {
+            WeatherForecastService.OPEN_WEATHER_MAP -> apiKey.isNotEmpty() && apiKey != BuildConfig.OPEN_WEATHER_API_KEY
+            WeatherForecastService.TOMORROW_IO -> apiKey.isNotEmpty() && apiKey != BuildConfig.TOMORROW_IO_API_KEY
+            WeatherForecastService.OPEN_METEO -> false
+            WeatherForecastService.WEATHER_API -> false
+        }
     }
+}

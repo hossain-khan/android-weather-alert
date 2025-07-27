@@ -4,19 +4,17 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import com.squareup.anvil.annotations.ContributesTo
-import dagger.Module
-import dagger.Provides
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.WeatherCheckWorker
+import dev.zacsweers.metro.BindingContainer
+import dev.zacsweers.metro.Provides
 
-// Anvil module to contribute the WorkerFactory
-@Module
-@ContributesTo(AppScope::class)
-object WorkerModule {
+// Metro binding container to provide the WorkerFactory
+@BindingContainer
+object WorkerBindings {
     @Provides
     fun provideWorkerFactory(
         alertDao: AlertDao,
