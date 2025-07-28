@@ -5,10 +5,6 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.squareup.anvil.annotations.ContributesTo
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
 import dev.hossain.weatheralert.data.ActiveWeatherService
 import dev.hossain.weatheralert.data.ActiveWeatherServiceImpl
 import dev.hossain.weatheralert.data.ApiKeyProvider
@@ -22,26 +18,19 @@ import dev.hossain.weatheralert.util.ClockProvider
 import dev.hossain.weatheralert.util.DefaultClockProvider
 import dev.hossain.weatheralert.util.TimeUtil
 import dev.hossain.weatheralert.util.TimeUtilImpl
+import dev.zacsweers.metro.Provides
 
-@Module
-@ContributesTo(AppScope::class)
 interface TestModule {
-    @Binds
     fun bindWeatherRepository(impl: WeatherRepositoryImpl): WeatherRepository
 
-    @Binds
     fun bindApiKey(impl: ApiKeyProviderImpl): ApiKeyProvider
 
-    @Binds
     fun bindActiveWeatherService(impl: ActiveWeatherServiceImpl): ActiveWeatherService
 
-    @Binds
     fun bindTimeUtil(impl: TimeUtilImpl): TimeUtil
 
-    @Binds
     fun bindClockProvider(impl: DefaultClockProvider): ClockProvider
 
-    @Binds
     fun bindAnalytics(impl: AnalyticsImpl): Analytics
 
     companion object {
