@@ -60,13 +60,9 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -74,6 +70,10 @@ import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
 import dev.hossain.weatheralert.work.supportedWeatherUpdateInterval
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -107,8 +107,8 @@ data object UserSettingsScreen : Screen {
     }
 }
 
+@Inject
 class UserSettingsPresenter
-    @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
         private val preferencesManager: PreferencesManager,

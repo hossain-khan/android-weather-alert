@@ -5,8 +5,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
@@ -28,10 +26,9 @@ import timber.log.Timber
  * - https://developer.android.com/reference/kotlin/androidx/work/WorkManager
  */
 class WeatherCheckWorker
-    @AssistedInject
     constructor(
-        @Assisted private val context: Context,
-        @Assisted params: WorkerParameters,
+        private val context: Context,
+        params: WorkerParameters,
         private val alertDao: AlertDao,
         private val weatherRepository: WeatherRepository,
         private val analytics: Analytics,

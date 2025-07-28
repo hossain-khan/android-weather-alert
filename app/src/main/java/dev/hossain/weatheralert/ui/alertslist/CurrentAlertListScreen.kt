@@ -81,9 +81,6 @@ import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
 import dev.hossain.weatheralert.data.WeatherRepository
@@ -92,7 +89,6 @@ import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.UserCityAlert
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
@@ -104,6 +100,10 @@ import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -151,8 +151,8 @@ data class CurrentWeatherAlertScreen(
     }
 }
 
+@Inject
 class CurrentWeatherAlertPresenter
-    @AssistedInject
     constructor(
         @Assisted private val navigator: Navigator,
         @Assisted private val screen: CurrentWeatherAlertScreen,

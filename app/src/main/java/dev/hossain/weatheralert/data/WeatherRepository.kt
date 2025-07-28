@@ -1,9 +1,9 @@
 package dev.hossain.weatheralert.data
+
 import com.openmeteo.api.OpenMeteoService
 import com.openmeteo.api.model.OpenMeteoForecastResponse
 import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
-import com.squareup.anvil.annotations.ContributesBinding
 import com.weatherapi.api.WeatherApiService
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.datamodel.AppForecastData
@@ -13,12 +13,11 @@ import dev.hossain.weatheralert.datamodel.WeatherApiServiceResponse
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.TimeUtil
+import dev.zacsweers.metro.Inject
 import io.tomorrow.api.TomorrowIoService
 import org.openweathermap.api.OpenWeatherService
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Repository for weather data that caches and provides weather forecast data.
@@ -57,9 +56,8 @@ interface WeatherRepository {
 /**
  * Implementation of [WeatherRepository] that uses [OpenWeatherService] to fetch weather data.
  */
-@ContributesBinding(AppScope::class)
+@Inject
 class WeatherRepositoryImpl
-    @Inject
     constructor(
         private val apiKeyProvider: ApiKeyProvider,
         private val openWeatherService: OpenWeatherService,

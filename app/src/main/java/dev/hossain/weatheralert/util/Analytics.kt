@@ -5,16 +5,15 @@ import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_CLASS
 import com.google.firebase.analytics.FirebaseAnalytics.Param.SCREEN_NAME
 import com.google.firebase.analytics.logEvent
 import com.slack.circuit.runtime.screen.Screen
-import com.squareup.anvil.annotations.ContributesBinding
-import com.squareup.anvil.annotations.optional.SingleIn
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
-import dev.hossain.weatheralert.di.AppScope
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_ADD_SERVICE_API_KEY
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_SEND_APP_FEEDBACK
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLETED
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_FAILED
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_STARTED
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
 import kotlin.reflect.KClass
 
 /**
@@ -93,9 +92,8 @@ interface Analytics {
  * - [Params](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param)
  */
 @SingleIn(AppScope::class)
-@ContributesBinding(AppScope::class)
+@Inject
 class AnalyticsImpl
-    @Inject
     constructor(
         private val firebaseAnalytics: FirebaseAnalytics,
     ) : Analytics {

@@ -2,14 +2,12 @@ package dev.hossain.weatheralert
 
 import android.app.Application
 import androidx.work.Configuration
-import androidx.work.WorkerFactory
-import dev.hossain.weatheralert.data.PreferencesManager
-import dev.hossain.weatheralert.di.AppComponent
+import dev.hossain.weatheralert.di.AppGraph
 import dev.hossain.weatheralert.notification.createAppNotificationChannel
 import dev.hossain.weatheralert.util.CrashlyticsTree
 import dev.hossain.weatheralert.work.scheduleWeatherAlertsWork
+import dev.zacsweers.metro.createGraphFactory
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Application class for the app with key initializations.
@@ -17,15 +15,10 @@ import javax.inject.Inject
 class WeatherAlertApp :
     Application(),
     Configuration.Provider {
-    private val appComponent: AppComponent by lazy { AppComponent.create(this) }
-
-    fun appComponent(): AppComponent = appComponent
-
-    @Inject
-    lateinit var workerFactory: WorkerFactory
-
-    @Inject
-    lateinit var preferencesManager: PreferencesManager
+    /** Holder reference for the app graph for Component Factory. */
+    val appGraph: AppGraph by lazy {
+        createGraphFactory<AppGraph.Factory>().create(this)
+    }
 
     // https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration
     override val workManagerConfiguration: Configuration
@@ -34,18 +27,17 @@ class WeatherAlertApp :
             return Configuration
                 .Builder()
                 .setMinimumLoggingLevel(android.util.Log.DEBUG)
-                .setWorkerFactory(workerFactory)
+                .setWorkerFactory(appGraph.workerFactory)
                 .build()
         }
 
     override fun onCreate() {
         super.onCreate()
-        appComponent.inject(this)
 
         installLoggingTree()
 
         createAppNotificationChannel(context = this)
-        scheduleWeatherAlertsWork(context = this, preferencesManager.preferredUpdateIntervalSync)
+        scheduleWeatherAlertsWork(context = this, appGraph.preferencesManager.preferredUpdateIntervalSync)
 
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
         // scheduleOneTimeWeatherAlertWorkerDebug(context = this)
