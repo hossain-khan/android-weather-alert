@@ -11,9 +11,7 @@ import dev.zacsweers.metro.Provides
 @BindingContainer
 object AppBindings {
     @Provides
-    fun provideFirebaseAnalytics(
-        context: Context,
-    ): FirebaseAnalytics {
+    fun provideFirebaseAnalytics(context: Context): FirebaseAnalytics {
         FirebaseApp.initializeApp(context)
         return Firebase.analytics
     }

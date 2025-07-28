@@ -6,13 +6,9 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
-import dev.zacsweers.metro.Provides
-
 
 object TestDatabaseModule {
-    fun provideInMemoryDatabase(
-        context: Context,
-    ): AppDatabase =
+    fun provideInMemoryDatabase(context: Context): AppDatabase =
         Room
             .inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()

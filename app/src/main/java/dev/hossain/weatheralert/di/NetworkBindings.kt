@@ -35,9 +35,7 @@ object NetworkBindings {
     internal var weatherApiBaseUrl: HttpUrl = "https://api.weatherapi.com/".toHttpUrl()
 
     @Provides
-    fun provideOkHttpClient(
-        context: Context,
-    ): OkHttpClient {
+    fun provideOkHttpClient(context: Context): OkHttpClient {
         val cacheSize = 10 * 1024 * 1024 // 10 MB
         val cacheDir = File(context.cacheDir, "http_cache")
         val cache = Cache(cacheDir, cacheSize.toLong())

@@ -35,14 +35,10 @@ interface TestModule {
 
     companion object {
         @Provides
-        fun providePreferencesManager(
-            context: Context,
-        ): PreferencesManager = PreferencesManager(context)
+        fun providePreferencesManager(context: Context): PreferencesManager = PreferencesManager(context)
 
         @Provides
-        fun provideFirebaseAnalytics(
-            context: Context,
-        ): FirebaseAnalytics {
+        fun provideFirebaseAnalytics(context: Context): FirebaseAnalytics {
             FirebaseApp.initializeApp(context)
             return Firebase.analytics
         }

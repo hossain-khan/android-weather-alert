@@ -15,9 +15,7 @@ import dev.zacsweers.metro.SingleIn
 object DatabaseBindings {
     @Provides
     @SingleIn(AppScope::class)
-    fun provideDatabase(
-        context: Context,
-    ): AppDatabase =
+    fun provideDatabase(context: Context): AppDatabase =
         Room
             .databaseBuilder(context, AppDatabase::class.java, "app.db")
             .createFromAsset(databaseFilePath = "alertapp.db")

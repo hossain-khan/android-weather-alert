@@ -10,8 +10,6 @@ interface TestAppComponent {
     fun inject(test: WeatherCheckWorkerTest)
 
     interface Factory {
-        fun create(
-            context: Context,
-        ): TestAppComponent
+        fun create(context: Context): TestAppComponent
     }
 }
