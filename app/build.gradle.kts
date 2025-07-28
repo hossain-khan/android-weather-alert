@@ -149,9 +149,7 @@ kover {
                 annotatedBy(
                     "*Composable",
                     "*Parcelize",
-                    "*Preview",
-                    // Generated classes by Dagger 🗡️
-                    "javax.annotation.processing.Generated"
+                    "*Preview"
                 )
             }
         }

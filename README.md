@@ -58,7 +58,7 @@ Simple application generated from Android App template that uses:
 * Jetpack Compose
 * ⚡️ Circuit - UDF Architecture
 * Jetpack libraries like - Room, Datastore, Material 3, and so on
-* Dagger + Anvil
+* 🚇 Metro for dependency injection
 * ... and few more. See [`libs.versions.toml`](https://github.com/hossain-khan/android-weather-alert/blob/main/gradle/libs.versions.toml) to get more idea.
 
 Here is simple diagram of Gradle modules for this app.
