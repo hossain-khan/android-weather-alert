@@ -31,7 +31,7 @@ Weather Alert is a simple, no-frills app designed to notify you when specific we
 Set thresholds for snowfall or rainfall (e.g., 5cm snow, 10mm rain) and receive notifications only when they’re met.  
 
 🌐 **Choose Your Data Source:**  
-Pick between **OpenWeatherMap** and **Tomorrow.io** for reliable and accurate forecasts.  
+Pick between **OpenWeatherMap**, **Tomorrow.io**, **OpenMeteo**, and **WeatherAPI** for reliable and accurate forecasts.  
 
 🔑 **Add Your Own API Key:**  
 Ensure uninterrupted service by using your own API key for weather data.  

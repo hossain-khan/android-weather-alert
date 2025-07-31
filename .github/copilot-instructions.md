@@ -19,7 +19,7 @@ Weather Alert is a modern Android application that provides focused weather noti
 ### Core Architecture
 - **UI Framework**: Jetpack Compose with Material 3 design system
 - **Architecture Pattern**: Circuit UDF (Unidirectional Data Flow) by Slack
-- **Dependency Injection**: Dagger 2 with Anvil (forked version by ZacSweers)
+- **Dependency Injection**: Metro (modern Kotlin-first DI framework)
 - **Navigation**: Jetpack Navigation Compose
 - **State Management**: Circuit Presenters and UI components
 
@@ -70,11 +70,19 @@ Weather Alert is a modern Android application that provides focused weather noti
 - Prefer stateless Composables when possible
 
 ### Dependency Injection Patterns
-- Use Dagger 2 with Anvil for dependency injection
+- Use Metro for dependency injection with Kotlin-first design
 - Define scopes using `@SingleIn(AppScope::class)` for singletons
-- Use `@ContributesTo(AppScope::class)` for modules
+- Use `@DependencyGraph` with `@BindingContainer` objects for organizing bindings
 - Implement Factory patterns for Circuit Presenters and UIs
-- Use `@Multibinds` for providing sets of implementations
+- Use `@Multibinds` for providing sets or maps of implementations
+
+### Metro-Specific Guidelines
+- Use `@Inject` constructor injection for classes
+- Create `@BindingContainer` objects to organize related bindings
+- Use `@Provides` functions for complex dependency creation
+- Define main app graph with `@DependencyGraph(scope = AppScope::class)`
+- Use `createGraphFactory` pattern for component creation
+- Test graphs should also be scoped to `AppScope::class` to access scoped bindings
 
 ### Error Handling
 - Use EitherNet's ApiResult for network operations
@@ -118,17 +126,18 @@ interface WeatherService {
 }
 
 // Implementation with Retrofit
-@ContributesBinding(AppScope::class)
 class WeatherServiceImpl @Inject constructor(
     private val api: WeatherApi
 ) : WeatherService {
     // Implementation
 }
 
-// Dagger module
-@ContributesTo(AppScope::class)
-@Module
+// Metro binding container
+@BindingContainer
 object WeatherServiceModule {
+    @Provides
+    fun provideWeatherService(impl: WeatherServiceImpl): WeatherService = impl
+    
     // Retrofit and OkHttp setup
 }
 ```
@@ -161,10 +170,11 @@ object WeatherServiceModule {
 ## UI Development Guidelines
 
 ### Circuit Integration
-- Create Presenter classes extending `Presenter<State, Event>`
-- Implement UI classes extending `Ui<State>`
-- Use proper dependency injection for Circuit components
+- Create Presenter classes extending `Presenter<State, Event>` with `@Inject` constructor
+- Implement UI components as `@Composable` functions with `@CircuitInject`
+- Use `@AssistedFactory` with `@CircuitInject` for presenter factories
 - Handle loading, success, and error states appropriately
+- Use `@Assisted` for screen-specific dependencies like Navigator
 
 ### Compose Best Practices
 - Use proper preview annotations for design-time rendering
@@ -274,69 +284,128 @@ object WeatherServiceModule {
 
 ### Circuit Presenter Example
 ```kotlin
-class WeatherPresenter @AssistedInject constructor(
+@Parcelize
+data object AboutAppScreen : Screen {
+    data class State(
+        val appVersion: String,
+        val showLearnMoreSheet: Boolean,
+        val eventSink: (Event) -> Unit,
+    ) : CircuitUiState
+
+    sealed class Event : CircuitUiEvent {
+        data object GoBack : Event()
+        data object OpenGitHubProject : Event()
+        data object OpenAppEducationDialog : Event()
+        data object CloseAppEducationDialog : Event()
+    }
+}
+
+@Inject
+class AboutAppPresenter constructor(
     @Assisted private val navigator: Navigator,
-    private val weatherRepository: WeatherRepository,
-    private val analytics: Analytics
-) : Presenter<WeatherScreen.State> {
+    private val analytics: Analytics,
+) : Presenter<AboutAppScreen.State> {
     
     @Composable
-    override fun present(): WeatherScreen.State {
-        // State management with remember for local state
-        var isLoading by remember { mutableStateOf(false) }
+    override fun present(): AboutAppScreen.State {
+        val uriHandler = LocalUriHandler.current
+        var showLearnMoreBottomSheet by remember { mutableStateOf(false) }
+        
+        val appVersion = buildString {
+            append("v")
+            append(BuildConfig.VERSION_NAME)
+            append(" (")
+            append(BuildConfig.GIT_COMMIT_HASH)
+            append(")")
+        }
         
         // Analytics tracking
         LaunchedImpressionEffect {
-            analytics.logScreenView(WeatherScreen::class)
+            analytics.logScreenView(AboutAppScreen::class)
         }
         
-        return WeatherScreen.State(
-            isLoading = isLoading
+        return AboutAppScreen.State(
+            appVersion,
+            showLearnMoreSheet = showLearnMoreBottomSheet,
         ) { event ->
             when (event) {
-                WeatherScreen.Event.GoBack -> navigator.pop()
-                // Handle other events
+                AboutAppScreen.Event.GoBack -> {
+                    navigator.pop()
+                }
+                AboutAppScreen.Event.OpenGitHubProject -> {
+                    uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert")
+                }
+                AboutAppScreen.Event.OpenAppEducationDialog -> {
+                    showLearnMoreBottomSheet = true
+                    analytics.logViewTutorial(isComplete = false)
+                }
+                AboutAppScreen.Event.CloseAppEducationDialog -> {
+                    showLearnMoreBottomSheet = false
+                    analytics.logViewTutorial(isComplete = true)
+                }
             }
         }
     }
     
-    @CircuitInject(WeatherScreen::class, AppScope::class)
+    @CircuitInject(AboutAppScreen::class, AppScope::class)
     @AssistedFactory
     fun interface Factory {
-        fun create(navigator: Navigator): WeatherPresenter
+        fun create(navigator: Navigator): AboutAppPresenter
     }
 }
 
 // UI Component
-@CircuitInject(WeatherScreen::class, AppScope::class)
+@OptIn(ExperimentalMaterial3Api::class)
+@CircuitInject(AboutAppScreen::class, AppScope::class)
 @Composable
-fun WeatherScreen(
-    state: WeatherScreen.State,
-    modifier: Modifier = Modifier
+fun AboutAppScreen(
+    state: AboutAppScreen.State,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Weather") },
+                title = { Text("About App") },
                 navigationIcon = {
                     IconButton(onClick = {
-                        state.eventSink(WeatherScreen.Event.GoBack)
+                        state.eventSink(AboutAppScreen.Event.GoBack)
                     }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Go back")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Go back",
+                        )
                     }
-                }
+                },
             )
-        }
-    ) { paddingValues ->
+        },
+    ) { contentPaddingValues ->
         // Screen content
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(contentPaddingValues)
+                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
+        ) {
+            // UI content here
+        }
     }
 }
 ```
 
+### Circuit Pattern Key Points
+- **Screen Definition**: Use `@Parcelize data object` for simple screens that extend `Screen`
+- **State**: Define state as a data class implementing `CircuitUiState` with an `eventSink`
+- **Events**: Use sealed class hierarchy extending `CircuitUiEvent` for all user interactions
+- **Presenter**: Use `@Inject` constructor with `@Assisted` for dependencies that vary per screen instance
+- **Factory**: Use `@CircuitInject` with `@AssistedFactory` for presenter creation
+- **UI Component**: Use `@CircuitInject` to bind the UI component to the screen and scope
+- **State Management**: Use `remember { mutableStateOf() }` for local UI state in presenters
+- **Analytics**: Use `LaunchedImpressionEffect` for screen view tracking
+- **Navigation**: Handle navigation through events processed in the presenter
+
 ### Repository Pattern
 ```kotlin
 @SingleIn(AppScope::class)
-@ContributesBinding(AppScope::class)
 class WeatherRepositoryImpl @Inject constructor(
     private val weatherService: WeatherService,
     private val weatherDao: WeatherDao
@@ -352,19 +421,14 @@ class WeatherRepositoryImpl @Inject constructor(
 
 ### WorkManager Example
 ```kotlin
-class WeatherCheckWorker @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted params: WorkerParameters,
+class WeatherCheckWorker @Inject constructor(
+    context: Context,
+    params: WorkerParameters,
     private val weatherRepository: WeatherRepository
 ) : CoroutineWorker(context, params) {
     
     override suspend fun doWork(): Result {
         // Background weather checking logic
-    }
-    
-    @AssistedFactory
-    interface Factory {
-        fun create(context: Context, params: WorkerParameters): WeatherCheckWorker
     }
 }
 ```

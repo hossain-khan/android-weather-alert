@@ -9,6 +9,19 @@
 
 -----------------------------------------------------------------------------
 
+## Weather Alert v2.X
+
+### What's new
+* Unreleased
+
+## Weather Alert v2.9
+
+### What's new
+* Updated to latest Kotlin 2.2
+* Updated DI framework to 🚇 Metro
+* Maintenance release with updated libraries and dependencies.
+
+💬 Feedback and comments are welcome via Google Play.
 
 ## Weather Alert v2.8
 
