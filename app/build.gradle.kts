@@ -119,10 +119,6 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         compose = true
         buildConfig = true
@@ -131,6 +127,14 @@ android {
     room {
         // https://developer.android.com/jetpack/androidx/releases/room#gradle-plugin
         schemaDirectory("$projectDir/schemas")
+    }
+}
+
+
+kotlin {
+    // See https://kotlinlang.org/docs/gradle-compiler-options.html
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
