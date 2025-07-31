@@ -20,8 +20,6 @@ import kotlin.reflect.KClass
         NetworkBindings::class,
         DatabaseBindings::class,
         WorkerBindings::class,
-        WeatherRepositoryBindings::class,
-        UtilBindings::class,
     ],
 )
 interface AppGraph {

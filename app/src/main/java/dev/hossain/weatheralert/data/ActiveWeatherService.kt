@@ -2,6 +2,8 @@ package dev.hossain.weatheralert.data
 
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 
 /**
@@ -15,6 +17,7 @@ interface ActiveWeatherService {
  * Implementation of the [ActiveWeatherService] interface.
  * This class provides the selected weather service based on user preference.
  */
+@ContributesBinding(AppScope::class)
 @Inject
 class ActiveWeatherServiceImpl(
     private val preferencesManager: PreferencesManager,

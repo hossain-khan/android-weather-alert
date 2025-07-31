@@ -14,7 +14,6 @@ import dev.zacsweers.metro.SingleIn
  */
 @ContributesTo(AppScope::class)
 interface CircuitMultiBindings {
-
     /**
      * Metro multi-binding method that provides a set of Presenter.Factory instances.
      */
