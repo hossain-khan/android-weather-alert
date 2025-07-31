@@ -1,5 +1,7 @@
 package dev.hossain.weatheralert.util
 
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import java.time.Clock
 import java.time.Instant
@@ -9,6 +11,7 @@ interface ClockProvider {
     fun getClock(): Clock
 }
 
+@ContributesBinding(AppScope::class)
 @Inject
 class DefaultClockProvider
     constructor() : ClockProvider {
@@ -21,6 +24,7 @@ interface TimeUtil {
     fun isOlderThan24Hours(timeInMillis: Long): Boolean
 }
 
+@ContributesBinding(AppScope::class)
 @Inject
 class TimeUtilImpl
     constructor(

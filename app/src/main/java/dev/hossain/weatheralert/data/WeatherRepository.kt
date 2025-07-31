@@ -14,6 +14,8 @@ import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.CityForecast
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.util.TimeUtil
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import io.tomorrow.api.TomorrowIoService
 import org.openweathermap.api.OpenWeatherService
@@ -56,6 +58,7 @@ interface WeatherRepository {
 /**
  * Implementation of [WeatherRepository] that uses [OpenWeatherService] to fetch weather data.
  */
+@ContributesBinding(AppScope::class)
 @Inject
 class WeatherRepositoryImpl
     constructor(

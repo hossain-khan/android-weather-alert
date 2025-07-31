@@ -2,6 +2,8 @@ package dev.hossain.weatheralert.data
 
 import dev.hossain.weatheralert.BuildConfig
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import timber.log.Timber
 
@@ -37,6 +39,7 @@ interface ApiKeyProvider {
  * Implementation of the [ApiKeyProvider] interface.
  * This class provides the API key from the build configuration.
  */
+@ContributesBinding(AppScope::class)
 @Inject
 class ApiKeyProviderImpl
     constructor(

@@ -12,6 +12,7 @@ import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_COMPLE
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_FAILED
 import dev.hossain.weatheralert.util.Analytics.Companion.EVENT_WORKER_JOB_STARTED
 import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlin.reflect.KClass
@@ -92,6 +93,7 @@ interface Analytics {
  * - [Params](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param)
  */
 @SingleIn(AppScope::class)
+@ContributesBinding(AppScope::class)
 @Inject
 class AnalyticsImpl
     constructor(

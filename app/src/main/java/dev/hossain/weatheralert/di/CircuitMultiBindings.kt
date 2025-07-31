@@ -13,8 +13,7 @@ import dev.zacsweers.metro.SingleIn
  * Metro module that provides dependencies for the Circuit framework.
  */
 @ContributesTo(AppScope::class)
-interface CircuitModule { // TODO - rename to CircuitBindings after migration
-
+interface CircuitMultiBindings {
     /**
      * Metro multi-binding method that provides a set of Presenter.Factory instances.
      */
