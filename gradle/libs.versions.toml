@@ -5,7 +5,7 @@ activityCompose = "1.10.1"
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
 adaptiveAndroid = "1.1.0"
 
-agp = "8.10.0"
+agp = "8.11.1"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
@@ -59,7 +59,7 @@ kotlinxSerializationProperties = "1.9.0"
 # https://github.com/google/ksp/releases
 ksp = "2.2.0-2.0.2"
 
-lifecycleRuntimeKtx = "2.9.2"
+lifecycleRuntimeKtx = "2.9.4"
 
 # A modern JSON library for Kotlin and Java.
 # https://github.com/square/moshi
@@ -78,7 +78,7 @@ robolectric = "4.15.1"
 
 # Room Database
 # https://developer.android.com/training/data-storage/room
-roomDb = "2.7.2"
+roomDb = "2.8.0"
 
 testCore = "1.7.0"
 
