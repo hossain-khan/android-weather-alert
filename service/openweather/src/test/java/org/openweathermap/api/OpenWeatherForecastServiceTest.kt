@@ -20,14 +20,14 @@ class OpenWeatherForecastServiceTest {
     // Guide @ https://github.com/square/okhttp/tree/master/mockwebserver
     private lateinit var mockWebServer: MockWebServer
 
-    private lateinit var tomorrowIoService: OpenWeatherService
+    private lateinit var openWeatherService: OpenWeatherService
 
     @Before
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start()
 
-        tomorrowIoService =
+        openWeatherService =
             OpenWeatherServiceBuilder
                 .provideService(baseUrl = mockWebServer.url("/"))
     }
@@ -47,7 +47,7 @@ class OpenWeatherForecastServiceTest {
             )
 
             val result =
-                tomorrowIoService.getDailyForecast(
+                openWeatherService.getDailyForecast(
                     apiKey = "fake-api-key",
                     latitude = 43.9319,
                     longitude = -78.851,
@@ -69,7 +69,7 @@ class OpenWeatherForecastServiceTest {
             )
 
             val result =
-                tomorrowIoService.getDailyForecast(
+                openWeatherService.getDailyForecast(
                     apiKey = "fake-api-key",
                     latitude = 32.864,
                     longitude = -90.43,
@@ -91,7 +91,7 @@ class OpenWeatherForecastServiceTest {
             )
 
             val result =
-                tomorrowIoService.getDailyForecast(
+                openWeatherService.getDailyForecast(
                     apiKey = "fake-api-key",
                     latitude = 49.588,
                     longitude = -75.1699,
