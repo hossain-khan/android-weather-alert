@@ -12,7 +12,7 @@ class OpenMeteoResponseTest {
         //    Failed to parse type 'double' for input '2025-01-21T00:00' at path: $.hourly['time'][0]
         // 2. kotlinx.serialization.MissingFieldException: Fields [utcOffsetSeconds, timezoneAbbreviation, generationtimeMs]
         //    are required for type with serial name 'com.openmeteo.api.Forecast.Response', but they were missing
-        // 
+        //
         // TODO: Fix JSON parsing or update test data to match expected format
         try {
             val response = loadWeatherForecastFromJson("open-meteo-forecast-lac-mann-snowing-2025-01-20.json")
@@ -29,9 +29,10 @@ class OpenMeteoResponseTest {
 
     // Helper method to load WeatherForecast from JSON
     private fun loadWeatherForecastFromJson(fileName: String): Forecast.Response {
-        val classLoader = javaClass.classLoader
-        val inputStream = classLoader?.getResourceAsStream(fileName)
-        val jsonText = inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+        val inputStream =
+            javaClass.classLoader?.getResourceAsStream(fileName)
+                ?: throw IllegalArgumentException("File not found: $fileName")
+        val jsonText = inputStream.bufferedReader().use { it.readText() }
 
         val json =
             Json {

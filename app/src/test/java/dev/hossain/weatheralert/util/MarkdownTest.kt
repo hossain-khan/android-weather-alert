@@ -5,7 +5,7 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import org.junit.Assert.assertEquals
+import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class MarkdownTest {
@@ -22,7 +22,7 @@ class MarkdownTest {
                     }
                     append(" text.")
                 }.toAnnotatedString()
-        assertEquals(expected, parseMarkdown(markdown))
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
     }
 
     @Test
@@ -38,7 +38,7 @@ class MarkdownTest {
                     }
                     append(" text.")
                 }.toAnnotatedString()
-        assertEquals(expected, parseMarkdown(markdown))
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
     }
 
     @Test
@@ -52,7 +52,7 @@ class MarkdownTest {
                     append("• List item 2\n")
                     append("Normal text")
                 }.toAnnotatedString()
-        assertEquals(expected, parseMarkdown(markdown))
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
     }
 
     @Test
@@ -78,28 +78,28 @@ class MarkdownTest {
                     }
                     append(" followed by some text.")
                 }.toAnnotatedString()
-        assertEquals(expected, parseMarkdown(markdown))
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
     }
 
     @Test
     fun testStripMarkdownExceptLists_boldText() {
         val markdown = "This is **bold** text."
         val expected = "This is bold text."
-        assertEquals(expected, stripMarkdownSyntax(markdown))
+        assertThat(stripMarkdownSyntax(markdown)).isEqualTo(expected)
     }
 
     @Test
     fun testStripMarkdownExceptLists_italicText() {
         val markdown = "This is _italic_ text."
         val expected = "This is italic text."
-        assertEquals(expected, stripMarkdownSyntax(markdown))
+        assertThat(stripMarkdownSyntax(markdown)).isEqualTo(expected)
     }
 
     @Test
     fun testStripMarkdownExceptLists_listItems() {
         val markdown = "- List item 1\n* List item 2\nNormal text"
         val expected = "- List item 1\n* List item 2\nNormal text"
-        assertEquals(expected, stripMarkdownSyntax(markdown))
+        assertThat(stripMarkdownSyntax(markdown)).isEqualTo(expected)
     }
 
     @Test
@@ -116,7 +116,7 @@ class MarkdownTest {
             - Bold item
             Italic item followed by some text.
             """.trimIndent()
-        assertEquals(expected, stripMarkdownSyntax(multilineMarkdown))
+        assertThat(stripMarkdownSyntax(multilineMarkdown)).isEqualTo(expected)
     }
 
     @Test
@@ -139,6 +139,6 @@ class MarkdownTest {
             
             Finally, you should help your neighbors if needed.
             """.trimIndent()
-        assertEquals(expected, stripMarkdownSyntax(multilineMarkdown))
+        assertThat(stripMarkdownSyntax(multilineMarkdown)).isEqualTo(expected)
     }
 }
