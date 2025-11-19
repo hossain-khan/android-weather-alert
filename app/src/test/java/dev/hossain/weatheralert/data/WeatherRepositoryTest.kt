@@ -17,6 +17,7 @@ import dev.hossain.weatheralert.db.City
 import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
 import dev.hossain.weatheralert.di.NetworkBindings
+import dev.hossain.weatheralert.test.TestUtils
 import dev.hossain.weatheralert.util.TimeUtil
 import io.tomorrow.api.TomorrowIoService
 import kotlinx.coroutines.test.runTest
@@ -81,8 +82,6 @@ class WeatherRepositoryTest {
             setUpDatabaseWithData()
 
             // This test loads mock data responses using OpenWeatherMap service.
-            // So, override the default service to OpenWeatherMap.
-            // FIXME: Update API so that this situation can be avoided in future.
             preferencesManager.savePreferredWeatherService(WeatherForecastService.OPEN_WEATHER_MAP)
 
             weatherRepository =
@@ -289,7 +288,7 @@ class WeatherRepositoryTest {
             mockWebServer.enqueue(
                 MockResponse()
                     .setResponseCode(200)
-                    .setBody(loadJsonFromResources("open-weather-yazoo-city-mississippi-raining.json")),
+                    .setBody(TestUtils.loadJsonFromResources("open-weather-yazoo-city-mississippi-raining.json")),
             )
 
             val result =
@@ -313,8 +312,7 @@ class WeatherRepositoryTest {
             mockWebServer.enqueue(
                 MockResponse()
                     .setResponseCode(200)
-                    // Previously loaded "open-weather-aachen-nw-de-heavy-snow.json"
-                    // .setBody(loadJsonFromResources("open-weather-aachen-nw-de-heavy-snow.json")),
+                    // Using WeatherAPI response format for Oshawa
                     .setBody(loadJsonFromResources("weatherapi-oshawa-2025-02-12-lots-of-snow.json")),
             )
 
@@ -327,15 +325,7 @@ class WeatherRepositoryTest {
                 )
             assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val forecast: AppForecastData = (result as ApiResult.Success).value
-            /*
-            DISABLED due to default weather service change to WeatherAPI
-            assertThat(forecast.latitude).isEqualTo(50.7756)
-            assertThat(forecast.longitude).isEqualTo(6.0836)
-            assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(200.09999999999997)
-            assertThat(forecast.snow.nextDaySnow).isEqualTo(20.01)
-            assertThat(forecast.rain.dailyCumulativeRain).isEqualTo(5.9)
-            assertThat(forecast.rain.nextDayRain).isEqualTo(5.9)
-             */
+            // Verify Oshawa location data
             assertThat(forecast.latitude).isEqualTo(43.9)
             assertThat(forecast.longitude).isEqualTo(-78.867)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(0.0)
@@ -370,18 +360,11 @@ class WeatherRepositoryTest {
             assertThat(forecast.rain.nextDayRain).isEqualTo(0.0)
         }
 
-    // Helper method to load JSON from resources
-    private fun loadJsonFromResources(fileName: String): String {
-        val classLoader = javaClass.classLoader
-        val inputStream = classLoader?.getResourceAsStream(fileName)
-        return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
-    }
+    // Helper method to load JSON from resources using shared utility
+    private fun loadJsonFromResources(fileName: String): String = TestUtils.loadJsonFromResources(fileName)
 
     private fun prepopulateCityAndAlertData() {
-        // Avoid this error by inserting an alert first.
-        // android.database.sqlite.SQLiteConstraintException:
-        // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
-
+        // Clear all tables before inserting test data to avoid foreign key constraint violations
         appDatabase.clearAllTables()
 
         cityDao.insertCitySync(

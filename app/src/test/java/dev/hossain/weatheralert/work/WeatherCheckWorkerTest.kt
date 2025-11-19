@@ -10,6 +10,7 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.di.NetworkBindings
+import dev.hossain.weatheralert.test.TestUtils
 import dev.hossain.weatheralert.util.Analytics
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
@@ -79,7 +80,7 @@ class WeatherCheckWorkerTest {
         mockWebServer.enqueue(
             MockResponse()
                 .setResponseCode(200)
-                .setBody(loadJsonFromResources("open-weather-cancun.json")),
+                .setBody(TestUtils.loadJsonFromResources("open-weather-cancun.json")),
         )
 
         val worker =
@@ -94,40 +95,10 @@ class WeatherCheckWorkerTest {
 
     @Test
     fun `given single alert set and success API response - results in successful work execution`() {
-        // Getting foreign key violation for some reason even after using `121` city id.
-
-        /*runBlocking {
-            appDatabase.cityDao().insertCity(
-                City(
-                    id = 121,
-                    cityName = "Cancún",
-                    lat = 21.1743,
-                    lng = -86.8466,
-                    country = "Mexico",
-                    iso2 = "MX",
-                    iso3 = "MEX",
-                    provStateName = null,
-                    capital = null,
-                    population = 628306,
-                    city = "Cancún",
-                ),
-            )
-
-            alertDao.insertAlert(
-                Alert(
-                    id = 1,
-                    cityId = 121,
-                    WeatherAlertCategory.RAIN_FALL,
-                    threshold = 0.5f,
-                    notes = "Notes about alert",
-                ),
-            )
-        }*/
-
         mockWebServer.enqueue(
             MockResponse()
                 .setResponseCode(200)
-                .setBody(loadJsonFromResources("open-weather-cancun.json")),
+                .setBody(TestUtils.loadJsonFromResources("open-weather-cancun.json")),
         )
 
         val worker =
@@ -143,12 +114,5 @@ class WeatherCheckWorkerTest {
     // Helper method to inject dependencies
     private fun injectAndSetupTestClass() {
         FirebaseApp.initializeApp(context)
-    }
-
-    // Helper method to load JSON from resources
-    private fun loadJsonFromResources(fileName: String): String {
-        val classLoader = javaClass.classLoader
-        val inputStream = classLoader?.getResourceAsStream(fileName)
-        return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
     }
 }

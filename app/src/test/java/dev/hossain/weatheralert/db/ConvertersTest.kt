@@ -1,10 +1,10 @@
 package dev.hossain.weatheralert.db
 
+import com.google.common.truth.Truth.assertThat
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dev.hossain.weatheralert.datamodel.HourlyPrecipitation
 import dev.hossain.weatheralert.db.converter.Converters
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -29,7 +29,7 @@ class ConvertersTest {
         val json = converters.fromHourlyPrecipitationList(hourlyPrecipitationList)
         // language=JSON
         val expectedJson = """[{"isoDateTime":"2025-01-15T21:42:00Z","rain":5.0,"snow":2.0},{"isoDateTime":"2025-01-15T22:42:00Z","rain":3.0,"snow":1.0}]"""
-        assertEquals(expectedJson, json)
+        assertThat(json).isEqualTo(expectedJson)
     }
 
     @Suppress("ktlint:standard:max-line-length")
@@ -43,7 +43,7 @@ class ConvertersTest {
                 HourlyPrecipitation("2025-01-15T21:42:00Z", 5.0, 2.0),
                 HourlyPrecipitation("2025-01-15T22:42:00Z", 3.0, 1.0),
             )
-        assertEquals(expectedList, hourlyPrecipitationList)
+        assertThat(hourlyPrecipitationList).isEqualTo(expectedList)
     }
 
     @Test
@@ -51,6 +51,6 @@ class ConvertersTest {
         val json = "[]"
         val hourlyPrecipitationList = converters.toHourlyPrecipitationList(json)
         val expectedList = emptyList<HourlyPrecipitation>()
-        assertEquals(expectedList, hourlyPrecipitationList)
+        assertThat(hourlyPrecipitationList).isEqualTo(expectedList)
     }
 }

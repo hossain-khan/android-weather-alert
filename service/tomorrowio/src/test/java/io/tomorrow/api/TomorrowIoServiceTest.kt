@@ -179,10 +179,11 @@ class TomorrowIoServiceTest {
             assertThat(apiErrorResponse.message).isEqualTo("The request limit for this resource has been reached.")
         }
 
-    // Helper method to load JSON from resources
+    // Helper method to load JSON from test resources
     private fun loadJsonFromResources(fileName: String): String {
-        val classLoader = javaClass.classLoader
-        val inputStream = classLoader?.getResourceAsStream(fileName)
-        return inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+        val inputStream =
+            javaClass.classLoader?.getResourceAsStream(fileName)
+                ?: throw IllegalArgumentException("File not found: $fileName")
+        return inputStream.bufferedReader().use { it.readText() }
     }
 }

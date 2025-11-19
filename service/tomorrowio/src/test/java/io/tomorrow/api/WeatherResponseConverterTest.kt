@@ -107,9 +107,10 @@ class WeatherResponseConverterTest {
 
     // Helper method to load WeatherResponse from JSON
     private fun loadWeatherResponseFromJson(fileName: String): WeatherApiServiceResponse {
-        val classLoader = javaClass.classLoader
-        val inputStream = classLoader?.getResourceAsStream(fileName)
-        val json = inputStream?.bufferedReader().use { it?.readText() } ?: throw IllegalArgumentException("File not found: $fileName")
+        val inputStream =
+            javaClass.classLoader?.getResourceAsStream(fileName)
+                ?: throw IllegalArgumentException("File not found: $fileName")
+        val json = inputStream.bufferedReader().use { it.readText() }
         return Moshi
             .Builder()
             .build()
