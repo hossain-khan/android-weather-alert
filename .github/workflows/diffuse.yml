@@ -27,6 +27,20 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      # Build base APK from main branch
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-branch
+
+      - name: Build base APK from main
+        run: |
+          cd main-branch
+          ./gradlew assembleProdRelease --parallel --daemon
+          cp app/build/outputs/apk/prod/release/app-prod-release.apk ../base.apk
+          cd ..
+
       # Build PR APK
       - name: Build PR APK
         run: ./gradlew assembleProdRelease --parallel --daemon
@@ -35,43 +49,6 @@ jobs:
         run: |
           echo "Listing APK outputs:"
           find app/build/outputs/apk -name "*.apk"
-
-      # Download base APK from latest release or build from main branch
-      - name: Download base APK from latest release
-        id: download_base
-        continue-on-error: true
-        run: |
-          # Get latest release info
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest)
-          
-          # Extract APK download URL
-          APK_URL=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith(".apk")) | .browser_download_url')
-          
-          if [ -z "$APK_URL" ] || [ "$APK_URL" = "null" ]; then
-            echo "No APK found in latest release, will build from main branch instead"
-            echo "has_apk=false" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-          
-          echo "Downloading base APK from: $APK_URL"
-          curl -L -o base.apk "$APK_URL"
-          echo "has_apk=true" >> $GITHUB_OUTPUT
-
-      # Build base APK from main branch if not available from release
-      - name: Checkout main branch
-        if: steps.download_base.outputs.has_apk != 'true'
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: main-branch
-
-      - name: Build base APK from main
-        if: steps.download_base.outputs.has_apk != 'true'
-        run: |
-          cd main-branch
-          ./gradlew assembleProdRelease --parallel --daemon
-          cp app/build/outputs/apk/prod/release/app-prod-release.apk ../base.apk
-          cd ..
 
       # Run Diffuse comparison using the action
       - name: Run Diffuse
