@@ -59,8 +59,9 @@ android {
         buildConfigField("String", "TOMORROW_IO_API_KEY", "\"$tomorrowIoApiKey\"")
         buildConfigField("String", "WEATHERAPI_API_KEY", "\"$weatherapiApiKey\"")
 
-        // Git commit hash to identify build source
-        buildConfigField("String", "GIT_COMMIT_HASH", "\"${getGitCommitHash()}\"")
+        // Git commit hash to identify build source - using provider for configuration cache compatibility
+        val gitHash = getGitCommitHash()
+        buildConfigField("String", "GIT_COMMIT_HASH", gitHash.map { "\"$it\"" }.get())
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -267,11 +268,7 @@ ksp {
 
 
 // Helper function to get the current Git commit hash
-fun getGitCommitHash(): String {
-    val processBuilder = ProcessBuilder("git", "rev-parse", "--short", "HEAD")
-    val output = File.createTempFile("git-short-commit-hash", "")
-    processBuilder.redirectOutput(output)
-    val process = processBuilder.start()
-    process.waitFor()
-    return output.readText().trim()
-}
+// Uses a Provider to be compatible with configuration cache
+fun getGitCommitHash(): Provider<String> = providers.exec {
+    commandLine("git", "rev-parse", "--short", "HEAD")
+}.standardOutput.asText.map { it.trim() }
