@@ -6,7 +6,7 @@ on:
 
 jobs:
   diffuse:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       pull-requests: write  # Required to post comments
@@ -72,11 +72,6 @@ jobs:
           ./gradlew assembleProdRelease --parallel --daemon
           cp app/build/outputs/apk/prod/release/app-prod-release.apk ../base.apk
           cd ..
-          
-      # Checkout PR branch again to ensure we're on the correct branch
-      - name: Checkout PR branch again
-        if: steps.download_base.outputs.has_apk != 'true'
-        uses: actions/checkout@v4
 
       # Run Diffuse comparison using the action
       - name: Run Diffuse
@@ -106,7 +101,7 @@ jobs:
           body: |
             ## 📊 APK Size Analysis
             
-            Comparing `${{ github.base_ref }}` (latest release) → `${{ github.head_ref }}` (this PR)
+            Comparing `${{ github.base_ref }}` (base) → `${{ github.head_ref }}` (this PR)
             
             ${{ steps.diffuse.outputs.diff-gh-comment || '⚠️ Diffuse analysis failed. Check the workflow logs for details.' }}
             
