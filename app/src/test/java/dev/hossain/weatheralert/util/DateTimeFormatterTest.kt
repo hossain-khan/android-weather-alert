@@ -48,6 +48,13 @@ class DateTimeFormatterTest {
     }
 
     @Test
+    fun formatTimestampToElapsedTime_oneHourAndOneMinuteAgo() {
+        val timestamp = System.currentTimeMillis() - TimeUnit.HOURS.toMillis(1) - TimeUnit.MINUTES.toMillis(1)
+        val result = formatTimestampToElapsedTime(timestamp)
+        assertThat(result).isEqualTo("1 hour and 1 minute ago")
+    }
+
+    @Test
     fun convertIsoToHourAmPm_validIsoDateTime() {
         val isoDateTime = "2023-10-10T14:30:00Z"
         val result = convertIsoToHourAmPm(isoDateTime)
@@ -73,5 +80,46 @@ class DateTimeFormatterTest {
         val isoDateTime = "2023-10-10T14:30:00-05:00"
         val result = convertIsoToHourAmPm(isoDateTime)
         assertThat(result).isEqualTo("2PM")
+    }
+
+    @Test
+    fun convertIsoToHourAmPm_morningTime() {
+        val isoDateTime = "2023-10-10T09:00:00Z"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("9AM")
+    }
+
+    @Test
+    fun slimTimeLabel_replacesAmWithA() {
+        val result = slimTimeLabel("9AM")
+        assertThat(result).isEqualTo("9a")
+    }
+
+    @Test
+    fun slimTimeLabel_replacesPmWithP() {
+        val result = slimTimeLabel("2PM")
+        assertThat(result).isEqualTo("2p")
+    }
+
+    @Test
+    fun slimTimeLabel_handlesLowercase() {
+        val result = slimTimeLabel("9am")
+        assertThat(result).isEqualTo("9am")
+    }
+
+    @Test
+    fun slimTimeLabel_handlesNoAmPm() {
+        val result = slimTimeLabel("12:00")
+        assertThat(result).isEqualTo("12:00")
+    }
+
+    @Test
+    fun formatToDate_formatsTimestampCorrectly() {
+        // Jan 15, 2025 at 2:30 PM in UTC
+        val timestamp = 1736952600000L
+        val result = formatToDate(timestamp)
+        // The format is "MMM d 'at' h:mm a" - result depends on system timezone
+        assertThat(result).isNotEmpty()
+        assertThat(result).contains("at")
     }
 }

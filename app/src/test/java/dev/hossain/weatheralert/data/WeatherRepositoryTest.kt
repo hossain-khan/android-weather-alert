@@ -306,13 +306,12 @@ class WeatherRepositoryTest {
         }
 
     @Test
-    fun `given weather response for aachen-nw-de city - provides success response with parsed data`() =
+    fun `given weatherapi response for oshawa with lots of snow - provides success response with parsed data`() =
         runTest {
             preferencesManager.savePreferredWeatherService(WeatherForecastService.OPEN_WEATHER_MAP)
             mockWebServer.enqueue(
                 MockResponse()
                     .setResponseCode(200)
-                    // Using WeatherAPI response format for Oshawa
                     .setBody(loadJsonFromResources("weatherapi-oshawa-2025-02-12-lots-of-snow.json")),
             )
 
@@ -325,7 +324,6 @@ class WeatherRepositoryTest {
                 )
             assertThat(result).isInstanceOf(ApiResult.Success::class.java)
             val forecast: AppForecastData = (result as ApiResult.Success).value
-            // Verify Oshawa location data
             assertThat(forecast.latitude).isEqualTo(43.9)
             assertThat(forecast.longitude).isEqualTo(-78.867)
             assertThat(forecast.snow.dailyCumulativeSnow).isEqualTo(0.0)
