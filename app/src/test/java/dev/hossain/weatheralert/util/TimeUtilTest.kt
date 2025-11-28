@@ -36,6 +36,7 @@ class TimeUtilTest {
 
     @Test
     fun isOlderThan24Hours_returnsFalseForTimestampExactly24HoursAgo() {
+        // Implementation uses > (greater than), so exactly 24 hours returns false
         val currentTime = System.currentTimeMillis()
         val twentyFourHoursInMillis = 24 * 60 * 60 * 1000L
         assertThat(

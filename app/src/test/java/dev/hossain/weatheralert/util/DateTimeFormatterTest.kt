@@ -102,7 +102,8 @@ class DateTimeFormatterTest {
     }
 
     @Test
-    fun slimTimeLabel_handlesLowercase() {
+    fun slimTimeLabel_leavesLowercaseUnchanged() {
+        // The function only replaces uppercase AM/PM, so lowercase remains as-is
         val result = slimTimeLabel("9am")
         assertThat(result).isEqualTo("9am")
     }
