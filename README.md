@@ -61,22 +61,91 @@ Simple application generated from Android App template that uses:
 * 🚇 Metro for dependency injection
 * ... and few more. See [`libs.versions.toml`](https://github.com/hossain-khan/android-weather-alert/blob/main/gradle/libs.versions.toml) to get more idea.
 
-Here is simple diagram of Gradle modules for this app.
+Here is a diagram of Gradle modules and architecture for this app.
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1976D2', 'lineColor': '#42A5F5', 'secondaryColor': '#FFF3E0', 'tertiaryColor': '#E8F5E9'}}}%%
 flowchart TB
-    subgraph Service[:service - Forecast APIs]
-        direction LR  'Layout within the subgraph
-        Service_OW[:openweather]
-        Service_TI[:tomorrowio]
-        Service_OM[:openmeteo]
-        Service_WA[:weatherapi]
+    subgraph ExternalAPIs["🌐 External Weather APIs"]
+        direction LR
+        API_OW[("OpenWeatherMap")]
+        API_TI[("Tomorrow.io")]
+        API_OM[("Open-Meteo")]
+        API_WA[("WeatherAPI")]
     end
 
-    DTO[:data-model]
-    App[:app]
+    subgraph ServiceModule[":service - Weather Service Modules"]
+        direction LR
+        Service_OW[":openweather<br/>📦"]
+        Service_TI[":tomorrowio<br/>📦"]
+        Service_OM[":openmeteo<br/>📦"]
+        Service_WA[":weatherapi<br/>📦"]
+    end
 
-    DTO --> Service
-    DTO ---> App
-    Service ---> App
+    subgraph DataModel[":data-model"]
+        DTO["Shared DTOs &<br/>Data Classes<br/>📋"]
+    end
+
+    subgraph AppModule[":app - Main Application"]
+        direction TB
+        subgraph UI["UI Layer"]
+            Compose["Jetpack Compose<br/>Material 3<br/>🎨"]
+            Circuit["Circuit UDF<br/>Presenters<br/>⚡"]
+        end
+        subgraph Data["Data Layer"]
+            Room["Room DB<br/>🗄️"]
+            DataStore["DataStore<br/>Preferences<br/>⚙️"]
+            Repo["Weather<br/>Repository<br/>📊"]
+        end
+        subgraph Background["Background Processing"]
+            WorkManager["WorkManager<br/>⏰"]
+            Notifications["Notifications<br/>🔔"]
+        end
+        subgraph DI["Dependency Injection"]
+            Metro["Metro DI<br/>🚇"]
+        end
+    end
+
+    %% External API connections
+    API_OW -.->|"HTTP/REST"| Service_OW
+    API_TI -.->|"HTTP/REST"| Service_TI
+    API_OM -.->|"HTTP/REST"| Service_OM
+    API_WA -.->|"HTTP/REST"| Service_WA
+
+    %% Module dependencies
+    DTO -->|"provides models"| Service_OW
+    DTO -->|"provides models"| Service_TI
+    DTO -->|"provides models"| Service_OM
+    DTO -->|"provides models"| Service_WA
+    DTO -->|"provides models"| AppModule
+
+    Service_OW -->|"forecast data"| Repo
+    Service_TI -->|"forecast data"| Repo
+    Service_OM -->|"forecast data"| Repo
+    Service_WA -->|"forecast data"| Repo
+
+    %% Internal app connections
+    Repo --> WorkManager
+    WorkManager --> Notifications
+    Room --> Repo
+    DataStore --> Repo
+    Circuit --> Compose
+    Metro -.->|"injects"| UI
+    Metro -.->|"injects"| Data
+    Metro -.->|"injects"| Background
+
+    %% Styling
+    classDef external fill:#FFECB3,stroke:#FF8F00,stroke-width:2px
+    classDef service fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
+    classDef data fill:#E8F5E9,stroke:#388E3C,stroke-width:2px
+    classDef ui fill:#FCE4EC,stroke:#C2185B,stroke-width:2px
+    classDef background fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    classDef di fill:#ECEFF1,stroke:#546E7A,stroke-width:2px
+
+    class API_OW,API_TI,API_OM,API_WA external
+    class Service_OW,Service_TI,Service_OM,Service_WA,DTO service
+    class Room,DataStore,Repo data
+    class Compose,Circuit ui
+    class WorkManager,Notifications background
+    class Metro di
 ```
