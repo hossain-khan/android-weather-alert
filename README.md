@@ -64,7 +64,17 @@ Simple application generated from Android App template that uses:
 Here is a diagram of Gradle modules and architecture for this app.
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E3F2FD', 'primaryTextColor': '#1565C0', 'primaryBorderColor': '#1976D2', 'lineColor': '#42A5F5', 'secondaryColor': '#FFF3E0', 'tertiaryColor': '#E8F5E9'}}}%%
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#E3F2FD',
+    'primaryTextColor': '#1565C0',
+    'primaryBorderColor': '#1976D2',
+    'lineColor': '#42A5F5',
+    'secondaryColor': '#FFF3E0',
+    'tertiaryColor': '#E8F5E9'
+  }
+}}%%
 flowchart TB
     subgraph ExternalAPIs["🌐 External Weather APIs"]
         direction LR
@@ -142,10 +152,27 @@ flowchart TB
     classDef background fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
     classDef di fill:#ECEFF1,stroke:#546E7A,stroke-width:2px
 
-    class API_OW,API_TI,API_OM,API_WA external
-    class Service_OW,Service_TI,Service_OM,Service_WA,DTO service
-    class Room,DataStore,Repo data
-    class Compose,Circuit ui
-    class WorkManager,Notifications background
+    %% Apply styling classes
+    class API_OW external
+    class API_TI external
+    class API_OM external
+    class API_WA external
+
+    class Service_OW service
+    class Service_TI service
+    class Service_OM service
+    class Service_WA service
+    class DTO service
+
+    class Room data
+    class DataStore data
+    class Repo data
+
+    class Compose ui
+    class Circuit ui
+
+    class WorkManager background
+    class Notifications background
+
     class Metro di
 ```
