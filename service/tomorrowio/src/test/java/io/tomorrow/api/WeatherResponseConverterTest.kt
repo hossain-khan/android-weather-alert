@@ -74,7 +74,7 @@ class WeatherResponseConverterTest {
     }
 
     @Test
-    fun handlesEmptyHourlyAndDailyForecasts() {
+    fun convertsWeatherResponseWithEmptyHourlyAndDailyForecasts() {
         val weatherResponse = loadWeatherResponseFromJson("tomorrow-weather-empty-forecasts.json")
 
         val result = weatherResponse.convertToForecastData()

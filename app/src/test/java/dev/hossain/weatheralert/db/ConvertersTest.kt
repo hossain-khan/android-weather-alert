@@ -76,4 +76,26 @@ class ConvertersTest {
         val expectedJson = """[{"isoDateTime":"2025-01-15T21:42:00Z","rain":10.5,"snow":3.2}]"""
         assertThat(json).isEqualTo(expectedJson)
     }
+
+    @Test
+    fun roundTrip_preservesZeroValues() {
+        val listWithZeros =
+            listOf(
+                HourlyPrecipitation("2025-01-15T21:42:00Z", 0.0, 0.0),
+            )
+        val json = converters.fromHourlyPrecipitationList(listWithZeros)
+        val convertedList = converters.toHourlyPrecipitationList(json)
+        assertThat(convertedList).isEqualTo(listWithZeros)
+    }
+
+    @Test
+    fun roundTrip_preservesLargeValues() {
+        val listWithLargeValues =
+            listOf(
+                HourlyPrecipitation("2025-01-15T21:42:00Z", 999999.99, 888888.88),
+            )
+        val json = converters.fromHourlyPrecipitationList(listWithLargeValues)
+        val convertedList = converters.toHourlyPrecipitationList(json)
+        assertThat(convertedList).isEqualTo(listWithLargeValues)
+    }
 }

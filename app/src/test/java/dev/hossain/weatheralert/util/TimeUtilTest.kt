@@ -67,4 +67,26 @@ class TimeUtilTest {
             ),
         ).isTrue()
     }
+
+    @Test
+    fun isOlderThan24Hours_returnsFalseForCurrentTimestamp() {
+        val currentTime = System.currentTimeMillis()
+        assertThat(
+            timeUtil.isOlderThan24Hours(
+                timeInMillis = currentTime,
+            ),
+        ).isFalse()
+    }
+
+    @Test
+    fun isOlderThan24Hours_returnsTrueForVeryOldTimestamp() {
+        // Test with a timestamp from a week ago
+        val currentTime = System.currentTimeMillis()
+        val oneWeekInMillis = 7 * 24 * 60 * 60 * 1000L
+        assertThat(
+            timeUtil.isOlderThan24Hours(
+                timeInMillis = currentTime - oneWeekInMillis,
+            ),
+        ).isTrue()
+    }
 }
