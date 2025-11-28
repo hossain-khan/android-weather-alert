@@ -62,7 +62,7 @@ class WeatherForecastConverterTest {
     }
 
     @Test
-    fun handlesEmptyHourlyAndDailyForecasts() {
+    fun convertsRainyWeatherForecastWithNoSnow() {
         val weatherForecast = loadWeatherForecastFromJson("open-weather-yazoo-city-mississippi-raining.json")
 
         val result = weatherForecast.convertToForecastData()

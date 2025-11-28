@@ -110,7 +110,7 @@ class TomorrowIoServiceTest {
         }
 
     @Test
-    fun `given realtime response for lac mann - parses data properly`() =
+    fun `given forecast response for lac mann - parses data properly`() =
         runTest {
             mockWebServer.enqueue(
                 MockResponse()

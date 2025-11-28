@@ -141,4 +141,61 @@ class MarkdownTest {
             """.trimIndent()
         assertThat(stripMarkdownSyntax(multilineMarkdown)).isEqualTo(expected)
     }
+
+    @Test
+    fun testParseMarkdown_emptyString() {
+        val markdown = ""
+        val expected = AnnotatedString.Builder().toAnnotatedString()
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
+    }
+
+    @Test
+    fun testParseMarkdown_plainTextOnly() {
+        val markdown = "This is just plain text."
+        val expected =
+            AnnotatedString
+                .Builder()
+                .apply {
+                    append("This is just plain text.")
+                }.toAnnotatedString()
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
+    }
+
+    @Test
+    fun testStripMarkdownSyntax_emptyString() {
+        val markdown = ""
+        assertThat(stripMarkdownSyntax(markdown)).isEmpty()
+    }
+
+    @Test
+    fun testStripMarkdownSyntax_plainTextOnly() {
+        val markdown = "This is just plain text."
+        assertThat(stripMarkdownSyntax(markdown)).isEqualTo("This is just plain text.")
+    }
+
+    @Test
+    fun testParseMarkdown_unclosedBoldMarker() {
+        // When bold marker is not closed, it should append the rest of the line as-is
+        val markdown = "This is **unclosed bold"
+        val expected =
+            AnnotatedString
+                .Builder()
+                .apply {
+                    append("This is **unclosed bold")
+                }.toAnnotatedString()
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
+    }
+
+    @Test
+    fun testParseMarkdown_unclosedItalicMarker() {
+        // When italic marker is not closed, it should append the rest of the line as-is
+        val markdown = "This is _unclosed italic"
+        val expected =
+            AnnotatedString
+                .Builder()
+                .apply {
+                    append("This is _unclosed italic")
+                }.toAnnotatedString()
+        assertThat(parseMarkdown(markdown)).isEqualTo(expected)
+    }
 }

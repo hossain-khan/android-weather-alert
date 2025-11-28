@@ -123,4 +123,36 @@ class DateTimeFormatterTest {
         assertThat(result).isNotEmpty()
         assertThat(result).contains("at")
     }
+
+    @Test
+    fun convertIsoToHourAmPm_midnightTime() {
+        val isoDateTime = "2023-10-10T00:00:00Z"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("12AM")
+    }
+
+    @Test
+    fun convertIsoToHourAmPm_noonTime() {
+        val isoDateTime = "2023-10-10T12:00:00Z"
+        val result = convertIsoToHourAmPm(isoDateTime)
+        assertThat(result).isEqualTo("12PM")
+    }
+
+    @Test
+    fun slimTimeLabel_handlesEmptyString() {
+        val result = slimTimeLabel("")
+        assertThat(result).isEmpty()
+    }
+
+    @Test
+    fun slimTimeLabel_handles12AM() {
+        val result = slimTimeLabel("12AM")
+        assertThat(result).isEqualTo("12a")
+    }
+
+    @Test
+    fun slimTimeLabel_handles12PM() {
+        val result = slimTimeLabel("12PM")
+        assertThat(result).isEqualTo("12p")
+    }
 }
