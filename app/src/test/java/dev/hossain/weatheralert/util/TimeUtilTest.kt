@@ -7,13 +7,13 @@ class TimeUtilTest {
     private val timeUtil: TimeUtil = TimeUtilImpl(DefaultClockProvider())
 
     @Test
-    fun testGetCurrentTimeMillis() {
+    fun getCurrentTimeMillis_returnsCurrentSystemTime() {
         val currentTime = System.currentTimeMillis()
         assertThat(timeUtil.getCurrentTimeMillis() >= currentTime).isTrue()
     }
 
     @Test
-    fun testIs1HourOld() {
+    fun isOlderThan24Hours_returnsFalseForTimestamp1HourAgo() {
         val currentTime = System.currentTimeMillis()
         val oneHourInMillis = 1 * 60 * 60 * 1000
         assertThat(
@@ -24,7 +24,7 @@ class TimeUtilTest {
     }
 
     @Test
-    fun testIsLessThan24HoursOld() {
+    fun isOlderThan24Hours_returnsFalseForTimestamp23HoursAgo() {
         val currentTime = System.currentTimeMillis()
         val twentyThreeHoursInMillis = 23 * 60 * 60 * 1000
         assertThat(
@@ -35,12 +35,35 @@ class TimeUtilTest {
     }
 
     @Test
-    fun testIsMoreThan24HoursOld() {
+    fun isOlderThan24Hours_returnsFalseForTimestampExactly24HoursAgo() {
+        // Implementation uses > (greater than), so exactly 24 hours returns false
         val currentTime = System.currentTimeMillis()
-        val fortyEightHoursInMillis = 48 * 60 * 60 * 1000
+        val twentyFourHoursInMillis = 24 * 60 * 60 * 1000L
+        assertThat(
+            timeUtil.isOlderThan24Hours(
+                timeInMillis = currentTime - twentyFourHoursInMillis,
+            ),
+        ).isFalse()
+    }
+
+    @Test
+    fun isOlderThan24Hours_returnsTrueForTimestamp48HoursAgo() {
+        val currentTime = System.currentTimeMillis()
+        val fortyEightHoursInMillis = 48 * 60 * 60 * 1000L
         assertThat(
             timeUtil.isOlderThan24Hours(
                 timeInMillis = currentTime - fortyEightHoursInMillis,
+            ),
+        ).isTrue()
+    }
+
+    @Test
+    fun isOlderThan24Hours_returnsTrueForTimestampJustOver24HoursAgo() {
+        val currentTime = System.currentTimeMillis()
+        val justOver24HoursInMillis = (24 * 60 * 60 * 1000L) + 1
+        assertThat(
+            timeUtil.isOlderThan24Hours(
+                timeInMillis = currentTime - justOver24HoursInMillis,
             ),
         ).isTrue()
     }
