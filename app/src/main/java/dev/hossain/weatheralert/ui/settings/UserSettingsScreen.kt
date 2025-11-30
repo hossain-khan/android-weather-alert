@@ -149,7 +149,7 @@ class UserSettingsPresenter
                 selectedService = selectedService,
                 selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
                 isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
-                userCityAlerts = userCityAlerts
+                userCityAlerts = userCityAlerts,
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
@@ -253,10 +253,12 @@ fun UserSettingsScreen(
                 onClick = {
                 val alert = state.userCityAlerts.firstOrNull()
 
-                if (alert != null)
-                    testNotification(context,alert)
-                else
+                if (alert != null) {
+                    testNotification(context, alert)
+                }
+                else {
                     debugNotification(context)
+                }
             }) { Text("Test Notification") }
         }
     }
