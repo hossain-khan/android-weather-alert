@@ -79,6 +79,9 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
@@ -89,7 +92,7 @@ data object UserSettingsScreen : Screen {
         val selectedService: WeatherForecastService,
         val selectedUpdateFrequency: Long,
         val isUserProvidedApiKeyInUse: Boolean,
-        val userCityAlerts: List<UserCityAlert>,
+        val testAlert: Flow<UserCityAlert>,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -127,7 +130,7 @@ class UserSettingsPresenter
             val context = LocalContext.current
             var selectedService by remember { mutableStateOf(WeatherForecastService.OPEN_WEATHER_MAP) }
             var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
-            var userCityAlerts by remember { mutableStateOf<List<UserCityAlert>>(emptyList()) }
+            var testAlert by remember { mutableStateOf<Flow<UserCityAlert>>(emptyFlow()) }
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherForecastService.collect { service ->
@@ -137,8 +140,8 @@ class UserSettingsPresenter
                 }
             }
 
-            LaunchedEffect(Unit) {
-                userCityAlerts = alertDao.getAllAlertsWithCities()
+            LaunchedEffect(alertDao) {
+                testAlert = alertDao.getAlertWithCityFlow()
             }
 
             LaunchedImpressionEffect {
@@ -149,7 +152,7 @@ class UserSettingsPresenter
                 selectedService = selectedService,
                 selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
                 isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
-                userCityAlerts = userCityAlerts,
+                testAlert = testAlert,
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
@@ -201,6 +204,7 @@ fun UserSettingsScreen(
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -251,14 +255,15 @@ fun UserSettingsScreen(
             ElevatedButton(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 onClick = {
-                val alert = state.userCityAlerts.firstOrNull()
+                    scope.launch {
+                        val alert = state.testAlert.firstOrNull()
 
-                if (alert != null) {
-                    testNotification(context, alert)
-                }
-                else {
-                    debugNotification(context)
-                }
+                        if (alert != null) {
+                            testNotification(context, alert)
+                        } else {
+                            debugNotification(context)
+                        }
+                    }
             }) { Text("Test Notification") }
         }
     }
@@ -452,7 +457,7 @@ fun UserSettingsScreenPreview() {
             selectedService = WeatherForecastService.OPEN_WEATHER_MAP,
             selectedUpdateFrequency = 12,
             isUserProvidedApiKeyInUse = true,
-            userCityAlerts = emptyList(),
+            testAlert = emptyFlow(),
             eventSink = {},
         )
     WeatherAlertAppTheme {

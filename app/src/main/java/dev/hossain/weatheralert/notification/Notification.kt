@@ -16,6 +16,7 @@ import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
+private const val DEFAULT_PRECIPITATION_VALUE = 30.0
 /**
  * Triggers a notification with the given content.
  *
@@ -146,8 +147,8 @@ internal fun testNotification(
     val forecast = userCityAlert.latestCityForecast()
     val currentValue =
         when (userCityAlert.alert.alertCategory) {
-            WeatherAlertCategory.SNOW_FALL -> forecast?.dailyCumulativeSnow ?: 30.0
-            WeatherAlertCategory.RAIN_FALL -> forecast?.dailyCumulativeRain ?: 30.0
+            WeatherAlertCategory.RAIN_FALL -> forecast?.dailyCumulativeRain ?: DEFAULT_PRECIPITATION_VALUE
+            WeatherAlertCategory.SNOW_FALL -> forecast?.dailyCumulativeSnow ?: DEFAULT_PRECIPITATION_VALUE
         }
 
     triggerNotification(

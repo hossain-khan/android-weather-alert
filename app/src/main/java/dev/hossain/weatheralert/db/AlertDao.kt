@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AlertDao {
@@ -48,4 +49,8 @@ interface AlertDao {
     @Transaction
     @Query("SELECT * FROM alerts")
     suspend fun getAllAlertsWithCities(): List<UserCityAlert>
+
+    @Transaction
+    @Query("SELECT * FROM alerts ORDER BY id DESC LIMIT 1")
+    fun getAlertWithCityFlow(): Flow<UserCityAlert>
 }
