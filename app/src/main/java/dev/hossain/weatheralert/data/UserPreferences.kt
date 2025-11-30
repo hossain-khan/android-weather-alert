@@ -1,6 +1,7 @@
 package dev.hossain.weatheralert.data
 
 import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -36,4 +37,10 @@ object UserPreferences {
      * Supported values are listed in [supportedWeatherUpdateInterval].
      */
     val preferredUpdateIntervalKey = longPreferencesKey("user_preferred_update_interval_key")
+
+    /**
+     * Key for storing whether the user has completed the onboarding flow.
+     * True indicates the onboarding has been completed.
+     */
+    val onboardingCompletedKey = booleanPreferencesKey("onboarding_completed_key")
 }

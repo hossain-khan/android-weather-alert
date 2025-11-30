@@ -94,6 +94,7 @@ import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.onboarding.OnboardingScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.dimensions
@@ -140,6 +141,8 @@ data class CurrentWeatherAlertScreen(
         data object CreditsClicked : Event()
 
         data object SendFeedbackClicked : Event()
+
+        data object ViewOnboardingClicked : Event()
 
         data class LearnMoreClicked(
             val isOpened: Boolean,
@@ -308,6 +311,10 @@ class CurrentWeatherAlertPresenter
                         // Take user to GitHub issues page to report issue or provide feedback.
                         analytics.logSendFeedback()
                         uriHandler.openUri("https://github.com/hossain-khan/android-weather-alert/issues")
+                    }
+
+                    CurrentWeatherAlertScreen.Event.ViewOnboardingClicked -> {
+                        navigator.goTo(OnboardingScreen)
                     }
 
                     is CurrentWeatherAlertScreen.Event.LearnMoreClicked -> {

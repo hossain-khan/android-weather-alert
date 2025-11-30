@@ -165,4 +165,36 @@ class PreferencesManager
                 preferences[UserPreferences.preferredUpdateIntervalKey] = interval
             }
         }
+
+        /**
+         * Retrieves whether the user has completed the onboarding flow.
+         *
+         * @see setOnboardingCompleted
+         */
+        val isOnboardingCompleted: Flow<Boolean> =
+            dataStore.data
+                .map { preferences: Preferences ->
+                    preferences[UserPreferences.onboardingCompletedKey] ?: false
+                }
+
+        /**
+         * Retrieves whether the user has completed the onboarding flow in synchronous manner.
+         */
+        val isOnboardingCompletedSync: Boolean =
+            runBlocking {
+                val isCompleted = isOnboardingCompleted.first()
+                Timber.d("Returning isOnboardingCompletedSync: $isCompleted")
+                return@runBlocking isCompleted
+            }
+
+        /**
+         * Sets the onboarding completion status.
+         *
+         * @see isOnboardingCompleted
+         */
+        suspend fun setOnboardingCompleted(completed: Boolean) {
+            dataStore.edit { preferences: MutablePreferences ->
+                preferences[UserPreferences.onboardingCompletedKey] = completed
+            }
+        }
     }
