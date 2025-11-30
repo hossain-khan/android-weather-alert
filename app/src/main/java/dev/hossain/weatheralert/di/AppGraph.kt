@@ -6,6 +6,7 @@ import androidx.work.WorkerFactory
 import com.slack.circuit.foundation.Circuit
 import dev.hossain.weatheralert.WeatherAlertApp
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.db.AlertDao
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
 import dev.zacsweers.metro.Multibinds
@@ -28,6 +29,7 @@ interface AppGraph {
 
     val preferencesManager: PreferencesManager
     val workerFactory: WorkerFactory
+    val alertDao: AlertDao
 
     /**
      * A multibinding map of activity classes to their providers accessible for

@@ -15,6 +15,10 @@ import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
+// Unique offsets for XOR operation to create distinct request codes for each snooze action
+private const val SNOOZE_1_HOUR_ACTION_OFFSET = 0x1000
+private const val SNOOZE_3_HOURS_ACTION_OFFSET = 0x2000
+
 /**
  * Triggers a notification with the given content.
  *
@@ -114,6 +118,32 @@ internal fun triggerNotification(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
+    // ⚠️ Note: We use hashCode to generate notification IDs to avoid overflow issues with large alert IDs.
+    // While hashCode can theoretically cause collisions, we also use notificationTag (which includes
+    // unique cityId, alertId, and category) to ensure notifications are properly distinguished.
+    // This approach provides a reasonable balance between uniqueness and avoiding integer overflow.
+    val notificationId = userAlertId.hashCode()
+
+    // Create snooze action pending intents with unique request codes based on alertId and action type
+    val snooze1HourIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_HOUR,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_HOUR_ACTION_OFFSET),
+        )
+    val snooze3HoursIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_3_HOURS,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId.hashCode() xor SNOOZE_3_HOURS_ACTION_OFFSET),
+        )
+
     val notification =
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
@@ -125,13 +155,42 @@ internal fun triggerNotification(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            // Add snooze actions - limited to 2 actions to fit notification constraints
+            .addAction(R.drawable.snooze_24dp, "Snooze 1h", snooze1HourIntent)
+            .addAction(R.drawable.snooze_24dp, "Snooze 3h", snooze3HoursIntent)
             .build()
 
     notificationManager.notify(
         notificationTag,
-        // ⚠️ Potential precision loss and overflow when converting to int.
-        userAlertId.toInt(),
+        notificationId,
         notification,
+    )
+}
+
+/**
+ * Creates a PendingIntent for snoozing an alert notification.
+ */
+private fun createSnoozePendingIntent(
+    context: Context,
+    alertId: Long,
+    snoozeDuration: String,
+    notificationId: Int,
+    notificationTag: String,
+    requestCode: Int,
+): PendingIntent {
+    val snoozeIntent =
+        Intent(context, SnoozeAlertReceiver::class.java).apply {
+            action = SnoozeAlertReceiver.ACTION_SNOOZE_ALERT
+            putExtra(SnoozeAlertReceiver.EXTRA_ALERT_ID, alertId)
+            putExtra(SnoozeAlertReceiver.EXTRA_SNOOZE_DURATION, snoozeDuration)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_ID, notificationId)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_TAG, notificationTag)
+        }
+    return PendingIntent.getBroadcast(
+        context,
+        requestCode,
+        snoozeIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 }
 

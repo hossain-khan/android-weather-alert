@@ -32,11 +32,21 @@ data class AlertTileData constructor(
      */
     val forecastSourceName: String,
     /**
+     * Timestamp (in milliseconds) until which the alert is snoozed.
+     * If null or in the past, the alert is not snoozed.
+     */
+    val snoozedUntil: Long? = null,
+    /**
      * Unique identifier for the alert item in the lazy column.
      * Added to avoid app crashing due to duplicate keys.
      */
     val uuid: String = UUID.randomUUID().toString(),
-) : Parcelable
+) : Parcelable {
+    /**
+     * Returns true if the alert is currently snoozed.
+     */
+    fun isSnoozed(): Boolean = snoozedUntil != null && snoozedUntil > System.currentTimeMillis()
+}
 
 /**
  * Returns the icon resource for the [WeatherAlertCategory].

@@ -31,6 +31,15 @@
             </intent-filter>
         </activity>
 
+        <!-- BroadcastReceiver for handling notification snooze actions -->
+        <receiver
+            android:name=".notification.SnoozeAlertReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="dev.hossain.weatheralert.ACTION_SNOOZE_ALERT" />
+            </intent-filter>
+        </receiver>
+
         <!--
             You must remove the default initializer for a custom getWorkManagerConfiguration() implementation to take effect.
             https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration#remove-default
