@@ -88,6 +88,8 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val EXTRA_NOTIFICATION_TAG = "extra_notification_tag"
 
+        // Snooze duration options - currently only 1h and 3h are shown in notification actions
+        // due to space constraints, but the backend supports all duration options.
         const val SNOOZE_1_HOUR = "snooze_1_hour"
         const val SNOOZE_3_HOURS = "snooze_3_hours"
         const val SNOOZE_TOMORROW = "snooze_tomorrow"

@@ -452,9 +452,8 @@ fun WeatherAlertSnoozeStatusUi(
                             .align(Alignment.TopEnd),
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
-                    // Note: formatSnoozeUntil returns non-null since this UI is only shown when isSnoozed() is true
                     Text(
-                        text = requireNotNull(formatSnoozeUntil(snoozedUntil)),
+                        text = formatSnoozeUntil(snoozedUntil) ?: "Snoozed",
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
                         modifier = Modifier.padding(end = 24.dp),

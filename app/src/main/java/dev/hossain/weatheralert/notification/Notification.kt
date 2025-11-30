@@ -118,8 +118,10 @@ internal fun triggerNotification(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
-    // ⚠️ Note: We use hashCode to generate unique IDs to avoid overflow issues.
-    // This approach provides a reasonable distribution of IDs while staying within Int bounds.
+    // ⚠️ Note: We use hashCode to generate notification IDs to avoid overflow issues with large alert IDs.
+    // While hashCode can theoretically cause collisions, we also use notificationTag (which includes
+    // unique cityId, alertId, and category) to ensure notifications are properly distinguished.
+    // This approach provides a reasonable balance between uniqueness and avoiding integer overflow.
     val notificationId = userAlertId.hashCode()
 
     // Create snooze action pending intents with unique request codes based on alertId and action type
