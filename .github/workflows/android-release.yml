@@ -61,7 +61,7 @@ jobs:
             echo "⚠️ KEYSTORE_BASE64 secret is not set, using debug keystore for signing"
             echo "USE_RELEASE_KEYSTORE=false" >> $GITHUB_OUTPUT
           else
-            echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > keystore/weather-alert-release.keystore
+            base64 -d <<< "${{ secrets.KEYSTORE_BASE64 }}" > keystore/weather-alert-release.keystore
             if [ ! -s keystore/weather-alert-release.keystore ]; then
               echo "❌ Failed to decode keystore file"
               exit 1
@@ -137,14 +137,12 @@ jobs:
           
           echo "Uploading $APK_NAME to release..."
           
-          UPLOAD_RESPONSE=$(curl -s -w "%{http_code}" -o upload_response.json \
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o upload_response.json \
             -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/octet-stream" \
             --data-binary @"$APK_FILE" \
             "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$APK_NAME")
-          
-          HTTP_CODE="${UPLOAD_RESPONSE: -3}"
           
           if [ "$HTTP_CODE" = "201" ]; then
             echo "✅ Successfully attached APK to GitHub release"
@@ -162,14 +160,12 @@ jobs:
           
           echo "Uploading $AAB_NAME to release..."
           
-          UPLOAD_RESPONSE=$(curl -s -w "%{http_code}" -o upload_response_aab.json \
+          HTTP_CODE=$(curl -s -w "%{http_code}" -o upload_response_aab.json \
             -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Content-Type: application/octet-stream" \
             --data-binary @"$AAB_FILE" \
             "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$AAB_NAME")
-          
-          HTTP_CODE="${UPLOAD_RESPONSE: -3}"
           
           if [ "$HTTP_CODE" = "201" ]; then
             echo "✅ Successfully attached AAB to GitHub release"
