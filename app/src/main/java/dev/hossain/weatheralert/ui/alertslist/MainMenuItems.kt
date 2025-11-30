@@ -58,6 +58,15 @@ fun AppMenuItems(
             HorizontalDivider()
 
             DropdownMenuItem(
+                text = { Text("View Onboarding") },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.hiking_direction), contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    eventSink(Event.ViewOnboardingClicked)
+                },
+            )
+
+            DropdownMenuItem(
                 text = { Text("Send Feedback") },
                 leadingIcon = { Icon(painter = painterResource(R.drawable.github_logo), contentDescription = "Github Logo Icon") },
                 trailingIcon = {

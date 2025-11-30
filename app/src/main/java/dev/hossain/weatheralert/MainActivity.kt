@@ -20,10 +20,12 @@ import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuit.sharedelements.SharedElementTransitionLayout
 import com.slack.circuitx.gesturenavigation.GestureNavigationDecorationFactory
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.deeplinking.BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN
 import dev.hossain.weatheralert.di.ActivityKey
 import dev.hossain.weatheralert.network.NetworkMonitor
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
+import dev.hossain.weatheralert.ui.onboarding.OnboardingScreen
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.zacsweers.metro.AppScope
@@ -41,6 +43,7 @@ class MainActivity
     constructor(
         private val circuit: Circuit,
         private val networkMonitor: NetworkMonitor,
+        private val preferencesManager: PreferencesManager,
     ) : ComponentActivity() {
         private lateinit var navigator: Navigator
 
@@ -60,7 +63,7 @@ class MainActivity
                     // See https://slackhq.github.io/circuit/navigation/
                     val stack: ImmutableList<Screen> =
                         remember {
-                            parseDeepLinkedScreens(intent) ?: persistentListOf(CurrentWeatherAlertScreen("root"))
+                            parseDeepLinkedScreens(intent) ?: getInitialScreen()
                         }
                     val backStack = rememberSaveableBackStack(stack)
                     navigator = rememberCircuitNavigator(backStack)
@@ -82,6 +85,20 @@ class MainActivity
                         }
                     }
                 }
+            }
+        }
+
+        /**
+         * Determines the initial screen to show based on onboarding completion status.
+         * Shows onboarding for first-time users, otherwise shows the main alerts screen.
+         */
+        private fun getInitialScreen(): ImmutableList<Screen> {
+            val isOnboardingCompleted = preferencesManager.isOnboardingCompletedSync
+            Timber.d("Onboarding completed: $isOnboardingCompleted")
+            return if (isOnboardingCompleted) {
+                persistentListOf(CurrentWeatherAlertScreen("root"))
+            } else {
+                persistentListOf(OnboardingScreen)
             }
         }
 
