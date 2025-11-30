@@ -35,17 +35,22 @@ class WeatherCheckWorker
         private val preferencesManager: PreferencesManager,
     ) : CoroutineWorker(context, params) {
         override suspend fun doWork(): Result {
-            val userConfiguredAlerts: List<UserCityAlert> = alertDao.getAllAlertsWithCities()
+            val allAlerts: List<UserCityAlert> = alertDao.getAllAlertsWithCities()
+            // Filter out snoozed alerts - only process alerts that are not snoozed or whose snooze has expired
+            val userConfiguredAlerts: List<UserCityAlert> = allAlerts.filter { !it.alert.isSnoozed() }
+            val snoozedCount = allAlerts.size - userConfiguredAlerts.size
+
             val updateIntervalHours = preferencesManager.preferredUpdateInterval.first()
             Timber.tag(WORKER_LOG_TAG).d(
                 "WeatherCheckWorker: Checking weather forecast " +
-                    "for %s alerts. Updates every %s hours.",
+                    "for %s alerts (%s snoozed). Updates every %s hours.",
                 userConfiguredAlerts.size,
+                snoozedCount,
                 updateIntervalHours,
             )
 
             if (userConfiguredAlerts.isEmpty()) {
-                Timber.tag(WORKER_LOG_TAG).d("No user configured alerts found.")
+                Timber.tag(WORKER_LOG_TAG).d("No active (non-snoozed) user configured alerts found.")
                 return Result.success()
             }
 

@@ -28,6 +28,7 @@ interface AppGraph {
 
     val preferencesManager: PreferencesManager
     val workerFactory: WorkerFactory
+    val alertDao: dev.hossain.weatheralert.db.AlertDao
 
     /**
      * A multibinding map of activity classes to their providers accessible for

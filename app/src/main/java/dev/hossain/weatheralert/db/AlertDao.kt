@@ -35,6 +35,24 @@ interface AlertDao {
         notes: String,
     )
 
+    /**
+     * Updates the snooze timestamp for an alert.
+     * @param alertId The ID of the alert to snooze.
+     * @param snoozedUntil The timestamp (in milliseconds) until which the alert should be snoozed.
+     */
+    @Query("UPDATE alerts SET snoozed_until = :snoozedUntil WHERE id = :alertId")
+    suspend fun updateSnoozeUntil(
+        alertId: Long,
+        snoozedUntil: Long?,
+    )
+
+    /**
+     * Clears the snooze for an alert (un-snoozes it).
+     * @param alertId The ID of the alert to un-snooze.
+     */
+    @Query("UPDATE alerts SET snoozed_until = NULL WHERE id = :alertId")
+    suspend fun clearSnooze(alertId: Long)
+
     @Delete
     suspend fun deleteAlert(alert: Alert)
 

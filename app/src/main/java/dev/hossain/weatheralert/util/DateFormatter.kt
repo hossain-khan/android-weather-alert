@@ -56,3 +56,35 @@ fun formatTimestampToElapsedTime(timestamp: Long): String {
         }
     return timeAgoText
 }
+
+/**
+ * Formats a snooze timestamp to a human-readable "Snoozed until" format.
+ * Returns null if the timestamp is null or in the past.
+ */
+fun formatSnoozeUntil(snoozedUntil: Long?): String? {
+    if (snoozedUntil == null || snoozedUntil <= System.currentTimeMillis()) {
+        return null
+    }
+
+    val dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(snoozedUntil), ZoneId.systemDefault())
+    val now = LocalDateTime.now(ZoneId.systemDefault())
+    val tomorrow = now.plusDays(1).toLocalDate()
+
+    return when {
+        dateTime.toLocalDate() == now.toLocalDate() -> {
+            // Same day - show just the time
+            val formatter = DateTimeFormatter.ofPattern("h:mm a")
+            "Snoozed until ${dateTime.format(formatter)}"
+        }
+        dateTime.toLocalDate() == tomorrow -> {
+            // Tomorrow - show "tomorrow" with time
+            val formatter = DateTimeFormatter.ofPattern("h:mm a")
+            "Snoozed until tomorrow ${dateTime.format(formatter)}"
+        }
+        else -> {
+            // Further in the future - show full date
+            val formatter = DateTimeFormatter.ofPattern("MMM d 'at' h:mm a")
+            "Snoozed until ${dateTime.format(formatter)}"
+        }
+    }
+}

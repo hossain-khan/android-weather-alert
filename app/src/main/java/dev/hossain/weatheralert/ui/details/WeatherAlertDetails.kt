@@ -90,6 +90,7 @@ import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.convertIsoToHourAmPm
+import dev.hossain.weatheralert.util.formatSnoozeUntil
 import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
@@ -134,6 +135,8 @@ data class WeatherAlertDetailsScreen(
         data object SaveNote : Event()
 
         data object GoBack : Event()
+
+        data object ClearSnooze : Event()
     }
 }
 
@@ -240,6 +243,16 @@ class WeatherAlertDetailsPresenter
                             isForecastRefreshing = false
                         }
                     }
+
+                    WeatherAlertDetailsScreen.Event.ClearSnooze -> {
+                        scope.launch {
+                            alertDao.clearSnooze(screen.alertId)
+                            // Reload the alert to update the UI
+                            val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
+                            alertConfig = alert.alert
+                            snackbarData = SnackbarData("Alert snooze has been cleared.") {}
+                        }
+                    }
                 }
             }
         }
@@ -328,6 +341,15 @@ fun WeatherAlertDetailsScreen(
                     }
                 } else {
                     item { CityInfoUi(city = city) }
+                    // Show snooze status if alert is snoozed
+                    if (alert.isSnoozed()) {
+                        item {
+                            WeatherAlertSnoozeStatusUi(
+                                snoozedUntil = alert.snoozedUntil!!,
+                                onClearSnooze = { state.eventSink(WeatherAlertDetailsScreen.Event.ClearSnooze) },
+                            )
+                        }
+                    }
                     item { WeatherAlertForecastUi(alert = alert, forecast = cityForecast) }
                     item { WeatherAlertNoteUi(state = state) }
                     item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
@@ -394,6 +416,55 @@ fun CityInfoUi(
                         "${city.provStateName?.let { "$it, " } ?: ""}${city.country}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherAlertSnoozeStatusUi(
+    snoozedUntil: Long,
+    onClearSnooze: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Snooze Status",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    painter = painterResource(id = R.drawable.snooze_24dp),
+                    contentDescription = "Snooze icon",
+                    tint = MaterialTheme.colorScheme.secondary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = formatSnoozeUntil(snoozedUntil) ?: "Not snoozed",
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ElevatedButton(
+                        onClick = onClearSnooze,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text("Clear Snooze")
+                    }
                 }
             }
         }

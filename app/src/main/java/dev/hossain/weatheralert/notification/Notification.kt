@@ -114,6 +114,29 @@ internal fun triggerNotification(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
+    // ⚠️ Potential precision loss and overflow when converting to int.
+    val notificationId = userAlertId.toInt()
+
+    // Create snooze action pending intents
+    val snooze1HourIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_HOUR,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId * 10 + 1).toInt(),
+        )
+    val snooze3HoursIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_3_HOURS,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId * 10 + 2).toInt(),
+        )
+
     val notification =
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
@@ -125,13 +148,42 @@ internal fun triggerNotification(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            // Add snooze actions - limited to 2 actions to fit notification constraints
+            .addAction(R.drawable.snooze_24dp, "Snooze 1h", snooze1HourIntent)
+            .addAction(R.drawable.snooze_24dp, "Snooze 3h", snooze3HoursIntent)
             .build()
 
     notificationManager.notify(
         notificationTag,
-        // ⚠️ Potential precision loss and overflow when converting to int.
-        userAlertId.toInt(),
+        notificationId,
         notification,
+    )
+}
+
+/**
+ * Creates a PendingIntent for snoozing an alert notification.
+ */
+private fun createSnoozePendingIntent(
+    context: Context,
+    alertId: Long,
+    snoozeDuration: String,
+    notificationId: Int,
+    notificationTag: String,
+    requestCode: Int,
+): PendingIntent {
+    val snoozeIntent =
+        Intent(context, SnoozeAlertReceiver::class.java).apply {
+            action = SnoozeAlertReceiver.ACTION_SNOOZE_ALERT
+            putExtra(SnoozeAlertReceiver.EXTRA_ALERT_ID, alertId)
+            putExtra(SnoozeAlertReceiver.EXTRA_SNOOZE_DURATION, snoozeDuration)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_ID, notificationId)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_TAG, notificationTag)
+        }
+    return PendingIntent.getBroadcast(
+        context,
+        requestCode,
+        snoozeIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 }
 

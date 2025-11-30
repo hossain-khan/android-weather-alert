@@ -39,4 +39,14 @@ data class Alert(
     @ColumnInfo(name = "alert_category") val alertCategory: WeatherAlertCategory,
     val threshold: Float,
     val notes: String = "",
-)
+    /**
+     * Timestamp (in milliseconds) until which the alert is snoozed.
+     * If null or in the past, the alert is active.
+     */
+    @ColumnInfo(name = "snoozed_until", defaultValue = "NULL") val snoozedUntil: Long? = null,
+) {
+    /**
+     * Returns true if the alert is currently snoozed (snoozedUntil is in the future).
+     */
+    fun isSnoozed(): Boolean = snoozedUntil != null && snoozedUntil > System.currentTimeMillis()
+}
