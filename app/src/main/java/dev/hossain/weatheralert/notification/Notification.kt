@@ -9,6 +9,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.deeplinking.BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import dev.hossain.weatheralert.util.formatUnit
@@ -132,6 +133,32 @@ internal fun triggerNotification(
         // ⚠️ Potential precision loss and overflow when converting to int.
         userAlertId.toInt(),
         notification,
+    )
+}
+
+/**
+ * Test notification by triggering a notification with user's alert configuration.
+ */
+internal fun testNotification(
+    context: Context,
+    userCityAlert: UserCityAlert,
+) {
+    val forecast = userCityAlert.latestCityForecast()
+    val currentValue =
+        when (userCityAlert.alert.alertCategory) {
+            WeatherAlertCategory.SNOW_FALL -> forecast?.dailyCumulativeSnow ?: 30.0
+            WeatherAlertCategory.RAIN_FALL -> forecast?.dailyCumulativeRain ?: 30.0
+        }
+
+    triggerNotification(
+        context = context,
+        userAlertId = userCityAlert.alert.id,
+        notificationTag = userCityAlert.toNotificationTag(),
+        alertCategory = userCityAlert.alert.alertCategory,
+        currentValue = currentValue,
+        thresholdValue = userCityAlert.alert.threshold,
+        cityName = userCityAlert.city.city,
+        reminderNotes = userCityAlert.alert.notes,
     )
 }
 
