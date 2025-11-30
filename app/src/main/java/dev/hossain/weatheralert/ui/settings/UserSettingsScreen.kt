@@ -63,6 +63,10 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
+import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.UserCityAlert
+import dev.hossain.weatheralert.notification.debugNotification
+import dev.hossain.weatheralert.notification.testNotification
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -85,6 +89,7 @@ data object UserSettingsScreen : Screen {
         val selectedService: WeatherForecastService,
         val selectedUpdateFrequency: Long,
         val isUserProvidedApiKeyInUse: Boolean,
+        val userCityAlerts: List<UserCityAlert>,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -114,6 +119,7 @@ class UserSettingsPresenter
         private val preferencesManager: PreferencesManager,
         private val apiKeyProvider: ApiKeyProvider,
         private val analytics: Analytics,
+        private val alertDao: AlertDao,
     ) : Presenter<UserSettingsScreen.State> {
         @Composable
         override fun present(): UserSettingsScreen.State {
@@ -121,6 +127,7 @@ class UserSettingsPresenter
             val context = LocalContext.current
             var selectedService by remember { mutableStateOf(WeatherForecastService.OPEN_WEATHER_MAP) }
             var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
+            var userCityAlerts by remember { mutableStateOf<List<UserCityAlert>>(emptyList()) }
 
             LaunchedEffect(Unit) {
                 preferencesManager.preferredWeatherForecastService.collect { service ->
@@ -128,6 +135,10 @@ class UserSettingsPresenter
                     selectedService = service
                     isUserProvidedApiKeyInUse = apiKeyProvider.hasUserProvidedApiKey(service)
                 }
+            }
+
+            LaunchedEffect(Unit) {
+                userCityAlerts = alertDao.getAllAlertsWithCities()
             }
 
             LaunchedImpressionEffect {
@@ -138,6 +149,7 @@ class UserSettingsPresenter
                 selectedService = selectedService,
                 selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
                 isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
+                userCityAlerts = userCityAlerts
             ) { event ->
                 when (event) {
                     is UserSettingsScreen.Event.ServiceSelected -> {
@@ -188,6 +200,7 @@ fun UserSettingsScreen(
     state: UserSettingsScreen.State,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -234,6 +247,17 @@ fun UserSettingsScreen(
                 },
                 eventSink = state.eventSink,
             )
+
+            ElevatedButton(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                onClick = {
+                val alert = state.userCityAlerts.firstOrNull()
+
+                if (alert != null)
+                    testNotification(context,alert)
+                else
+                    debugNotification(context)
+            }) { Text("Test Notification") }
         }
     }
 }
@@ -426,6 +450,7 @@ fun UserSettingsScreenPreview() {
             selectedService = WeatherForecastService.OPEN_WEATHER_MAP,
             selectedUpdateFrequency = 12,
             isUserProvidedApiKeyInUse = true,
+            userCityAlerts = emptyList(),
             eventSink = {},
         )
     WeatherAlertAppTheme {
