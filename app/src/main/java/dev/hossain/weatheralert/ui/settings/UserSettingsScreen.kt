@@ -62,7 +62,9 @@ import com.slack.circuit.runtime.screen.Screen
 import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dev.hossain.weatheralert.data.ApiKeyProvider
 import dev.hossain.weatheralert.data.PreferencesManager
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
+import dev.hossain.weatheralert.notification.triggerNotification
 import dev.hossain.weatheralert.ui.addapikey.BringYourOwnApiKeyScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -102,6 +104,8 @@ data object UserSettingsScreen : Screen {
         ) : Event()
 
         data object AddServiceApiKey : Event()
+
+        data object TestNotification : Event()
 
         data object GoBack : Event()
     }
@@ -170,6 +174,20 @@ class UserSettingsPresenter
                         }
                         isUserProvidedApiKeyInUse = false
                     }
+
+                    UserSettingsScreen.Event.TestNotification -> {
+                        Timber.d("Triggering test notification")
+                        triggerNotification(
+                            context = context,
+                            userAlertId = -1L,
+                            notificationTag = "test",
+                            alertCategory = WeatherAlertCategory.SNOW_FALL,
+                            currentValue = 25.0,
+                            thresholdValue = 20.0f,
+                            cityName = "Test City",
+                            reminderNotes = "This is a test notification to verify your notification settings are working correctly.",
+                        )
+                    }
                 }
             }
         }
@@ -220,6 +238,18 @@ fun UserSettingsScreen(
                     state.eventSink(UserSettingsScreen.Event.UpdateFrequencySelected(frequency))
                 },
             )
+
+            // Test Notification Button
+            ElevatedButton(
+                onClick = {
+                    state.eventSink(UserSettingsScreen.Event.TestNotification)
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(vertical = 8.dp),
+            ) {
+                Text("Test Notification")
+            }
 
             Text(
                 text = "Select your preferred weather API service:",
