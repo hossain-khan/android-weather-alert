@@ -15,6 +15,10 @@ import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
+// Unique offsets for XOR operation to create distinct request codes for each snooze action
+private const val SNOOZE_1_HOUR_ACTION_OFFSET = 0x1000
+private const val SNOOZE_3_HOURS_ACTION_OFFSET = 0x2000
+
 /**
  * Triggers a notification with the given content.
  *
@@ -114,10 +118,11 @@ internal fun triggerNotification(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
-    // ⚠️ Potential precision loss and overflow when converting to int.
-    val notificationId = userAlertId.toInt()
+    // ⚠️ Note: We use hashCode to generate unique IDs to avoid overflow issues.
+    // This approach provides a reasonable distribution of IDs while staying within Int bounds.
+    val notificationId = userAlertId.hashCode()
 
-    // Create snooze action pending intents
+    // Create snooze action pending intents with unique request codes based on alertId and action type
     val snooze1HourIntent =
         createSnoozePendingIntent(
             context = context,
@@ -125,7 +130,7 @@ internal fun triggerNotification(
             snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_HOUR,
             notificationId = notificationId,
             notificationTag = notificationTag,
-            requestCode = (userAlertId * 10 + 1).toInt(),
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_HOUR_ACTION_OFFSET),
         )
     val snooze3HoursIntent =
         createSnoozePendingIntent(
@@ -134,7 +139,7 @@ internal fun triggerNotification(
             snoozeDuration = SnoozeAlertReceiver.SNOOZE_3_HOURS,
             notificationId = notificationId,
             notificationTag = notificationTag,
-            requestCode = (userAlertId * 10 + 2).toInt(),
+            requestCode = (userAlertId.hashCode() xor SNOOZE_3_HOURS_ACTION_OFFSET),
         )
 
     val notification =
