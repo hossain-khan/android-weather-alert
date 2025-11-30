@@ -244,9 +244,10 @@ fun UserSettingsScreen(
                 onClick = {
                     state.eventSink(UserSettingsScreen.Event.TestNotification)
                 },
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(vertical = 8.dp),
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(vertical = 8.dp),
             ) {
                 Text("Test Notification")
             }
