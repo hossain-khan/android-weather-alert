@@ -117,84 +117,85 @@ data object UserSettingsScreen : Screen {
 
 @Inject
 class UserSettingsPresenter
-    constructor(
-        @Assisted private val navigator: Navigator,
-        private val preferencesManager: PreferencesManager,
-        private val apiKeyProvider: ApiKeyProvider,
-        private val analytics: Analytics,
-        private val alertDao: AlertDao,
-    ) : Presenter<UserSettingsScreen.State> {
-        @Composable
-        override fun present(): UserSettingsScreen.State {
-            val scope = rememberCoroutineScope()
-            val context = LocalContext.current
-            var selectedService by remember { mutableStateOf(WeatherForecastService.OPEN_WEATHER_MAP) }
-            var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
-            var testAlert by remember { mutableStateOf<Flow<UserCityAlert>>(emptyFlow()) }
+constructor(
+    @Assisted private val navigator: Navigator,
+    private val preferencesManager: PreferencesManager,
+    private val apiKeyProvider: ApiKeyProvider,
+    private val analytics: Analytics,
+    private val alertDao: AlertDao,
+) : Presenter<UserSettingsScreen.State> {
+    @Composable
+    override fun present(): UserSettingsScreen.State {
+        val scope = rememberCoroutineScope()
+        val context = LocalContext.current
+        var selectedService by remember { mutableStateOf(WeatherForecastService.OPEN_WEATHER_MAP) }
+        var isUserProvidedApiKeyInUse by remember { mutableStateOf(false) }
+        var testAlert by remember { mutableStateOf<Flow<UserCityAlert>>(emptyFlow()) }
 
-            LaunchedEffect(Unit) {
-                preferencesManager.preferredWeatherForecastService.collect { service ->
-                    Timber.d("Active weather service from preferences: $service")
-                    selectedService = service
-                    isUserProvidedApiKeyInUse = apiKeyProvider.hasUserProvidedApiKey(service)
-                }
-            }
-
-            LaunchedEffect(alertDao) {
-                testAlert = alertDao.getAlertWithCityFlow()
-            }
-
-            LaunchedImpressionEffect {
-                analytics.logScreenView(UserSettingsScreen::class)
-            }
-
-            return UserSettingsScreen.State(
-                selectedService = selectedService,
-                selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
-                isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
-                testAlert = testAlert,
-            ) { event ->
-                when (event) {
-                    is UserSettingsScreen.Event.ServiceSelected -> {
-                        Timber.d("Selected weather service: ${event.service}")
-                        selectedService = event.service
-                        scope.launch {
-                            preferencesManager.savePreferredWeatherService(event.service)
-                        }
-                    }
-                    UserSettingsScreen.Event.GoBack -> {
-                        navigator.pop()
-                    }
-
-                    UserSettingsScreen.Event.AddServiceApiKey -> {
-                        navigator.goTo(BringYourOwnApiKeyScreen(weatherApiService = selectedService))
-                    }
-
-                    is UserSettingsScreen.Event.UpdateFrequencySelected -> {
-                        Timber.d("Selected update frequency: ${event.frequency}")
-                        scope.launch {
-                            preferencesManager.savePreferredUpdateInterval(event.frequency)
-                        }
-                        scheduleWeatherAlertsWork(context = context, event.frequency)
-                    }
-
-                    is UserSettingsScreen.Event.RemoveServiceApiKey -> {
-                        Timber.d("Removing API key for service: ${event.service}")
-                        scope.launch {
-                            preferencesManager.removeApiKey(event.service)
-                        }
-                        isUserProvidedApiKeyInUse = false
-                    }
-                }
+        LaunchedEffect(Unit) {
+            preferencesManager.preferredWeatherForecastService.collect { service ->
+                Timber.d("Active weather service from preferences: $service")
+                selectedService = service
+                isUserProvidedApiKeyInUse = apiKeyProvider.hasUserProvidedApiKey(service)
             }
         }
 
-        @CircuitInject(UserSettingsScreen::class, AppScope::class)
-        @AssistedFactory
-        fun interface Factory {
-            fun create(navigator: Navigator): UserSettingsPresenter
+        LaunchedEffect(alertDao) {
+            testAlert = alertDao.getAlertWithCityFlow()
+        }
+
+        LaunchedImpressionEffect {
+            analytics.logScreenView(UserSettingsScreen::class)
+        }
+
+        return UserSettingsScreen.State(
+            selectedService = selectedService,
+            selectedUpdateFrequency = preferencesManager.preferredUpdateIntervalSync,
+            isUserProvidedApiKeyInUse = isUserProvidedApiKeyInUse,
+            testAlert = testAlert,
+        ) { event ->
+            when (event) {
+                is UserSettingsScreen.Event.ServiceSelected -> {
+                    Timber.d("Selected weather service: ${event.service}")
+                    selectedService = event.service
+                    scope.launch {
+                        preferencesManager.savePreferredWeatherService(event.service)
+                    }
+                }
+
+                UserSettingsScreen.Event.GoBack -> {
+                    navigator.pop()
+                }
+
+                UserSettingsScreen.Event.AddServiceApiKey -> {
+                    navigator.goTo(BringYourOwnApiKeyScreen(weatherApiService = selectedService))
+                }
+
+                is UserSettingsScreen.Event.UpdateFrequencySelected -> {
+                    Timber.d("Selected update frequency: ${event.frequency}")
+                    scope.launch {
+                        preferencesManager.savePreferredUpdateInterval(event.frequency)
+                    }
+                    scheduleWeatherAlertsWork(context = context, event.frequency)
+                }
+
+                is UserSettingsScreen.Event.RemoveServiceApiKey -> {
+                    Timber.d("Removing API key for service: ${event.service}")
+                    scope.launch {
+                        preferencesManager.removeApiKey(event.service)
+                    }
+                    isUserProvidedApiKeyInUse = false
+                }
+            }
         }
     }
+
+    @CircuitInject(UserSettingsScreen::class, AppScope::class)
+    @AssistedFactory
+    fun interface Factory {
+        fun create(navigator: Navigator): UserSettingsPresenter
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @CircuitInject(UserSettingsScreen::class, AppScope::class)
@@ -223,12 +224,11 @@ fun UserSettingsScreen(
         },
     ) { contentPaddingValues ->
         Column(
-            modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(contentPaddingValues)
-                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
-                    .verticalScroll(rememberScrollState()),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(contentPaddingValues)
+                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding)
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             WeatherUpdateFrequencyUi(
@@ -253,8 +253,7 @@ fun UserSettingsScreen(
             )
 
             ElevatedButton(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                onClick = {
+                modifier = Modifier.align(Alignment.CenterHorizontally), onClick = {
                     scope.launch {
                         val alert = state.testAlert.firstOrNull()
 
@@ -264,7 +263,7 @@ fun UserSettingsScreen(
                             debugNotification(context)
                         }
                     }
-            }) { Text("Test Notification") }
+                }) { Text("Test Notification") }
         }
     }
 }
@@ -295,10 +294,9 @@ private fun AddServiceApiKeyUi(
                 onClick = {
                     eventSink(UserSettingsScreen.Event.AddServiceApiKey)
                 },
-                modifier =
-                    Modifier
-                        .padding(top = 4.dp)
-                        .align(Alignment.CenterHorizontally),
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .align(Alignment.CenterHorizontally),
             ) {
                 Text(if (isUserProvidedApiKeyInUse) "Modify API Service Key" else "Add API Service Key")
             }
@@ -308,32 +306,29 @@ private fun AddServiceApiKeyUi(
                     onClick = {
                         eventSink(UserSettingsScreen.Event.RemoveServiceApiKey(selectedService))
                     },
-                    modifier =
-                        Modifier
-                            .padding(top = 8.dp)
-                            .align(Alignment.CenterHorizontally),
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .align(Alignment.CenterHorizontally),
                 ) {
                     Text("Remove API Key")
                 }
             }
 
             Text(
-                text =
-                    buildAnnotatedString {
-                        append("[Optional] Use the alert service without interruption by adding ")
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("your own")
-                        }
-                        append(" API key for the selected service.")
-                    },
+                text = buildAnnotatedString {
+                    append("[Optional] Use the alert service without interruption by adding ")
+                    withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                        append("your own")
+                    }
+                    append(" API key for the selected service.")
+                },
                 style = MaterialTheme.typography.bodySmall,
                 fontSize = 10.sp,
-                modifier =
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .alpha(0.6f)
-                        .padding(horizontal = 32.dp)
-                        .fillMaxWidth(),
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .alpha(0.6f)
+                    .padding(horizontal = 32.dp)
+                    .fillMaxWidth(),
                 textAlign = TextAlign.Center,
             )
         }
@@ -345,7 +340,13 @@ fun WeatherUpdateFrequencyUi(
     selectedFrequency: Long,
     onUpdateFrequencySelected: (Long) -> Unit,
 ) {
-    var selectedIndex by remember { mutableIntStateOf(supportedWeatherUpdateInterval.indexOf(selectedFrequency)) }
+    var selectedIndex by remember {
+        mutableIntStateOf(
+            supportedWeatherUpdateInterval.indexOf(
+                selectedFrequency
+            )
+        )
+    }
     val options = supportedWeatherUpdateInterval.map { "$it hours" }
     Column {
         Text(
@@ -356,11 +357,10 @@ fun WeatherUpdateFrequencyUi(
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             options.forEachIndexed { index, label ->
                 SegmentedButton(
-                    shape =
-                        SegmentedButtonDefaults.itemShape(
-                            index = index,
-                            count = options.size,
-                        ),
+                    shape = SegmentedButtonDefaults.itemShape(
+                        index = index,
+                        count = options.size,
+                    ),
                     onClick = {
                         selectedIndex = index
                         onUpdateFrequencySelected(supportedWeatherUpdateInterval[index])
@@ -381,10 +381,9 @@ fun WeatherServiceSelectionGroupUi(
     eventSink: (UserSettingsScreen.Event) -> Unit,
 ) {
     Column(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         WeatherForecastService.entries.forEach { service ->
@@ -394,10 +393,9 @@ fun WeatherServiceSelectionGroupUi(
 
             Column {
                 Card(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .clickable { onServiceSelected(service) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onServiceSelected(service) },
                     elevation = CardDefaults.cardElevation(8.dp),
                 ) {
                     Row(
@@ -416,19 +414,17 @@ fun WeatherServiceSelectionGroupUi(
                             Image(
                                 painter = painterResource(id = serviceConfig.logoResId),
                                 contentDescription = service.name,
-                                modifier =
-                                    Modifier.size(
-                                        width = serviceConfig.logoWidth,
-                                        height = serviceConfig.logoHeight,
-                                    ),
+                                modifier = Modifier.size(
+                                    width = serviceConfig.logoWidth,
+                                    height = serviceConfig.logoHeight,
+                                ),
                             )
                             Text(
                                 text = serviceConfig.description,
                                 style = MaterialTheme.typography.labelSmall,
-                                modifier =
-                                    Modifier
-                                        .alpha(0.6f)
-                                        .padding(top = 4.dp),
+                                modifier = Modifier
+                                    .alpha(0.6f)
+                                    .padding(top = 4.dp),
                             )
                         }
                     }
@@ -449,17 +445,20 @@ fun WeatherServiceSelectionGroupUi(
 }
 
 @Preview(showBackground = true, name = "Light Mode")
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Preview(
+    showBackground = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES,
+    name = "Dark Mode"
+)
 @Composable
 fun UserSettingsScreenPreview() {
-    val sampleState =
-        UserSettingsScreen.State(
-            selectedService = WeatherForecastService.OPEN_WEATHER_MAP,
-            selectedUpdateFrequency = 12,
-            isUserProvidedApiKeyInUse = true,
-            testAlert = emptyFlow(),
-            eventSink = {},
-        )
+    val sampleState = UserSettingsScreen.State(
+        selectedService = WeatherForecastService.OPEN_WEATHER_MAP,
+        selectedUpdateFrequency = 12,
+        isUserProvidedApiKeyInUse = true,
+        testAlert = emptyFlow(),
+        eventSink = {},
+    )
     WeatherAlertAppTheme {
         UserSettingsScreen(state = sampleState)
     }
