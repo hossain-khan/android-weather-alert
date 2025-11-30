@@ -667,7 +667,7 @@ fun AlertListItem(
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.snooze_24dp),
-                                contentDescription = null,
+                                contentDescription = "Alert is snoozed",
                                 modifier = Modifier.size(14.dp),
                                 tint = MaterialTheme.colorScheme.secondary,
                             )

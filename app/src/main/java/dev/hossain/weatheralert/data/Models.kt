@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.util.isSnoozed
 import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
@@ -45,7 +46,7 @@ data class AlertTileData constructor(
     /**
      * Returns true if the alert is currently snoozed.
      */
-    fun isSnoozed(): Boolean = snoozedUntil != null && snoozedUntil > System.currentTimeMillis()
+    fun isSnoozed(): Boolean = snoozedUntil.isSnoozed()
 }
 
 /**

@@ -453,7 +453,7 @@ fun WeatherAlertSnoozeStatusUi(
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = formatSnoozeUntil(snoozedUntil) ?: "Snoozed",
+                        text = formatSnoozeUntil(snoozedUntil) ?: "Snooze expired",
                         style = MaterialTheme.typography.bodyLarge,
                         // Extra padding for the icon on the right, to avoid overlap
                         modifier = Modifier.padding(end = 24.dp),

@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.util.isSnoozed
 
 internal const val ALERT_ID_NONE = 0L
 
@@ -48,5 +49,5 @@ data class Alert(
     /**
      * Returns true if the alert is currently snoozed (snoozedUntil is in the future).
      */
-    fun isSnoozed(): Boolean = snoozedUntil != null && snoozedUntil > System.currentTimeMillis()
+    fun isSnoozed(): Boolean = snoozedUntil.isSnoozed()
 }

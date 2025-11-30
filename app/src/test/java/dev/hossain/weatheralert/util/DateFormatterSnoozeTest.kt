@@ -2,6 +2,8 @@ package dev.hossain.weatheralert.util
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class DateFormatterSnoozeTest {
     @Test
@@ -32,15 +34,20 @@ class DateFormatterSnoozeTest {
 
     @Test
     fun `formatSnoozeUntil includes tomorrow in string for next day`() {
-        // Calculate tomorrow at noon
-        val calendar =
-            java.util.Calendar.getInstance().apply {
-                add(java.util.Calendar.DAY_OF_YEAR, 1)
-                set(java.util.Calendar.HOUR_OF_DAY, 12)
-                set(java.util.Calendar.MINUTE, 0)
-                set(java.util.Calendar.SECOND, 0)
-            }
-        val tomorrowTimestamp = calendar.timeInMillis
+        // Use java.time APIs for more deterministic date calculation
+        val now = LocalDateTime.now()
+        val tomorrow =
+            now
+                .plusDays(1)
+                .withHour(12)
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0)
+        val tomorrowTimestamp =
+            tomorrow
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli()
 
         val result = formatSnoozeUntil(tomorrowTimestamp)
 

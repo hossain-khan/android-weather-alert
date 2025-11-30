@@ -13,9 +13,11 @@ import java.util.Calendar
 
 /**
  * BroadcastReceiver to handle snooze action from notification.
- * Snooze options:
+ * Snooze options presented in notification actions:
  * - 1 hour
  * - 3 hours
+ *
+ * Additional snooze durations supported by backend for future use:
  * - Until tomorrow (next day at 8 AM)
  * - 1 week
  */
@@ -43,18 +45,24 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
         val app = context.applicationContext as WeatherAlertApp
         val alertDao = app.appGraph.alertDao
 
-        // Update the alert's snooze time in the database
+        // Use goAsync() to ensure the system keeps the process alive during async work
+        val pendingResult = goAsync()
         CoroutineScope(Dispatchers.IO).launch {
-            alertDao.updateSnoozeUntil(alertId, snoozedUntil)
-            Timber.d("Alert $alertId snoozed until ${java.util.Date(snoozedUntil)}")
-        }
+            try {
+                // Update the alert's snooze time in the database
+                alertDao.updateSnoozeUntil(alertId, snoozedUntil)
+                Timber.d("Alert $alertId snoozed until ${java.util.Date(snoozedUntil)}")
 
-        // Dismiss the notification
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        if (notificationTag != null && notificationId != -1) {
-            notificationManager.cancel(notificationTag, notificationId)
-        } else if (notificationId != -1) {
-            notificationManager.cancel(notificationId)
+                // Dismiss the notification after snooze update succeeds
+                val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                if (notificationTag != null && notificationId != -1) {
+                    notificationManager.cancel(notificationTag, notificationId)
+                } else if (notificationId != -1) {
+                    notificationManager.cancel(notificationId)
+                }
+            } finally {
+                pendingResult.finish()
+            }
         }
     }
 
