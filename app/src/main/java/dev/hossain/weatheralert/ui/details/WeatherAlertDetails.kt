@@ -942,7 +942,9 @@ private fun PreviewWeatherAlertDetailsScreenWithSnooze() {
                             cityId = 1,
                             alertCategory = WeatherAlertCategory.RAIN_FALL,
                             threshold = 50.0f,
-                            notes = "Remember to bring umbrella and wear waterproof jacket.\n\n**Important**: Check the forecast before leaving.",
+                            notes =
+                                "Remember to bring umbrella and wear waterproof jacket." +
+                                    "\n\n**Important**: Check the forecast before leaving.",
                             snoozedUntil = System.currentTimeMillis() + (48 * 60 * 60 * 1000), // 48 hours from now
                         ),
                     cityInfo =
@@ -982,7 +984,9 @@ private fun PreviewWeatherAlertDetailsScreenWithSnooze() {
                                     HourlyPrecipitation("2025-01-16T04:42:00Z", 0.0, 2.0),
                                 ),
                         ),
-                    alertNote = "Remember to bring umbrella and wear waterproof jacket.\n\n**Important**: Check the forecast before leaving.",
+                    alertNote =
+                        "Remember to bring umbrella and wear waterproof jacket." +
+                            "\n\n**Important**: Check the forecast before leaving.",
                     isEditingNote = false,
                     isForecastRefreshing = false,
                     snackbarData = null,
