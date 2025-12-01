@@ -53,6 +53,9 @@ debugSnooze(context = this, alertId = 1, snoozeDuration = SnoozeAlertReceiver.SN
 // Snooze for 3 hours
 debugSnooze(context = this, alertId = 1, snoozeDuration = SnoozeAlertReceiver.SNOOZE_3_HOURS)
 
+// Snooze for 1 day
+debugSnooze(context = this, alertId = 1, snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_DAY)
+
 // Snooze until tomorrow at 8 AM (default)
 debugSnooze(context = this, alertId = 1, snoozeDuration = SnoozeAlertReceiver.SNOOZE_TOMORROW)
 

@@ -14,12 +14,13 @@ import java.util.Calendar
 /**
  * BroadcastReceiver to handle snooze action from notification.
  * Snooze options presented in notification actions:
- * - 1 hour
- * - 3 hours
+ * - 1 day
+ * - 1 week
  *
  * Additional snooze durations supported by backend for future use:
+ * - 1 hour
+ * - 3 hours
  * - Until tomorrow (next day at 8 AM)
- * - 1 week
  */
 class SnoozeAlertReceiver : BroadcastReceiver() {
     override fun onReceive(
@@ -71,6 +72,7 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
         return when (snoozeDuration) {
             SNOOZE_1_HOUR -> now + HOUR_IN_MILLIS
             SNOOZE_3_HOURS -> now + 3 * HOUR_IN_MILLIS
+            SNOOZE_1_DAY -> now + DAY_IN_MILLIS
             SNOOZE_TOMORROW -> {
                 // Calculate tomorrow at 8 AM
                 val calendar =
@@ -96,10 +98,11 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
         const val EXTRA_NOTIFICATION_ID = "extra_notification_id"
         const val EXTRA_NOTIFICATION_TAG = "extra_notification_tag"
 
-        // Snooze duration options - currently only 1h and 3h are shown in notification actions
+        // Snooze duration options - currently 1 day and 1 week are shown in notification actions
         // due to space constraints, but the backend supports all duration options.
         const val SNOOZE_1_HOUR = "snooze_1_hour"
         const val SNOOZE_3_HOURS = "snooze_3_hours"
+        const val SNOOZE_1_DAY = "snooze_1_day"
         const val SNOOZE_TOMORROW = "snooze_tomorrow"
         const val SNOOZE_1_WEEK = "snooze_1_week"
 

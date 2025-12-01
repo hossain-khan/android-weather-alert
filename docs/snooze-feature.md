@@ -16,7 +16,7 @@ The snooze status UI (`WeatherAlertSnoozeStatusUi`) in the `WeatherAlertDetailsS
    ↓
 2. App sends notification with snooze action buttons
    ↓
-3. User taps "Snooze 1h" or "Snooze 3h" in notification
+3. User taps "Snooze 1 day" or "Snooze 1 week" in notification
    ↓
 4. SnoozeAlertReceiver updates database: snoozedUntil = now + duration
    ↓
@@ -53,8 +53,8 @@ fun Long?.isSnoozed(): Boolean = this != null && this > System.currentTimeMillis
 **Notification Actions** (`Notification.kt:159-162`):
 ```kotlin
 // Add snooze actions - limited to 2 actions to fit notification constraints
-.addAction(R.drawable.snooze_24dp, "Snooze 1h", snooze1HourIntent)
-.addAction(R.drawable.snooze_24dp, "Snooze 3h", snooze3HoursIntent)
+.addAction(R.drawable.snooze_24dp, "Snooze 1 day", snooze1DayIntent)
+.addAction(R.drawable.snooze_24dp, "Snooze 1 week", snooze1WeekIntent)
 ```
 
 ## Why You're Not Seeing the Snooze UI
@@ -84,7 +84,7 @@ There are several possible reasons:
 1. Create an alert with a very low threshold (e.g., 0.1 mm for rain/snow)
 2. Wait for weather data to be fetched
 3. If conditions meet threshold, you'll get a notification
-4. Tap "Snooze 1h" or "Snooze 3h" button in the notification
+4. Tap "Snooze 1 day" or "Snooze 1 week" button in the notification
 5. Open the app and navigate to Alert Details
 6. You should now see the Snooze Status UI
 

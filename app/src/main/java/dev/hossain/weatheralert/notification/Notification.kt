@@ -16,8 +16,8 @@ import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
 // Unique offsets for XOR operation to create distinct request codes for each snooze action
-private const val SNOOZE_1_HOUR_ACTION_OFFSET = 0x1000
-private const val SNOOZE_3_HOURS_ACTION_OFFSET = 0x2000
+private const val SNOOZE_1_DAY_ACTION_OFFSET = 0x1000
+private const val SNOOZE_1_WEEK_ACTION_OFFSET = 0x2000
 
 /**
  * Triggers a notification with the given content.
@@ -125,23 +125,23 @@ internal fun triggerNotification(
     val notificationId = userAlertId.hashCode()
 
     // Create snooze action pending intents with unique request codes based on alertId and action type
-    val snooze1HourIntent =
+    val snooze1DayIntent =
         createSnoozePendingIntent(
             context = context,
             alertId = userAlertId,
-            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_HOUR,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_DAY,
             notificationId = notificationId,
             notificationTag = notificationTag,
-            requestCode = (userAlertId.hashCode() xor SNOOZE_1_HOUR_ACTION_OFFSET),
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_DAY_ACTION_OFFSET),
         )
-    val snooze3HoursIntent =
+    val snooze1WeekIntent =
         createSnoozePendingIntent(
             context = context,
             alertId = userAlertId,
-            snoozeDuration = SnoozeAlertReceiver.SNOOZE_3_HOURS,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_WEEK,
             notificationId = notificationId,
             notificationTag = notificationTag,
-            requestCode = (userAlertId.hashCode() xor SNOOZE_3_HOURS_ACTION_OFFSET),
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_WEEK_ACTION_OFFSET),
         )
 
     val notification =
@@ -156,8 +156,8 @@ internal fun triggerNotification(
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             // Add snooze actions - limited to 2 actions to fit notification constraints
-            .addAction(R.drawable.snooze_24dp, "Snooze 1h", snooze1HourIntent)
-            .addAction(R.drawable.snooze_24dp, "Snooze 3h", snooze3HoursIntent)
+            .addAction(R.drawable.snooze_24dp, "Snooze 1 day", snooze1DayIntent)
+            .addAction(R.drawable.snooze_24dp, "Snooze 1 week", snooze1WeekIntent)
             .build()
 
     notificationManager.notify(
