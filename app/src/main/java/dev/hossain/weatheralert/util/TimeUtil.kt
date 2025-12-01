@@ -42,3 +42,9 @@ class TimeUtilImpl
             return (currentTime - timeInMillis) > 24 * 60 * 60 * 1000
         }
     }
+
+/**
+ * Returns true if the snoozedUntil timestamp is in the future.
+ * Used to determine if an alert is currently snoozed.
+ */
+fun Long?.isSnoozed(): Boolean = this != null && this > System.currentTimeMillis()

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.util.isSnoozed
 import kotlinx.parcelize.Parcelize
 import java.util.UUID
 
@@ -32,11 +33,21 @@ data class AlertTileData constructor(
      */
     val forecastSourceName: String,
     /**
+     * Timestamp (in milliseconds) until which the alert is snoozed.
+     * If null or in the past, the alert is not snoozed.
+     */
+    val snoozedUntil: Long? = null,
+    /**
      * Unique identifier for the alert item in the lazy column.
      * Added to avoid app crashing due to duplicate keys.
      */
     val uuid: String = UUID.randomUUID().toString(),
-) : Parcelable
+) : Parcelable {
+    /**
+     * Returns true if the alert is currently snoozed.
+     */
+    fun isSnoozed(): Boolean = snoozedUntil.isSnoozed()
+}
 
 /**
  * Returns the icon resource for the [WeatherAlertCategory].

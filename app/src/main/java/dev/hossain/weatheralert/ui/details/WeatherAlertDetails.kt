@@ -90,6 +90,7 @@ import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.convertIsoToHourAmPm
+import dev.hossain.weatheralert.util.formatSnoozeUntil
 import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatToDate
 import dev.hossain.weatheralert.util.formatUnit
@@ -134,6 +135,8 @@ data class WeatherAlertDetailsScreen(
         data object SaveNote : Event()
 
         data object GoBack : Event()
+
+        data object ClearSnooze : Event()
     }
 }
 
@@ -240,6 +243,16 @@ class WeatherAlertDetailsPresenter
                             isForecastRefreshing = false
                         }
                     }
+
+                    WeatherAlertDetailsScreen.Event.ClearSnooze -> {
+                        scope.launch {
+                            alertDao.clearSnooze(screen.alertId)
+                            // Reload the alert to update the UI
+                            val alert: UserCityAlert = alertDao.getAlertWithCity(screen.alertId)
+                            alertConfig = alert.alert
+                            snackbarData = SnackbarData("Alert snooze has been cleared.") {}
+                        }
+                    }
                 }
             }
         }
@@ -328,6 +341,15 @@ fun WeatherAlertDetailsScreen(
                     }
                 } else {
                     item { CityInfoUi(city = city) }
+                    // Show snooze status if alert is snoozed
+                    if (alert.isSnoozed()) {
+                        item {
+                            WeatherAlertSnoozeStatusUi(
+                                snoozedUntil = alert.snoozedUntil!!,
+                                onClearSnooze = { state.eventSink(WeatherAlertDetailsScreen.Event.ClearSnooze) },
+                            )
+                        }
+                    }
                     item { WeatherAlertForecastUi(alert = alert, forecast = cityForecast) }
                     item { WeatherAlertNoteUi(state = state) }
                     item { WeatherAlertUpdateOnUi(forecast = cityForecast) }
@@ -394,6 +416,55 @@ fun CityInfoUi(
                         "${city.provStateName?.let { "$it, " } ?: ""}${city.country}",
                         style = MaterialTheme.typography.bodyLarge,
                     )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun WeatherAlertSnoozeStatusUi(
+    snoozedUntil: Long,
+    onClearSnooze: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth(),
+    ) {
+        Text(
+            text = "Snooze Status",
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(bottom = 8.dp, top = 4.dp),
+        )
+        Card(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Icon(
+                    painter = painterResource(id = R.drawable.snooze_24dp),
+                    contentDescription = "Snooze icon",
+                    tint = MaterialTheme.colorScheme.secondary,
+                    modifier =
+                        Modifier
+                            .padding(16.dp)
+                            .align(Alignment.TopEnd),
+                )
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = formatSnoozeUntil(snoozedUntil) ?: "Snooze expired",
+                        style = MaterialTheme.typography.bodyLarge,
+                        // Extra padding for the icon on the right, to avoid overlap
+                        modifier = Modifier.padding(end = 24.dp),
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    ElevatedButton(
+                        onClick = onClearSnooze,
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text("Clear Snooze")
+                    }
                 }
             }
         }
@@ -853,6 +924,86 @@ private fun PreviewWeatherAlertDetailsScreen() {
                     snackbarData = null,
                     eventSink = {},
                 ),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "With Snooze - Light Mode")
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "With Snooze - Dark Mode")
+@Composable
+private fun PreviewWeatherAlertDetailsScreenWithSnooze() {
+    WeatherAlertAppTheme {
+        WeatherAlertDetailsScreen(
+            state =
+                WeatherAlertDetailsScreen.State(
+                    alertConfig =
+                        Alert(
+                            id = 1,
+                            cityId = 1,
+                            alertCategory = WeatherAlertCategory.RAIN_FALL,
+                            threshold = 50.0f,
+                            notes =
+                                "Remember to bring umbrella and wear waterproof jacket." +
+                                    "\n\n**Important**: Check the forecast before leaving.",
+                            snoozedUntil = System.currentTimeMillis() + (48 * 60 * 60 * 1000), // 48 hours from now
+                        ),
+                    cityInfo =
+                        City(
+                            id = 1,
+                            cityName = "Seattle",
+                            lat = 47.6062,
+                            lng = -122.3321,
+                            country = "US",
+                            iso2 = "US",
+                            iso3 = "USA",
+                            provStateName = "Washington",
+                            capital = "Olympia",
+                            population = 750000,
+                            city = "Seattle",
+                        ),
+                    cityForecast =
+                        CityForecast(
+                            alertId = ALERT_ID_NONE,
+                            cityId = 1,
+                            latitude = 47.6062,
+                            longitude = -122.3321,
+                            dailyCumulativeSnow = 0.0,
+                            nextDaySnow = 0.0,
+                            dailyCumulativeRain = 65.0,
+                            nextDayRain = 35.0,
+                            forecastSourceService = WeatherForecastService.TOMORROW_IO,
+                            hourlyPrecipitation =
+                                listOf(
+                                    HourlyPrecipitation("2025-01-15T21:42:00Z", 0.0, 8.0),
+                                    HourlyPrecipitation("2025-01-15T22:42:00Z", 0.0, 12.0),
+                                    HourlyPrecipitation("2025-01-15T23:42:00Z", 0.0, 15.0),
+                                    HourlyPrecipitation("2025-01-16T00:42:00Z", 0.0, 10.0),
+                                    HourlyPrecipitation("2025-01-16T01:42:00Z", 0.0, 8.0),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 5.0),
+                                    HourlyPrecipitation("2025-01-16T03:42:00Z", 0.0, 3.0),
+                                    HourlyPrecipitation("2025-01-16T04:42:00Z", 0.0, 2.0),
+                                ),
+                        ),
+                    alertNote =
+                        "Remember to bring umbrella and wear waterproof jacket." +
+                            "\n\n**Important**: Check the forecast before leaving.",
+                    isEditingNote = false,
+                    isForecastRefreshing = false,
+                    snackbarData = null,
+                    eventSink = {},
+                ),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+private fun PreviewWeatherAlertSnoozeStatusUi() {
+    WeatherAlertAppTheme {
+        WeatherAlertSnoozeStatusUi(
+            snoozedUntil = System.currentTimeMillis() + (24 * 60 * 60 * 1000), // 24 hours from now
+            onClearSnooze = {},
         )
     }
 }

@@ -99,6 +99,7 @@ import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
+import dev.hossain.weatheralert.util.formatSnoozeUntil
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import dev.zacsweers.metro.AppScope
@@ -230,6 +231,7 @@ class CurrentWeatherAlertPresenter
                                         },
                                     alertNote = alert.alert.notes,
                                     forecastSourceName = cityForecast?.forecastSourceService?.serviceConfig()?.serviceName ?: "",
+                                    snoozedUntil = alert.alert.snoozedUntil,
                                 ),
                             )
                         }
@@ -577,6 +579,9 @@ fun AlertListItem(
     eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val snoozeText = formatSnoozeUntil(data.snoozedUntil)
+    val isSnoozed = snoozeText != null
+
     Card(
         modifier =
             modifier
@@ -595,23 +600,54 @@ fun AlertListItem(
         shape = RoundedCornerShape(12.dp),
     ) {
         val colors: ListItemColors =
-            if (data.isAlertActive) {
-                ListItemDefaults.colors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
-                )
-            } else {
-                ListItemDefaults.colors()
+            when {
+                isSnoozed -> {
+                    // Use a muted color for snoozed alerts
+                    ListItemDefaults.colors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    )
+                }
+                data.isAlertActive -> {
+                    ListItemDefaults.colors(
+                        containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
+                    )
+                }
+                else -> {
+                    ListItemDefaults.colors()
+                }
             }
         ListItem(
             headlineContent = {
-                Text(
-                    text =
-                        when (data.category) {
-                            WeatherAlertCategory.SNOW_FALL -> "Snowfall"
-                            WeatherAlertCategory.RAIN_FALL -> "Rainfall"
-                        },
-                    style = MaterialTheme.typography.headlineSmall,
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text(
+                        text =
+                            when (data.category) {
+                                WeatherAlertCategory.SNOW_FALL -> "Snowfall"
+                                WeatherAlertCategory.RAIN_FALL -> "Rainfall"
+                            },
+                        style = MaterialTheme.typography.headlineSmall,
+                    )
+                    // Show snooze badge if alert is snoozed
+                    if (isSnoozed) {
+                        Box(
+                            modifier =
+                                Modifier
+                                    .background(
+                                        color = MaterialTheme.colorScheme.secondaryContainer,
+                                        shape = RoundedCornerShape(4.dp),
+                                    ).padding(horizontal = 6.dp, vertical = 2.dp),
+                        ) {
+                            Text(
+                                text = "Snoozed",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            )
+                        }
+                    }
+                }
             },
             supportingContent = {
                 Column {
@@ -622,6 +658,27 @@ fun AlertListItem(
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold,
                     )
+
+                    // Show snooze until time if snoozed
+                    if (snoozeText != null) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(vertical = 4.dp),
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.snooze_24dp),
+                                contentDescription = "Alert is snoozed",
+                                modifier = Modifier.size(14.dp),
+                                tint = MaterialTheme.colorScheme.secondary,
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(
+                                text = snoozeText,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.secondary,
+                            )
+                        }
+                    }
 
                     // Future enhancement - show icon if note is available
                     // Tap tap icon - expand/collapse note content
@@ -667,12 +724,17 @@ fun AlertListItem(
                     Icon(
                         painter = painterResource(iconResId),
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary,
+                        tint =
+                            if (isSnoozed) {
+                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                            } else {
+                                MaterialTheme.colorScheme.primary
+                            },
                         modifier = Modifier.size(48.dp),
                     )
 
-                    // Conditionally show warning icon as an overlay when alert is active
-                    if (data.isAlertActive) {
+                    // Conditionally show warning icon as an overlay when alert is active (and not snoozed)
+                    if (data.isAlertActive && !isSnoozed) {
                         Icon(
                             painter = painterResource(R.drawable.warning_24dp),
                             contentDescription = "Alert active",
@@ -681,6 +743,19 @@ fun AlertListItem(
                                 Modifier
                                     .align(Alignment.BottomEnd)
                                     .size(20.dp), // Slightly smaller for better proportions
+                        )
+                    }
+
+                    // Show snooze icon overlay when snoozed
+                    if (isSnoozed) {
+                        Icon(
+                            painter = painterResource(R.drawable.snooze_24dp),
+                            contentDescription = "Alert snoozed",
+                            tint = MaterialTheme.colorScheme.secondary,
+                            modifier =
+                                Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .size(20.dp),
                         )
                     }
                 }

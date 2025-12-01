@@ -15,6 +15,10 @@ import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
+// Unique offsets for XOR operation to create distinct request codes for each snooze action
+private const val SNOOZE_1_DAY_ACTION_OFFSET = 0x1000
+private const val SNOOZE_1_WEEK_ACTION_OFFSET = 0x2000
+
 /**
  * Triggers a notification with the given content.
  *
@@ -114,6 +118,32 @@ internal fun triggerNotification(
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
 
+    // ⚠️ Note: We use hashCode to generate notification IDs to avoid overflow issues with large alert IDs.
+    // While hashCode can theoretically cause collisions, we also use notificationTag (which includes
+    // unique cityId, alertId, and category) to ensure notifications are properly distinguished.
+    // This approach provides a reasonable balance between uniqueness and avoiding integer overflow.
+    val notificationId = userAlertId.hashCode()
+
+    // Create snooze action pending intents with unique request codes based on alertId and action type
+    val snooze1DayIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_DAY,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_DAY_ACTION_OFFSET),
+        )
+    val snooze1WeekIntent =
+        createSnoozePendingIntent(
+            context = context,
+            alertId = userAlertId,
+            snoozeDuration = SnoozeAlertReceiver.SNOOZE_1_WEEK,
+            notificationId = notificationId,
+            notificationTag = notificationTag,
+            requestCode = (userAlertId.hashCode() xor SNOOZE_1_WEEK_ACTION_OFFSET),
+        )
+
     val notification =
         NotificationCompat
             .Builder(context, NOTIFICATION_CHANNEL_ID)
@@ -125,13 +155,42 @@ internal fun triggerNotification(
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            // Add snooze actions - limited to 2 actions to fit notification constraints
+            .addAction(R.drawable.snooze_24dp, "Snooze 1 day", snooze1DayIntent)
+            .addAction(R.drawable.snooze_24dp, "Snooze 1 week", snooze1WeekIntent)
             .build()
 
     notificationManager.notify(
         notificationTag,
-        // ⚠️ Potential precision loss and overflow when converting to int.
-        userAlertId.toInt(),
+        notificationId,
         notification,
+    )
+}
+
+/**
+ * Creates a PendingIntent for snoozing an alert notification.
+ */
+private fun createSnoozePendingIntent(
+    context: Context,
+    alertId: Long,
+    snoozeDuration: String,
+    notificationId: Int,
+    notificationTag: String,
+    requestCode: Int,
+): PendingIntent {
+    val snoozeIntent =
+        Intent(context, SnoozeAlertReceiver::class.java).apply {
+            action = SnoozeAlertReceiver.ACTION_SNOOZE_ALERT
+            putExtra(SnoozeAlertReceiver.EXTRA_ALERT_ID, alertId)
+            putExtra(SnoozeAlertReceiver.EXTRA_SNOOZE_DURATION, snoozeDuration)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_ID, notificationId)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_TAG, notificationTag)
+        }
+    return PendingIntent.getBroadcast(
+        context,
+        requestCode,
+        snoozeIntent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
     )
 }
 
@@ -150,4 +209,39 @@ internal fun debugNotification(context: Context) {
         cityName = "Toronto",
         reminderNotes = "* Charge batteries\n* Check tire pressure\n* Order Groceries",
     )
+}
+
+/**
+ * Debug snooze by directly updating an alert's snooze time in the database.
+ * This simulates the snooze action without needing to interact with a real notification.
+ *
+ * @param context Application context
+ * @param alertId The ID of the alert to snooze (defaults to 1 for testing)
+ * @param snoozeDuration Snooze duration option (defaults to 24 hours for testing)
+ *
+ * Usage in WeatherAlertApp.onCreate():
+ * ```
+ * debugSnooze(
+ *     context = this,
+ *     alertId = 1,
+ *     snoozeDuration = SnoozeAlertReceiver.SNOOZE_TOMORROW
+ * )
+ * ```
+ */
+internal fun debugSnooze(
+    context: Context,
+    alertId: Long = 1,
+    snoozeDuration: String = SnoozeAlertReceiver.SNOOZE_TOMORROW,
+) {
+    // Simulate the snooze action by broadcasting to SnoozeAlertReceiver
+    val intent =
+        Intent(context, SnoozeAlertReceiver::class.java).apply {
+            action = SnoozeAlertReceiver.ACTION_SNOOZE_ALERT
+            putExtra(SnoozeAlertReceiver.EXTRA_ALERT_ID, alertId)
+            putExtra(SnoozeAlertReceiver.EXTRA_SNOOZE_DURATION, snoozeDuration)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_ID, -1) // Not used for debug
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_TAG, "debug_snooze")
+        }
+    context.sendBroadcast(intent)
+    Timber.d("Debug snooze triggered for alertId=$alertId with duration=$snoozeDuration")
 }
