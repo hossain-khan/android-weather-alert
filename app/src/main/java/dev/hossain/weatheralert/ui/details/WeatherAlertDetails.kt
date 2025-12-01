@@ -928,6 +928,82 @@ private fun PreviewWeatherAlertDetailsScreen() {
     }
 }
 
+@Preview(showBackground = true, name = "With Snooze - Light Mode")
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "With Snooze - Dark Mode")
+@Composable
+private fun PreviewWeatherAlertDetailsScreenWithSnooze() {
+    WeatherAlertAppTheme {
+        WeatherAlertDetailsScreen(
+            state =
+                WeatherAlertDetailsScreen.State(
+                    alertConfig =
+                        Alert(
+                            id = 1,
+                            cityId = 1,
+                            alertCategory = WeatherAlertCategory.RAIN_FALL,
+                            threshold = 50.0f,
+                            notes = "Remember to bring umbrella and wear waterproof jacket.\n\n**Important**: Check the forecast before leaving.",
+                            snoozedUntil = System.currentTimeMillis() + (48 * 60 * 60 * 1000), // 48 hours from now
+                        ),
+                    cityInfo =
+                        City(
+                            id = 1,
+                            cityName = "Seattle",
+                            lat = 47.6062,
+                            lng = -122.3321,
+                            country = "US",
+                            iso2 = "US",
+                            iso3 = "USA",
+                            provStateName = "Washington",
+                            capital = "Olympia",
+                            population = 750000,
+                            city = "Seattle",
+                        ),
+                    cityForecast =
+                        CityForecast(
+                            alertId = ALERT_ID_NONE,
+                            cityId = 1,
+                            latitude = 47.6062,
+                            longitude = -122.3321,
+                            dailyCumulativeSnow = 0.0,
+                            nextDaySnow = 0.0,
+                            dailyCumulativeRain = 65.0,
+                            nextDayRain = 35.0,
+                            forecastSourceService = WeatherForecastService.TOMORROW_IO,
+                            hourlyPrecipitation =
+                                listOf(
+                                    HourlyPrecipitation("2025-01-15T21:42:00Z", 0.0, 8.0),
+                                    HourlyPrecipitation("2025-01-15T22:42:00Z", 0.0, 12.0),
+                                    HourlyPrecipitation("2025-01-15T23:42:00Z", 0.0, 15.0),
+                                    HourlyPrecipitation("2025-01-16T00:42:00Z", 0.0, 10.0),
+                                    HourlyPrecipitation("2025-01-16T01:42:00Z", 0.0, 8.0),
+                                    HourlyPrecipitation("2025-01-16T02:42:00Z", 0.0, 5.0),
+                                    HourlyPrecipitation("2025-01-16T03:42:00Z", 0.0, 3.0),
+                                    HourlyPrecipitation("2025-01-16T04:42:00Z", 0.0, 2.0),
+                                ),
+                        ),
+                    alertNote = "Remember to bring umbrella and wear waterproof jacket.\n\n**Important**: Check the forecast before leaving.",
+                    isEditingNote = false,
+                    isForecastRefreshing = false,
+                    snackbarData = null,
+                    eventSink = {},
+                ),
+        )
+    }
+}
+
+@Preview(showBackground = true, name = "Light Mode")
+@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Composable
+private fun PreviewWeatherAlertSnoozeStatusUi() {
+    WeatherAlertAppTheme {
+        WeatherAlertSnoozeStatusUi(
+            snoozedUntil = System.currentTimeMillis() + (24 * 60 * 60 * 1000), // 24 hours from now
+            onClearSnooze = {},
+        )
+    }
+}
+
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(
     showBackground = true,
