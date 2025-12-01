@@ -41,7 +41,12 @@ class WeatherAlertApp :
 
         // Debug functions - uncomment to test manually:
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
+        // Note: Tap "Snooze 1h" or "Snooze 3h" in the notification to test snooze functionality.
+        // Then navigate to Alert Details screen to see the Snooze Status UI.
+
+        // Alternative: Use debugSnooze() below to directly snooze without notification interaction:
         // dev.hossain.weatheralert.notification.debugSnooze(context = this, alertId = 1)
+
         // scheduleOneTimeWeatherAlertWorkerDebug(context = this)
     }
 
