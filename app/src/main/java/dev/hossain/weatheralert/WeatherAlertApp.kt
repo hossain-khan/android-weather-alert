@@ -39,7 +39,9 @@ class WeatherAlertApp :
         createAppNotificationChannel(context = this)
         scheduleWeatherAlertsWork(context = this, appGraph.preferencesManager.preferredUpdateIntervalSync)
 
+        // Debug functions - uncomment to test manually:
         // dev.hossain.weatheralert.notification.debugNotification(context = this)
+        // dev.hossain.weatheralert.notification.debugSnooze(context = this, alertId = 1)
         // scheduleOneTimeWeatherAlertWorkerDebug(context = this)
     }
 

@@ -210,3 +210,38 @@ internal fun debugNotification(context: Context) {
         reminderNotes = "* Charge batteries\n* Check tire pressure\n* Order Groceries",
     )
 }
+
+/**
+ * Debug snooze by directly updating an alert's snooze time in the database.
+ * This simulates the snooze action without needing to interact with a real notification.
+ *
+ * @param context Application context
+ * @param alertId The ID of the alert to snooze (defaults to 1 for testing)
+ * @param snoozeDuration Snooze duration option (defaults to 24 hours for testing)
+ *
+ * Usage in WeatherAlertApp.onCreate():
+ * ```
+ * debugSnooze(
+ *     context = this,
+ *     alertId = 1,
+ *     snoozeDuration = SnoozeAlertReceiver.SNOOZE_TOMORROW
+ * )
+ * ```
+ */
+internal fun debugSnooze(
+    context: Context,
+    alertId: Long = 1,
+    snoozeDuration: String = SnoozeAlertReceiver.SNOOZE_TOMORROW,
+) {
+    // Simulate the snooze action by broadcasting to SnoozeAlertReceiver
+    val intent =
+        Intent(context, SnoozeAlertReceiver::class.java).apply {
+            action = SnoozeAlertReceiver.ACTION_SNOOZE_ALERT
+            putExtra(SnoozeAlertReceiver.EXTRA_ALERT_ID, alertId)
+            putExtra(SnoozeAlertReceiver.EXTRA_SNOOZE_DURATION, snoozeDuration)
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_ID, -1) // Not used for debug
+            putExtra(SnoozeAlertReceiver.EXTRA_NOTIFICATION_TAG, "debug_snooze")
+        }
+    context.sendBroadcast(intent)
+    Timber.d("Debug snooze triggered for alertId=$alertId with duration=$snoozeDuration")
+}
