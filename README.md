@@ -72,7 +72,11 @@ Here is a diagram of Gradle modules and architecture for this app.
     'primaryBorderColor': '#1976D2',
     'lineColor': '#42A5F5',
     'secondaryColor': '#FFF3E0',
-    'tertiaryColor': '#E8F5E9'
+    'tertiaryColor': '#E8F5E9',
+    'background': '#FFFFFF',
+    'mainBkg': '#FFFFFF',
+    'secondBkg': '#FFFFFF',
+    'tertiaryBkg': '#FFFFFF'
   }
 }}%%
 flowchart TB
