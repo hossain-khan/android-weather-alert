@@ -1,9 +1,6 @@
 package dev.hossain.weatheralert.ui.onboarding
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -181,16 +179,12 @@ fun OnboardingScreen(
                         .padding(top = 16.dp),
                 horizontalArrangement = Arrangement.End,
             ) {
-                AnimatedVisibility(
-                    visible = !isLastPage,
-                    enter = fadeIn(),
-                    exit = fadeOut(),
+                TextButton(
+                    onClick = { state.eventSink(OnboardingScreen.Event.Skip) },
+                    enabled = !isLastPage,
+                    modifier = Modifier.graphicsLayer { alpha = if (isLastPage) 0f else 1f },
                 ) {
-                    TextButton(
-                        onClick = { state.eventSink(OnboardingScreen.Event.Skip) },
-                    ) {
-                        Text("Skip")
-                    }
+                    Text("Skip")
                 }
             }
 
