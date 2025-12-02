@@ -1,7 +1,7 @@
 # Release Notes for Google Play
 
 ### Release Checklist
-- [ ] Update version code and name in `build.gradle`.
+- [ ] Update version code and name in `app/build.gradle.kts`.
 - [ ] Update `release-notes.md` with release notes.
 - [ ] Check `local.properties` for correct and API keys.
 - [ ] Run release APK build and test.
