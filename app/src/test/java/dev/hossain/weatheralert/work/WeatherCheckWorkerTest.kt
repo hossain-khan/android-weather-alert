@@ -55,7 +55,7 @@ class WeatherCheckWorkerTest {
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start()
-        NetworkBindings.tomorrowIoBaseUrl = mockWebServer.url("/")
+        io.tomorrow.api.di.TomorrowIoModule.tomorrowIoBaseUrl = mockWebServer.url("/")
 
         injectAndSetupTestClass()
 
