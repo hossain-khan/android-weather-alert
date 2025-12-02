@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "dev.hossain.weatheralert.datamodel"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 30
@@ -33,8 +33,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
 
