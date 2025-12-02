@@ -101,19 +101,23 @@ class AlertHistoryPresenter
                         return@withContext
                     }
 
-                    val file = File(context.cacheDir, "alert_history_${System.currentTimeMillis()}.csv")
+                    val timestamp =
+                        java.text
+                            .SimpleDateFormat("yyyy-MM-dd_HH-mm", java.util.Locale.getDefault())
+                            .format(java.util.Date())
+                    val file = File(context.cacheDir, "alert_history_$timestamp.csv")
                     FileWriter(file).use { writer ->
                         // Write CSV header
                         writer.append("Date,City,Alert Type,Weather Value,Threshold,Unit\n")
 
-                        // Write data rows
+                        // Write data rows with proper CSV escaping
                         historyItems.forEach { item ->
-                            writer.append("\"${formatTimestampToDateTime(item.triggeredAt)}\",")
-                            writer.append("\"${item.cityName}\",")
-                            writer.append("\"${item.alertCategory.label}\",")
+                            writer.append("\"${escapeCsv(formatTimestampToDateTime(item.triggeredAt))}\",")
+                            writer.append("\"${escapeCsv(item.cityName)}\",")
+                            writer.append("\"${escapeCsv(item.alertCategory.label)}\",")
                             writer.append("${item.weatherValue},")
                             writer.append("${item.thresholdValue},")
-                            writer.append("\"${item.alertCategory.unit}\"\n")
+                            writer.append("\"${escapeCsv(item.alertCategory.unit)}\"\n")
                         }
                     }
 
@@ -142,6 +146,15 @@ class AlertHistoryPresenter
                     }
                 }
             }
+        }
+
+        /**
+         * Escapes special characters in CSV fields to prevent CSV injection attacks.
+         * Doubles quotes and ensures the field is properly quoted if it contains special characters.
+         */
+        private fun escapeCsv(value: String): String {
+            // Replace double quotes with two double quotes for CSV escaping
+            return value.replace("\"", "\"\"")
         }
 
         @CircuitInject(AlertHistoryScreen::class, AppScope::class)
