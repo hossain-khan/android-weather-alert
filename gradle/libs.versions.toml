@@ -16,7 +16,7 @@ circuit = "0.29.1"
 
 composeBom = "2025.07.00"
 composeMaterial3 = "1.4.0"
-coreKtx = "1.17.0"
+coreKtx = "1.16.0"
 coroutinesTest = "1.10.2"
 
 dataStore = "1.1.7"
