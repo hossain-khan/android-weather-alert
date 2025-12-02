@@ -20,7 +20,7 @@
 * Added new onboarding experience 📝
 * Added option to snooze notification 🔔
 * App now targets Android 16 (Baklava)
-* Updated to latest Kotlin 2.21
+* Updated to latest Kotlin 2.2.21
 * Maintenance release with updated libraries and dependencies.
 
 ## Weather Alert v2.9
