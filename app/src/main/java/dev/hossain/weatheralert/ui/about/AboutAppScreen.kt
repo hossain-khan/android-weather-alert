@@ -56,7 +56,7 @@ import dev.hossain.weatheralert.util.Analytics
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
-import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.AssistedInject
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -78,7 +78,7 @@ data object AboutAppScreen : Screen {
     }
 }
 
-@Inject
+@AssistedInject
 class AboutAppPresenter
     constructor(
         @Assisted private val navigator: Navigator,
