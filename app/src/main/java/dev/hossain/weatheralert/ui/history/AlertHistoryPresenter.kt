@@ -76,16 +76,7 @@ class AlertHistoryPresenter
 
                     AlertHistoryScreen.Event.ExportHistory -> {
                         scope.launch {
-                            try {
-                                exportHistoryToCsv(context, historyItems)
-                            } catch (e: Exception) {
-                                Timber.e(e, "Unexpected error during export")
-                                withContext(Dispatchers.Main) {
-                                    Toast
-                                        .makeText(context, "Export failed unexpectedly", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            }
+                            exportHistoryToCsv(context, historyItems)
                         }
                     }
 
@@ -112,7 +103,7 @@ class AlertHistoryPresenter
 
                     val timestamp =
                         java.text
-                            .SimpleDateFormat("yyyy-MM-dd_HH-mm", java.util.Locale.getDefault())
+                            .SimpleDateFormat("yyyy-MM-dd_HH-mm", java.util.Locale.ENGLISH)
                             .format(java.util.Date())
                     val exportsDir = File(context.cacheDir, "exports")
                     exportsDir.mkdirs()
