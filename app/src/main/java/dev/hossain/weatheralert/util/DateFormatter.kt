@@ -103,6 +103,6 @@ fun formatSnoozeUntil(snoozedUntil: Long?): String? {
  */
 fun formatTimestampToDateTime(timestamp: Long): String {
     val dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault())
-    val formatter = DateTimeFormatter.ofPattern("MMM d, yyyy 'at' h:mm a")
+    val formatter = DateTimeFormatter.ofPattern("MMM d, yyyy 'at' h:mm a", Locale.ENGLISH)
     return dateTime.format(formatter)
 }

@@ -76,7 +76,16 @@ class AlertHistoryPresenter
 
                     AlertHistoryScreen.Event.ExportHistory -> {
                         scope.launch {
-                            exportHistoryToCsv(context, historyItems)
+                            try {
+                                exportHistoryToCsv(context, historyItems)
+                            } catch (e: Exception) {
+                                Timber.e(e, "Unexpected error during export")
+                                withContext(Dispatchers.Main) {
+                                    Toast
+                                        .makeText(context, "Export failed unexpectedly", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
                         }
                     }
 
@@ -105,7 +114,9 @@ class AlertHistoryPresenter
                         java.text
                             .SimpleDateFormat("yyyy-MM-dd_HH-mm", java.util.Locale.getDefault())
                             .format(java.util.Date())
-                    val file = File(context.cacheDir, "alert_history_$timestamp.csv")
+                    val exportsDir = File(context.cacheDir, "exports")
+                    exportsDir.mkdirs()
+                    val file = File(exportsDir, "alert_history_$timestamp.csv")
                     FileWriter(file).use { writer ->
                         // Write CSV header
                         writer.append("Date,City,Alert Type,Weather Value,Threshold,Unit\n")

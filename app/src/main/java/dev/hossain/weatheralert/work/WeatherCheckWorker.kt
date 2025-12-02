@@ -115,16 +115,21 @@ class WeatherCheckWorker
                                     )
 
                                     // Log alert history
-                                    alertHistoryDao.insert(
-                                        AlertHistory(
-                                            alertId = configuredAlert.alert.id,
-                                            triggeredAt = System.currentTimeMillis(),
-                                            weatherValue = snowTomorrow,
-                                            thresholdValue = configuredAlert.alert.threshold,
-                                            cityName = configuredAlert.city.city,
-                                            alertCategory = WeatherAlertCategory.SNOW_FALL,
-                                        ),
-                                    )
+                                    try {
+                                        alertHistoryDao.insert(
+                                            AlertHistory(
+                                                alertId = configuredAlert.alert.id,
+                                                triggeredAt = System.currentTimeMillis(),
+                                                weatherValue = snowTomorrow,
+                                                thresholdValue = configuredAlert.alert.threshold,
+                                                cityName = configuredAlert.city.city,
+                                                alertCategory = WeatherAlertCategory.SNOW_FALL,
+                                            ),
+                                        )
+                                    } catch (e: Exception) {
+                                        Timber.tag(WORKER_LOG_TAG).e(e, "Failed to log alert history for alert ${configuredAlert.alert.id}")
+                                        // Continue processing - don't fail the worker just because history logging failed
+                                    }
                                 }
                             }
 
@@ -142,16 +147,21 @@ class WeatherCheckWorker
                                     )
 
                                     // Log alert history
-                                    alertHistoryDao.insert(
-                                        AlertHistory(
-                                            alertId = configuredAlert.alert.id,
-                                            triggeredAt = System.currentTimeMillis(),
-                                            weatherValue = rainTomorrow,
-                                            thresholdValue = configuredAlert.alert.threshold,
-                                            cityName = configuredAlert.city.city,
-                                            alertCategory = WeatherAlertCategory.RAIN_FALL,
-                                        ),
-                                    )
+                                    try {
+                                        alertHistoryDao.insert(
+                                            AlertHistory(
+                                                alertId = configuredAlert.alert.id,
+                                                triggeredAt = System.currentTimeMillis(),
+                                                weatherValue = rainTomorrow,
+                                                thresholdValue = configuredAlert.alert.threshold,
+                                                cityName = configuredAlert.city.city,
+                                                alertCategory = WeatherAlertCategory.RAIN_FALL,
+                                            ),
+                                        )
+                                    } catch (e: Exception) {
+                                        Timber.tag(WORKER_LOG_TAG).e(e, "Failed to log alert history for alert ${configuredAlert.alert.id}")
+                                        // Continue processing - don't fail the worker just because history logging failed
+                                    }
                                 }
                             }
                         }

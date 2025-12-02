@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.slack.circuit.codegen.annotations.CircuitInject
+import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.screen.Screen
 import dev.hossain.weatheralert.R
@@ -58,7 +59,7 @@ data object AlertHistoryScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event {
+    sealed class Event : CircuitUiEvent {
         data object GoBack : Event()
 
         data object ExportHistory : Event()

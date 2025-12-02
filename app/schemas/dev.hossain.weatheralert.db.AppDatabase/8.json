@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 8,
-    "identityHash": "f5b54e103b6c0b5fe34951490135ebbe",
+    "identityHash": "a1a7ca7748b61981095b254f6d6064b5",
     "entities": [
       {
         "tableName": "cities",
@@ -292,7 +292,7 @@
       },
       {
         "tableName": "alert_history",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `alert_id` INTEGER NOT NULL, `triggered_at` INTEGER NOT NULL, `weather_value` REAL NOT NULL, `threshold_value` REAL NOT NULL, `city_name` TEXT NOT NULL, `alert_category` TEXT NOT NULL, FOREIGN KEY(`alert_id`) REFERENCES `alerts`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `alert_id` INTEGER NOT NULL, `triggered_at` INTEGER NOT NULL, `weather_value` REAL NOT NULL, `threshold_value` REAL NOT NULL, `city_name` TEXT NOT NULL, `alert_category` TEXT NOT NULL, FOREIGN KEY(`alert_id`) REFERENCES `alerts`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -366,7 +366,7 @@
         "foreignKeys": [
           {
             "table": "alerts",
-            "onDelete": "CASCADE",
+            "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
               "alert_id"
@@ -380,7 +380,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f5b54e103b6c0b5fe34951490135ebbe')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a1a7ca7748b61981095b254f6d6064b5')"
     ]
   }
 }

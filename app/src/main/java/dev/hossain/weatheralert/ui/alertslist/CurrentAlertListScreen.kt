@@ -97,6 +97,7 @@ import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.history.AlertHistoryScreen
 import dev.hossain.weatheralert.ui.onboarding.OnboardingScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
@@ -320,7 +321,7 @@ class CurrentWeatherAlertPresenter
                     }
 
                     CurrentWeatherAlertScreen.Event.HistoryClicked -> {
-                        navigator.goTo(dev.hossain.weatheralert.ui.history.AlertHistoryScreen)
+                        navigator.goTo(AlertHistoryScreen)
                     }
 
                     CurrentWeatherAlertScreen.Event.AboutAppClicked -> {

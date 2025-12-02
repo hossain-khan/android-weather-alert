@@ -10,6 +10,8 @@ import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 /**
  * Represents the history of triggered weather alerts.
  * This entity stores records of when alerts were triggered and their associated values.
+ * Historical data persists independently of the alert configuration - when an alert is deleted,
+ * its history records remain for future reference and analysis.
  */
 @Entity(
     tableName = "alert_history",
@@ -18,7 +20,8 @@ import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
             entity = Alert::class,
             parentColumns = ["id"],
             childColumns = ["alert_id"],
-            onDelete = ForeignKey.CASCADE,
+            // NO_ACTION: History persists even after alert deletion for historical record keeping
+            onDelete = ForeignKey.NO_ACTION,
         ),
     ],
     indices = [Index(value = ["alert_id"]), Index(value = ["triggered_at"])],
