@@ -36,12 +36,12 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "dev.hossain.weatheralert"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dev.hossain.weatheralert"
         minSdk = 30
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 19
         // 🤓 FYI: Don't forget to update release notes.
         versionName = "2.10"
