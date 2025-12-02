@@ -5,7 +5,7 @@
 - [ ] Update `release-notes.md` with release notes.
 - [ ] Check `local.properties` for correct and API keys.
 - [ ] Run release APK build and test.
-- [ ] Upload and test release APK via Firebase Test Lab.
+- [ ] Upload and test release APK via [Firebase Test Lab](https://console.firebase.google.com/project/weather-alert-android/testlab).
 
 -----------------------------------------------------------------------------
 
@@ -13,6 +13,15 @@
 
 ### What's new
 * Unreleased
+
+## Weather Alert v2.10
+
+### What's new
+* Added new onboarding experience 📝
+* Added option to snooze notification 🔔
+* App now targets Android 16 (Baklava)
+* Updated to latest Kotlin 2.21
+* Maintenance release with updated libraries and dependencies.
 
 ## Weather Alert v2.9
 
