@@ -12,7 +12,7 @@ object TestDatabaseModule {
         Room
             .inMemoryDatabaseBuilder(context, AppDatabase::class.java)
             .allowMainThreadQueries()
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(dropAllTables = true)
             .build()
 
     fun provideCityDao(database: AppDatabase): CityDao = database.cityDao()

@@ -1,11 +1,11 @@
 [versions]
-activityCompose = "1.10.1"
+activityCompose = "1.12.0"
 
 # Adaptive library to create adaptive UIs
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
-adaptiveAndroid = "1.1.0"
+adaptiveAndroid = "1.2.0"
 
-agp = "8.11.1"
+agp = "8.11.2"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
@@ -16,10 +16,10 @@ circuit = "0.29.1"
 
 composeBom = "2025.07.00"
 composeMaterial3 = "1.3.2"
-coreKtx = "1.16.0"
+coreKtx = "1.17.0"
 coroutinesTest = "1.10.2"
 
-dataStore = "1.1.7"
+dataStore = "1.2.0"
 
 # API result type for modeling network API responses.
 # https://github.com/slackhq/EitherNet
@@ -40,7 +40,7 @@ junitKtx = "1.3.0"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.3.0"
 
-kotlin = "2.2.20"
+kotlin = "2.2.21"
 
 # Kotlin linter with built-in formatter
 # https://github.com/jeremymailen/kotlinter-gradle
@@ -57,7 +57,7 @@ kotlinxSerializationProperties = "1.9.0"
 # Kotlin Symbol Processing API
 # https://kotlinlang.org/docs/ksp-overview.html
 # https://github.com/google/ksp/releases
-ksp = "2.2.20-2.0.2"
+ksp = "2.2.21-2.0.4"
 
 lifecycleRuntimeKtx = "2.10.0"
 
