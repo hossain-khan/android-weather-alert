@@ -68,6 +68,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -806,10 +808,15 @@ fun LastCheckTimestampFooter(
                     .padding(vertical = 16.dp),
             contentAlignment = Alignment.Center,
         ) {
+            val elapsedTime = formatTimestampToElapsedTime(lastCheckTime)
             Text(
-                text = "Last checked: ${formatTimestampToElapsedTime(lastCheckTime)}",
+                text = "Last checked: $elapsedTime",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier =
+                    Modifier.semantics {
+                        contentDescription = "Weather was last checked $elapsedTime"
+                    },
             )
         }
     }

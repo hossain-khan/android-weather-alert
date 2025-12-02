@@ -64,14 +64,12 @@ class PreferencesManagerLastCheckTest {
         }
 
     @Test
-    fun saveLastWeatherCheckTime_savesCurrentTime() =
+    fun saveLastWeatherCheckTime_savesTimestampAccurately() =
         runTest {
-            val currentTime = System.currentTimeMillis()
-            preferencesManager.saveLastWeatherCheckTime(currentTime)
+            val testTimestamp = 9876543210L
+            preferencesManager.saveLastWeatherCheckTime(testTimestamp)
 
             val savedTimestamp = preferencesManager.lastWeatherCheckTime.first()
-            // Check that the saved timestamp is close to the current time (within 1 second)
-            assertThat(savedTimestamp).isAtLeast(currentTime - 1000)
-            assertThat(savedTimestamp).isAtMost(currentTime + 1000)
+            assertThat(savedTimestamp).isEqualTo(testTimestamp)
         }
 }
