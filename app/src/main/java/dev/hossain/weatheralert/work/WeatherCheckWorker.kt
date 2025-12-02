@@ -169,6 +169,9 @@ class WeatherCheckWorker
                 delay(2_000)
             }
 
+            // Save timestamp after successful weather check for all alerts
+            preferencesManager.saveLastWeatherCheckTime(System.currentTimeMillis())
+
             logWorkerCompleted()
             return Result.success()
         }
