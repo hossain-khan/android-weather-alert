@@ -147,6 +147,7 @@ class UserSettingsPresenter
                             preferencesManager.savePreferredWeatherService(event.service)
                         }
                     }
+
                     UserSettingsScreen.Event.GoBack -> {
                         navigator.pop()
                     }

@@ -112,21 +112,32 @@ class WeatherRepositoryImpl
                             longitude = -73.985626,
                         ).let { apiResult ->
                             return when (apiResult) {
-                                is ApiResult.Success -> ApiResult.success(true)
+                                is ApiResult.Success -> {
+                                    ApiResult.success(true)
+                                }
+
                                 is ApiResult.Failure.ApiFailure -> {
                                     ApiResult.apiFailure(apiResult.error?.message ?: "Unknown API error")
                                 }
-                                is ApiResult.Failure.HttpFailure ->
+
+                                is ApiResult.Failure.HttpFailure -> {
                                     ApiResult.httpFailure(
                                         apiResult.code,
                                         apiResult.error?.message,
                                     )
+                                }
 
-                                is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
-                                is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                                is ApiResult.Failure.NetworkFailure -> {
+                                    ApiResult.networkFailure(apiResult.error)
+                                }
+
+                                is ApiResult.Failure.UnknownFailure -> {
+                                    ApiResult.unknownFailure(apiResult.error)
+                                }
                             }
                         }
                 }
+
                 WeatherForecastService.TOMORROW_IO -> {
                     tomorrowIoService
                         .getRealTimeWeather(
@@ -135,21 +146,35 @@ class WeatherRepositoryImpl
                             location = "chicago",
                         ).let { apiResult ->
                             return when (apiResult) {
-                                is ApiResult.Success -> ApiResult.success(true)
-                                is ApiResult.Failure.ApiFailure -> ApiResult.apiFailure(apiResult.error?.message ?: "Unknown API error")
-                                is ApiResult.Failure.HttpFailure ->
+                                is ApiResult.Success -> {
+                                    ApiResult.success(true)
+                                }
+
+                                is ApiResult.Failure.ApiFailure -> {
+                                    ApiResult.apiFailure(apiResult.error?.message ?: "Unknown API error")
+                                }
+
+                                is ApiResult.Failure.HttpFailure -> {
                                     ApiResult.httpFailure(
                                         apiResult.code,
                                         apiResult.error?.message,
                                     )
+                                }
 
-                                is ApiResult.Failure.NetworkFailure -> ApiResult.networkFailure(apiResult.error)
-                                is ApiResult.Failure.UnknownFailure -> ApiResult.unknownFailure(apiResult.error)
+                                is ApiResult.Failure.NetworkFailure -> {
+                                    ApiResult.networkFailure(apiResult.error)
+                                }
+
+                                is ApiResult.Failure.UnknownFailure -> {
+                                    ApiResult.unknownFailure(apiResult.error)
+                                }
                             }
                         }
                 }
 
-                else -> throw IllegalStateException("No API key needed for $weatherForecastService")
+                else -> {
+                    throw IllegalStateException("No API key needed for $weatherForecastService")
+                }
             }
         }
 

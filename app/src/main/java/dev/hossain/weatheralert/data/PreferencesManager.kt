@@ -87,15 +87,21 @@ class PreferencesManager
          */
         suspend fun removeApiKey(service: WeatherForecastService) {
             when (service) {
-                WeatherForecastService.OPEN_WEATHER_MAP ->
+                WeatherForecastService.OPEN_WEATHER_MAP -> {
                     dataStore.edit { preferences: MutablePreferences ->
                         preferences.remove(UserPreferences.openWeatherServiceApiKey)
                     }
-                WeatherForecastService.TOMORROW_IO ->
+                }
+
+                WeatherForecastService.TOMORROW_IO -> {
                     dataStore.edit { preferences: MutablePreferences ->
                         preferences.remove(UserPreferences.tomorrowIoServiceApiKey)
                     }
-                else -> throw IllegalStateException("No API key needed for $service")
+                }
+
+                else -> {
+                    throw IllegalStateException("No API key needed for $service")
+                }
             }
         }
 

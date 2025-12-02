@@ -51,8 +51,14 @@ fun formatTimestampToElapsedTime(timestamp: Long): String {
                     "minutes"
                 }} ago"
             }
-            hoursAgo > 0 -> "$hoursAgo ${if (hoursAgo == 1L) "hour" else "hours"} ago"
-            else -> "$minutesAgo ${if (minutesAgo == 1L || minutesAgo == 0L) "minute" else "minutes"} ago"
+
+            hoursAgo > 0 -> {
+                "$hoursAgo ${if (hoursAgo == 1L) "hour" else "hours"} ago"
+            }
+
+            else -> {
+                "$minutesAgo ${if (minutesAgo == 1L || minutesAgo == 0L) "minute" else "minutes"} ago"
+            }
         }
     return timeAgoText
 }
@@ -76,11 +82,13 @@ fun formatSnoozeUntil(snoozedUntil: Long?): String? {
             val formatter = DateTimeFormatter.ofPattern("h:mm a")
             "Snoozed until ${dateTime.format(formatter)}"
         }
+
         dateTime.toLocalDate() == tomorrow -> {
             // Tomorrow - show "tomorrow" with time
             val formatter = DateTimeFormatter.ofPattern("h:mm a")
             "Snoozed until tomorrow ${dateTime.format(formatter)}"
         }
+
         else -> {
             // Further in the future - show full date
             val formatter = DateTimeFormatter.ofPattern("MMM d 'at' h:mm a")

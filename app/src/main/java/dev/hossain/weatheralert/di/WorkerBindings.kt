@@ -33,7 +33,7 @@ object WorkerBindings {
                         .forName(workerClassName)
                         .asSubclass(CoroutineWorker::class.java)
                 return when (workerClass) {
-                    WeatherCheckWorker::class.java ->
+                    WeatherCheckWorker::class.java -> {
                         WeatherCheckWorker(
                             context = appContext,
                             params = workerParameters,
@@ -42,7 +42,11 @@ object WorkerBindings {
                             analytics = analytics,
                             preferencesManager = preferencesManager,
                         )
-                    else -> null
+                    }
+
+                    else -> {
+                        null
+                    }
                 }
             }
         }

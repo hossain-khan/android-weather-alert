@@ -45,8 +45,13 @@ fun WeatherAlertAppTheme(
                 if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
             }
 
-            darkTheme -> DarkColorScheme
-            else -> LightColorScheme
+            darkTheme -> {
+                DarkColorScheme
+            }
+
+            else -> {
+                LightColorScheme
+            }
         }
 
     // CompositionLocalProvider binds values to ProvidableCompositionLocal keys.

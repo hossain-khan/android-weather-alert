@@ -182,6 +182,7 @@ class BringYourOwnApiKeyPresenter
                                             }
                                         }
                                 }
+
                                 is ApiResult.Failure -> {
                                     logAddServiceApiKey(isApiKeyAdded = false)
                                     // Reset the supporting text message to show the API format guide.
