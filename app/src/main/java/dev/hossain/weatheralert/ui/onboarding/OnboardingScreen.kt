@@ -1,5 +1,6 @@
 package dev.hossain.weatheralert.ui.onboarding
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -307,11 +308,68 @@ private fun OnboardingPageContent(
 }
 
 @Preview(showBackground = true, name = "Light Mode")
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
 private fun OnboardingScreenPreview() {
     val sampleState = OnboardingScreen.State(eventSink = {})
     WeatherAlertAppTheme {
         OnboardingScreen(state = sampleState)
+    }
+}
+
+@Preview(showBackground = true, name = "Page 1 - Custom Alerts - Light")
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES, name = "Page 1 - Custom Alerts - Dark")
+@Composable
+private fun OnboardingPage1Preview() {
+    WeatherAlertAppTheme {
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+        ) {
+            OnboardingPageContent(
+                page = onboardingPages[0],
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, name = "Page 2 - Set Threshold - Light")
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES, name = "Page 2 - Set Threshold - Dark")
+@Composable
+private fun OnboardingPage2Preview() {
+    WeatherAlertAppTheme {
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+        ) {
+            OnboardingPageContent(
+                page = onboardingPages[1],
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, name = "Page 3 - Stay Prepared - Light")
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES, name = "Page 3 - Stay Prepared - Dark")
+@Composable
+private fun OnboardingPage3Preview() {
+    WeatherAlertAppTheme {
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+        ) {
+            OnboardingPageContent(
+                page = onboardingPages[2],
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
     }
 }
