@@ -68,6 +68,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -83,6 +85,7 @@ import com.slack.eithernet.ApiResult
 import com.slack.eithernet.exceptionOrNull
 import dev.hossain.weatheralert.R
 import dev.hossain.weatheralert.data.AlertTileData
+import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.CUMULATIVE_DATA_HOURS_24
@@ -100,6 +103,7 @@ import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.util.formatSnoozeUntil
+import dev.hossain.weatheralert.util.formatTimestampToElapsedTime
 import dev.hossain.weatheralert.util.formatUnit
 import dev.hossain.weatheralert.util.parseMarkdown
 import dev.zacsweers.metro.AppScope
@@ -119,6 +123,7 @@ data class CurrentWeatherAlertScreen(
         val recentlyDeletedAlert: AlertTileData?,
         val userMessage: String? = null,
         val isNetworkUnavailable: Boolean = false,
+        val lastWeatherCheckTime: Long = 0L,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -164,6 +169,7 @@ class CurrentWeatherAlertPresenter
         private val alertDao: AlertDao,
         private val networkMonitor: NetworkMonitor,
         private val analytics: Analytics,
+        private val preferencesManager: PreferencesManager,
     ) : Presenter<CurrentWeatherAlertScreen.State> {
         @Composable
         override fun present(): CurrentWeatherAlertScreen.State {
@@ -175,6 +181,7 @@ class CurrentWeatherAlertPresenter
             var forecastAlerts by remember { mutableStateOf(emptyList<UserCityAlert>()) }
             var userMessage by remember { mutableStateOf<String?>(null) }
             var isNetworkUnavailable by remember { mutableStateOf(false) }
+            var lastWeatherCheckTime by remember { mutableStateOf(0L) }
 
             LaunchedImpressionEffect {
                 analytics.logScreenView(CurrentWeatherAlertScreen::class)
@@ -251,11 +258,19 @@ class CurrentWeatherAlertPresenter
                 }
             }
 
+            LaunchedEffect(Unit) {
+                // Collect last weather check time
+                preferencesManager.lastWeatherCheckTime.collect { timestamp ->
+                    lastWeatherCheckTime = timestamp
+                }
+            }
+
             return CurrentWeatherAlertScreen.State(
                 tiles = weatherTiles,
                 recentlyDeletedAlert = recentlyDeletedAlert,
                 userMessage = userMessage,
                 isNetworkUnavailable = isNetworkUnavailable,
+                lastWeatherCheckTime = lastWeatherCheckTime,
             ) { event ->
                 when (event) {
                     is CurrentWeatherAlertScreen.Event.OnItemClicked -> {
@@ -430,6 +445,7 @@ fun CurrentWeatherAlerts(
                         tiles = state.tiles,
                         eventSink = state.eventSink,
                         listState = listState,
+                        lastWeatherCheckTime = state.lastWeatherCheckTime,
                     )
                 }
             }
@@ -475,6 +491,7 @@ fun AlertTileGrid(
     tiles: List<AlertTileData>,
     eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
     listState: LazyListState,
+    lastWeatherCheckTime: Long,
 ) {
     LazyColumn(
         state = listState,
@@ -492,6 +509,14 @@ fun AlertTileGrid(
                 modifier =
                     Modifier
                         .animateItem(),
+            )
+        }
+
+        // Add footer with last check timestamp
+        item {
+            LastCheckTimestampFooter(
+                lastCheckTime = lastWeatherCheckTime,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }
@@ -771,6 +796,32 @@ fun AlertListItem(
     }
 }
 
+@Composable
+fun LastCheckTimestampFooter(
+    lastCheckTime: Long,
+    modifier: Modifier = Modifier,
+) {
+    if (lastCheckTime > 0) {
+        Box(
+            modifier =
+                modifier
+                    .padding(vertical = 16.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            val elapsedTime = formatTimestampToElapsedTime(lastCheckTime)
+            Text(
+                text = "Last checked: $elapsedTime",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier =
+                    Modifier.semantics {
+                        contentDescription = "Weather was last checked $elapsedTime"
+                    },
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true, name = "Light Mode")
 @Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
@@ -818,6 +869,7 @@ fun CurrentWeatherAlertsPreview() {
         CurrentWeatherAlertScreen.State(
             tiles = sampleTiles,
             recentlyDeletedAlert = null,
+            lastWeatherCheckTime = System.currentTimeMillis() - (2 * 60 * 60 * 1000), // 2 hours ago
         ) {},
     )
 }

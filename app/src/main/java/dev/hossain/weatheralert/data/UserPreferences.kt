@@ -43,4 +43,10 @@ object UserPreferences {
      * True indicates the onboarding has been completed.
      */
     val onboardingCompletedKey = booleanPreferencesKey("onboarding_completed_key")
+
+    /**
+     * Key for storing the timestamp of the last successful weather check.
+     * Used to display when the background worker last checked weather data.
+     */
+    val lastWeatherCheckTimeKey = longPreferencesKey("last_weather_check_time")
 }
