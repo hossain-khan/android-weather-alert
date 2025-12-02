@@ -203,4 +203,28 @@ class PreferencesManager
                 preferences[UserPreferences.onboardingCompletedKey] = completed
             }
         }
+
+        /**
+         * Saves the timestamp of the last successful weather check.
+         *
+         * @param timestamp The timestamp in milliseconds when the weather was last checked
+         * @see lastWeatherCheckTime
+         */
+        suspend fun saveLastWeatherCheckTime(timestamp: Long) {
+            dataStore.edit { preferences: MutablePreferences ->
+                preferences[UserPreferences.lastWeatherCheckTimeKey] = timestamp
+            }
+        }
+
+        /**
+         * Retrieves the timestamp of the last successful weather check.
+         * Returns 0 if no check has been performed yet.
+         *
+         * @see saveLastWeatherCheckTime
+         */
+        val lastWeatherCheckTime: Flow<Long> =
+            dataStore.data
+                .map { preferences: Preferences ->
+                    preferences[UserPreferences.lastWeatherCheckTimeKey] ?: 0L
+                }
     }
