@@ -9,10 +9,17 @@
 
 -----------------------------------------------------------------------------
 
+
 ## Weather Alert v2.X
 
 ### What's new
 * Unreleased
+
+## Weather Alert v2.11
+
+### What's new
+* Added historical weather alerts
+* Added last updated timestamp to alert list screen
 
 ## Weather Alert v2.10
 
