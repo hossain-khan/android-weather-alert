@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinter)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.metro)
 }
 
 android {
@@ -47,6 +48,9 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.serialization.properties)
+
+    // Dependency Injection
+    implementation(libs.javax.inject)
 
     testImplementation(libs.junit)
     testImplementation(libs.google.truth)

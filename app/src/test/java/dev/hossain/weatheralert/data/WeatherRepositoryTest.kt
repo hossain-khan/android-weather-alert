@@ -75,9 +75,9 @@ class WeatherRepositoryTest {
         runTest {
             mockWebServer = MockWebServer()
             mockWebServer.start()
-            NetworkBindings.openWeatherBaseUrl = mockWebServer.url("/")
-            NetworkBindings.tomorrowIoBaseUrl = mockWebServer.url("/")
-            NetworkBindings.weatherApiBaseUrl = mockWebServer.url("/")
+            org.openweathermap.api.di.OpenWeatherModule.openWeatherBaseUrl = mockWebServer.url("/")
+            io.tomorrow.api.di.TomorrowIoModule.tomorrowIoBaseUrl = mockWebServer.url("/")
+            com.weatherapi.api.di.WeatherApiModule.weatherApiBaseUrl = mockWebServer.url("/")
 
             setUpDatabaseWithData()
 
