@@ -96,3 +96,13 @@ fun formatSnoozeUntil(snoozedUntil: Long?): String? {
         }
     }
 }
+
+/**
+ * Formats a timestamp to a human-readable date and time format.
+ * Used for displaying when alerts were triggered in the history.
+ */
+fun formatTimestampToDateTime(timestamp: Long): String {
+    val dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault())
+    val formatter = DateTimeFormatter.ofPattern("MMM d, yyyy 'at' h:mm a")
+    return dateTime.format(formatter)
+}

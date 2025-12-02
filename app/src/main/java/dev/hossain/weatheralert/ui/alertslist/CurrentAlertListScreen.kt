@@ -142,6 +142,8 @@ data class CurrentWeatherAlertScreen(
 
         data object SettingsClicked : Event()
 
+        data object HistoryClicked : Event()
+
         data object AboutAppClicked : Event()
 
         data object CreditsClicked : Event()
@@ -315,6 +317,10 @@ class CurrentWeatherAlertPresenter
 
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
                         navigator.goTo(UserSettingsScreen)
+                    }
+
+                    CurrentWeatherAlertScreen.Event.HistoryClicked -> {
+                        navigator.goTo(dev.hossain.weatheralert.ui.history.AlertHistoryScreen)
                     }
 
                     CurrentWeatherAlertScreen.Event.AboutAppClicked -> {

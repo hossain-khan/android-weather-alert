@@ -7,6 +7,7 @@ import androidx.work.WorkerParameters
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.WeatherCheckWorker
 import dev.zacsweers.metro.BindingContainer
@@ -18,6 +19,7 @@ object WorkerBindings {
     @Provides
     fun provideWorkerFactory(
         alertDao: AlertDao,
+        alertHistoryDao: AlertHistoryDao,
         weatherRepository: WeatherRepository,
         analytics: Analytics,
         preferencesManager: PreferencesManager,
@@ -38,6 +40,7 @@ object WorkerBindings {
                             context = appContext,
                             params = workerParameters,
                             alertDao = alertDao,
+                            alertHistoryDao = alertHistoryDao,
                             weatherRepository = weatherRepository,
                             analytics = analytics,
                             preferencesManager = preferencesManager,
