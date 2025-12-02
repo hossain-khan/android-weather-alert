@@ -57,6 +57,15 @@ fun AppMenuItems(
                 },
             )
 
+            DropdownMenuItem(
+                text = { Text("History") },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = null) },
+                onClick = {
+                    expanded = false
+                    eventSink(Event.HistoryClicked)
+                },
+            )
+
             HorizontalDivider()
 
             DropdownMenuItem(
@@ -141,6 +150,12 @@ private fun AppMenuItemsPreviewExpanded() {
                 DropdownMenuItem(
                     text = { Text("Settings") },
                     leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                    onClick = { },
+                )
+
+                DropdownMenuItem(
+                    text = { Text("History") },
+                    leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = null) },
                     onClick = { },
                 )
 

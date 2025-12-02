@@ -10,6 +10,8 @@ import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AlertHistory
+import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.db.UserCityAlert
 import dev.hossain.weatheralert.notification.triggerNotification
 import dev.hossain.weatheralert.util.Analytics
@@ -30,6 +32,7 @@ class WeatherCheckWorker
         private val context: Context,
         params: WorkerParameters,
         private val alertDao: AlertDao,
+        private val alertHistoryDao: AlertHistoryDao,
         private val weatherRepository: WeatherRepository,
         private val analytics: Analytics,
         private val preferencesManager: PreferencesManager,
@@ -110,6 +113,23 @@ class WeatherCheckWorker
                                         cityName = configuredAlert.city.city,
                                         reminderNotes = configuredAlert.alert.notes,
                                     )
+
+                                    // Log alert history
+                                    try {
+                                        alertHistoryDao.insert(
+                                            AlertHistory(
+                                                alertId = configuredAlert.alert.id,
+                                                triggeredAt = System.currentTimeMillis(),
+                                                weatherValue = snowTomorrow,
+                                                thresholdValue = configuredAlert.alert.threshold,
+                                                cityName = configuredAlert.city.city,
+                                                alertCategory = WeatherAlertCategory.SNOW_FALL,
+                                            ),
+                                        )
+                                    } catch (e: Exception) {
+                                        Timber.tag(WORKER_LOG_TAG).e(e, "Failed to log alert history for alert ${configuredAlert.alert.id}")
+                                        // Continue processing - don't fail the worker just because history logging failed
+                                    }
                                 }
                             }
 
@@ -125,6 +145,23 @@ class WeatherCheckWorker
                                         cityName = configuredAlert.city.city,
                                         reminderNotes = configuredAlert.alert.notes,
                                     )
+
+                                    // Log alert history
+                                    try {
+                                        alertHistoryDao.insert(
+                                            AlertHistory(
+                                                alertId = configuredAlert.alert.id,
+                                                triggeredAt = System.currentTimeMillis(),
+                                                weatherValue = rainTomorrow,
+                                                thresholdValue = configuredAlert.alert.threshold,
+                                                cityName = configuredAlert.city.city,
+                                                alertCategory = WeatherAlertCategory.RAIN_FALL,
+                                            ),
+                                        )
+                                    } catch (e: Exception) {
+                                        Timber.tag(WORKER_LOG_TAG).e(e, "Failed to log alert history for alert ${configuredAlert.alert.id}")
+                                        // Continue processing - don't fail the worker just because history logging failed
+                                    }
                                 }
                             }
                         }

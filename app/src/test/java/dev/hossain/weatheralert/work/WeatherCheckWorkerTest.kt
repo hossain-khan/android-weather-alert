@@ -8,6 +8,7 @@ import com.google.firebase.FirebaseApp
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.data.WeatherRepository
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.di.NetworkBindings
 import dev.hossain.weatheralert.test.TestUtils
@@ -46,6 +47,9 @@ class WeatherCheckWorkerTest {
     internal lateinit var alertDao: AlertDao
 
     @Inject
+    internal lateinit var alertHistoryDao: AlertHistoryDao
+
+    @Inject
     internal lateinit var analytics: Analytics
 
     @Inject
@@ -62,6 +66,7 @@ class WeatherCheckWorkerTest {
         testWorkerFactory =
             TestWorkerFactory(
                 alertDao = alertDao,
+                alertHistoryDao = alertHistoryDao,
                 weatherRepository = weatherRepository,
                 analytics = analytics,
                 preferencesManager = preferencesManager,

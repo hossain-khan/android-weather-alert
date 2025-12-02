@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.di
 import android.content.Context
 import androidx.room.Room
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
@@ -33,4 +34,7 @@ object DatabaseBindings {
 
     @Provides
     fun provideCityForecastDao(database: AppDatabase): CityForecastDao = database.forecastDao()
+
+    @Provides
+    fun provideAlertHistoryDao(database: AppDatabase): AlertHistoryDao = database.alertHistoryDao()
 }

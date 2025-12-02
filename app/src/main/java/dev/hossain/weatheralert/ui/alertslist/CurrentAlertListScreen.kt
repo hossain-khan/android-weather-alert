@@ -97,6 +97,7 @@ import dev.hossain.weatheralert.ui.about.AboutAppScreen
 import dev.hossain.weatheralert.ui.about.AppCreditsScreen
 import dev.hossain.weatheralert.ui.addalert.AddNewWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
+import dev.hossain.weatheralert.ui.history.AlertHistoryScreen
 import dev.hossain.weatheralert.ui.onboarding.OnboardingScreen
 import dev.hossain.weatheralert.ui.serviceConfig
 import dev.hossain.weatheralert.ui.settings.UserSettingsScreen
@@ -141,6 +142,8 @@ data class CurrentWeatherAlertScreen(
         data object MessageShown : Event()
 
         data object SettingsClicked : Event()
+
+        data object HistoryClicked : Event()
 
         data object AboutAppClicked : Event()
 
@@ -315,6 +318,10 @@ class CurrentWeatherAlertPresenter
 
                     CurrentWeatherAlertScreen.Event.SettingsClicked -> {
                         navigator.goTo(UserSettingsScreen)
+                    }
+
+                    CurrentWeatherAlertScreen.Event.HistoryClicked -> {
+                        navigator.goTo(AlertHistoryScreen)
                     }
 
                     CurrentWeatherAlertScreen.Event.AboutAppClicked -> {
