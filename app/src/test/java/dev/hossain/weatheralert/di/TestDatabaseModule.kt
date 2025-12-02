@@ -3,6 +3,7 @@ package dev.hossain.weatheralert.di
 import android.content.Context
 import androidx.room.Room
 import dev.hossain.weatheralert.db.AlertDao
+import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.db.AppDatabase
 import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
@@ -20,4 +21,6 @@ object TestDatabaseModule {
     fun provideAlertDao(database: AppDatabase): AlertDao = database.alertDao()
 
     fun provideCityForecastDao(database: AppDatabase): CityForecastDao = database.forecastDao()
+
+    fun provideAlertHistoryDao(database: AppDatabase): AlertHistoryDao = database.alertHistoryDao()
 }

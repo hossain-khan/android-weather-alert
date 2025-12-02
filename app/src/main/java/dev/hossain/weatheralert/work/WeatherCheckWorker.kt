@@ -113,7 +113,7 @@ class WeatherCheckWorker
                                         cityName = configuredAlert.city.city,
                                         reminderNotes = configuredAlert.alert.notes,
                                     )
-                                    
+
                                     // Log alert history
                                     alertHistoryDao.insert(
                                         AlertHistory(
@@ -140,7 +140,7 @@ class WeatherCheckWorker
                                         cityName = configuredAlert.city.city,
                                         reminderNotes = configuredAlert.alert.notes,
                                     )
-                                    
+
                                     // Log alert history
                                     alertHistoryDao.insert(
                                         AlertHistory(
