@@ -76,6 +76,7 @@ class ApiKeyProviderImpl
                 WeatherForecastService.OPEN_WEATHER_MAP -> {
                     apiKey.matches(Regex("^[a-f0-9]{32}\$"))
                 }
+
                 WeatherForecastService.TOMORROW_IO -> {
                     apiKey.matches(Regex("^[A-Za-z0-9]{32}$"))
                 }

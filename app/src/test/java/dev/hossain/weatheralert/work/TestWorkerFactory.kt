@@ -32,6 +32,9 @@ class TestWorkerFactory(
                     preferencesManager = preferencesManager,
                 )
             }
-            else -> null
+
+            else -> {
+                null
+            }
         }
 }

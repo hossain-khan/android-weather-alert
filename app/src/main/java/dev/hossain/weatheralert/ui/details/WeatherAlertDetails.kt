@@ -200,12 +200,14 @@ class WeatherAlertDetailsPresenter
                         isEditingNote = true
                         alertNote = event.note
                     }
+
                     WeatherAlertDetailsScreen.Event.SaveNote -> {
                         scope.launch {
                             alertDao.updateAlertNote(screen.alertId, alertNote)
                             isEditingNote = false
                         }
                     }
+
                     WeatherAlertDetailsScreen.Event.GoBack -> {
                         navigator.pop()
                     }

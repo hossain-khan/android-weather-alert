@@ -112,6 +112,7 @@ class WeatherCheckWorker
                                     )
                                 }
                             }
+
                             WeatherAlertCategory.RAIN_FALL -> {
                                 if (rainTomorrow > configuredAlert.alert.threshold) {
                                     triggerNotification(

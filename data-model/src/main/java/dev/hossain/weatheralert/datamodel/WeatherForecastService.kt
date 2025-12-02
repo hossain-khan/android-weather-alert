@@ -40,12 +40,12 @@ enum class WeatherForecastService(
      * - https://open-meteo.com/en/docs
      */
     OPEN_METEO(
-        /**
-         * ⛔️ Disabled to service as the forecast data was not reliable.
-         * See https://github.com/hossain-khan/android-weather-alert/pull/164
-         *
-         * ⚠️ UPDATE: This service is enabled **ONLY** for debug builds.
-         */
+        //
+        // ⛔️ Disabled to service as the forecast data was not reliable.
+        // See https://github.com/hossain-khan/android-weather-alert/pull/164
+        //
+        // ⚠️ UPDATE: This service is enabled **ONLY** for debug builds.
+        //
         isEnabled = BuildConfig.DEBUG,
     ),
 

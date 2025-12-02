@@ -41,6 +41,7 @@ internal fun triggerNotification(
             WeatherAlertCategory.SNOW_FALL -> {
                 R.drawable.winter_snowflake
             }
+
             WeatherAlertCategory.RAIN_FALL -> {
                 R.drawable.cloud_heavy_rain
             }
@@ -52,6 +53,7 @@ internal fun triggerNotification(
                 WeatherAlertCategory.SNOW_FALL -> {
                     append("Snow Alert in $cityName")
                 }
+
                 WeatherAlertCategory.RAIN_FALL -> {
                     append("Rain Alert in $cityName")
                 }
@@ -65,6 +67,7 @@ internal fun triggerNotification(
                 WeatherAlertCategory.SNOW_FALL -> {
                     append("${currentValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)} snowfall expected.")
                 }
+
                 WeatherAlertCategory.RAIN_FALL -> {
                     append("${currentValue.formatUnit(WeatherAlertCategory.RAIN_FALL.unit)} rainfall expected.")
                 }
@@ -83,6 +86,7 @@ internal fun triggerNotification(
                     )
                     append("exceeding your configured threshold of ${thresholdValue.formatUnit(WeatherAlertCategory.SNOW_FALL.unit)}.")
                 }
+
                 WeatherAlertCategory.RAIN_FALL -> {
                     append(
                         "$cityName is forecasted to receive ${currentValue.formatUnit(

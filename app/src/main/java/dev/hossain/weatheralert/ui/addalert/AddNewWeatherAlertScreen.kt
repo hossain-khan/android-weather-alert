@@ -245,6 +245,7 @@ class AddWeatherAlertPresenter
                                     // Go back to alert list on success
                                     navigator.pop()
                                 }
+
                                 is ApiResult.Failure.ApiFailure -> {
                                     Timber.w("API error, failed to save alert settings")
                                     isApiCallInProgress = false
@@ -252,6 +253,7 @@ class AddWeatherAlertPresenter
                                     snackbarData =
                                         SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                 }
+
                                 is ApiResult.Failure.HttpFailure -> {
                                     Timber.w("HTTP error, failed to save alert settings")
 
@@ -277,6 +279,7 @@ class AddWeatherAlertPresenter
                                                     )
                                                 }
                                         }
+
                                         TomorrowIoService.ERROR_HTTP_FORBIDDEN -> {
                                             snackbarData =
                                                 SnackbarData(
@@ -293,6 +296,7 @@ class AddWeatherAlertPresenter
                                                     )
                                                 }
                                         }
+
                                         OpenWeatherService.ERROR_HTTP_NOT_FOUND -> {
                                             snackbarData =
                                                 SnackbarData(
@@ -301,6 +305,7 @@ class AddWeatherAlertPresenter
                                                             "Please try a different nearby city.",
                                                 ) {}
                                         }
+
                                         OpenWeatherService.ERROR_HTTP_TOO_MANY_REQUESTS -> {
                                             snackbarData =
                                                 SnackbarData(
@@ -317,12 +322,14 @@ class AddWeatherAlertPresenter
                                                     )
                                                 }
                                         }
+
                                         else -> {
                                             snackbarData =
                                                 SnackbarData(message = "Failed to save alert settings. Please try again later.") {}
                                         }
                                     }
                                 }
+
                                 is ApiResult.Failure.NetworkFailure -> {
                                     Timber.e(dailyForecast.error, "Network error, failed to save alert settings")
 
@@ -334,6 +341,7 @@ class AddWeatherAlertPresenter
                                     snackbarData =
                                         SnackbarData(message = "Network error. Please check your internet connection.") {}
                                 }
+
                                 is ApiResult.Failure.UnknownFailure -> {
                                     Timber.e(dailyForecast.error, "Unknown failure, failed to save alert settings")
 
@@ -484,7 +492,7 @@ fun AddNewWeatherAlertScreen(
 
             Crossfade(targetState = selectedIndex, label = "threshold-slider") { thresholdIndex ->
                 when (thresholdIndex) {
-                    0 ->
+                    0 -> {
                         Column {
                             // Snow Threshold Slider
                             Text(
@@ -506,7 +514,9 @@ fun AddNewWeatherAlertScreen(
                                 valueRange = 10f..100f,
                             )
                         }
-                    1 ->
+                    }
+
+                    1 -> {
                         Column {
                             // Rain Threshold Slider
                             Text(
@@ -528,6 +538,7 @@ fun AddNewWeatherAlertScreen(
                                 valueRange = 1f..50f,
                             )
                         }
+                    }
                 }
             }
 
@@ -685,6 +696,7 @@ fun NotificationPermissionStatusUi() {
                     }
                 }
             }
+
             else -> {
                 // Request the permission
                 Row(
