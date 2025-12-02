@@ -41,7 +41,7 @@ data class WeatherServiceConfig(
 
 internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
     when (this) {
-        WeatherForecastService.OPEN_WEATHER_MAP ->
+        WeatherForecastService.OPEN_WEATHER_MAP -> {
             WeatherServiceConfig(
                 serviceName = "OpenWeather",
                 logoResId = R.drawable.openweather_logo,
@@ -58,7 +58,9 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiFormatGuide = "API key should be 32 characters long and contain only hexadecimal characters.",
                 apiServiceProductName = "One Call API 3.0",
             )
-        WeatherForecastService.TOMORROW_IO ->
+        }
+
+        WeatherForecastService.TOMORROW_IO -> {
             WeatherServiceConfig(
                 serviceName = "Tomorrow.io",
                 logoResId = R.drawable.tomorrow_io_logo,
@@ -73,8 +75,9 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiFormatGuide = "API key should be 32 characters long and contain only letters and numbers.",
                 apiServiceProductName = "Weather API",
             )
+        }
 
-        WeatherForecastService.OPEN_METEO ->
+        WeatherForecastService.OPEN_METEO -> {
             WeatherServiceConfig(
                 serviceName = "Open-Meteo",
                 logoResId = R.drawable.open_mateo_logo,
@@ -87,8 +90,9 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiFormatGuide = "Not applicable.",
                 apiServiceProductName = "Weather API",
             )
+        }
 
-        WeatherForecastService.WEATHER_API ->
+        WeatherForecastService.WEATHER_API -> {
             WeatherServiceConfig(
                 serviceName = "WeatherAPI",
                 logoResId = R.drawable.weatherapi_logo,
@@ -102,4 +106,5 @@ internal fun WeatherForecastService.serviceConfig(): WeatherServiceConfig =
                 apiFormatGuide = "Not applicable.",
                 apiServiceProductName = "WeatherAPI",
             )
+        }
     }

@@ -235,6 +235,7 @@ class CurrentWeatherAlertPresenter
                                 ),
                             )
                         }
+
                         is ApiResult.Failure -> {
                             Timber.d("Error fetching weather data: ${apiResult.exceptionOrNull()}")
                         }
@@ -513,7 +514,10 @@ fun AlertTileItem(
                     -> {
                         eventSink(CurrentWeatherAlertScreen.Event.AlertRemoved(currentItem))
                     }
-                    SwipeToDismissBoxValue.Settled -> return@rememberSwipeToDismissBoxState false
+
+                    SwipeToDismissBoxValue.Settled -> {
+                        return@rememberSwipeToDismissBoxState false
+                    }
                 }
                 return@rememberSwipeToDismissBoxState true
             },
@@ -607,11 +611,13 @@ fun AlertListItem(
                         containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                     )
                 }
+
                 data.isAlertActive -> {
                     ListItemDefaults.colors(
                         containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
                     )
                 }
+
                 else -> {
                     ListItemDefaults.colors()
                 }

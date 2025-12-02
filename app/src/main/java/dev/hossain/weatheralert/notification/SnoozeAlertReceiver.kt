@@ -70,9 +70,18 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
     private fun calculateSnoozeUntil(snoozeDuration: String): Long {
         val now = System.currentTimeMillis()
         return when (snoozeDuration) {
-            SNOOZE_1_HOUR -> now + HOUR_IN_MILLIS
-            SNOOZE_3_HOURS -> now + 3 * HOUR_IN_MILLIS
-            SNOOZE_1_DAY -> now + DAY_IN_MILLIS
+            SNOOZE_1_HOUR -> {
+                now + HOUR_IN_MILLIS
+            }
+
+            SNOOZE_3_HOURS -> {
+                now + 3 * HOUR_IN_MILLIS
+            }
+
+            SNOOZE_1_DAY -> {
+                now + DAY_IN_MILLIS
+            }
+
             SNOOZE_TOMORROW -> {
                 // Calculate tomorrow at 8 AM
                 val calendar =
@@ -86,8 +95,14 @@ class SnoozeAlertReceiver : BroadcastReceiver() {
                     }
                 calendar.timeInMillis
             }
-            SNOOZE_1_WEEK -> now + 7 * DAY_IN_MILLIS
-            else -> now + HOUR_IN_MILLIS // Default to 1 hour
+
+            SNOOZE_1_WEEK -> {
+                now + 7 * DAY_IN_MILLIS
+            }
+
+            else -> {
+                now + HOUR_IN_MILLIS
+            } // Default to 1 hour
         }
     }
 

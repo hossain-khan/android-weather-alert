@@ -51,7 +51,7 @@ val MaterialTheme.dimensions: Dimensions
  */
 internal fun WindowWidthSizeClass.dimensions(): Dimensions =
     when (this) {
-        WindowWidthSizeClass.COMPACT ->
+        WindowWidthSizeClass.COMPACT -> {
             Dimensions(
                 smallPadding = 8.dp,
                 mediumPadding = 16.dp,
@@ -59,7 +59,9 @@ internal fun WindowWidthSizeClass.dimensions(): Dimensions =
                 horizontalScreenPadding = 16.dp,
                 verticalScreenPadding = 16.dp,
             )
-        WindowWidthSizeClass.MEDIUM ->
+        }
+
+        WindowWidthSizeClass.MEDIUM -> {
             Dimensions(
                 smallPadding = 16.dp,
                 mediumPadding = 24.dp,
@@ -67,7 +69,9 @@ internal fun WindowWidthSizeClass.dimensions(): Dimensions =
                 horizontalScreenPadding = 48.dp,
                 verticalScreenPadding = 24.dp,
             )
-        WindowWidthSizeClass.EXPANDED ->
+        }
+
+        WindowWidthSizeClass.EXPANDED -> {
             Dimensions(
                 smallPadding = 24.dp,
                 mediumPadding = 32.dp,
@@ -75,7 +79,9 @@ internal fun WindowWidthSizeClass.dimensions(): Dimensions =
                 horizontalScreenPadding = 64.dp,
                 verticalScreenPadding = 24.dp,
             )
-        else ->
+        }
+
+        else -> {
             Dimensions(
                 smallPadding = 16.dp,
                 mediumPadding = 24.dp,
@@ -83,4 +89,5 @@ internal fun WindowWidthSizeClass.dimensions(): Dimensions =
                 horizontalScreenPadding = 16.dp,
                 verticalScreenPadding = 16.dp,
             )
+        }
     }

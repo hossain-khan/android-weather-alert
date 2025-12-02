@@ -22,11 +22,13 @@ fun parseMarkdown(markdown: String): AnnotatedString =
                         append("• ")
                         currentIndex += 2
                     }
+
                     line.startsWith("* ", currentIndex) -> {
                         // List item
                         append("• ")
                         currentIndex += 2
                     }
+
                     line.startsWith("**", currentIndex) -> {
                         // Bold text
                         val endIndex = line.indexOf("**", currentIndex + 2)
@@ -40,6 +42,7 @@ fun parseMarkdown(markdown: String): AnnotatedString =
                             currentIndex = line.length
                         }
                     }
+
                     line.startsWith("_", currentIndex) -> {
                         // Italic text
                         val endIndex = line.indexOf("_", currentIndex + 1)
@@ -53,6 +56,7 @@ fun parseMarkdown(markdown: String): AnnotatedString =
                             currentIndex = line.length
                         }
                     }
+
                     else -> {
                         // Regular text or mixed styles
                         val nextSpecialChar =
@@ -93,6 +97,7 @@ internal fun stripMarkdownSyntax(textWithMarkdownSyntax: String): String {
                         .replace(Regex("_([^_]+)_"), "$1") // Remove italic text
                 stringBuilder.append(strippedLine).append("\n")
             }
+
             else -> {
                 // Remove other markdown syntax
                 val strippedLine =
