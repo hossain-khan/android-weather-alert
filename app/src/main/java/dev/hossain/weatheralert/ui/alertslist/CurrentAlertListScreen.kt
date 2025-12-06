@@ -541,24 +541,25 @@ fun AlertTileItem(
         rememberSwipeToDismissBoxState(
             confirmValueChange = {
                 when (it) {
-                    SwipeToDismissBoxValue.StartToEnd,
-                    SwipeToDismissBoxValue.EndToStart,
-                    -> {
+                    SwipeToDismissBoxValue.EndToStart -> {
                         eventSink(CurrentWeatherAlertScreen.Event.AlertRemoved(currentItem))
                     }
 
-                    SwipeToDismissBoxValue.Settled -> {
+                    SwipeToDismissBoxValue.StartToEnd,
+                    SwipeToDismissBoxValue.Settled,
+                    -> {
                         return@rememberSwipeToDismissBoxState false
                     }
                 }
                 return@rememberSwipeToDismissBoxState true
             },
-            // positional threshold of 50%
-            positionalThreshold = { it * .50f },
+            // Increased threshold from 50% to 75% to reduce accidental dismissals during scrolling
+            positionalThreshold = { it * .75f },
         )
     SwipeToDismissBox(
         state = dismissState,
         modifier = modifier,
+        enableDismissFromStartToEnd = false, // Only allow right-to-left swipe to reduce conflicts with scrolling
         backgroundContent = { DismissBackground(dismissState) },
         content = {
             val cardElevation: Dp =
@@ -580,9 +581,11 @@ fun AlertTileItem(
 fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     val color =
         when (dismissState.dismissDirection) {
-            SwipeToDismissBoxValue.StartToEnd -> Color.Red.copy(alpha = 0.5f)
             SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.5f)
-            SwipeToDismissBoxValue.Settled -> Color.Transparent
+
+            SwipeToDismissBoxValue.StartToEnd,
+            SwipeToDismissBoxValue.Settled,
+            -> Color.Transparent
         }
 
     Row(
@@ -592,13 +595,8 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
                 .background(color, shape = RoundedCornerShape(12.dp))
                 .padding(12.dp, 8.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.End, // Align to end since we only support EndToStart
     ) {
-        Icon(
-            imageVector = Icons.Default.Delete,
-            contentDescription = "delete",
-        )
-        Spacer(modifier = Modifier)
         Icon(
             imageVector = Icons.Default.Delete,
             contentDescription = "delete",
