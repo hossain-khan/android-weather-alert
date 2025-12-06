@@ -582,6 +582,7 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     val color =
         when (dismissState.dismissDirection) {
             SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.5f)
+
             SwipeToDismissBoxValue.StartToEnd,
             SwipeToDismissBoxValue.Settled,
             -> Color.Transparent
