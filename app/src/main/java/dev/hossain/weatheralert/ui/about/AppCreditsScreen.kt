@@ -16,6 +16,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -150,7 +151,7 @@ fun AppCreditsScreen(
             SimpleMapsLinkedText()
 
             // - - - - - - - - - - - - - - - - - - -
-            Spacer(modifier = Modifier.height(8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp, horizontal = 32.dp))
 
             Image(
                 painter = painterResource(R.drawable.alien_monster_icon),
@@ -171,7 +172,7 @@ fun AppCreditsScreen(
             )
 
             // - - - - - - - - - - - - - - - - - - -
-            Spacer(modifier = Modifier.height(16.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp, horizontal = 32.dp))
 
             Image(
                 painter = painterResource(R.drawable.cloud_servers),
