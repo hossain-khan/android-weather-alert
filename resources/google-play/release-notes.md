@@ -15,6 +15,15 @@
 ### What's new
 * Unreleased
 
+## Weather Alert v2.12
+
+### What's new
+* Improved swipe-to-dismiss sensitivity on alert list to prevent accidental deletions
+* Enhanced Credits screen with visual dividers between sections
+* Minor UX improvements and code optimizations
+
+💬 Feedback and comments are welcome via Google Play.
+
 ## Weather Alert v2.11
 
 ### What's new

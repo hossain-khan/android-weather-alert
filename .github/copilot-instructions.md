@@ -231,6 +231,13 @@ object WeatherServiceModule {
 
 ## Release Guidelines
 
+### Release Notes Management
+**IMPORTANT**: When updating `resources/google-play/release-notes.md`:
+- **DO NOT** modify the `### Release Checklist` section - it's a manual guide for the maintainer
+- **ALWAYS** keep the `## Weather Alert v2.X` unreleased template at the top after adding a new version
+- Add new version sections below the unreleased template
+- Follow the existing format for consistency
+
 ### Build Preparation
 1. Update version codes and names
 2. Run full test suite: `./gradlew test`
