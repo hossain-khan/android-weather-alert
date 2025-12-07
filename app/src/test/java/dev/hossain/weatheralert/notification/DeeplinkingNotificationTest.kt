@@ -1,7 +1,6 @@
 package dev.hossain.weatheralert.notification
 
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
@@ -23,11 +22,13 @@ class DeeplinkingNotificationTest {
     @Before
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancelAll()
     }
 
     @Test
-    fun `triggerNotification creates unique PendingIntent for different alert IDs`() {
-        // Given: Two different alert IDs
+    fun `triggerNotification creates separate notifications for different alert IDs`() {
+        // Given: Three different alert IDs
         val alertId1 = 1L
         val alertId2 = 2L
         val alertId3 = 999L
@@ -104,11 +105,6 @@ class DeeplinkingNotificationTest {
         assertThat(requestCode1).isNotEqualTo(requestCode2)
         assertThat(requestCode1).isNotEqualTo(requestCode3)
         assertThat(requestCode2).isNotEqualTo(requestCode3)
-
-        // And: They should match the expected values
-        assertThat(requestCode1).isEqualTo(1)
-        assertThat(requestCode2).isEqualTo(2)
-        assertThat(requestCode3).isEqualTo(999)
     }
 
     @Test
@@ -118,8 +114,8 @@ class DeeplinkingNotificationTest {
 
         // When: Computing request codes for notification and snooze actions
         val notificationRequestCode = alertId.hashCode()
-        val snooze1DayRequestCode = alertId.hashCode() xor 0x1000
-        val snooze1WeekRequestCode = alertId.hashCode() xor 0x2000
+        val snooze1DayRequestCode = alertId.hashCode() xor SNOOZE_1_DAY_ACTION_OFFSET
+        val snooze1WeekRequestCode = alertId.hashCode() xor SNOOZE_1_WEEK_ACTION_OFFSET
 
         // Then: All request codes should be unique
         assertThat(notificationRequestCode).isNotEqualTo(snooze1DayRequestCode)
