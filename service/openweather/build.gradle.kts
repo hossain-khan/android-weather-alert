@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinter)
+    alias(libs.plugins.kotlinx.kover)
     alias(libs.plugins.metro)
 }
 

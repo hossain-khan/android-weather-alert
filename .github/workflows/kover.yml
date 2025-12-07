@@ -33,17 +33,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       # Generates reports in following location
-      # - app/build/reports/kover/htmlDebug/index.html
-      # - app/build/reports/kover/reportDebug.xml
+      # - build/reports/kover/html/index.html
+      # - build/reports/kover/report.xml
       - name: Build and run tests
-        run: ./gradlew koverHtmlReportInternalDebug koverXmlReportInternalDebug
+        run: ./gradlew koverHtmlReport koverXmlReport
 
       # https://github.com/actions/upload-artifact
       - name: Upload Kover report
         uses: actions/upload-artifact@v4
         with:
           name: kover-report
-          path: app/build/reports/kover/htmlDebug
+          path: build/reports/kover/html
 
       # Sticky Pull Request Comment
       # https://github.com/marocchino/sticky-pull-request-comment
@@ -60,5 +60,5 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
             token: ${{ secrets.CODECOV_TOKEN }}
-            files: ./app/build/reports/kover/reportDebug.xml
+            files: ./build/reports/kover/report.xml
             slug: hossain-khan/android-weather-alert
