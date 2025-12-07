@@ -618,26 +618,28 @@ fun AlertListItem(
 
     // Build accessibility description for the alert card
     val alertDescription =
-        buildString {
-            append(
-                when (data.category) {
-                    WeatherAlertCategory.SNOW_FALL -> "Snowfall"
-                    WeatherAlertCategory.RAIN_FALL -> "Rainfall"
-                },
-            )
-            append(" alert for ${data.cityInfo}. ")
-            append("Threshold: ${data.threshold}. ")
-            append("Next ${CUMULATIVE_DATA_HOURS_24} hours forecast: ${data.currentStatus}. ")
-            if (data.isAlertActive && !isSnoozed) {
-                append("Alert is active. ")
+        remember(data, snoozeText, isSnoozed) {
+            buildString {
+                append(
+                    when (data.category) {
+                        WeatherAlertCategory.SNOW_FALL -> "Snowfall"
+                        WeatherAlertCategory.RAIN_FALL -> "Rainfall"
+                    },
+                )
+                append(" alert for ${data.cityInfo}. ")
+                append("Threshold: ${data.threshold}. ")
+                append("Next ${CUMULATIVE_DATA_HOURS_24} hours forecast: ${data.currentStatus}. ")
+                if (data.isAlertActive && !isSnoozed) {
+                    append("Alert is active. ")
+                }
+                if (isSnoozed && snoozeText != null) {
+                    append("Alert is snoozed. $snoozeText. ")
+                }
+                if (data.alertNote.isNotEmpty()) {
+                    append("Note: ${data.alertNote}. ")
+                }
+                append("Double tap to view details, swipe left to delete.")
             }
-            if (isSnoozed && snoozeText != null) {
-                append("Alert is snoozed. $snoozeText. ")
-            }
-            if (data.alertNote.isNotEmpty()) {
-                append("Note: ${data.alertNote}. ")
-            }
-            append("Double tap to view details, swipe left to delete.")
         }
 
     Card(
