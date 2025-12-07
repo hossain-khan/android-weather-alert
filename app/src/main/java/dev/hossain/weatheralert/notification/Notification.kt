@@ -121,7 +121,7 @@ internal fun triggerNotification(
     val pendingIntent =
         PendingIntent.getActivity(
             context,
-            0,
+            userAlertId.hashCode(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
