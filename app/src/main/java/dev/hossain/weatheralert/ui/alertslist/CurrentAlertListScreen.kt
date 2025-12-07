@@ -655,7 +655,7 @@ fun AlertListItem(
                     },
                 ).clickable {
                     eventSink(CurrentWeatherAlertScreen.Event.OnItemClicked(data.alertId))
-                }.semantics {
+                }.semantics(mergeDescendants = true) {
                     contentDescription = alertDescription
                 },
         elevation = CardDefaults.cardElevation(cardElevation),
