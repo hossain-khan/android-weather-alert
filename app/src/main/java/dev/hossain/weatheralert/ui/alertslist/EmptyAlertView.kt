@@ -75,7 +75,7 @@ fun EmptyAlertState(
         )
         Image(
             painter = painterResource(id = R.drawable.hiking_direction),
-            contentDescription = "No alerts configured.",
+            contentDescription = "Illustration showing no configured weather alerts",
         )
         Text(
             text = "Set weather alerts and get notified when thresholds are met.",
@@ -100,7 +100,7 @@ fun EmptyAlertState(
                 val serviceConfig = service.serviceConfig()
                 Image(
                     painter = painterResource(id = serviceConfig.logoResId),
-                    contentDescription = "${serviceConfig.serviceName} Forecast Service Logo",
+                    contentDescription = "${serviceConfig.serviceName} weather forecast service logo",
                     modifier =
                         Modifier
                             .padding(top = 16.dp, start = 24.dp)

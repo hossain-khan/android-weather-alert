@@ -45,10 +45,14 @@ Receive simple, clear notifications with all the details you need to take action
 🛠 **Minimalist Interface:**  
 Easily configure and view your alerts in a simple, intuitive tile-based design.  
 
+♿ **Accessible Design:**  
+Full TalkBack screen reader support with proper content descriptions and semantic properties for visually impaired users. See [Accessibility Documentation](docs/ACCESSIBILITY.md) for details.
+
 **Why Choose Weather Alert?**  
 - Focused on delivering only what you need: alerts that meet your criteria.  
 - Lightweight and efficient, with no unnecessary extras.  
 - Built for people who want actionable weather notifications, hassle-free.  
+- Designed with accessibility in mind for all users.  
 </details>
 
 Try out **Weather Alert** today and let the app do the work for you!  

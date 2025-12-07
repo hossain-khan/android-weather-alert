@@ -50,7 +50,7 @@ fun AppMenuItems(
         ) {
             DropdownMenuItem(
                 text = { Text("Settings") },
-                leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = "Settings") },
                 onClick = {
                     expanded = false
                     eventSink(Event.SettingsClicked)
@@ -59,7 +59,7 @@ fun AppMenuItems(
 
             DropdownMenuItem(
                 text = { Text("History") },
-                leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = null) },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = "History") },
                 onClick = {
                     expanded = false
                     eventSink(Event.HistoryClicked)
@@ -73,7 +73,7 @@ fun AppMenuItems(
                 leadingIcon = {
                     Icon(
                         painter = painterResource(R.drawable.hiking_direction),
-                        contentDescription = null,
+                        contentDescription = "View onboarding",
                         modifier = Modifier.size(width = 60.dp, height = 45.dp),
                     )
                 },
@@ -103,7 +103,7 @@ fun AppMenuItems(
 
             DropdownMenuItem(
                 text = { Text("Credits") },
-                leadingIcon = { Icon(painter = painterResource(R.drawable.book_letter_24dp), contentDescription = null) },
+                leadingIcon = { Icon(painter = painterResource(R.drawable.book_letter_24dp), contentDescription = "Credits") },
                 onClick = {
                     expanded = false
                     eventSink(Event.CreditsClicked)
@@ -112,7 +112,7 @@ fun AppMenuItems(
 
             DropdownMenuItem(
                 text = { Text("About") },
-                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = "About") },
                 onClick = {
                     expanded = false
                     eventSink(Event.AboutAppClicked)
@@ -149,13 +149,13 @@ private fun AppMenuItemsPreviewExpanded() {
             ) {
                 DropdownMenuItem(
                     text = { Text("Settings") },
-                    leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.Settings, contentDescription = "Settings") },
                     onClick = { },
                 )
 
                 DropdownMenuItem(
                     text = { Text("History") },
-                    leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = null) },
+                    leadingIcon = { Icon(painter = painterResource(R.drawable.history_24dp), contentDescription = "History") },
                     onClick = { },
                 )
 
@@ -166,7 +166,7 @@ private fun AppMenuItemsPreviewExpanded() {
                     leadingIcon = {
                         Icon(
                             painter = painterResource(R.drawable.hiking_direction),
-                            contentDescription = null,
+                            contentDescription = "View onboarding",
                             modifier = Modifier.size(width = 60.dp, height = 45.dp),
                         )
                     },
@@ -190,13 +190,13 @@ private fun AppMenuItemsPreviewExpanded() {
 
                 DropdownMenuItem(
                     text = { Text("Credits") },
-                    leadingIcon = { Icon(painter = painterResource(R.drawable.book_letter_24dp), contentDescription = null) },
+                    leadingIcon = { Icon(painter = painterResource(R.drawable.book_letter_24dp), contentDescription = "Credits") },
                     onClick = { },
                 )
 
                 DropdownMenuItem(
                     text = { Text("About") },
-                    leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = null) },
+                    leadingIcon = { Icon(Icons.Outlined.Info, contentDescription = "About") },
                     onClick = { },
                 )
             }

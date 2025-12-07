@@ -479,7 +479,7 @@ fun AddNewWeatherAlertScreen(
                             SegmentedButtonDefaults.Icon(active = index in checkedList) {
                                 Icon(
                                     painter = painterResource(id = alertCategory.iconRes()),
-                                    contentDescription = null,
+                                    contentDescription = "${alertCategory.label} alert type",
                                     modifier = Modifier.size(SegmentedButtonDefaults.IconSize),
                                 )
                             }
@@ -607,12 +607,12 @@ private fun CurrentApiServiceStateUi(
                 modifier =
                     Modifier
                         .size(serviceConfig.logoWidth * 0.7f, serviceConfig.logoHeight * 0.7f),
-                contentDescription = "${weatherForecastService.name} logo image",
+                contentDescription = "${serviceConfig.serviceName} logo",
             )
             Spacer(modifier = Modifier.size(6.dp))
             Icon(
                 imageVector = Icons.Outlined.Edit,
-                contentDescription = "Change forecast service",
+                contentDescription = "Edit forecast service",
                 tint = MaterialTheme.colorScheme.secondary.copy(alpha = 0.3f),
                 modifier =
                     Modifier
@@ -691,7 +691,7 @@ fun NotificationPermissionStatusUi() {
                         Icon(
                             imageVector = Icons.Default.CheckCircle,
                             tint = MaterialTheme.colorScheme.secondary,
-                            contentDescription = null,
+                            contentDescription = "Notification permission granted",
                         )
                     }
                 }
@@ -759,14 +759,14 @@ fun EditableCityInputDropdownMenu(
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.location_city_24dp),
-                    contentDescription = "City Building Icon",
+                    contentDescription = "City search",
                 )
             },
             trailingIcon = {
                 lastSelectedCity?.let {
                     Icon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = "Clear selected city",
+                        contentDescription = "City selected",
                         tint = MaterialTheme.colorScheme.secondary,
                         modifier =
                             Modifier.clickable {
