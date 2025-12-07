@@ -16,8 +16,8 @@ import dev.hossain.weatheralert.util.stripMarkdownSyntax
 import timber.log.Timber
 
 // Unique offsets for XOR operation to create distinct request codes for each snooze action
-private const val SNOOZE_1_DAY_ACTION_OFFSET = 0x1000
-private const val SNOOZE_1_WEEK_ACTION_OFFSET = 0x2000
+internal const val SNOOZE_1_DAY_ACTION_OFFSET = 0x1000
+internal const val SNOOZE_1_WEEK_ACTION_OFFSET = 0x2000
 
 /**
  * Triggers a notification with the given content.
