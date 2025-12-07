@@ -45,5 +45,41 @@ plugins {
 
     // Kover coverage for Kotlin projects
     // Project: https://github.com/Kotlin/kotlinx-kover
-    alias(libs.plugins.kotlinx.kover) apply false
+    alias(libs.plugins.kotlinx.kover)
+}
+
+// Kover configuration for multi-module coverage
+// https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#aggregating-reports-from-different-gradle-projects
+kover {
+    // Enable reports merging from all modules
+    reports {
+        filters {
+            excludes {
+                // Common exclusions for all modules
+                androidGeneratedClasses()
+                annotatedBy(
+                    "*Composable",
+                    "*Parcelize",
+                    "*Preview",
+                    "javax.annotation.processing.Generated"
+                )
+            }
+        }
+        verify {
+            rule {
+                // Set minimum coverage requirement (same as app module)
+                minBound(50)
+            }
+        }
+    }
+}
+
+dependencies {
+    // Add kover dependencies for all modules to aggregate coverage
+    kover(project(":app"))
+    kover(project(":data-model"))
+    kover(project(":service:tomorrowio"))
+    kover(project(":service:openweather"))
+    kover(project(":service:openmeteo"))
+    kover(project(":service:weatherapi"))
 }
