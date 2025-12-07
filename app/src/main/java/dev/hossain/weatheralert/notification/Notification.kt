@@ -107,7 +107,11 @@ internal fun triggerNotification(
 
     val intent =
         context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            // FLAG_ACTIVITY_CLEAR_TASK with FLAG_ACTIVITY_NEW_TASK ensures the activity can be launched
+            // from background on Android 15+ (resolves BAL restriction). This clears the back stack and
+            // creates a fresh navigation state, which is appropriate for notification deep linking.
+            // The MainActivity rebuilds the proper back stack via parseDeepLinkedScreens().
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
             // NOTE: This is not the right way to pass a deep link destination screen.
             // Ideally, we should use a proper deep link mechanism or navigation component.

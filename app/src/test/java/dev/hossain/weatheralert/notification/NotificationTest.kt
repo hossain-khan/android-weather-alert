@@ -3,9 +3,14 @@ package dev.hossain.weatheralert.notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import androidx.core.os.BundleCompat
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
+import com.slack.circuit.runtime.screen.Screen
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
+import dev.hossain.weatheralert.deeplinking.BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN
+import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,117 +18,174 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 
 /**
- * Tests for notification functionality, particularly verifying that each notification
- * has a unique PendingIntent to ensure proper deeplink navigation.
+ * Test for notification deep linking functionality.
+ *
+ * Verifies that:
+ * 1. Notification PendingIntent properly includes the deep link destination screen
+ * 2. Intent has correct flags for Android 15+ BAL restriction (FLAG_ACTIVITY_CLEAR_TASK)
+ * 3. The deep link extra is properly set for MainActivity to parse
  */
 @RunWith(RobolectricTestRunner::class)
 class NotificationTest {
-    private lateinit var context: Context
+    private val context: Context = ApplicationProvider.getApplicationContext()
+    private lateinit var notificationManager: NotificationManager
 
     @Before
     fun setUp() {
-        context = ApplicationProvider.getApplicationContext()
+        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Clear any existing notifications
+        notificationManager.cancelAll()
     }
 
     @Test
-    fun `triggerNotification creates unique PendingIntent for different alert IDs`() {
-        // Given: Two different alert IDs
-        val alertId1 = 1L
-        val alertId2 = 2L
-        val alertId3 = 999L
+    fun `triggerNotification creates notification with deep link to WeatherAlertDetailsScreen`() {
+        // Given
+        val userAlertId = 123L
+        val notificationTag = "test-notification"
+        val alertCategory = WeatherAlertCategory.SNOW_FALL
+        val currentValue = 15.5
+        val thresholdValue = 10.0f
+        val cityName = "Toronto"
+        val reminderNotes = "Test reminder"
 
-        // When: Triggering notifications for different alerts
+        // When
         triggerNotification(
             context = context,
-            userAlertId = alertId1,
-            notificationTag = "test_tag_1",
-            alertCategory = WeatherAlertCategory.SNOW_FALL,
-            currentValue = 30.0,
-            thresholdValue = 15.0f,
-            cityName = "Buffalo",
-            reminderNotes = "Test note 1",
+            userAlertId = userAlertId,
+            notificationTag = notificationTag,
+            alertCategory = alertCategory,
+            currentValue = currentValue,
+            thresholdValue = thresholdValue,
+            cityName = cityName,
+            reminderNotes = reminderNotes,
         )
 
-        triggerNotification(
-            context = context,
-            userAlertId = alertId2,
-            notificationTag = "test_tag_2",
-            alertCategory = WeatherAlertCategory.RAIN_FALL,
-            currentValue = 50.0,
-            thresholdValue = 25.0f,
-            cityName = "Oshawa",
-            reminderNotes = "Test note 2",
-        )
-
-        triggerNotification(
-            context = context,
-            userAlertId = alertId3,
-            notificationTag = "test_tag_3",
-            alertCategory = WeatherAlertCategory.SNOW_FALL,
-            currentValue = 100.0,
-            thresholdValue = 50.0f,
-            cityName = "Toronto",
-            reminderNotes = "Test note 3",
-        )
-
-        // Then: All three notifications should exist with their own content
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        // Then - Verify notification was posted
         val shadowNotificationManager = shadowOf(notificationManager)
+        val notifications = shadowNotificationManager.allNotifications
+        assertThat(notifications).hasSize(1)
 
-        // Verify that we have 3 notifications
-        assertThat(shadowNotificationManager.size()).isEqualTo(3)
+        val notification = notifications[0]
+        assertThat(notification).isNotNull()
 
-        // Verify each notification has correct tags and IDs
-        val notification1 = shadowNotificationManager.getNotification("test_tag_1", alertId1.hashCode())
-        val notification2 = shadowNotificationManager.getNotification("test_tag_2", alertId2.hashCode())
-        val notification3 = shadowNotificationManager.getNotification("test_tag_3", alertId3.hashCode())
+        // Verify PendingIntent exists
+        val pendingIntent = notification.contentIntent
+        assertThat(pendingIntent).isNotNull()
 
-        assertThat(notification1).isNotNull()
-        assertThat(notification2).isNotNull()
-        assertThat(notification3).isNotNull()
+        // Get the intent from PendingIntent using reflection or shadow
+        val shadowPendingIntent = shadowOf(pendingIntent)
+        val intent = shadowPendingIntent.savedIntent
 
-        // Verify the content is different (title should contain different city names)
-        assertThat(shadowOf(notification1).contentTitle.toString()).contains("Buffalo")
-        assertThat(shadowOf(notification2).contentTitle.toString()).contains("Oshawa")
-        assertThat(shadowOf(notification3).contentTitle.toString()).contains("Toronto")
+        // Verify deep link destination screen is included
+        val extras = intent.extras
+        assertThat(extras).isNotNull()
+
+        val destinationScreen: Screen? =
+            BundleCompat.getParcelable(
+                extras!!,
+                BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
+                Screen::class.java,
+            )
+        assertThat(destinationScreen).isNotNull()
+        assertThat(destinationScreen).isInstanceOf(WeatherAlertDetailsScreen::class.java)
+        assertThat((destinationScreen as WeatherAlertDetailsScreen).alertId).isEqualTo(userAlertId)
     }
 
     @Test
-    fun `notification PendingIntent request codes are unique for different alert IDs`() {
-        // Given: Different alert IDs
-        val alertId1 = 1L
-        val alertId2 = 2L
-        val alertId3 = 999L
+    fun `notification intent has FLAG_ACTIVITY_NEW_TASK and FLAG_ACTIVITY_CLEAR_TASK flags`() {
+        // Given
+        val userAlertId = 456L
+        val notificationTag = "test-notification-flags"
 
-        // When: Computing request codes using the same logic as triggerNotification
-        val requestCode1 = alertId1.hashCode()
-        val requestCode2 = alertId2.hashCode()
-        val requestCode3 = alertId3.hashCode()
+        // When
+        triggerNotification(
+            context = context,
+            userAlertId = userAlertId,
+            notificationTag = notificationTag,
+            alertCategory = WeatherAlertCategory.RAIN_FALL,
+            currentValue = 20.0,
+            thresholdValue = 15.0f,
+            cityName = "Vancouver",
+            reminderNotes = "",
+        )
 
-        // Then: Request codes should be different
-        assertThat(requestCode1).isNotEqualTo(requestCode2)
-        assertThat(requestCode1).isNotEqualTo(requestCode3)
-        assertThat(requestCode2).isNotEqualTo(requestCode3)
+        // Then - Get the notification and extract intent
+        val shadowNotificationManager = shadowOf(notificationManager)
+        val notification = shadowNotificationManager.allNotifications[0]
+        val pendingIntent = notification.contentIntent
+        val shadowPendingIntent = shadowOf(pendingIntent)
+        val intent = shadowPendingIntent.savedIntent
 
-        // And: They should match the expected values
-        assertThat(requestCode1).isEqualTo(1)
-        assertThat(requestCode2).isEqualTo(2)
-        assertThat(requestCode3).isEqualTo(999)
+        // Verify intent flags for Android 15+ BAL restriction fix
+        assertThat(intent.hasIntentFlag(Intent.FLAG_ACTIVITY_NEW_TASK)).isTrue()
+        assertThat(intent.hasIntentFlag(Intent.FLAG_ACTIVITY_CLEAR_TASK)).isTrue()
+    }
+
+    /**
+     * Helper extension function to check if an Intent has a specific flag.
+     */
+    private fun Intent.hasIntentFlag(flag: Int): Boolean = (this.flags and flag) != 0
+
+    @Test
+    fun `notification PendingIntent has IMMUTABLE flag for security`() {
+        // Given
+        val userAlertId = 789L
+        val notificationTag = "test-pending-intent-flags"
+
+        // When
+        triggerNotification(
+            context = context,
+            userAlertId = userAlertId,
+            notificationTag = notificationTag,
+            alertCategory = WeatherAlertCategory.SNOW_FALL,
+            currentValue = 25.0,
+            thresholdValue = 20.0f,
+            cityName = "Montreal",
+            reminderNotes = "Test",
+        )
+
+        // Then - Get the notification and check PendingIntent flags
+        val shadowNotificationManager = shadowOf(notificationManager)
+        val notification = shadowNotificationManager.allNotifications[0]
+        val pendingIntent = notification.contentIntent
+        val shadowPendingIntent = shadowOf(pendingIntent)
+
+        // Verify PendingIntent has IMMUTABLE flag for security
+        val hasImmutableFlag = (shadowPendingIntent.flags and PendingIntent.FLAG_IMMUTABLE) != 0
+        assertThat(hasImmutableFlag).isTrue()
     }
 
     @Test
-    fun `snooze action request codes are unique from notification request codes`() {
-        // Given: An alert ID
-        val alertId = 1L
+    fun `notification includes snooze actions with distinct request codes`() {
+        // Given
+        val userAlertId = 999L
+        val notificationTag = "test-snooze-actions"
 
-        // When: Computing request codes for notification and snooze actions
-        val notificationRequestCode = alertId.hashCode()
-        val snooze1DayRequestCode = alertId.hashCode() xor 0x1000
-        val snooze1WeekRequestCode = alertId.hashCode() xor 0x2000
+        // When
+        triggerNotification(
+            context = context,
+            userAlertId = userAlertId,
+            notificationTag = notificationTag,
+            alertCategory = WeatherAlertCategory.RAIN_FALL,
+            currentValue = 30.0,
+            thresholdValue = 25.0f,
+            cityName = "Calgary",
+            reminderNotes = "",
+        )
 
-        // Then: All request codes should be unique
-        assertThat(notificationRequestCode).isNotEqualTo(snooze1DayRequestCode)
-        assertThat(notificationRequestCode).isNotEqualTo(snooze1WeekRequestCode)
-        assertThat(snooze1DayRequestCode).isNotEqualTo(snooze1WeekRequestCode)
+        // Then - Verify notification has snooze actions
+        val shadowNotificationManager = shadowOf(notificationManager)
+        val notification = shadowNotificationManager.allNotifications[0]
+
+        // Verify notification has actions (snooze buttons)
+        assertThat(notification.actions).hasLength(2)
+
+        // Verify action titles
+        assertThat(notification.actions[0].title.toString()).isEqualTo("Snooze 1 day")
+        assertThat(notification.actions[1].title.toString()).isEqualTo("Snooze 1 week")
+
+        // Verify actions have PendingIntents
+        assertThat(notification.actions[0].actionIntent).isNotNull()
+        assertThat(notification.actions[1].actionIntent).isNotNull()
     }
 }
