@@ -4,6 +4,10 @@ set -e
 
 echo "🚀 Setting up Android development environment..."
 
+# Initialize Git LFS
+echo "📦 Initializing Git LFS..."
+git lfs install
+
 # Define Android SDK paths
 export ANDROID_HOME="/usr/local/lib/android/sdk"
 export ANDROID_SDK_ROOT="${ANDROID_HOME}"
