@@ -77,9 +77,12 @@ class NotificationTest {
         val intent = shadowPendingIntent.savedIntent
 
         // Verify deep link destination screen is included
+        val extras = intent.extras
+        assertThat(extras).isNotNull()
+
         val destinationScreen: Screen? =
             BundleCompat.getParcelable(
-                intent.extras!!,
+                extras!!,
                 BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
                 Screen::class.java,
             )
@@ -114,12 +117,14 @@ class NotificationTest {
         val intent = shadowPendingIntent.savedIntent
 
         // Verify intent flags for Android 15+ BAL restriction fix
-        val hasNewTaskFlag = (intent.flags and Intent.FLAG_ACTIVITY_NEW_TASK) != 0
-        val hasClearTaskFlag = (intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TASK) != 0
-
-        assertThat(hasNewTaskFlag).isTrue()
-        assertThat(hasClearTaskFlag).isTrue()
+        assertThat(intent.hasIntentFlag(Intent.FLAG_ACTIVITY_NEW_TASK)).isTrue()
+        assertThat(intent.hasIntentFlag(Intent.FLAG_ACTIVITY_CLEAR_TASK)).isTrue()
     }
+
+    /**
+     * Helper extension function to check if an Intent has a specific flag.
+     */
+    private fun Intent.hasIntentFlag(flag: Int): Boolean = (this.flags and flag) != 0
 
     @Test
     fun `notification PendingIntent has IMMUTABLE flag for security`() {

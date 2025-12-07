@@ -85,7 +85,11 @@ class MainActivityDeepLinkTest {
         val bundle: Bundle = intent.extras ?: return null
         val screen: Screen? =
             try {
-                bundle.getParcelable(BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN, Screen::class.java)
+                androidx.core.os.BundleCompat.getParcelable(
+                    bundle,
+                    BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
+                    Screen::class.java,
+                )
             } catch (e: Exception) {
                 null
             }
