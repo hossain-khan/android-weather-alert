@@ -270,7 +270,7 @@ private fun OnboardingPageContent(
     ) {
         Image(
             painter = painterResource(id = page.iconResId),
-            contentDescription = null,
+            contentDescription = page.title,
             colorFilter =
                 if (page.iconResId != R.drawable.alert_notification) {
                     ColorFilter.tint(MaterialTheme.colorScheme.primary)

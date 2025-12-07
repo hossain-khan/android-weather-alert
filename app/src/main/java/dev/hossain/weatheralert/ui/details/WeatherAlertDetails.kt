@@ -307,7 +307,7 @@ fun WeatherAlertDetailsScreen(
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Refresh,
-                            contentDescription = "Refresh Forecast Data",
+                            contentDescription = "Refresh forecast data",
                         )
                     }
                 },
@@ -405,7 +405,7 @@ fun CityInfoUi(
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
                     painter = painterResource(id = R.drawable.location_city_24dp),
-                    contentDescription = "Alert Category",
+                    contentDescription = "City location",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
                         Modifier
@@ -446,7 +446,7 @@ fun WeatherAlertSnoozeStatusUi(
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
                     painter = painterResource(id = R.drawable.snooze_24dp),
-                    contentDescription = "Snooze icon",
+                    contentDescription = "Alert snoozed",
                     tint = MaterialTheme.colorScheme.secondary,
                     modifier =
                         Modifier
@@ -511,7 +511,7 @@ fun WeatherAlertForecastUi(
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
                     painter = painterResource(id = alert.alertCategory.iconRes()),
-                    contentDescription = "Alert Category",
+                    contentDescription = "${alert.alertCategory.label} alert type",
                     tint = iconTint,
                     modifier =
                         Modifier
@@ -575,7 +575,7 @@ private fun PrecipitationChartUi(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.bar_chart_24dp),
-                contentDescription = "Bar Chart Icon",
+                contentDescription = "Hourly precipitation chart",
                 modifier = Modifier.size(20.dp),
             )
             Spacer(modifier = Modifier.width(4.dp))
@@ -695,7 +695,7 @@ fun WeatherAlertNoteUi(
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
                     painter = painterResource(R.drawable.edit_note_24dp),
-                    contentDescription = "Alert Category",
+                    contentDescription = "Edit note",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
                         Modifier
@@ -787,7 +787,7 @@ fun WeatherAlertUpdateOnUi(
             Box(modifier = Modifier.fillMaxWidth()) {
                 Icon(
                     painter = painterResource(R.drawable.calendar_month_24dp),
-                    contentDescription = "Calendar icon",
+                    contentDescription = "Last update date",
                     tint = MaterialTheme.colorScheme.primary,
                     modifier =
                         Modifier

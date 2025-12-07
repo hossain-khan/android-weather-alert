@@ -401,7 +401,7 @@ fun CurrentWeatherAlerts(
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             painter = painterResource(R.drawable.weather_alert_icon_no_fill),
-                            contentDescription = "Weather Alerts",
+                            contentDescription = "Weather alert app icon",
                             tint = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(20.dp).offset(y = (-2).dp),
                         )
@@ -425,7 +425,7 @@ fun CurrentWeatherAlerts(
                         state.eventSink(CurrentWeatherAlertScreen.Event.AddNewAlertClicked)
                     },
                     text = { Text("Add Alert") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "Add Alert") },
+                    icon = { Icon(Icons.Default.Add, contentDescription = "Add new weather alert") },
                 )
             }
         },
@@ -599,7 +599,7 @@ fun DismissBackground(dismissState: SwipeToDismissBoxState) {
     ) {
         Icon(
             imageVector = Icons.Default.Delete,
-            contentDescription = "delete",
+            contentDescription = "Delete alert",
         )
     }
 }
@@ -616,6 +616,30 @@ fun AlertListItem(
     val snoozeText = formatSnoozeUntil(data.snoozedUntil)
     val isSnoozed = snoozeText != null
 
+    // Build accessibility description for the alert card
+    val alertDescription =
+        buildString {
+            append(
+                when (data.category) {
+                    WeatherAlertCategory.SNOW_FALL -> "Snowfall"
+                    WeatherAlertCategory.RAIN_FALL -> "Rainfall"
+                },
+            )
+            append(" alert for ${data.cityInfo}. ")
+            append("Threshold: ${data.threshold}. ")
+            append("Next ${CUMULATIVE_DATA_HOURS_24} hours forecast: ${data.currentStatus}. ")
+            if (data.isAlertActive && !isSnoozed) {
+                append("Alert is active. ")
+            }
+            if (isSnoozed && snoozeText != null) {
+                append("Alert is snoozed. $snoozeText. ")
+            }
+            if (data.alertNote.isNotEmpty()) {
+                append("Note: ${data.alertNote}. ")
+            }
+            append("Double tap to view details, swipe left to delete.")
+        }
+
     Card(
         modifier =
             modifier
@@ -629,6 +653,8 @@ fun AlertListItem(
                     },
                 ).clickable {
                     eventSink(CurrentWeatherAlertScreen.Event.OnItemClicked(data.alertId))
+                }.semantics {
+                    contentDescription = alertDescription
                 },
         elevation = CardDefaults.cardElevation(cardElevation),
         shape = RoundedCornerShape(12.dp),
@@ -703,7 +729,7 @@ fun AlertListItem(
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.snooze_24dp),
-                                contentDescription = "Alert is snoozed",
+                                contentDescription = "Snoozed",
                                 modifier = Modifier.size(14.dp),
                                 tint = MaterialTheme.colorScheme.secondary,
                             )
@@ -735,7 +761,7 @@ fun AlertListItem(
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.info_24dp),
-                                contentDescription = null,
+                                contentDescription = "Information",
                                 modifier = Modifier.size(14.dp),
                                 tint = MaterialTheme.colorScheme.tertiary,
                             )
@@ -759,7 +785,11 @@ fun AlertListItem(
                     // Main category icon
                     Icon(
                         painter = painterResource(iconResId),
-                        contentDescription = null,
+                        contentDescription =
+                            when (data.category) {
+                                WeatherAlertCategory.SNOW_FALL -> "Snowfall alert icon"
+                                WeatherAlertCategory.RAIN_FALL -> "Rainfall alert icon"
+                            },
                         tint =
                             if (isSnoozed) {
                                 MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)

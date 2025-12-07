@@ -385,7 +385,7 @@ fun WeatherServiceSelectionGroupUi(
                         Column {
                             Image(
                                 painter = painterResource(id = serviceConfig.logoResId),
-                                contentDescription = service.name,
+                                contentDescription = "${serviceConfig.serviceName} service logo",
                                 modifier =
                                     Modifier.size(
                                         width = serviceConfig.logoWidth,
