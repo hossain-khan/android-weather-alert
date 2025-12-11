@@ -67,11 +67,28 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 /**
- * Developer tool for generating alert history data.\n *\n * This screen allows developers to populate the alert history with test data for\n * testing history views, analytics, and date filtering. All generated data is\n * marked with [TEST] prefix.\n *\n * Features:\n * - Quick history templates (Today, This Week, This Month)\n * - Custom history generation with date ranges\n * - Specify number of history entries\n * - Delete all test history at once\n * - Realistic data distribution across cities and alert types\n */
+ * Developer tool for generating alert history data.
+ *
+ * This screen allows developers to populate the alert history with test data for
+ * testing history views, analytics, and date filtering. All generated data is
+ * marked with [TEST] prefix.
+ *
+ * Features:
+ * - Quick history templates (Today, This Week, This Month)
+ * - Custom history generation with date ranges
+ * - Specify number of history entries
+ * - Delete all test history at once
+ * - Realistic data distribution across cities and alert types
+ */
 @Parcelize
 data object HistorySimulatorScreen : Screen {
     /**
-     * UI state for the History Simulator screen.\n     *\n     * @property alertHistoryDao DAO for history operations\n     * @property cityDao DAO for city lookups\n     * @property eventSink Callback for handling user events\n     */
+     * UI state for the History Simulator screen.
+     *
+     * @property alertHistoryDao DAO for history operations
+     * @property cityDao DAO for city lookups
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val alertHistoryDao: AlertHistoryDao,
         val cityDao: CityDao,
@@ -79,7 +96,8 @@ data object HistorySimulatorScreen : Screen {
     ) : CircuitUiState
 
     /**
-     * Events that can be triggered from the History Simulator.\n     */
+     * Events that can be triggered from the History Simulator.
+     */
     sealed class Event : CircuitUiEvent {
         /** Navigate back to Developer Portal */
         data object GoBack : Event()
