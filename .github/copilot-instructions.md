@@ -102,6 +102,53 @@ Weather Alert is a modern Android application that provides focused weather noti
 - `internal`: Development builds with debug features
 - `prod`: Production builds for release
 
+### Source Set Isolation for Build Variants
+**CRITICAL**: Code in variant-specific source sets (`internal/`, `prod/`) cannot be directly referenced from the `main` source set.
+
+#### Problem
+- Classes in `app/src/internal/` are only available in `internal` variant
+- Referencing them directly from `main` causes `prod` variant compilation to fail
+- Example error: `Unresolved reference` when `prod` tries to compile code referencing `internal` classes
+
+#### Solution Pattern
+When adding debug-only features accessible from main code:
+
+1. **Create variant-specific helper files** in both source sets:
+   ```
+   app/src/internal/java/.../FeatureHelper.kt  (real implementation)
+   app/src/prod/java/.../FeatureHelper.kt      (stub/no-op implementation)
+   ```
+
+2. **Use extension functions or top-level functions** as bridges:
+   ```kotlin
+   // internal/FeatureHelper.kt
+   fun Navigator.navigateToDebugFeature() {
+       goTo(DebugFeatureScreen)
+   }
+   
+   // prod/FeatureHelper.kt  
+   fun Navigator.navigateToDebugFeature() {
+       // No-op in production
+   }
+   ```
+
+3. **Main code calls the helper**, not the variant-specific class directly:
+   ```kotlin
+   // main/.../SomeScreen.kt
+   if (BuildConfig.DEBUG) {
+       navigator.navigateToDebugFeature()  // ✅ Works in all variants
+       // NOT: navigator.goTo(DebugFeatureScreen)  // ❌ Fails in prod
+   }
+   ```
+
+#### Testing Requirement
+**ALWAYS** test both variants when adding debug features:
+```bash
+./gradlew :app:assembleInternalDebug :app:assembleProdDebug
+```
+
+This ensures CI builds won't fail in production variants.
+
 ### Testing Requirements
 - Write unit tests for business logic
 - Aim for minimum 50% code coverage

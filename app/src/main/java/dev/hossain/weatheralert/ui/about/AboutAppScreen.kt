@@ -129,7 +129,7 @@ class AboutAppPresenter
 
                     AboutAppScreen.Event.OpenDeveloperPortal -> {
                         if (BuildConfig.DEBUG) {
-                            navigator.goTo(dev.hossain.weatheralert.ui.devtools.DeveloperPortalScreen)
+                            navigator.navigateToDeveloperPortal()
                         }
                     }
                 }
