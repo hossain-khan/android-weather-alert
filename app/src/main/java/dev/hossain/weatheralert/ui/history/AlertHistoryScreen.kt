@@ -431,7 +431,7 @@ fun FilterSheet(
         )
 
         // Individual location chips
-        uniqueLocations.forEachIndexed { index, location ->
+        uniqueLocations.forEach { location ->
             FilterChip(
                 selected = selectedLocation == location,
                 onClick = { onLocationSelected(location) },

@@ -97,7 +97,8 @@ class AlertHistoryPresenter
 
                     AlertHistoryScreen.Event.ExportHistory -> {
                         scope.launch {
-                            exportHistoryToCsv(context, filteredHistoryItems)
+                            // Export all history items, not just filtered ones
+                            exportHistoryToCsv(context, allHistoryItems)
                         }
                     }
 
@@ -113,7 +114,8 @@ class AlertHistoryPresenter
                         scope.launch {
                             try {
                                 alertHistoryDao.deleteAll()
-                                allHistoryItems = emptyList()
+                                // Reload from database to ensure consistency
+                                allHistoryItems = alertHistoryDao.getAll()
                                 showClearConfirmDialog = false
                                 withContext(Dispatchers.Main) {
                                     Toast.makeText(context, "All history cleared", Toast.LENGTH_SHORT).show()
