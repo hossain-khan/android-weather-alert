@@ -47,6 +47,8 @@ import com.slack.circuitx.effects.LaunchedImpressionEffect
 import dev.hossain.weatheralert.data.PreferencesManager
 import dev.hossain.weatheralert.datamodel.WeatherForecastService
 import dev.hossain.weatheralert.db.CityForecastDao
+import dev.hossain.weatheralert.ui.devtools.formatDate
+import dev.hossain.weatheralert.ui.devtools.maskApiKey
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.hossain.weatheralert.work.DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
@@ -63,15 +65,44 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Developer tool for managing app state and preferences.
+ *
+ * This screen allows developers to view current app preferences and reset them to
+ * defaults for testing fresh app states. Useful for testing onboarding flows,
+ * preference persistence, and debugging preference-related issues.
+ *
+ * Features:
+ * - View all current preferences (weather service, update interval, onboarding)
+ * - View API keys (safely masked showing last 4 chars)
+ * - Reset individual preferences (onboarding, update interval, API keys)
+ * - Clear all preferences at once with confirmation
+ * - Manage cached weather data
+ *
+ * Note: Exposing PreferencesManager directly in State is a deviation from typical
+ * Circuit pattern. This is accepted for developer tools to maintain simplicity.
+ * Production screens should collect data in Presenter and expose only primitives.
+ */
 @Parcelize
 data object StateManagementScreen : Screen {
+    /**
+     * UI state for the State Management screen.
+     *
+     * @property preferencesManager Manager for accessing and modifying preferences
+     * @property cityForecastDao DAO for accessing forecast cache
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val preferencesManager: PreferencesManager,
         val cityForecastDao: CityForecastDao,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from State Management.
+     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to Developer Portal */
         data object GoBack : Event()
     }
 }
@@ -265,12 +296,12 @@ private fun PreferencesViewerCard(
 
             InfoRow(
                 label = "OpenWeather",
-                value = maskApiKey(openWeatherApiKey),
+                value = maskApiKey(openWeatherApiKey ?: ""),
             )
 
             InfoRow(
                 label = "Tomorrow.io",
-                value = maskApiKey(tomorrowIoApiKey),
+                value = maskApiKey(tomorrowIoApiKey ?: ""),
             )
         }
     }
@@ -518,42 +549,4 @@ private fun CacheManagementCard(
             },
         )
     }
-}
-
-@Composable
-private fun InfoRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Text(
-            text = "$label:",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-        )
-    }
-}
-
-private fun maskApiKey(apiKey: String?): String =
-    if (apiKey.isNullOrEmpty()) {
-        "Not set"
-    } else if (apiKey.length <= 4) {
-        "****"
-    } else {
-        "****" + apiKey.takeLast(4)
-    }
-
-private fun formatDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
 }

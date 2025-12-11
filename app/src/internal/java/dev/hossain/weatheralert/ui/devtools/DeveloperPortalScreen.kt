@@ -44,25 +44,54 @@ import dev.zacsweers.metro.AssistedInject
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
+/**
+ * Developer Portal main hub screen providing access to all developer tools.
+ *
+ * This screen serves as the entry point to the Developer Portal, displaying a grid of
+ * tools for testing, debugging, and inspecting the app. Only available in internal builds.
+ *
+ * Available tools:
+ * - Alert Simulator: Create test weather alerts
+ * - History Simulator: Generate alert history data
+ * - Notification Tester: Test alert notifications
+ * - WorkManager Tester: Manually trigger background workers
+ * - Database Inspector: View and export database state
+ * - State Management: Reset preferences and app state
+ */
 @Parcelize
 data object DeveloperPortalScreen : Screen {
+    /**
+     * UI state for the Developer Portal screen.
+     *
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the Developer Portal.
+     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to the previous screen */
         data object GoBack : Event()
 
+        /** Open the Alert Simulator tool */
         data object OpenAlertSimulator : Event()
 
+        /** Open the Alert History Simulator tool */
         data object OpenHistorySimulator : Event()
 
+        /** Open the Notification Tester tool */
         data object OpenNotificationTester : Event()
 
+        /** Open the WorkManager Tester tool */
         data object OpenWorkerTester : Event()
 
+        /** Open the Database Inspector tool */
         data object OpenDatabaseInspector : Event()
 
+        /** Open the State Management tool */
         data object OpenStateManagement : Event()
     }
 }

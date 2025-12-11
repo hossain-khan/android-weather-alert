@@ -66,15 +66,22 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
+/**
+ * Developer tool for generating alert history data.\n *\n * This screen allows developers to populate the alert history with test data for\n * testing history views, analytics, and date filtering. All generated data is\n * marked with [TEST] prefix.\n *\n * Features:\n * - Quick history templates (Today, This Week, This Month)\n * - Custom history generation with date ranges\n * - Specify number of history entries\n * - Delete all test history at once\n * - Realistic data distribution across cities and alert types\n */
 @Parcelize
 data object HistorySimulatorScreen : Screen {
+    /**
+     * UI state for the History Simulator screen.\n     *\n     * @property alertHistoryDao DAO for history operations\n     * @property cityDao DAO for city lookups\n     * @property eventSink Callback for handling user events\n     */
     data class State(
         val alertHistoryDao: AlertHistoryDao,
         val cityDao: CityDao,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the History Simulator.\n     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to Developer Portal */
         data object GoBack : Event()
     }
 }
@@ -523,29 +530,6 @@ private fun ManagementCard(
                 Text("Clear All History")
             }
         }
-    }
-}
-
-@Composable
-private fun InfoRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = "$label:",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-        )
     }
 }
 
