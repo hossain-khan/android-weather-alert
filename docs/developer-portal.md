@@ -204,7 +204,7 @@ The portal provides 6 specialized tools for different testing needs:
 - Inspect foreign key relationships
 - Validate database migrations
 
-**Note**: Forecast count shows sample data due to DAO limitations. The database inspector provides an approximate count for cached forecasts.
+**Note**: Forecast count shows sample data because the DAO does not provide a direct method to count forecasts; instead, the database inspector estimates the count based on available sample queries. This may result in an approximate value for cached forecasts.
 
 ### 6. ⚙️ State Management
 
