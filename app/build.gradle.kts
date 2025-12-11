@@ -42,9 +42,9 @@ android {
         applicationId = "dev.hossain.weatheralert"
         minSdk = 30
         targetSdk = 36
-        versionCode = 21
+        versionCode = 22
         // 🤓 FYI: Don't forget to update release notes.
-        versionName = "2.12"
+        versionName = "2.13"
 
         // Read bundled API key from local.properties
         val localProperties = project.rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use {
