@@ -116,13 +116,16 @@ fun AlertHistoryScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = {
-                        state.eventSink(AlertHistoryScreen.Event.ClearAllHistory)
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Clear all history",
-                        )
+                    // Only show clear all button when there are items to clear
+                    if (!state.historyItems.isNullOrEmpty()) {
+                        IconButton(onClick = {
+                            state.eventSink(AlertHistoryScreen.Event.ClearAllHistory)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Clear all history",
+                            )
+                        }
                     }
                     IconButton(onClick = {
                         state.eventSink(AlertHistoryScreen.Event.ExportHistory)
