@@ -97,8 +97,7 @@ class DeveloperPortalPresenter
                     }
 
                     DeveloperPortalScreen.Event.OpenWorkerTester -> {
-                        // TODO: Navigate to Worker Tester (Phase 1)
-                        Timber.tag("DevPortal").d("Worker Tester - Coming Soon")
+                        navigator.goTo(WorkerTesterScreen)
                     }
                 }
             }
