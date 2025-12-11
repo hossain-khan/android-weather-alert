@@ -20,6 +20,7 @@ As soon as a tagged release is created, the release workflow signs the APK using
 GitHub Actions workflows are available for building releases:
 
 - **[android-release.yml](https://github.com/hossain-khan/android-weather-alert/actions/workflows/android-release.yml)**: Builds release APK and AAB on main branch pushes and GitHub releases
+- **[test-keystore-apk-signing.yml](https://github.com/hossain-khan/android-weather-alert/actions/workflows/test-keystore-apk-signing.yml)**: Manual workflow to test and verify the production keystore configuration
 
 ### Setting Up Release Signing (for maintainers)
 
