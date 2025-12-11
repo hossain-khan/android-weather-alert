@@ -15,6 +15,16 @@
 ### What's new
 * Unreleased
 
+## Weather Alert v2.13
+
+### What's new
+* Added keystore verification workflow for improved security
+* Security enhancements with proper permissions and credential masking
+* Updated alert history screen improvements
+* Minor bug fixes and stability improvements
+
+💬 Feedback and comments are welcome via Google Play.
+
 ## Weather Alert v2.12
 
 ### What's new
