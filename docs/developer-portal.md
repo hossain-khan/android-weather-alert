@@ -234,7 +234,7 @@ The portal provides 6 specialized tools for different testing needs:
 **Cache Management:**
 - View cached forecast count (approximate)
 - Clear weather cache (requires DAO enhancement)
-- Note: Cache clearing currently disabled due to DAO limitations
+- Note: Cache clearing currently disabled due to DAO limitations (needs `deleteAllCityForecasts()` method in `WeatherDao`)
 
 **How to Use:**
 1. Navigate to State Management
