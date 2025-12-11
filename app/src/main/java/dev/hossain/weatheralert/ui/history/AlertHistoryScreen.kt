@@ -34,6 +34,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -411,22 +413,39 @@ fun FilterSheet(
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
         )
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-        ) {
+
+        // All Locations chip
+        FilterChip(
+            selected = selectedLocation == null,
+            onClick = { onLocationSelected(null) },
+            label = { Text("All Locations") },
+            modifier =
+                Modifier.semantics {
+                    contentDescription =
+                        if (selectedLocation == null) {
+                            "All locations filter selected"
+                        } else {
+                            "Filter by all locations"
+                        }
+                },
+        )
+
+        // Individual location chips
+        uniqueLocations.forEachIndexed { index, location ->
             FilterChip(
-                selected = selectedLocation == null,
-                onClick = { onLocationSelected(null) },
-                label = { Text("All Locations") },
+                selected = selectedLocation == location,
+                onClick = { onLocationSelected(location) },
+                label = { Text(location) },
+                modifier =
+                    Modifier.semantics {
+                        contentDescription =
+                            if (selectedLocation == location) {
+                                "Filter by $location selected"
+                            } else {
+                                "Filter by $location"
+                            }
+                    },
             )
-            uniqueLocations.forEach { location ->
-                FilterChip(
-                    selected = selectedLocation == location,
-                    onClick = { onLocationSelected(location) },
-                    label = { Text(location) },
-                )
-            }
         }
 
         // Clear filters button

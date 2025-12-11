@@ -16,6 +16,7 @@ import com.slack.circuit.codegen.annotations.CircuitInject
 import com.slack.circuit.runtime.Navigator
 import com.slack.circuit.runtime.presenter.Presenter
 import com.slack.circuitx.effects.LaunchedImpressionEffect
+import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertHistory
 import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.util.Analytics
@@ -48,7 +49,7 @@ class AlertHistoryPresenter
             var errorMessage by remember { mutableStateOf<String?>(null) }
             var showClearConfirmDialog by remember { mutableStateOf(false) }
             var showFilterSheet by remember { mutableStateOf(false) }
-            var selectedAlertType by remember { mutableStateOf<dev.hossain.weatheralert.datamodel.WeatherAlertCategory?>(null) }
+            var selectedAlertType by remember { mutableStateOf<WeatherAlertCategory?>(null) }
             var selectedLocation by remember { mutableStateOf<String?>(null) }
 
             LaunchedImpressionEffect {
