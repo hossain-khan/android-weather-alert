@@ -75,6 +75,8 @@ data object AboutAppScreen : Screen {
         data object OpenAppEducationDialog : Event()
 
         data object CloseAppEducationDialog : Event()
+
+        data object OpenDeveloperPortal : Event()
     }
 }
 
@@ -123,6 +125,12 @@ class AboutAppPresenter
                     AboutAppScreen.Event.CloseAppEducationDialog -> {
                         showLearnMoreBottomSheet = false
                         analytics.logViewTutorial(isComplete = true)
+                    }
+
+                    AboutAppScreen.Event.OpenDeveloperPortal -> {
+                        if (BuildConfig.DEBUG) {
+                            navigator.navigateToDeveloperPortal()
+                        }
                     }
                 }
             }
@@ -206,6 +214,17 @@ fun AboutAppScreen(
                 TextButton(onClick = {
                     state.eventSink(AboutAppScreen.Event.OpenGitHubProject)
                 }, modifier = Modifier.align(Alignment.CenterHorizontally)) { Text("View Source") }
+
+                if (BuildConfig.DEBUG) {
+                    TextButton(
+                        onClick = {
+                            state.eventSink(AboutAppScreen.Event.OpenDeveloperPortal)
+                        },
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                    ) {
+                        Text("🔧 Developer Portal")
+                    }
+                }
             }
             Column(modifier = Modifier.fillMaxWidth()) {
                 if (BuildConfig.DEBUG) {
