@@ -60,6 +60,7 @@ import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.AssistedInject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
@@ -403,7 +404,7 @@ private fun QuickViewsCard(
                                     alerts
                                         .take(3)
                                         .joinToString("\n") { alert ->
-                                            "${alert.cityName} - ${alert.alertCategory} (${alert.thresholdValue}mm)"
+                                            "Alert ID ${alert.id} - ${alert.alertCategory.name} (${alert.threshold}mm)"
                                         }
                             }
                         snackbarHostState.showSnackbar(message)
