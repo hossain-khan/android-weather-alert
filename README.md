@@ -57,6 +57,28 @@ Full TalkBack screen reader support with proper content descriptions and semanti
 
 Try out **Weather Alert** today and let the app do the work for you!  
 
+## Developer Portal 🔧
+
+For developers and QA engineers, the app includes a comprehensive **Developer Portal** available exclusively in internal debug builds. This portal provides powerful testing and debugging tools to accelerate development and testing workflows.
+
+**Available Tools:**
+- 🔔 **Notification Tester** - Test alert notifications without real weather
+- ⚙️ **WorkManager Tester** - Manually trigger background workers
+- 📋 **Alert Simulator** - Create test alerts with quick presets
+- 📜 **History Simulator** - Generate historical alert data
+- 🗄️ **Database Inspector** - View and export database state
+- ⚙️ **State Management** - Reset preferences and app state
+
+**Access**: Navigate to About Screen → "🔧 Developer Portal" (internal builds only)
+
+**Documentation**: See [`docs/developer-portal.md`](docs/developer-portal.md) for comprehensive guide including:
+- How to access and use each tool
+- Testing workflows and best practices
+- Troubleshooting common issues
+- Architecture and code patterns
+
+**Note**: The Developer Portal is **not included** in production builds and is only available in `internalDebug` build variants.
+
 ## Tech Stack 📱
 Simple application generated from Android App template that uses:
 * Jetpack Compose
