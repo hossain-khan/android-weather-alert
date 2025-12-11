@@ -1,6 +1,5 @@
 package dev.hossain.weatheralert.ui.history
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,24 +12,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +43,7 @@ import com.slack.circuit.runtime.CircuitUiEvent
 import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.screen.Screen
 import dev.hossain.weatheralert.R
+import dev.hossain.weatheralert.data.iconRes
 import dev.hossain.weatheralert.datamodel.WeatherAlertCategory
 import dev.hossain.weatheralert.db.AlertHistory
 import dev.hossain.weatheralert.ui.theme.WeatherAlertAppTheme
@@ -56,6 +59,11 @@ data object AlertHistoryScreen : Screen {
         val historyItems: List<AlertHistory>?,
         val isLoading: Boolean,
         val errorMessage: String?,
+        val showClearConfirmDialog: Boolean,
+        val showFilterSheet: Boolean,
+        val selectedAlertType: WeatherAlertCategory?,
+        val selectedLocation: String?,
+        val uniqueLocations: List<String>,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
@@ -65,6 +73,22 @@ data object AlertHistoryScreen : Screen {
         data object ExportHistory : Event()
 
         data object ShowFilterOptions : Event()
+
+        data object ClearAllHistory : Event()
+
+        data object ConfirmClearHistory : Event()
+
+        data object DismissClearDialog : Event()
+
+        data class FilterByAlertType(
+            val alertType: WeatherAlertCategory?,
+        ) : Event()
+
+        data class FilterByLocation(
+            val location: String?,
+        ) : Event()
+
+        data object ClearFilters : Event()
     }
 }
 
@@ -90,6 +114,14 @@ fun AlertHistoryScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = {
+                        state.eventSink(AlertHistoryScreen.Event.ClearAllHistory)
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Clear all history",
+                        )
+                    }
                     IconButton(onClick = {
                         state.eventSink(AlertHistoryScreen.Event.ExportHistory)
                     }) {
@@ -190,6 +222,65 @@ fun AlertHistoryScreen(
             }
         }
     }
+
+    // Clear all confirmation dialog
+    if (state.showClearConfirmDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                state.eventSink(AlertHistoryScreen.Event.DismissClearDialog)
+            },
+            title = {
+                Text("Clear All History?")
+            },
+            text = {
+                Text("This will permanently delete all alert history. This action cannot be undone.")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        state.eventSink(AlertHistoryScreen.Event.ConfirmClearHistory)
+                    },
+                ) {
+                    Text("Clear All")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        state.eventSink(AlertHistoryScreen.Event.DismissClearDialog)
+                    },
+                ) {
+                    Text("Cancel")
+                }
+            },
+        )
+    }
+
+    // Filter bottom sheet
+    if (state.showFilterSheet) {
+        val sheetState = rememberModalBottomSheetState()
+        ModalBottomSheet(
+            onDismissRequest = {
+                state.eventSink(AlertHistoryScreen.Event.ShowFilterOptions)
+            },
+            sheetState = sheetState,
+        ) {
+            FilterSheet(
+                selectedAlertType = state.selectedAlertType,
+                selectedLocation = state.selectedLocation,
+                uniqueLocations = state.uniqueLocations,
+                onAlertTypeSelected = { alertType ->
+                    state.eventSink(AlertHistoryScreen.Event.FilterByAlertType(alertType))
+                },
+                onLocationSelected = { location ->
+                    state.eventSink(AlertHistoryScreen.Event.FilterByLocation(location))
+                },
+                onClearFilters = {
+                    state.eventSink(AlertHistoryScreen.Event.ClearFilters)
+                },
+            )
+        }
+    }
 }
 
 @Composable
@@ -209,29 +300,17 @@ fun AlertHistoryItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            // Category indicator
-            Box(
-                modifier =
-                    Modifier
-                        .size(48.dp)
-                        .clip(CircleShape)
-                        .background(
-                            when (historyItem.alertCategory) {
-                                WeatherAlertCategory.SNOW_FALL -> Color(0xFF81D4FA)
-                                WeatherAlertCategory.RAIN_FALL -> Color(0xFF4FC3F7)
-                            },
-                        ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text(
-                    text =
-                        when (historyItem.alertCategory) {
-                            WeatherAlertCategory.SNOW_FALL -> "❄️"
-                            WeatherAlertCategory.RAIN_FALL -> "🌧️"
-                        },
-                    style = MaterialTheme.typography.titleLarge,
-                )
-            }
+            // Category icon
+            Icon(
+                painter = painterResource(historyItem.alertCategory.iconRes()),
+                contentDescription =
+                    when (historyItem.alertCategory) {
+                        WeatherAlertCategory.SNOW_FALL -> "Snowfall alert icon"
+                        WeatherAlertCategory.RAIN_FALL -> "Rainfall alert icon"
+                    },
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(48.dp),
+            )
 
             // Alert details
             Column(
@@ -258,6 +337,109 @@ fun AlertHistoryItem(
                 )
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FilterSheet(
+    selectedAlertType: WeatherAlertCategory?,
+    selectedLocation: String?,
+    uniqueLocations: List<String>,
+    onAlertTypeSelected: (WeatherAlertCategory?) -> Unit,
+    onLocationSelected: (String?) -> Unit,
+    onClearFilters: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        Text(
+            text = "Filter Options",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold,
+        )
+
+        // Alert Type Filter
+        Text(
+            text = "Alert Type",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            FilterChip(
+                selected = selectedAlertType == null,
+                onClick = { onAlertTypeSelected(null) },
+                label = { Text("All") },
+            )
+            FilterChip(
+                selected = selectedAlertType == WeatherAlertCategory.SNOW_FALL,
+                onClick = { onAlertTypeSelected(WeatherAlertCategory.SNOW_FALL) },
+                label = { Text("Snow") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(WeatherAlertCategory.SNOW_FALL.iconRes()),
+                        contentDescription = "Snow",
+                        modifier = Modifier.size(18.dp),
+                    )
+                },
+            )
+            FilterChip(
+                selected = selectedAlertType == WeatherAlertCategory.RAIN_FALL,
+                onClick = { onAlertTypeSelected(WeatherAlertCategory.RAIN_FALL) },
+                label = { Text("Rain") },
+                leadingIcon = {
+                    Icon(
+                        painter = painterResource(WeatherAlertCategory.RAIN_FALL.iconRes()),
+                        contentDescription = "Rain",
+                        modifier = Modifier.size(18.dp),
+                    )
+                },
+            )
+        }
+
+        // Location Filter
+        Text(
+            text = "Location",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+        )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            FilterChip(
+                selected = selectedLocation == null,
+                onClick = { onLocationSelected(null) },
+                label = { Text("All Locations") },
+            )
+            uniqueLocations.forEach { location ->
+                FilterChip(
+                    selected = selectedLocation == location,
+                    onClick = { onLocationSelected(location) },
+                    label = { Text(location) },
+                )
+            }
+        }
+
+        // Clear filters button
+        if (selectedAlertType != null || selectedLocation != null) {
+            TextButton(
+                onClick = onClearFilters,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Text("Clear All Filters")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
@@ -296,6 +478,11 @@ fun AlertHistoryScreenPreview() {
             historyItems = sampleHistory,
             isLoading = false,
             errorMessage = null,
+            showClearConfirmDialog = false,
+            showFilterSheet = false,
+            selectedAlertType = null,
+            selectedLocation = null,
+            uniqueLocations = listOf("Toronto", "Vancouver"),
             eventSink = {},
         )
 
@@ -312,6 +499,11 @@ fun AlertHistoryScreenEmptyPreview() {
             historyItems = emptyList(),
             isLoading = false,
             errorMessage = null,
+            showClearConfirmDialog = false,
+            showFilterSheet = false,
+            selectedAlertType = null,
+            selectedLocation = null,
+            uniqueLocations = emptyList(),
             eventSink = {},
         )
 
@@ -328,6 +520,11 @@ fun AlertHistoryScreenLoadingPreview() {
             historyItems = null,
             isLoading = true,
             errorMessage = null,
+            showClearConfirmDialog = false,
+            showFilterSheet = false,
+            selectedAlertType = null,
+            selectedLocation = null,
+            uniqueLocations = emptyList(),
             eventSink = {},
         )
 

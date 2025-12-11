@@ -43,9 +43,13 @@ class AlertHistoryPresenter
         override fun present(): AlertHistoryScreen.State {
             val scope = rememberCoroutineScope()
             val context = LocalContext.current
-            var historyItems by remember { mutableStateOf<List<AlertHistory>?>(null) }
+            var allHistoryItems by remember { mutableStateOf<List<AlertHistory>?>(null) }
             var isLoading by remember { mutableStateOf(true) }
             var errorMessage by remember { mutableStateOf<String?>(null) }
+            var showClearConfirmDialog by remember { mutableStateOf(false) }
+            var showFilterSheet by remember { mutableStateOf(false) }
+            var selectedAlertType by remember { mutableStateOf<dev.hossain.weatheralert.datamodel.WeatherAlertCategory?>(null) }
+            var selectedLocation by remember { mutableStateOf<String?>(null) }
 
             LaunchedImpressionEffect {
                 analytics.logScreenView(AlertHistoryScreen::class)
@@ -55,7 +59,7 @@ class AlertHistoryPresenter
                 try {
                     // Get alert history from last 30 days
                     val thirtyDaysAgo = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
-                    historyItems = alertHistoryDao.getHistorySince(thirtyDaysAgo)
+                    allHistoryItems = alertHistoryDao.getHistorySince(thirtyDaysAgo)
                     isLoading = false
                 } catch (e: Exception) {
                     Timber.e(e, "Failed to load alert history")
@@ -64,10 +68,26 @@ class AlertHistoryPresenter
                 }
             }
 
+            // Apply filters
+            val filteredHistoryItems =
+                allHistoryItems?.filter { item ->
+                    val matchesType = selectedAlertType == null || item.alertCategory == selectedAlertType
+                    val matchesLocation = selectedLocation == null || item.cityName == selectedLocation
+                    matchesType && matchesLocation
+                }
+
+            // Get unique locations
+            val uniqueLocations = allHistoryItems?.map { it.cityName }?.distinct()?.sorted() ?: emptyList()
+
             return AlertHistoryScreen.State(
-                historyItems = historyItems,
+                historyItems = filteredHistoryItems,
                 isLoading = isLoading,
                 errorMessage = errorMessage,
+                showClearConfirmDialog = showClearConfirmDialog,
+                showFilterSheet = showFilterSheet,
+                selectedAlertType = selectedAlertType,
+                selectedLocation = selectedLocation,
+                uniqueLocations = uniqueLocations,
             ) { event ->
                 when (event) {
                     AlertHistoryScreen.Event.GoBack -> {
@@ -76,13 +96,51 @@ class AlertHistoryPresenter
 
                     AlertHistoryScreen.Event.ExportHistory -> {
                         scope.launch {
-                            exportHistoryToCsv(context, historyItems)
+                            exportHistoryToCsv(context, filteredHistoryItems)
                         }
                     }
 
                     AlertHistoryScreen.Event.ShowFilterOptions -> {
-                        // TODO: Implement filter options in future iteration
-                        Toast.makeText(context, "Filter options coming soon", Toast.LENGTH_SHORT).show()
+                        showFilterSheet = !showFilterSheet
+                    }
+
+                    AlertHistoryScreen.Event.ClearAllHistory -> {
+                        showClearConfirmDialog = true
+                    }
+
+                    AlertHistoryScreen.Event.ConfirmClearHistory -> {
+                        scope.launch {
+                            try {
+                                alertHistoryDao.deleteAll()
+                                allHistoryItems = emptyList()
+                                showClearConfirmDialog = false
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(context, "All history cleared", Toast.LENGTH_SHORT).show()
+                                }
+                            } catch (e: Exception) {
+                                Timber.e(e, "Failed to clear history")
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(context, "Failed to clear history: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+
+                    AlertHistoryScreen.Event.DismissClearDialog -> {
+                        showClearConfirmDialog = false
+                    }
+
+                    is AlertHistoryScreen.Event.FilterByAlertType -> {
+                        selectedAlertType = event.alertType
+                    }
+
+                    is AlertHistoryScreen.Event.FilterByLocation -> {
+                        selectedLocation = event.location
+                    }
+
+                    AlertHistoryScreen.Event.ClearFilters -> {
+                        selectedAlertType = null
+                        selectedLocation = null
                     }
                 }
             }
