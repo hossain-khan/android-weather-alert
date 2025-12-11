@@ -609,7 +609,7 @@ To add a new developer tool:
 
 ### External Documentation
 - [Circuit Architecture](https://slackhq.github.io/circuit/) - UDF pattern by Slack
-- [Metro DI](https://github.com/JakeWharton/dagger-reflect) - Kotlin DI by Square
+- [Metro DI](https://github.com/square/metro) - Kotlin-first DI framework by Square
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - UI toolkit
 - [Room Database](https://developer.android.com/training/data-storage/room) - SQLite wrapper
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) - Background jobs
