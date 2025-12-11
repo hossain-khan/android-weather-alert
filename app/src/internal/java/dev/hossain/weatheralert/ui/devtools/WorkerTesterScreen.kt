@@ -68,13 +68,35 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+/**
+ * Developer tool for testing WorkManager background workers.
+ *
+ * This screen allows developers to manually trigger background workers and observe
+ * their execution. Useful for testing worker logic, constraints, and debugging
+ * background job issues without waiting for scheduled execution.
+ *
+ * Features:
+ * - List all scheduled workers with their status
+ * - Trigger workers on-demand with "Run Now" action
+ * - View worker execution results and timing
+ * - Test both one-time and periodic workers
+ */
 @Parcelize
 data object WorkerTesterScreen : Screen {
+    /**
+     * UI state for the WorkManager Tester screen.
+     *
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the WorkManager Tester.
+     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to Developer Portal */
         data object GoBack : Event()
     }
 }
@@ -449,29 +471,6 @@ private fun WorkerDetailsCard(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun InfoRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = "$label:",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-        )
     }
 }
 

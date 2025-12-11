@@ -65,13 +65,34 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
+/**
+ * Developer tool for testing weather alert notifications.
+ *
+ * This screen allows developers to send test notifications without waiting for
+ * real weather conditions. Useful for testing notification appearance, actions,
+ * and system integration.
+ *
+ * Features:
+ * - Send test notification with realistic weather data
+ * - Test notification actions (View Details, Snooze)
+ * - Verify notification appearance in system tray
+ */
 @Parcelize
 data object NotificationTesterScreen : Screen {
+    /**
+     * UI state for the Notification Tester screen.
+     *
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the Notification Tester.
+     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to Developer Portal */
         data object GoBack : Event()
     }
 }

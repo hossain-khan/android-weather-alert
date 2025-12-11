@@ -53,6 +53,8 @@ import dev.hossain.weatheralert.db.AlertDao
 import dev.hossain.weatheralert.db.AlertHistoryDao
 import dev.hossain.weatheralert.db.CityDao
 import dev.hossain.weatheralert.db.CityForecastDao
+import dev.hossain.weatheralert.ui.devtools.formatBytes
+import dev.hossain.weatheralert.ui.devtools.formatDate
 import dev.hossain.weatheralert.ui.theme.dimensions
 import dev.hossain.weatheralert.util.Analytics
 import dev.zacsweers.metro.AppScope
@@ -70,8 +72,36 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * Developer tool for inspecting the Room database state.
+ *
+ * This screen provides visibility into the app's database, allowing developers to
+ * view statistics, preview data, and export the database for analysis. Useful for
+ * debugging data persistence issues and validating database operations.
+ *
+ * Features:
+ * - View database statistics (counts, size, last modified)
+ * - Quick data previews (alerts, history, cities)
+ * - Display database file path with clipboard copy
+ * - Export database to Downloads folder
+ * - All operations run on background thread
+ *
+ * Note: Exposing DAOs directly in State is a deviation from typical Circuit pattern.
+ * This is accepted for developer tools to maintain simplicity. Production screens
+ * should collect data in Presenter and expose only primitives in State.
+ */
 @Parcelize
 data object DatabaseInspectorScreen : Screen {
+    /**
+     * UI state for the Database Inspector screen.
+     *
+     * @property context Android context for file operations
+     * @property alertDao DAO for accessing alert data
+     * @property alertHistoryDao DAO for accessing history data
+     * @property cityDao DAO for accessing city data
+     * @property cityForecastDao DAO for accessing forecast cache
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val context: Context,
         val alertDao: AlertDao,
@@ -81,7 +111,11 @@ data object DatabaseInspectorScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the Database Inspector.
+     */
     sealed class Event : CircuitUiEvent {
+        /** Navigate back to Developer Portal */
         data object GoBack : Event()
     }
 }
@@ -550,41 +584,6 @@ private fun ExportActionsCard(
             )
         }
     }
-}
-
-@Composable
-private fun InfoRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier,
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-    ) {
-        Text(
-            text = "$label:",
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
-        )
-    }
-}
-
-private fun formatBytes(bytes: Long): String =
-    when {
-        bytes < 1024 -> "$bytes B"
-        bytes < 1024 * 1024 -> "${bytes / 1024} KB"
-        else -> "${bytes / (1024 * 1024)} MB"
-    }
-
-private fun formatDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
 }
 
 private suspend fun exportDatabase(

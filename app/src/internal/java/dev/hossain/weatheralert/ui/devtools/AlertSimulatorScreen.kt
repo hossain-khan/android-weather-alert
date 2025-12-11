@@ -74,14 +74,37 @@ import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
+/**
+ * Developer tool for simulating weather alerts.
+ *
+ * This screen allows developers to create test weather alerts quickly without
+ * configuring them manually in the main app. All test data is marked with [TEST]
+ * prefix for easy identification and cleanup.
+ *
+ * Features:
+ * - Quick preset alerts (Snow, Rain, Multiple cities)
+ * - Custom alert creation with specific parameters
+ * - Delete all test alerts at once
+ * - Test data marked with [TEST] prefix
+ */
 @Parcelize
 data object AlertSimulatorScreen : Screen {
+    /**
+     * UI state for the Alert Simulator screen.
+     *
+     * @property alertDao DAO for alert operations
+     * @property cityDao DAO for city lookups
+     * @property eventSink Callback for handling user events
+     */
     data class State(
         val alertDao: AlertDao,
         val cityDao: CityDao,
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
+    /**
+     * Events that can be triggered from the Alert Simulator.
+     */
     sealed class Event : CircuitUiEvent {
         data object GoBack : Event()
     }
