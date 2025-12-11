@@ -83,8 +83,7 @@ class DeveloperPortalPresenter
                     }
 
                     DeveloperPortalScreen.Event.OpenAlertSimulator -> {
-                        // TODO: Navigate to Alert Simulator (Phase 2)
-                        Timber.tag("DevPortal").d("Alert Simulator - Coming Soon")
+                        navigator.goTo(AlertSimulatorScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenHistorySimulator -> {
