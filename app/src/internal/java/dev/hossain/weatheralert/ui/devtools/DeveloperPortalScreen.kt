@@ -60,6 +60,10 @@ data object DeveloperPortalScreen : Screen {
         data object OpenNotificationTester : Event()
 
         data object OpenWorkerTester : Event()
+
+        data object OpenDatabaseInspector : Event()
+
+        data object OpenStateManagement : Event()
     }
 }
 
@@ -96,6 +100,14 @@ class DeveloperPortalPresenter
 
                     DeveloperPortalScreen.Event.OpenWorkerTester -> {
                         navigator.goTo(WorkerTesterScreen)
+                    }
+
+                    DeveloperPortalScreen.Event.OpenDatabaseInspector -> {
+                        navigator.goTo(DatabaseInspectorScreen)
+                    }
+
+                    DeveloperPortalScreen.Event.OpenStateManagement -> {
+                        navigator.goTo(StateManagementScreen)
                     }
                 }
             }
@@ -169,6 +181,18 @@ private fun DeveloperPortalContent(
                 title = "Worker Testing",
                 description = "Trigger and monitor background workers",
                 onClick = { state.eventSink(DeveloperPortalScreen.Event.OpenWorkerTester) },
+            ),
+            DevTool(
+                icon = "🗄️",
+                title = "Database Inspector",
+                description = "View database stats and export data",
+                onClick = { state.eventSink(DeveloperPortalScreen.Event.OpenDatabaseInspector) },
+            ),
+            DevTool(
+                icon = "⚙️",
+                title = "State Management",
+                description = "View and reset app preferences",
+                onClick = { state.eventSink(DeveloperPortalScreen.Event.OpenStateManagement) },
             ),
         )
 
