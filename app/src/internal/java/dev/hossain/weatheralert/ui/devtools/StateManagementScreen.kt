@@ -340,6 +340,7 @@ private fun ResetActionsCard(
                 onClick = {
                     scope.launch {
                         preferencesManager.setOnboardingCompleted(false)
+                        Timber.tag("DevPortal").d("Reset onboarding flag to false")
                         snackbarHostState.showSnackbar("Onboarding reset - will show on next app launch")
                     }
                 },
@@ -356,6 +357,7 @@ private fun ResetActionsCard(
                 onClick = {
                     scope.launch {
                         preferencesManager.savePreferredUpdateInterval(DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS)
+                        Timber.tag("DevPortal").d("Reset update frequency to $DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS hours")
                         snackbarHostState.showSnackbar("Update frequency reset to $DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS hours")
                     }
                 },
@@ -372,6 +374,7 @@ private fun ResetActionsCard(
                 onClick = {
                     scope.launch {
                         preferencesManager.clearUserApiKeys()
+                        Timber.tag("DevPortal").d("Cleared all user API keys")
                         snackbarHostState.showSnackbar("All API keys cleared")
                     }
                 },
@@ -416,6 +419,7 @@ private fun ResetActionsCard(
                                 preferencesManager.savePreferredWeatherService(
                                     WeatherForecastService.WEATHER_API,
                                 )
+                                Timber.tag("DevPortal").d("Cleared all preferences successfully")
                                 snackbarHostState.showSnackbar("All preferences cleared")
                             } catch (e: Exception) {
                                 Timber.tag("DevPortal").e(e, "Failed to clear preferences")
@@ -529,6 +533,7 @@ private fun CacheManagementCard(
                                         cityForecastDao.deleteCityForecast(forecast)
                                     }
                                 }
+                                Timber.tag("DevPortal").d("Cleared $forecastCount cached forecasts")
                                 forecastCount = 0
                                 snackbarHostState.showSnackbar("Weather cache cleared")
                             } catch (e: Exception) {

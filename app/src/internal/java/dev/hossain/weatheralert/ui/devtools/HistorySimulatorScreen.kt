@@ -355,6 +355,7 @@ private fun TemplateCard(
                                         alertHistoryDao = alertHistoryDao,
                                         cityDao = cityDao,
                                     )
+                                Timber.tag("DevPortal").d("Generated $count history entries from template: ${template.name}")
                                 snackbarHostState.showSnackbar(
                                     "Generated $count history entries from ${template.name}",
                                 )
@@ -460,6 +461,7 @@ private fun CustomGeneratorCard(
                                 alertHistoryDao = alertHistoryDao,
                                 cityDao = cityDao,
                             )
+                        Timber.tag("DevPortal").d("Generated $count custom history entries")
                         snackbarHostState.showSnackbar(
                             "Generated $count custom history entries",
                         )
@@ -535,9 +537,14 @@ private fun ManagementCard(
             OutlinedButton(
                 onClick = {
                     scope.launch {
-                        withContext(Dispatchers.IO) {
-                            alertHistoryDao.deleteAll()
-                        }
+                        val count =
+                            withContext(Dispatchers.IO) {
+                                val all = alertHistoryDao.getAll()
+                                val size = all.size
+                                alertHistoryDao.deleteAll()
+                                size
+                            }
+                        Timber.tag("DevPortal").d("Cleared $count history entries")
                         snackbarHostState.showSnackbar("All history cleared")
                         onHistoryCleared()
                     }

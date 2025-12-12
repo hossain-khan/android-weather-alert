@@ -565,11 +565,13 @@ private fun ExistingTestAlertsCard(
                     OutlinedButton(
                         onClick = {
                             scope.launch {
+                                val count = testAlerts.size
                                 withContext(Dispatchers.IO) {
                                     testAlerts.forEach { alertDao.deleteAlert(it.alert) }
                                 }
+                                Timber.tag("DevPortal").d("Deleted $count test alerts")
                                 snackbarHostState.showSnackbar(
-                                    "Deleted ${testAlerts.size} test alerts",
+                                    "Deleted $count test alerts",
                                 )
                                 onAlertDeleted()
                             }
@@ -620,11 +622,14 @@ private fun ExistingTestAlertsCard(
                             IconButton(
                                 onClick = {
                                     scope.launch {
+                                        val alertId = userCityAlert.alert.id
+                                        val cityName = userCityAlert.city.cityName
                                         withContext(Dispatchers.IO) {
                                             alertDao.deleteAlert(userCityAlert.alert)
                                         }
+                                        Timber.tag("DevPortal").d("Deleted individual alert: ID=$alertId, city=$cityName")
                                         snackbarHostState.showSnackbar(
-                                            "Deleted alert ID: ${userCityAlert.alert.id}",
+                                            "Deleted alert ID: $alertId",
                                         )
                                         onAlertDeleted()
                                     }
