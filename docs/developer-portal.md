@@ -369,7 +369,7 @@ The portal provides 6 specialized tools for different testing needs:
 **Architecture Pattern:**
 - **Circuit Presenter**: Business logic and state management
 - **Circuit UI**: Pure presentational Compose functions
-- **Metro DI**: Kotlin-first dependency injection by Square
+- **Metro DI**: A multiplatform, compile-time dependency injection framework for Kotlin
 
 **Data Layer:**
 - **Room DAOs**: Direct database access (Alert, AlertHistory, City, CityForecast)
@@ -609,7 +609,7 @@ To add a new developer tool:
 
 ### External Documentation
 - [Circuit Architecture](https://slackhq.github.io/circuit/) - UDF pattern by Slack
-- [Metro DI](https://github.com/square/metro) - Kotlin-first DI framework by Square
+- [Metro DI](https://github.com/square/metro) - A multiplatform, compile-time dependency injection framework for Kotlin
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) - UI toolkit
 - [Room Database](https://developer.android.com/training/data-storage/room) - SQLite wrapper
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager) - Background jobs
