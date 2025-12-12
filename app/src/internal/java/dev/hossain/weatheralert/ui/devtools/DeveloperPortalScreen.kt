@@ -112,30 +112,37 @@ class DeveloperPortalPresenter
             return DeveloperPortalScreen.State { event ->
                 when (event) {
                     DeveloperPortalScreen.Event.GoBack -> {
+                        Timber.tag("DevPortal").d("Navigating back from Developer Portal")
                         navigator.pop()
                     }
 
                     DeveloperPortalScreen.Event.OpenAlertSimulator -> {
+                        Timber.tag("DevPortal").d("Opening Alert Simulator")
                         navigator.goTo(AlertSimulatorScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenHistorySimulator -> {
+                        Timber.tag("DevPortal").d("Opening History Simulator")
                         navigator.goTo(HistorySimulatorScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenNotificationTester -> {
+                        Timber.tag("DevPortal").d("Opening Notification Tester")
                         navigator.goTo(NotificationTesterScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenWorkerTester -> {
+                        Timber.tag("DevPortal").d("Opening Worker Tester")
                         navigator.goTo(WorkerTesterScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenDatabaseInspector -> {
+                        Timber.tag("DevPortal").d("Opening Database Inspector")
                         navigator.goTo(DatabaseInspectorScreen)
                     }
 
                     DeveloperPortalScreen.Event.OpenStateManagement -> {
+                        Timber.tag("DevPortal").d("Opening State Management")
                         navigator.goTo(StateManagementScreen)
                     }
                 }

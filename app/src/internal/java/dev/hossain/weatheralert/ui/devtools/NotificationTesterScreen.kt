@@ -400,6 +400,7 @@ private fun NotificationTesterContent(
 
                 OutlinedButton(
                     onClick = {
+                        Timber.tag("DevPortal").d("Sending debug preset notification")
                         debugNotification(context)
                         scope.launch {
                             snackbarHostState.showSnackbar("Debug notification sent!")

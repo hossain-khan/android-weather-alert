@@ -383,6 +383,7 @@ private fun DatabaseInfoCard(
                             android.content.ClipboardManager
                     val clip = android.content.ClipData.newPlainText("DB Path", dbPath)
                     clipboard.setPrimaryClip(clip)
+                    Timber.tag("DevPortal").d("Copied database path to clipboard: $dbPath")
                 },
                 modifier = Modifier.fillMaxWidth(),
                 enabled = dbPath.isNotEmpty(),
@@ -430,6 +431,7 @@ private fun QuickViewsCard(
                             withContext(Dispatchers.IO) {
                                 alertDao.getAll()
                             }
+                        Timber.tag("DevPortal").d("Quick view: Found ${alerts.size} alerts")
                         val message =
                             if (alerts.isEmpty()) {
                                 "No alerts found"
@@ -460,6 +462,7 @@ private fun QuickViewsCard(
                             withContext(Dispatchers.IO) {
                                 alertHistoryDao.getAll().take(10)
                             }
+                        Timber.tag("DevPortal").d("Quick view: Found ${history.size} recent history entries")
                         val message =
                             if (history.isEmpty()) {
                                 "No history found"
@@ -490,6 +493,7 @@ private fun QuickViewsCard(
                             withContext(Dispatchers.IO) {
                                 cityDao.searchCitiesByNameStartingWith("", 20).first()
                             }
+                        Timber.tag("DevPortal").d("Quick view: Found ${cities.size} sample cities")
                         val message =
                             if (cities.isEmpty()) {
                                 "No cities found"
@@ -553,6 +557,7 @@ private fun ExportActionsCard(
                                     exportDatabase(context, dbPath)
                                 }
                             if (result != null) {
+                                Timber.tag("DevPortal").d("Database export successful: $result")
                                 snackbarHostState.showSnackbar(
                                     "Database exported to: $result",
                                 )
