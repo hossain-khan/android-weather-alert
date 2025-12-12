@@ -73,7 +73,7 @@ jobs:
       - name: Create keystore.properties for release signing
         if: steps.keystore.outputs.USE_RELEASE_KEYSTORE == 'true'
         run: |
-          echo "storeFile=keystore/weather-alert-release.keystore" > keystore.properties
+          echo "storeFile=../keystore/weather-alert-release.keystore" > keystore.properties
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
