@@ -9,10 +9,41 @@ import dev.hossain.weatheralert.db.UserCityAlert
  *
  * This repository encapsulates all database operations needed by the developer portal,
  * including creating test alerts, generating history data, and performing city lookups.
+ *
+ * ## Usage Example
+ * ```kotlin
+ * @AssistedInject
+ * class MyDevToolPresenter
+ *     constructor(
+ *         @Assisted private val navigator: Navigator,
+ *         private val devToolsRepository: DevToolsRepository,
+ *     ) : Presenter<MyDevToolScreen.State> {
+ *
+ *     @Composable
+ *     override fun present(): MyDevToolScreen.State {
+ *         val scope = rememberCoroutineScope()
+ *
+ *         return MyDevToolScreen.State { event ->
+ *             when (event) {
+ *                 is CreateTestAlert -> {
+ *                     scope.launch {
+ *                         devToolsRepository.createTestAlert(
+ *                             cityId = event.cityId,
+ *                             category = WeatherAlertCategory.SNOW_FALL,
+ *                             threshold = 10.0f,
+ *                             notes = "Test alert"
+ *                         )
+ *                     }
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
  */
 interface DevToolsRepository {
     // Alert operations
-    
+
     /**
      * Creates a test alert with the [TEST] prefix in notes.
      *
@@ -28,30 +59,30 @@ interface DevToolsRepository {
         threshold: Float,
         notes: String,
     ): Long
-    
+
     /**
      * Retrieves all test alerts (those with [TEST] prefix in notes).
      *
      * @return List of all test alerts with their associated city data
      */
     suspend fun getTestAlerts(): List<UserCityAlert>
-    
+
     /**
      * Deletes a specific test alert by ID.
      *
      * @param alertId The ID of the alert to delete
      */
     suspend fun deleteTestAlert(alertId: Long)
-    
+
     /**
      * Deletes all test alerts (those with [TEST] prefix in notes).
      *
      * @return Number of alerts deleted
      */
     suspend fun deleteAllTestAlerts(): Int
-    
+
     // History operations
-    
+
     /**
      * Generates random alert history entries for testing.
      *
@@ -69,23 +100,23 @@ interface DevToolsRepository {
         cities: List<String>,
         categories: List<WeatherAlertCategory>,
     ): Int
-    
+
     /**
      * Gets statistics about alert history.
      *
      * @return Statistics including counts by time period and category
      */
     suspend fun getHistoryStats(): HistoryStats
-    
+
     /**
      * Clears all test alert history entries.
      *
      * @return Number of history entries deleted
      */
     suspend fun clearTestHistory(): Int
-    
+
     // City operations
-    
+
     /**
      * Searches for cities by name.
      *
@@ -97,7 +128,7 @@ interface DevToolsRepository {
         query: String,
         limit: Int = 20,
     ): List<City>
-    
+
     /**
      * Gets popular cities (by population).
      *

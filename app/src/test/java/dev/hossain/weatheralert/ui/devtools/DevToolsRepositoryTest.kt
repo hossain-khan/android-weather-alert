@@ -188,17 +188,18 @@ class DevToolsRepositoryTest {
             // Given
             val city = createTestCity(id = 1, name = "Test City")
             cityDao.insertCity(city)
-            
+
             // Create a test alert for the history entries to reference
-            val alertId = alertDao.insertAlert(
-                Alert(
-                    cityId = 1,
-                    alertCategory = WeatherAlertCategory.SNOW_FALL,
-                    threshold = 10.0f,
-                    notes = "[TEST] Test alert",
+            val alertId =
+                alertDao.insertAlert(
+                    Alert(
+                        cityId = 1,
+                        alertCategory = WeatherAlertCategory.SNOW_FALL,
+                        threshold = 10.0f,
+                        notes = "[TEST] Test alert",
+                    ),
                 )
-            )
-            
+
             val startTime = System.currentTimeMillis() - (30 * 24 * 60 * 60 * 1000L) // 30 days ago
             val endTime = System.currentTimeMillis()
             val cities = listOf("New York", "Los Angeles", "Chicago")
@@ -226,7 +227,7 @@ class DevToolsRepositoryTest {
             // Given
             val city = createTestCity(id = 1, name = "Test City")
             cityDao.insertCity(city)
-            
+
             // Create a test alert for the history entries to reference
             alertDao.insertAlert(
                 Alert(
@@ -234,9 +235,9 @@ class DevToolsRepositoryTest {
                     alertCategory = WeatherAlertCategory.SNOW_FALL,
                     threshold = 10.0f,
                     notes = "[TEST] Test alert",
-                )
+                ),
             )
-            
+
             val startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000L) // 7 days ago
             val endTime = System.currentTimeMillis()
 
@@ -263,17 +264,18 @@ class DevToolsRepositoryTest {
             // Given
             val city = createTestCity(id = 1, name = "Test City")
             cityDao.insertCity(city)
-            
+
             // Create a test alert for the history entries to reference
-            val alertId = alertDao.insertAlert(
-                Alert(
-                    cityId = 1,
-                    alertCategory = WeatherAlertCategory.SNOW_FALL,
-                    threshold = 10.0f,
-                    notes = "[TEST] Test alert",
+            val alertId =
+                alertDao.insertAlert(
+                    Alert(
+                        cityId = 1,
+                        alertCategory = WeatherAlertCategory.SNOW_FALL,
+                        threshold = 10.0f,
+                        notes = "[TEST] Test alert",
+                    ),
                 )
-            )
-            
+
             val currentTime = System.currentTimeMillis()
             val sevenDaysAgo = currentTime - (7 * 24 * 60 * 60 * 1000L)
             val thirtyDaysAgo = currentTime - (30 * 24 * 60 * 60 * 1000L)
@@ -281,13 +283,25 @@ class DevToolsRepositoryTest {
 
             // Create history entries at different times and categories
             alertHistoryDao.insert(
-                createTestHistoryEntry(alertId = alertId, triggeredAt = currentTime - (3 * 24 * 60 * 60 * 1000L), category = WeatherAlertCategory.SNOW_FALL),
+                createTestHistoryEntry(
+                    alertId = alertId,
+                    triggeredAt = currentTime - (3 * 24 * 60 * 60 * 1000L),
+                    category = WeatherAlertCategory.SNOW_FALL,
+                ),
             )
             alertHistoryDao.insert(
-                createTestHistoryEntry(alertId = alertId, triggeredAt = currentTime - (10 * 24 * 60 * 60 * 1000L), category = WeatherAlertCategory.RAIN_FALL),
+                createTestHistoryEntry(
+                    alertId = alertId,
+                    triggeredAt = currentTime - (10 * 24 * 60 * 60 * 1000L),
+                    category = WeatherAlertCategory.RAIN_FALL,
+                ),
             )
             alertHistoryDao.insert(
-                createTestHistoryEntry(alertId = alertId, triggeredAt = currentTime - (35 * 24 * 60 * 60 * 1000L), category = WeatherAlertCategory.SNOW_FALL),
+                createTestHistoryEntry(
+                    alertId = alertId,
+                    triggeredAt = currentTime - (35 * 24 * 60 * 60 * 1000L),
+                    category = WeatherAlertCategory.SNOW_FALL,
+                ),
             )
 
             // When
@@ -307,7 +321,7 @@ class DevToolsRepositoryTest {
             // Given
             val city = createTestCity(id = 1, name = "Test City")
             cityDao.insertCity(city)
-            
+
             // Create a test alert for the history entries to reference
             alertDao.insertAlert(
                 Alert(
@@ -315,9 +329,9 @@ class DevToolsRepositoryTest {
                     alertCategory = WeatherAlertCategory.SNOW_FALL,
                     threshold = 10.0f,
                     notes = "[TEST] Test alert",
-                )
+                ),
             )
-            
+
             repository.generateAlertHistory(
                 count = 5,
                 startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000L),

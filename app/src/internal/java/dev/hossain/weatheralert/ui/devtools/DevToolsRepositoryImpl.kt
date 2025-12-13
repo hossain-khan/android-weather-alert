@@ -128,7 +128,7 @@ class DevToolsRepositoryImpl
             Timber.d("Generated $generatedCount alert history entries")
             return generatedCount
         }
-        
+
         /**
          * Gets or creates a dummy alert for history generation.
          * This is needed because AlertHistory has a foreign key constraint on Alert.
@@ -141,25 +141,27 @@ class DevToolsRepositoryImpl
             } else {
                 // Create a dummy city if needed
                 val dummyCity = cityDao.getAllCities().first().firstOrNull()
-                val cityId = dummyCity?.id ?: run {
-                    // If no cities exist, create one
-                    val newCity = City(
-                        id = Long.MAX_VALUE,
-                        city = "[TEST] Dummy City",
-                        cityName = "[TEST] Dummy City",
-                        lat = 0.0,
-                        lng = 0.0,
-                        country = "TEST",
-                        iso2 = "XX",
-                        iso3 = "XXX",
-                        provStateName = "Test",
-                        capital = null,
-                        population = 0,
-                    )
-                    cityDao.insertCity(newCity)
-                    newCity.id
-                }
-                
+                val cityId =
+                    dummyCity?.id ?: run {
+                        // If no cities exist, create one
+                        val newCity =
+                            City(
+                                id = Long.MAX_VALUE,
+                                city = "[TEST] Dummy City",
+                                cityName = "[TEST] Dummy City",
+                                lat = 0.0,
+                                lng = 0.0,
+                                country = "TEST",
+                                iso2 = "XX",
+                                iso3 = "XXX",
+                                provStateName = "Test",
+                                capital = null,
+                                population = 0,
+                            )
+                        cityDao.insertCity(newCity)
+                        newCity.id
+                    }
+
                 // Create a dummy alert
                 createTestAlert(
                     cityId = cityId,
@@ -220,7 +222,9 @@ class DevToolsRepositoryImpl
 
             // Get all cities and sort by population
             val cities =
-                cityDao.getAllCities().first()
+                cityDao
+                    .getAllCities()
+                    .first()
                     .filter { it.population != null }
                     .sortedByDescending { it.population }
                     .take(limit)
