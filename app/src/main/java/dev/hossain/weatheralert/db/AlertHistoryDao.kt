@@ -61,4 +61,23 @@ interface AlertHistoryDao {
 
     @Query("SELECT COUNT(*) FROM alert_history WHERE triggered_at >= :startTime")
     suspend fun getCountSince(startTime: Long): Int
+
+    /**
+     * Batch insert alert history entries within a transaction.
+     * More efficient than individual inserts for bulk operations.
+     *
+     * @param historyEntries List of alert history entries to insert
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(historyEntries: List<AlertHistory>)
+
+    /**
+     * Get statistics about alert history using SQL aggregations.
+     * More efficient than loading all records into memory.
+     */
+    @Query("SELECT COUNT(*) FROM alert_history")
+    suspend fun getTotalCount(): Int
+
+    @Query("SELECT COUNT(*) FROM alert_history WHERE alert_category = :category")
+    suspend fun getCountByCategory(category: WeatherAlertCategory): Int
 }
