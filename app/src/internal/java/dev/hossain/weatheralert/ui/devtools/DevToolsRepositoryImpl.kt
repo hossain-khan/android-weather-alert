@@ -36,6 +36,15 @@ class DevToolsRepositoryImpl
         companion object {
             private const val TEST_PREFIX = "[TEST]"
             private const val MILLIS_IN_DAY = 24 * 60 * 60 * 1000L
+
+            // Random value generation constants for alert history
+            private const val MIN_THRESHOLD = 5f
+            private const val THRESHOLD_RANGE = 50f
+            private const val WEATHER_VALUE_MIN_FACTOR = 0.5
+            private const val WEATHER_VALUE_MAX_FACTOR = 2.0
+
+            // Dummy city ID for test data (negative to avoid conflicts)
+            private const val DUMMY_CITY_ID = -1L
         }
 
         override suspend fun createTestAlert(
@@ -108,8 +117,12 @@ class DevToolsRepositoryImpl
                 val randomTime = Random.nextLong(startTime, endTime)
                 val randomCity = cities.random()
                 val randomCategory = categories.random()
-                val randomThreshold = Random.nextFloat() * 50f + 5f // 5-55 range
-                val randomWeatherValue = Random.nextDouble(randomThreshold.toDouble() * 0.5, randomThreshold.toDouble() * 2.0)
+                val randomThreshold = Random.nextFloat() * THRESHOLD_RANGE + MIN_THRESHOLD
+                val randomWeatherValue =
+                    Random.nextDouble(
+                        randomThreshold.toDouble() * WEATHER_VALUE_MIN_FACTOR,
+                        randomThreshold.toDouble() * WEATHER_VALUE_MAX_FACTOR,
+                    )
 
                 val history =
                     AlertHistory(
@@ -144,9 +157,10 @@ class DevToolsRepositoryImpl
                 val cityId =
                     dummyCity?.id ?: run {
                         // If no cities exist, create one
+                        // Using negative ID to clearly distinguish from real cities and avoid conflicts
                         val newCity =
                             City(
-                                id = Long.MAX_VALUE,
+                                id = DUMMY_CITY_ID,
                                 city = "[TEST] Dummy City",
                                 cityName = "[TEST] Dummy City",
                                 lat = 0.0,

@@ -32,6 +32,12 @@ class DevToolsRepositoryTest {
 
     private val context: Context = ApplicationProvider.getApplicationContext()
 
+    companion object {
+        private const val MILLIS_IN_DAY = 24 * 60 * 60 * 1000L
+        private const val SEVEN_DAYS_IN_MILLIS = 7 * MILLIS_IN_DAY
+        private const val THIRTY_DAYS_IN_MILLIS = 30 * MILLIS_IN_DAY
+    }
+
     @Before
     fun setUp() {
         database = TestDatabaseModule.provideInMemoryDatabase(context)
@@ -200,7 +206,7 @@ class DevToolsRepositoryTest {
                     ),
                 )
 
-            val startTime = System.currentTimeMillis() - (30 * 24 * 60 * 60 * 1000L) // 30 days ago
+            val startTime = System.currentTimeMillis() - THIRTY_DAYS_IN_MILLIS
             val endTime = System.currentTimeMillis()
             val cities = listOf("New York", "Los Angeles", "Chicago")
             val categories = listOf(WeatherAlertCategory.SNOW_FALL, WeatherAlertCategory.RAIN_FALL)
@@ -238,7 +244,7 @@ class DevToolsRepositoryTest {
                 ),
             )
 
-            val startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000L) // 7 days ago
+            val startTime = System.currentTimeMillis() - SEVEN_DAYS_IN_MILLIS
             val endTime = System.currentTimeMillis()
 
             // When
@@ -277,29 +283,26 @@ class DevToolsRepositoryTest {
                 )
 
             val currentTime = System.currentTimeMillis()
-            val sevenDaysAgo = currentTime - (7 * 24 * 60 * 60 * 1000L)
-            val thirtyDaysAgo = currentTime - (30 * 24 * 60 * 60 * 1000L)
-            val fortyDaysAgo = currentTime - (40 * 24 * 60 * 60 * 1000L)
 
             // Create history entries at different times and categories
             alertHistoryDao.insert(
                 createTestHistoryEntry(
                     alertId = alertId,
-                    triggeredAt = currentTime - (3 * 24 * 60 * 60 * 1000L),
+                    triggeredAt = currentTime - (3 * MILLIS_IN_DAY),
                     category = WeatherAlertCategory.SNOW_FALL,
                 ),
             )
             alertHistoryDao.insert(
                 createTestHistoryEntry(
                     alertId = alertId,
-                    triggeredAt = currentTime - (10 * 24 * 60 * 60 * 1000L),
+                    triggeredAt = currentTime - (10 * MILLIS_IN_DAY),
                     category = WeatherAlertCategory.RAIN_FALL,
                 ),
             )
             alertHistoryDao.insert(
                 createTestHistoryEntry(
                     alertId = alertId,
-                    triggeredAt = currentTime - (35 * 24 * 60 * 60 * 1000L),
+                    triggeredAt = currentTime - (35 * MILLIS_IN_DAY),
                     category = WeatherAlertCategory.SNOW_FALL,
                 ),
             )
@@ -334,7 +337,7 @@ class DevToolsRepositoryTest {
 
             repository.generateAlertHistory(
                 count = 5,
-                startTime = System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000L),
+                startTime = System.currentTimeMillis() - SEVEN_DAYS_IN_MILLIS,
                 endTime = System.currentTimeMillis(),
                 cities = listOf("Test City"),
                 categories = listOf(WeatherAlertCategory.SNOW_FALL),
