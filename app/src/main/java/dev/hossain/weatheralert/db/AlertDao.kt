@@ -66,4 +66,14 @@ interface AlertDao {
     @Transaction
     @Query("SELECT * FROM alerts")
     suspend fun getAllAlertsWithCities(): List<UserCityAlert>
+
+    /**
+     * Deletes all alerts that contain the specified prefix in their notes.
+     * This is used for bulk deletion of test alerts.
+     *
+     * @param prefix The prefix to match in alert notes (e.g., "[TEST]")
+     * @return The number of alerts deleted
+     */
+    @Query("DELETE FROM alerts WHERE notes LIKE :prefix || '%'")
+    suspend fun deleteAlertsByNotesPrefix(prefix: String): Int
 }

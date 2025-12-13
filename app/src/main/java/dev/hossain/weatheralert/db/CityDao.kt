@@ -52,4 +52,14 @@ interface CityDao {
         searchQuery: String,
         limit: Int,
     ): Flow<List<City>>
+
+    /**
+     * Gets the most popular cities sorted by population.
+     * More efficient than loading all cities into memory.
+     *
+     * @param limit Maximum number of cities to return
+     * @return Flow of cities sorted by population (descending)
+     */
+    @Query("SELECT * FROM cities WHERE population IS NOT NULL ORDER BY population DESC LIMIT :limit")
+    fun getPopularCities(limit: Int): Flow<List<City>>
 }

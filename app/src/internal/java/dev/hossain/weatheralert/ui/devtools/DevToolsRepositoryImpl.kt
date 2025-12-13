@@ -88,12 +88,10 @@ class DevToolsRepositoryImpl
         }
 
         override suspend fun deleteAllTestAlerts(): Int {
-            val testAlerts = getTestAlerts()
-            testAlerts.forEach { userCityAlert ->
-                alertDao.deleteAlertById(userCityAlert.alert.id)
-            }
-            Timber.d("Deleted ${testAlerts.size} test alerts")
-            return testAlerts.size
+            // Efficient batch delete using DAO method with transaction
+            val deletedCount = alertDao.deleteAlertsByNotesPrefix(TEST_PREFIX)
+            Timber.d("Deleted $deletedCount test alerts")
+            return deletedCount
         }
 
         override suspend fun generateAlertHistory(
@@ -112,19 +110,19 @@ class DevToolsRepositoryImpl
             // This is needed because AlertHistory has a foreign key constraint on Alert
             val dummyAlertId = getOrCreateDummyAlert()
 
-            var generatedCount = 0
-            repeat(count) {
-                val randomTime = Random.nextLong(startTime, endTime)
-                val randomCity = cities.random()
-                val randomCategory = categories.random()
-                val randomThreshold = Random.nextFloat() * THRESHOLD_RANGE + MIN_THRESHOLD
-                val randomWeatherValue =
-                    Random.nextDouble(
-                        randomThreshold.toDouble() * WEATHER_VALUE_MIN_FACTOR,
-                        randomThreshold.toDouble() * WEATHER_VALUE_MAX_FACTOR,
-                    )
+            // Build list of history entries
+            val historyEntries =
+                List(count) {
+                    val randomTime = Random.nextLong(startTime, endTime)
+                    val randomCity = cities.random()
+                    val randomCategory = categories.random()
+                    val randomThreshold = Random.nextFloat() * THRESHOLD_RANGE + MIN_THRESHOLD
+                    val randomWeatherValue =
+                        Random.nextDouble(
+                            randomThreshold.toDouble() * WEATHER_VALUE_MIN_FACTOR,
+                            randomThreshold.toDouble() * WEATHER_VALUE_MAX_FACTOR,
+                        )
 
-                val history =
                     AlertHistory(
                         alertId = dummyAlertId,
                         triggeredAt = randomTime,
@@ -133,13 +131,13 @@ class DevToolsRepositoryImpl
                         cityName = randomCity,
                         alertCategory = randomCategory,
                     )
+                }
 
-                alertHistoryDao.insert(history)
-                generatedCount++
-            }
+            // Batch insert using transaction for better performance and atomicity
+            alertHistoryDao.insertAll(historyEntries)
 
-            Timber.d("Generated $generatedCount alert history entries")
-            return generatedCount
+            Timber.d("Generated ${historyEntries.size} alert history entries")
+            return historyEntries.size
         }
 
         /**
@@ -191,12 +189,12 @@ class DevToolsRepositoryImpl
             val sevenDaysAgo = currentTime - (7 * MILLIS_IN_DAY)
             val thirtyDaysAgo = currentTime - (30 * MILLIS_IN_DAY)
 
-            val allHistory = alertHistoryDao.getAll()
-            val totalCount = allHistory.size
-            val last7DaysCount = allHistory.count { it.triggeredAt >= sevenDaysAgo }
-            val last30DaysCount = allHistory.count { it.triggeredAt >= thirtyDaysAgo }
-            val snowCount = allHistory.count { it.alertCategory == WeatherAlertCategory.SNOW_FALL }
-            val rainCount = allHistory.count { it.alertCategory == WeatherAlertCategory.RAIN_FALL }
+            // Use SQL aggregate queries for better performance
+            val totalCount = alertHistoryDao.getTotalCount()
+            val last7DaysCount = alertHistoryDao.getCountSince(sevenDaysAgo)
+            val last30DaysCount = alertHistoryDao.getCountSince(thirtyDaysAgo)
+            val snowCount = alertHistoryDao.getCountByCategory(WeatherAlertCategory.SNOW_FALL)
+            val rainCount = alertHistoryDao.getCountByCategory(WeatherAlertCategory.RAIN_FALL)
 
             val stats =
                 HistoryStats(
@@ -234,14 +232,8 @@ class DevToolsRepositoryImpl
         override suspend fun getPopularCities(limit: Int): List<City> {
             require(limit > 0) { "Limit must be positive" }
 
-            // Get all cities and sort by population
-            val cities =
-                cityDao
-                    .getAllCities()
-                    .first()
-                    .filter { it.population != null }
-                    .sortedByDescending { it.population }
-                    .take(limit)
+            // Query the top N cities by population directly from the database
+            val cities = cityDao.getPopularCities(limit).first()
 
             Timber.d("Retrieved ${cities.size} popular cities")
             return cities
