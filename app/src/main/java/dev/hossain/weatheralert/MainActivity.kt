@@ -35,7 +35,7 @@ import dev.zacsweers.metro.binding
 import timber.log.Timber
 
 @ContributesIntoMap(AppScope::class, binding<Activity>())
-@ActivityKey(MainActivity::class)
+@ActivityKey
 @Inject
 class MainActivity
     constructor(

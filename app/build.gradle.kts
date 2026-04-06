@@ -203,7 +203,6 @@ dependencies {
     implementation(libs.circuitx.gestureNav)
     implementation(libs.circuitx.overlays)
     implementation(libs.androidx.junit.ktx)
-    ksp(libs.circuit.codegen)
 
     implementation(libs.timber)
 
@@ -262,9 +261,10 @@ dependencies {
     testImplementation(libs.robolectric)
 }
 
-ksp {
-    // Circuit-KSP for Metro
-    arg("circuit.codegen.mode", "metro")
+metro {
+    // Use Metro's built-in Circuit codegen instead of the KSP-based circuit-codegen processor.
+    // https://zacsweers.github.io/metro/latest/circuit/
+    enableCircuitCodegen.set(true)
 }
 
 
