@@ -15,6 +15,11 @@
 ### What's new
 * Unreleased
 
+## Weather Alert v2.15
+
+### What's new
+* Unreleased
+
 ## Weather Alert v2.14
 
 ### What's new
