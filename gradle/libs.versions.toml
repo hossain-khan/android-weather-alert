@@ -88,6 +88,10 @@ timber = "5.0.1"
 # https://developer.android.com/jetpack/androidx/releases/work
 workManager = "2.11.2"
 
+# Kover is a set of solutions for collecting test coverage of Kotlin code compiled for JVM and Android platforms.
+# https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#kover-gradle-plugin
+kotlinxKover = "0.9.8"
+
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 
@@ -228,5 +232,5 @@ firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "
 
 # Kover is a set of solutions for collecting test coverage of Kotlin code compiled for JVM and Android platforms.
 # https://github.com/Kotlin/kotlinx-kover?tab=readme-ov-file#kover-gradle-plugin
-kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.9.1" }
+kotlinx-kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kotlinxKover" }
 
