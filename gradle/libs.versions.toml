@@ -1,34 +1,34 @@
 [versions]
-activityCompose = "1.12.0"
+activityCompose = "1.13.0"
 
 # Adaptive library to create adaptive UIs
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
 adaptiveAndroid = "1.2.0"
 
-agp = "8.11.2"
+agp = "8.13.2"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
-metro = "0.8.0"
+metro = "0.13.1"
 
 # https://github.com/slackhq/circuit/releases
-circuit = "0.29.1"
+circuit = "0.33.1"
 
-composeBom = "2025.07.00"
-composeMaterial3 = "1.3.2"
-coreKtx = "1.17.0"
+composeBom = "2026.03.01"
+composeMaterial3 = "1.4.0"
+coreKtx = "1.18.0"
 coroutinesTest = "1.10.2"
 
-dataStore = "1.2.0"
+dataStore = "1.2.1"
 
 # API result type for modeling network API responses.
 # https://github.com/slackhq/EitherNet
 eithernet = "2.0.0"
 espressoCore = "3.7.0"
-firebaseBom = "33.15.0"
+firebaseBom = "34.11.0"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
-googleFonts = "1.9.5"
+googleFonts = "1.10.6"
 
 # Fluent assertions for Java and Android
 # https://truth.dev/ | https://github.com/google/truth
@@ -40,24 +40,24 @@ junitKtx = "1.3.0"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.3.0"
 
-kotlin = "2.2.21"
+kotlin = "2.3.20"
 
 # Kotlin linter with built-in formatter
 # https://github.com/jeremymailen/kotlinter-gradle
 # https://github.com/pinterest/ktlint
-kotlinter = "5.3.0"
+kotlinter = "5.4.2"
 
 googleGmsServices = "4.4.4"
 
 crashlyticsPlugin = "3.0.6"
 
-kotlinxSerializationJson = "1.9.0"
-kotlinxSerializationProperties = "1.9.0"
+kotlinxSerializationJson = "1.10.0"
+kotlinxSerializationProperties = "1.10.0"
 
 # Kotlin Symbol Processing API
 # https://kotlinlang.org/docs/ksp-overview.html
 # https://github.com/google/ksp/releases
-ksp = "2.2.21-2.0.4"
+ksp = "2.3.6"
 
 lifecycleRuntimeKtx = "2.10.0"
 
@@ -67,14 +67,14 @@ moshi = "1.15.2"
 
 # Navigation for Jetpack Compose
 # https://developer.android.com/develop/ui/compose/navigation
-navigationCompose = "2.9.6"
+navigationCompose = "2.9.7"
 
 # Http client for Android
 # https://square.github.io/okhttp/
-okhttp = "4.12.0"
+okhttp = "5.3.2"
 retrofit = "3.0.0"
 
-robolectric = "4.16"
+robolectric = "4.16.1"
 
 # Room Database
 # https://developer.android.com/training/data-storage/room
@@ -86,7 +86,7 @@ testCore = "1.7.0"
 timber = "5.0.1"
 
 # https://developer.android.com/jetpack/androidx/releases/work
-workManager = "2.11.0"
+workManager = "2.11.2"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
