@@ -2,7 +2,6 @@ package dev.hossain.weatheralert
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import com.google.common.truth.Truth.assertThat
 import com.slack.circuit.runtime.screen.Screen
@@ -44,7 +43,7 @@ class MainActivityDeepLinkTest {
         assertThat((rootScreen as CurrentWeatherAlertScreen).id).isEqualTo("root")
 
         // Verify second screen is the detail screen with correct alert ID
-        val detailScreen = screens?.get(1)
+        val detailScreen = screens[1]
         assertThat(detailScreen).isInstanceOf(WeatherAlertDetailsScreen::class.java)
         assertThat((detailScreen as WeatherAlertDetailsScreen).alertId).isEqualTo(userAlertId)
     }
@@ -89,7 +88,7 @@ class MainActivityDeepLinkTest {
                     BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN,
                     Screen::class.java,
                 )
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 null
             }
         // Builds stack of screens to navigate to - matching MainActivity implementation
