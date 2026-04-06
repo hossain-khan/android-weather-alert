@@ -12,8 +12,9 @@ jobs:
 
     strategy:
       matrix:
-        # Java JDK versions (LTS: 17, 21 & Non-LTS: 23)
-        java-version: [ '17', '21', '23' ]
+        # Java JDK versions (LTS: 21 & Non-LTS: 23)
+        # Note: Metro 0.13.1+ requires JVM 21+
+        java-version: [ '21', '23' ]
         # https://adoptium.net/temurin/releases/
         distribution: [ 'temurin' ]
 

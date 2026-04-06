@@ -32,8 +32,6 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoMap
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.binding
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import timber.log.Timber
 
 @ContributesIntoMap(AppScope::class, binding<Activity>())
@@ -61,7 +59,7 @@ class MainActivity
                 val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
                 WeatherAlertAppTheme(dimensions = windowSizeClass.windowWidthSizeClass.dimensions()) {
                     // See https://slackhq.github.io/circuit/navigation/
-                    val stack: ImmutableList<Screen> =
+                    val stack: List<Screen> =
                         remember {
                             parseDeepLinkedScreens(intent) ?: getInitialScreen()
                         }
@@ -92,13 +90,13 @@ class MainActivity
          * Determines the initial screen to show based on onboarding completion status.
          * Shows onboarding for first-time users, otherwise shows the main alerts screen.
          */
-        private fun getInitialScreen(): ImmutableList<Screen> {
+        private fun getInitialScreen(): List<Screen> {
             val isOnboardingCompleted = preferencesManager.isOnboardingCompletedSync
             Timber.d("Onboarding completed: $isOnboardingCompleted")
             return if (isOnboardingCompleted) {
-                persistentListOf(CurrentWeatherAlertScreen("root"))
+                listOf(CurrentWeatherAlertScreen("root"))
             } else {
-                persistentListOf(OnboardingScreen)
+                listOf(OnboardingScreen)
             }
         }
 
@@ -137,7 +135,7 @@ class MainActivity
             }
         }
 
-        private fun parseDeepLinkedScreens(intent: Intent): ImmutableList<Screen>? {
+        private fun parseDeepLinkedScreens(intent: Intent): List<Screen>? {
             val bundle: Bundle = intent.extras ?: return null
             val screen: Screen? =
                 BundleCompat.getParcelable(
@@ -147,6 +145,6 @@ class MainActivity
                 )
             Timber.d("parseDeepLinkedScreens: $screen")
             // Builds stack of screens to navigate to.
-            return screen?.let { persistentListOf(CurrentWeatherAlertScreen("root"), it) }
+            return screen?.let { listOf(CurrentWeatherAlertScreen("root"), it) }
         }
     }

@@ -9,7 +9,6 @@ import com.slack.circuit.runtime.screen.Screen
 import dev.hossain.weatheralert.deeplinking.BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN
 import dev.hossain.weatheralert.ui.alertslist.CurrentWeatherAlertScreen
 import dev.hossain.weatheralert.ui.details.WeatherAlertDetailsScreen
-import kotlinx.collections.immutable.ImmutableList
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -81,7 +80,7 @@ class MainActivityDeepLinkTest {
      * Helper method to test the private parseDeepLinkedScreens method logic.
      * This mimics the actual implementation in MainActivity.
      */
-    private fun parseDeepLinkedScreensHelper(intent: Intent): ImmutableList<Screen>? {
+    private fun parseDeepLinkedScreensHelper(intent: Intent): List<Screen>? {
         val bundle: Bundle = intent.extras ?: return null
         val screen: Screen? =
             try {
@@ -95,7 +94,7 @@ class MainActivityDeepLinkTest {
             }
         // Builds stack of screens to navigate to - matching MainActivity implementation
         return screen?.let {
-            kotlinx.collections.immutable.persistentListOf(
+            listOf(
                 CurrentWeatherAlertScreen("root"),
                 it,
             )
