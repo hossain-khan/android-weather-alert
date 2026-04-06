@@ -18,7 +18,7 @@
 ## Weather Alert v2.15
 
 ### What's new
-* Unreleased
+* Fixed API key missing issue from prod build using CI workflow
 
 ## Weather Alert v2.14
 
