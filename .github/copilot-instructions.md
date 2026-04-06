@@ -292,6 +292,12 @@ object WeatherServiceModule {
 4. Verify minimum coverage threshold (50%)
 5. Run lint checks: `./gradlew lintKotlin`
 
+### Artifact Validation
+After building the APK/AAB:
+- **Verify API keys are present**: Use tools like `apktool` or Android Analyzer to decode the APK and confirm `BuildConfig.OPEN_WEATHER_API_KEY`, `BuildConfig.TOMORROW_IO_API_KEY`, and `BuildConfig.WEATHERAPI_API_KEY` are not "MISSING-KEY"
+- **Validate in GitHub release**: When APK/AAB artifacts are available in the GitHub release, verify the keys are correctly embedded (not placeholder values)
+- **Purpose**: Ensures the release build workflow correctly passed secrets to the build process and the app will function properly in production
+
 ### Code Review
 - Ensure all tests pass
 - Verify proper error handling
