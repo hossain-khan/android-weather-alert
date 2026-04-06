@@ -80,6 +80,13 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
           echo "✅ keystore.properties created for release signing"
 
+      - name: Create local.properties with API keys
+        run: |
+          echo "OPEN_WEATHER_API_KEY=${{ secrets.OPEN_WEATHER_API_KEY }}" > local.properties
+          echo "TOMORROW_IO_API_KEY=${{ secrets.TOMORROW_IO_API_KEY }}" >> local.properties
+          echo "WEATHERAPI_API_KEY=${{ secrets.WEATHERAPI_API_KEY }}" >> local.properties
+          echo "✅ local.properties created with API keys"
+
       - name: Build Release APK and AAB
         run: ./gradlew assembleProdRelease bundleProdRelease --parallel --daemon
 
