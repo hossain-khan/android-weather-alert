@@ -15,6 +15,15 @@
 ### What's new
 * Unreleased
 
+## Weather Alert v2.14
+
+### What's new
+* Added a new Developer Portal with tools for exploring app state, testing alerts, notifications, and WorkManager behavior.
+* Added an Alert Simulator, Notification Tester, WorkManager Tester, Database Inspector, and Alert History Simulator to improve debugging and development workflows.
+* Updated Developer Portal documentation and improved dev tooling with clearer documentation, KDoc fixes, and shared utility refactors.
+* Updated CI and build tooling including GitHub Actions versions, Kover version, and release workflow fixes for keystore path handling.
+* Fixed prod variant build issues and optimized repository operations with transaction and SQL aggregation improvements.
+
 ## Weather Alert v2.13
 
 ### What's new
