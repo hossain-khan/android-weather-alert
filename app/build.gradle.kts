@@ -84,13 +84,9 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
 
-            firebaseCrashlytics {
-                // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
-                // https://developer.android.com/studio/debug/stacktraces
-                // https://developer.android.com/tools/retrace
-                // https://www.guardsquare.com/manual/tools/retrace
-                mappingFileUploadEnabled = true
-            }
+            // Note: firebaseCrashlytics { mappingFileUploadEnabled } removed — isMinifyEnabled=false
+            // means no mapping file is generated, so upload configuration is a no-op.
+            // See: https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
         }
     }
 
