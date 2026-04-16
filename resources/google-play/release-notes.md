@@ -15,6 +15,14 @@
 ### What's new
 * Unreleased
 
+## Weather Alert v2.16
+
+### What's new
+* Updated Android Gradle Plugin (AGP) and Gradle to latest versions
+* Updated library dependencies to latest available versions
+* Fixed Gradle warnings and improved build configuration
+* Infrastructure and tooling improvements for better build stability
+
 ## Weather Alert v2.15
 
 ### What's new
