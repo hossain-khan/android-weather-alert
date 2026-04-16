@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.services)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.metro)
@@ -114,6 +113,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -131,13 +136,6 @@ android {
     }
 }
 
-
-kotlin {
-    // See https://kotlinlang.org/docs/gradle-compiler-options.html
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-    }
-}
 
 
 // Kotlin Code Coverage - https://github.com/Kotlin/kotlinx-kover
