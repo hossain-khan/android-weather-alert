@@ -5,11 +5,15 @@ activityCompose = "1.13.0"
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
 adaptiveAndroid = "1.2.0"
 
-agp = "8.13.2"
+# Android Gradle plugin
+# https://developer.android.com/studio/releases/gradle-plugin
+# https://developer.android.com/build/releases/about-agp
+agp = "9.1.1"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
-metro = "0.13.1"
+# https://github.com/ZacSweers/metro/releases
+metro = "1.0.0-RC2"
 
 # https://github.com/slackhq/circuit/releases
 circuit = "0.33.1"
@@ -25,7 +29,10 @@ dataStore = "1.2.1"
 # https://github.com/slackhq/EitherNet
 eithernet = "2.0.0"
 espressoCore = "3.7.0"
-firebaseBom = "34.11.0"
+
+# Firebase for Android
+# https://firebase.google.com/docs/android/learn-more
+firebaseBom = "34.12.0"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
 googleFonts = "1.10.6"
@@ -49,10 +56,10 @@ kotlinter = "5.4.2"
 
 googleGmsServices = "4.4.4"
 
-crashlyticsPlugin = "3.0.6"
+crashlyticsPlugin = "3.0.7"
 
-kotlinxSerializationJson = "1.10.0"
-kotlinxSerializationProperties = "1.10.0"
+kotlinxSerializationJson = "1.11.0"
+kotlinxSerializationProperties = "1.11.0"
 
 # Kotlin Symbol Processing API
 # https://kotlinlang.org/docs/ksp-overview.html

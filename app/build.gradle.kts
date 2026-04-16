@@ -6,7 +6,6 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.services)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.metro)
@@ -85,13 +84,9 @@ android {
             )
             signingConfig = signingConfigs.getByName("release")
 
-            firebaseCrashlytics {
-                // https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
-                // https://developer.android.com/studio/debug/stacktraces
-                // https://developer.android.com/tools/retrace
-                // https://www.guardsquare.com/manual/tools/retrace
-                mappingFileUploadEnabled = true
-            }
+            // Note: firebaseCrashlytics { mappingFileUploadEnabled } removed — isMinifyEnabled=false
+            // means no mapping file is generated, so upload configuration is a no-op.
+            // See: https://firebase.google.com/docs/crashlytics/get-deobfuscated-reports?platform=android
         }
     }
 
@@ -114,6 +109,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -131,13 +132,6 @@ android {
     }
 }
 
-
-kotlin {
-    // See https://kotlinlang.org/docs/gradle-compiler-options.html
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
-    }
-}
 
 
 // Kotlin Code Coverage - https://github.com/Kotlin/kotlinx-kover
