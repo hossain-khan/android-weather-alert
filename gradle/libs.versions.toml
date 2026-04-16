@@ -5,7 +5,7 @@ activityCompose = "1.13.0"
 # https://developer.android.com/jetpack/androidx/releases/compose-material3-adaptive
 adaptiveAndroid = "1.2.0"
 
-agp = "8.13.2"
+agp = "9.1.1"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
