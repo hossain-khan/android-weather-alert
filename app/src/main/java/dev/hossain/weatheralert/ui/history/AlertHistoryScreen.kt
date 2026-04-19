@@ -69,28 +69,28 @@ data object AlertHistoryScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
-        data object GoBack : Event()
+    sealed interface Event : CircuitUiEvent {
+        data object GoBack : Event
 
-        data object ExportHistory : Event()
+        data object ExportHistory : Event
 
-        data object ShowFilterOptions : Event()
+        data object ShowFilterOptions : Event
 
-        data object ClearAllHistory : Event()
+        data object ClearAllHistory : Event
 
-        data object ConfirmClearHistory : Event()
+        data object ConfirmClearHistory : Event
 
-        data object DismissClearDialog : Event()
+        data object DismissClearDialog : Event
 
         data class FilterByAlertType(
             val alertType: WeatherAlertCategory?,
-        ) : Event()
+        ) : Event
 
         data class FilterByLocation(
             val location: String?,
-        ) : Event()
+        ) : Event
 
-        data object ClearFilters : Event()
+        data object ClearFilters : Event
     }
 }
 

@@ -128,38 +128,38 @@ data class CurrentWeatherAlertScreen(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         data class AlertRemoved(
             val item: AlertTileData,
-        ) : Event()
+        ) : Event
 
         data class OnItemClicked(
             val alertId: Long,
-        ) : Event()
+        ) : Event
 
-        data object AddNewAlertClicked : Event()
+        data object AddNewAlertClicked : Event
 
-        data object MessageShown : Event()
+        data object MessageShown : Event
 
-        data object SettingsClicked : Event()
+        data object SettingsClicked : Event
 
-        data object HistoryClicked : Event()
+        data object HistoryClicked : Event
 
-        data object AboutAppClicked : Event()
+        data object AboutAppClicked : Event
 
-        data object CreditsClicked : Event()
+        data object CreditsClicked : Event
 
-        data object SendFeedbackClicked : Event()
+        data object SendFeedbackClicked : Event
 
-        data object ViewOnboardingClicked : Event()
+        data object ViewOnboardingClicked : Event
 
         data class LearnMoreClicked(
             val isOpened: Boolean,
-        ) : Event()
+        ) : Event
 
         data class UndoDelete(
             val item: AlertTileData,
-        ) : Event()
+        ) : Event
     }
 }
 

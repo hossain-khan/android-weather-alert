@@ -98,16 +98,16 @@ data class BringYourOwnApiKeyScreen(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         data class ApiKeyChanged(
             val value: String,
-        ) : Event()
+        ) : Event
 
         data class SubmitApiKey(
             val apiKey: String,
-        ) : Event()
+        ) : Event
 
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 

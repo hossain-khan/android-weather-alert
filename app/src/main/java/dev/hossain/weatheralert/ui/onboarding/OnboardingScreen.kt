@@ -65,10 +65,10 @@ data object OnboardingScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
-        data object Skip : Event()
+    sealed interface Event : CircuitUiEvent {
+        data object Skip : Event
 
-        data object Complete : Event()
+        data object Complete : Event
     }
 }
 

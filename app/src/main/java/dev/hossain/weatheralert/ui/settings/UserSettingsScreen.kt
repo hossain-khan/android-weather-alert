@@ -88,22 +88,22 @@ data object UserSettingsScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         data class ServiceSelected(
             val service: WeatherForecastService,
-        ) : Event()
+        ) : Event
 
         data class RemoveServiceApiKey(
             val service: WeatherForecastService,
-        ) : Event()
+        ) : Event
 
         data class UpdateFrequencySelected(
             val frequency: Long,
-        ) : Event()
+        ) : Event
 
-        data object AddServiceApiKey : Event()
+        data object AddServiceApiKey : Event
 
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 

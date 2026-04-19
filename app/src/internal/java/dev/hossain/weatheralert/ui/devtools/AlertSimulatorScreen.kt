@@ -105,8 +105,8 @@ data object AlertSimulatorScreen : Screen {
     /**
      * Events that can be triggered from the Alert Simulator.
      */
-    sealed class Event : CircuitUiEvent {
-        data object GoBack : Event()
+    sealed interface Event : CircuitUiEvent {
+        data object GoBack : Event
     }
 }
 

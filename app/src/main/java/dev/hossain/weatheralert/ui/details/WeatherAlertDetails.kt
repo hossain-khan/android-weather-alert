@@ -123,20 +123,20 @@ data class WeatherAlertDetailsScreen(
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         data class EditNoteChanged(
             val note: String,
-        ) : Event()
+        ) : Event
 
-        data object DeleteAlert : Event()
+        data object DeleteAlert : Event
 
-        data object RefreshForecast : Event()
+        data object RefreshForecast : Event
 
-        data object SaveNote : Event()
+        data object SaveNote : Event
 
-        data object GoBack : Event()
+        data object GoBack : Event
 
-        data object ClearSnooze : Event()
+        data object ClearSnooze : Event
     }
 }
 

@@ -95,9 +95,9 @@ data object WorkerTesterScreen : Screen {
     /**
      * Events that can be triggered from the WorkManager Tester.
      */
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         /** Navigate back to Developer Portal */
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 

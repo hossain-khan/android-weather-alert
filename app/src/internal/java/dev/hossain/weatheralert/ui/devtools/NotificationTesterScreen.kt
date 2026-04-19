@@ -91,9 +91,9 @@ data object NotificationTesterScreen : Screen {
     /**
      * Events that can be triggered from the Notification Tester.
      */
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         /** Navigate back to Developer Portal */
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 
