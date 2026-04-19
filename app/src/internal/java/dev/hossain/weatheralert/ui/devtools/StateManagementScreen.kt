@@ -101,9 +101,9 @@ data object StateManagementScreen : Screen {
     /**
      * Events that can be triggered from State Management.
      */
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         /** Navigate back to Developer Portal */
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 

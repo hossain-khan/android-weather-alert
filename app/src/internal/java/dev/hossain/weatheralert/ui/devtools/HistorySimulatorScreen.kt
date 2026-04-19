@@ -98,9 +98,9 @@ data object HistorySimulatorScreen : Screen {
     /**
      * Events that can be triggered from the History Simulator.
      */
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         /** Navigate back to Developer Portal */
-        data object GoBack : Event()
+        data object GoBack : Event
     }
 }
 

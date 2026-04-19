@@ -72,27 +72,27 @@ data object DeveloperPortalScreen : Screen {
     /**
      * Events that can be triggered from the Developer Portal.
      */
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         /** Navigate back to the previous screen */
-        data object GoBack : Event()
+        data object GoBack : Event
 
         /** Open the Alert Simulator tool */
-        data object OpenAlertSimulator : Event()
+        data object OpenAlertSimulator : Event
 
         /** Open the Alert History Simulator tool */
-        data object OpenHistorySimulator : Event()
+        data object OpenHistorySimulator : Event
 
         /** Open the Notification Tester tool */
-        data object OpenNotificationTester : Event()
+        data object OpenNotificationTester : Event
 
         /** Open the WorkManager Tester tool */
-        data object OpenWorkerTester : Event()
+        data object OpenWorkerTester : Event
 
         /** Open the Database Inspector tool */
-        data object OpenDatabaseInspector : Event()
+        data object OpenDatabaseInspector : Event
 
         /** Open the State Management tool */
-        data object OpenStateManagement : Event()
+        data object OpenStateManagement : Event
     }
 }
 

@@ -121,36 +121,36 @@ data object AddNewWeatherAlertScreen : Screen {
         val eventSink: (Event) -> Unit,
     ) : CircuitUiState
 
-    sealed class Event : CircuitUiEvent {
+    sealed interface Event : CircuitUiEvent {
         data class SnowThresholdChanged(
             val value: Float,
-        ) : Event()
+        ) : Event
 
         data class RainThresholdChanged(
             val value: Float,
-        ) : Event()
+        ) : Event
 
         data class SaveSettingsClicked(
             val selectedAlertType: WeatherAlertCategory,
             val snowThreshold: Float,
             val rainThreshold: Float,
-        ) : Event()
+        ) : Event
 
         data class SearchQueryChanged(
             val query: String,
-        ) : Event()
+        ) : Event
 
         data class OnCitySelected(
             val city: City,
-        ) : Event()
+        ) : Event
 
         data class OnReminderNotesUpdated(
             val notes: String,
-        ) : Event()
+        ) : Event
 
-        data object GoBack : Event()
+        data object GoBack : Event
 
-        data object ForecastServiceIconClicked : Event()
+        data object ForecastServiceIconClicked : Event
     }
 }
 
