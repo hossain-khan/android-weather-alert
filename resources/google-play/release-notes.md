@@ -13,7 +13,10 @@
 ## Weather Alert v2.X
 
 ### What's new
-* Unreleased
+* Updated Kotlin to 2.3.21 (latest bug-fix release)
+* Updated KSP to 2.3.7 (targets Kotlin 2.3)
+* Updated Android Gradle Plugin (AGP) to 9.2.0
+* Updated Compose BOM to 2026.04.01 (Compose UI 1.11.0)
 
 ## Weather Alert v2.16
 
