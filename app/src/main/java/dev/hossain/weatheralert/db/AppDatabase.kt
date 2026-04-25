@@ -9,7 +9,7 @@ import dev.hossain.weatheralert.db.migration.AutoMigrationFrom5to6Spec
 
 /**
  * Room database for the weather alert app.
- * Mainly contains the cities with coordinates.
+ * Contains tables for cities, user alerts, cached weather forecasts, and alert history.
  *
  * - https://developer.android.com/training/data-storage/room
  */

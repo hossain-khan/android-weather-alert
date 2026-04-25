@@ -21,10 +21,11 @@ import timber.log.Timber
 
 /**
  * Worker to check weather forecast and trigger notification if thresholds are exceeded.
+ * Snoozed alerts are skipped during the weather check.
  *
  * See additional details on Worker class:
  * - https://developer.android.com/topic/libraries/architecture/workmanager
- * - https://developer.android.com/reference/androidx/work/Worker
+ * - https://developer.android.com/reference/kotlin/androidx/work/CoroutineWorker
  * - https://developer.android.com/reference/kotlin/androidx/work/WorkManager
  */
 class WeatherCheckWorker

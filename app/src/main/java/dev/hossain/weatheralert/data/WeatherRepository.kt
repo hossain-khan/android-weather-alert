@@ -56,7 +56,10 @@ interface WeatherRepository {
 }
 
 /**
- * Implementation of [WeatherRepository] that uses [OpenWeatherService] to fetch weather data.
+ * Implementation of [WeatherRepository] that delegates to one of four supported
+ * weather services: [OpenWeatherService], [TomorrowIoService], [OpenMeteoService],
+ * or [WeatherApiService], based on the active service selection in [ActiveWeatherService].
+ * Forecast data is cached via [CityForecastDao] to avoid unnecessary network requests.
  */
 @ContributesBinding(AppScope::class)
 @Inject
