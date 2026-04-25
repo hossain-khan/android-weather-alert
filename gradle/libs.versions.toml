@@ -8,17 +8,17 @@ adaptiveAndroid = "1.2.0"
 # Android Gradle plugin
 # https://developer.android.com/studio/releases/gradle-plugin
 # https://developer.android.com/build/releases/about-agp
-agp = "9.1.1"
+agp = "9.2.0"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
 # https://github.com/ZacSweers/metro/releases
-metro = "1.0.0-RC2"
+metro = "1.0.0-RC4"
 
 # https://github.com/slackhq/circuit/releases
 circuit = "0.33.1"
 
-composeBom = "2026.03.01"
+composeBom = "2026.04.01"
 composeMaterial3 = "1.4.0"
 coreKtx = "1.18.0"
 coroutinesTest = "1.10.2"
@@ -35,7 +35,7 @@ espressoCore = "3.7.0"
 firebaseBom = "34.12.0"
 
 # https://developer.android.com/develop/ui/compose/text/fonts
-googleFonts = "1.10.6"
+googleFonts = "1.11.0"
 
 # Fluent assertions for Java and Android
 # https://truth.dev/ | https://github.com/google/truth
@@ -47,7 +47,7 @@ junitKtx = "1.3.0"
 # https://developer.android.com/jetpack/androidx/releases/test
 junitVersion = "1.3.0"
 
-kotlin = "2.3.20"
+kotlin = "2.3.21"
 
 # Kotlin linter with built-in formatter
 # https://github.com/jeremymailen/kotlinter-gradle
@@ -64,7 +64,7 @@ kotlinxSerializationProperties = "1.11.0"
 # Kotlin Symbol Processing API
 # https://kotlinlang.org/docs/ksp-overview.html
 # https://github.com/google/ksp/releases
-ksp = "2.3.6"
+ksp = "2.3.7"
 
 lifecycleRuntimeKtx = "2.10.0"
 
