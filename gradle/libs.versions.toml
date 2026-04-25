@@ -13,7 +13,7 @@ agp = "9.2.0"
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
 # https://github.com/ZacSweers/metro/releases
-metro = "1.0.0-RC2"
+metro = "1.0.0-RC4"
 
 # https://github.com/slackhq/circuit/releases
 circuit = "0.33.1"
