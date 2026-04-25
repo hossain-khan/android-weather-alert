@@ -27,7 +27,7 @@ The snooze status UI (`WeatherAlertSnoozeStatusUi`) in the `WeatherAlertDetailsS
 
 ### Key Code Locations
 
-**Snooze Check in UI** (`WeatherAlertDetails.kt:345-351`):
+**Snooze Check in UI** (`WeatherAlertDetails.kt:347-352`):
 ```kotlin
 // Show snooze status if alert is snoozed
 if (alert.isSnoozed()) {
@@ -50,7 +50,7 @@ fun isSnoozed(): Boolean = snoozedUntil.isSnoozed()
 fun Long?.isSnoozed(): Boolean = this != null && this > System.currentTimeMillis()
 ```
 
-**Notification Actions** (`Notification.kt:159-162`):
+**Notification Actions** (`Notification.kt:166-168`):
 ```kotlin
 // Add snooze actions - limited to 2 actions to fit notification constraints
 .addAction(R.drawable.snooze_24dp, "Snooze 1 day", snooze1DayIntent)
@@ -88,10 +88,17 @@ There are several possible reasons:
 5. Open the app and navigate to Alert Details
 6. You should now see the Snooze Status UI
 
-### Option 2: Debug Notification (Recommended)
-Check if there's a debug notification function available in the code:
+### Option 2: Debug Notification (Internal Builds)
+Use the Developer Portal's Notification Tester in internal debug builds:
+1. Navigate to About App → Developer Portal → Notification Tester
+2. Tap "Send Test Notification"
+3. The notification will appear with "Snooze 1 day" and "Snooze 1 week" action buttons
+
+Alternatively, temporarily enable the debug notification function directly in code:
 ```kotlin
-// Look for: debugNotification(context) in Notification.kt
+// In Notification.kt, debugNotification(context) sends a test notification.
+// In WeatherAlertApp.onCreate(), uncomment:
+// dev.hossain.weatheralert.notification.debugNotification(context = this)
 ```
 
 ### Option 3: Manually Set Database Value
@@ -126,4 +133,4 @@ Add a "Snooze Alert" button in the `WeatherAlertDetailsScreen` (similar to Edit 
 - Until tomorrow (8 AM)
 
 ### Implementation:
-Would you like me to add this manual snooze feature to the app?
+This is a potential future enhancement. See the [feature ideas](feature_ideas.md) document for more proposed improvements.

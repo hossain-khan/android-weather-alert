@@ -42,11 +42,16 @@ The portal provides 6 specialized tools for different testing needs:
 3. View the notification in your device's notification tray
 4. Test notification actions (tap to open, snooze, etc.)
 
-**Test Data:**
-- City: Seattle, WA
-- Alert Type: Snow Alert (4.0mm threshold)
-- Forecast: 8.5mm of snow
-- Includes realistic forecast data for next 24 hours
+**Test Data (Default):**
+- City: Toronto
+- Alert Type: Snow Alert (15mm threshold)
+- Forecast: 30mm of snow
+- Includes reminder notes for easy testing
+
+**Quick Presets:**
+- **Snow Alert**: Toronto snow alert (15mm threshold, 30mm forecast)
+- **Rain Alert**: Seattle rain alert (25mm threshold, 45mm forecast)
+- **High Snow**: Buffalo snow alert (10mm threshold, 75mm forecast)
 
 **Use Cases:**
 - Verify notification appearance before release
@@ -67,7 +72,6 @@ The portal provides 6 specialized tools for different testing needs:
 
 **Available Workers:**
 - **Weather Check Worker**: Fetch weather data and check alert conditions
-- **Database Cleanup Worker**: Clean up old forecast data
 
 **How to Use:**
 1. Navigate to WorkManager Tester
@@ -78,7 +82,6 @@ The portal provides 6 specialized tools for different testing needs:
 
 **Use Cases:**
 - Test weather checking logic without waiting for schedule
-- Verify database cleanup works correctly
 - Debug worker failures
 - Test worker constraints (network, battery)
 - Validate worker retry logic

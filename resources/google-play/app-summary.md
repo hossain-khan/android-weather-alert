@@ -19,12 +19,19 @@ Control how often the app checks for weather updates—every 6, 12, or 18 hours�
 📲 **Rich Notifications:**  
 Receive simple, clear notifications with all the details you need to take action.
 
+🔕 **Snooze Alerts:**  
+Temporarily silence notifications for 1 day or 1 week directly from the notification, so you stay in control without turning off alerts.
+
 🛠 **Minimalist Interface:**  
 Easily configure and view your alerts in a simple, intuitive tile-based design.
+
+♿ **Accessible Design:**  
+Full TalkBack screen reader support with proper content descriptions and semantic properties for all users.
 
 **Why Choose Weather Alert?**
 - Focused on delivering only what you need: alerts that meet your criteria.
 - Lightweight and efficient, with no unnecessary extras.
 - Built for people who want actionable weather notifications, hassle-free.
+- Designed with accessibility in mind for all users.
 
 Download **Weather Alert** today and let the app do the work for you!  

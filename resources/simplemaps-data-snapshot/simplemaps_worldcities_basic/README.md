@@ -1,4 +1,4 @@
-## How to recreate bundeld DB
+## How to recreate bundled DB
 
 Use the SQLite Command-Line Interface (CLI) to import the CSV data directly into a SQLite database. Here’s how you can do it:
 

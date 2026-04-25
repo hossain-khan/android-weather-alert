@@ -7,6 +7,6 @@ flowchart TD
     DATA -->|Used by| C(Android App)
     SERVICE -->|✔️ On| OW[OpenWeather]
     SERVICE -->|✔️ On| TI[Tomorrow.io]
-    SERVICE -->|❌ Off| OM[OpenMeteo]
+    SERVICE -->|⚠️ Debug Only| OM[OpenMeteo]
     SERVICE -->|✔️ On| WA[WeatherAPI]
 ```
