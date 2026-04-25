@@ -58,28 +58,15 @@ Adding this feature will involve several key changes:
 
 Location-based alerts would make the application significantly more convenient and contextually aware, providing users with immediate weather information relevant to their surroundings without manual input.
 
-## 3. Snooze/Dismiss Alert Functionality
+## 3. ✅ Snooze/Dismiss Alert Functionality *(Implemented)*
 
-**Current Functionality:**
+**Status:** This feature has been implemented as of v2.10.
 
-Once an alert is triggered and a notification is sent to the user, there is currently no built-in way for the user to temporarily silence or dismiss that specific alert. If the conditions persist, the user might receive repeated notifications, which could become intrusive.
+**Implemented Functionality:**
 
-**Proposal:**
+Users can snooze active weather alert notifications directly from the notification:
 
-We propose introducing functionality that allows users to "snooze" or "dismiss" active weather alerts:
+*   **Snooze 1 day**: Tap the "Snooze 1 day" action button in the notification to suppress it for 24 hours.
+*   **Snooze 1 week**: Tap the "Snooze 1 week" action button in the notification to suppress it for 7 days.
 
-*   **Snooze:** Users could choose to temporarily postpone an alert notification for a predefined or user-configurable period (e.g., 1 hour, 3 hours, until next morning). After the snooze period, if the alert condition is still met, the notification would reappear.
-*   **Dismiss:** Users could choose to dismiss an alert for the current weather event or for a longer, user-defined period (e.g., "don't show again today," "don't show for this specific event type for X days"). This would prevent further notifications for that particular alert instance or type, depending on the option chosen.
-
-**Impact:**
-
-Implementing snooze/dismiss functionality would require:
-
-*   **Notification Handling:** The notification system would need to be enhanced to include "Snooze" and "Dismiss" actions directly within the notification itself (e.g., using notification buttons on Android/iOS).
-*   **Alert State Management:** The backend or client-side logic would need to maintain the state of snoozed or dismissed alerts (e.g., store snooze expiry times, track dismissed event IDs or types).
-*   **UI/UX Adjustments:**
-    *   Potentially, a section in the app settings where users can see and manage their snoozed/dismissed alerts or configure default snooze/dismiss durations.
-    *   Clear visual feedback when an alert has been snoozed or dismissed.
-*   **Alert Logic Modification:** The alert generation logic would need to check against the snooze/dismiss state before re-notifying the user for an ongoing or recurring event.
-
-This feature would give users more control over the notifications they receive, reducing notification fatigue and improving the overall user experience by making alerts less intrusive when immediate attention is not required.
+The snooze status is visible in the Alert Details screen, where users can also clear an active snooze using the "Clear Snooze" button. Snoozed alerts are skipped during background weather checks until the snooze period expires.

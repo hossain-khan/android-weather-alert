@@ -47,7 +47,7 @@ interface CityForecastDao {
     ): CityForecast?
 
     /**
-     * Get forecast by alert id and city id.
+     * Get forecast by alert id and city id as a Flow for reactive updates.
      */
     @Query("SELECT * FROM city_forecasts WHERE alert_id = :alertId AND city_id = :cityId ORDER BY created_at DESC")
     fun getCityForecastByAlertIdAndCityIdFlow(
