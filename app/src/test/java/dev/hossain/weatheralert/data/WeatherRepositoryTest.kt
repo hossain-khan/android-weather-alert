@@ -308,7 +308,7 @@ class WeatherRepositoryTest {
     @Test
     fun `given weatherapi response for oshawa with lots of snow - provides success response with parsed data`() =
         runTest {
-            preferencesManager.savePreferredWeatherService(WeatherForecastService.OPEN_WEATHER_MAP)
+            preferencesManager.savePreferredWeatherService(WeatherForecastService.WEATHER_API)
             mockWebServer.enqueue(
                 MockResponse()
                     .setResponseCode(200)
