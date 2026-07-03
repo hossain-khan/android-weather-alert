@@ -8,7 +8,7 @@ adaptiveAndroid = "1.2.0"
 # Android Gradle plugin
 # https://developer.android.com/studio/releases/gradle-plugin
 # https://developer.android.com/build/releases/about-agp
-agp = "9.2.0"
+agp = "9.2.1"
 
 # Metro dependency injection framework
 # https://zacsweers.github.io/metro/
