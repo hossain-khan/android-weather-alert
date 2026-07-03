@@ -122,18 +122,19 @@ class PreferencesManager
         /**
          * Retrieves the active weather service based on user preference in synchronous manner.
          */
-        val preferredWeatherForecastServiceSync: WeatherForecastService =
-            runBlocking {
-                val weatherForecastService =
-                    dataStore.data
-                        .map { preferences: Preferences ->
-                            preferences[UserPreferences.preferredWeatherServiceKey]?.let {
-                                WeatherForecastService.valueOf(it)
-                            } ?: defaultWeatherForecastService
-                        }.first()
-                Timber.d("Returning preferredWeatherServiceSync: $weatherForecastService")
-                return@runBlocking weatherForecastService
-            }
+        val preferredWeatherForecastServiceSync: WeatherForecastService
+            get() =
+                runBlocking {
+                    val weatherForecastService =
+                        dataStore.data
+                            .map { preferences: Preferences ->
+                                preferences[UserPreferences.preferredWeatherServiceKey]?.let {
+                                    WeatherForecastService.valueOf(it)
+                                } ?: defaultWeatherForecastService
+                            }.first()
+                    Timber.d("Returning preferredWeatherServiceSync: $weatherForecastService")
+                    return@runBlocking weatherForecastService
+                }
 
         /**
          * @see preferredWeatherForecastService
@@ -156,12 +157,13 @@ class PreferencesManager
                     preferences[UserPreferences.preferredUpdateIntervalKey] ?: DEFAULT_WEATHER_UPDATE_INTERVAL_HOURS
                 }
 
-        val preferredUpdateIntervalSync: Long =
-            runBlocking {
-                val interval = preferredUpdateInterval.first()
-                Timber.d("Returning preferredUpdateIntervalSync: $interval")
-                return@runBlocking interval
-            }
+        val preferredUpdateIntervalSync: Long
+            get() =
+                runBlocking {
+                    val interval = preferredUpdateInterval.first()
+                    Timber.d("Returning preferredUpdateIntervalSync: $interval")
+                    return@runBlocking interval
+                }
 
         /**
          * @see preferredUpdateInterval
@@ -186,12 +188,13 @@ class PreferencesManager
         /**
          * Retrieves whether the user has completed the onboarding flow in synchronous manner.
          */
-        val isOnboardingCompletedSync: Boolean =
-            runBlocking {
-                val isCompleted = isOnboardingCompleted.first()
-                Timber.d("Returning isOnboardingCompletedSync: $isCompleted")
-                return@runBlocking isCompleted
-            }
+        val isOnboardingCompletedSync: Boolean
+            get() =
+                runBlocking {
+                    val isCompleted = isOnboardingCompleted.first()
+                    Timber.d("Returning isOnboardingCompletedSync: $isCompleted")
+                    return@runBlocking isCompleted
+                }
 
         /**
          * Sets the onboarding completion status.

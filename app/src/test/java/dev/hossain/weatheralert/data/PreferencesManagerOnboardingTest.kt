@@ -56,4 +56,17 @@ class PreferencesManagerOnboardingTest {
             val isCompleted = preferencesManager.isOnboardingCompleted.first()
             assertThat(isCompleted).isFalse()
         }
+
+    @Test
+    fun isOnboardingCompletedSync_returnsTrue_whenCompleted() =
+        runTest {
+            preferencesManager.setOnboardingCompleted(true)
+            assertThat(preferencesManager.isOnboardingCompletedSync).isTrue()
+        }
+
+    @Test
+    fun isOnboardingCompletedSync_returnsFalse_byDefault() =
+        runTest {
+            assertThat(preferencesManager.isOnboardingCompletedSync).isFalse()
+        }
 }

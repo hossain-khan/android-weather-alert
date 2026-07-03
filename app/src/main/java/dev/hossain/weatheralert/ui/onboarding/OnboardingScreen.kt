@@ -92,16 +92,16 @@ class OnboardingPresenter
                     OnboardingScreen.Event.Skip -> {
                         scope.launch {
                             preferencesManager.setOnboardingCompleted(true)
+                            navigator.resetRoot(CurrentWeatherAlertScreen("root"))
                         }
-                        navigator.resetRoot(CurrentWeatherAlertScreen("root"))
                     }
 
                     OnboardingScreen.Event.Complete -> {
                         scope.launch {
                             preferencesManager.setOnboardingCompleted(true)
+                            analytics.logViewTutorial(isComplete = true)
+                            navigator.resetRoot(CurrentWeatherAlertScreen("root"))
                         }
-                        analytics.logViewTutorial(isComplete = true)
-                        navigator.resetRoot(CurrentWeatherAlertScreen("root"))
                     }
                 }
             }
