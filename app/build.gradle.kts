@@ -175,6 +175,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.adaptive.android)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.fragment)
     implementation(libs.androidx.datastore.core)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.lifecycle.runtime.ktx)
