@@ -41,10 +41,11 @@ class DateFormatterSnoozeTest {
         assertThat(result).isNotNull()
         assertThat(result).startsWith("Snoozed until")
 
-        val futureDateTime = java.time.LocalDateTime.ofInstant(
-            java.time.Instant.ofEpochMilli(futureTimestamp),
-            java.time.ZoneId.systemDefault()
-        )
+        val futureDateTime =
+            java.time.LocalDateTime.ofInstant(
+                java.time.Instant.ofEpochMilli(futureTimestamp),
+                java.time.ZoneId.systemDefault(),
+            )
         val now = java.time.LocalDateTime.now(java.time.ZoneId.systemDefault())
         val isTomorrow = futureDateTime.toLocalDate() == now.toLocalDate().plusDays(1)
 
