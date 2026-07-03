@@ -40,8 +40,20 @@ class DateFormatterSnoozeTest {
 
         assertThat(result).isNotNull()
         assertThat(result).startsWith("Snoozed until")
-        // Should not contain "tomorrow" since it is later today
-        assertThat(result).doesNotContain("tomorrow")
+
+        val futureDateTime =
+            java.time.LocalDateTime.ofInstant(
+                java.time.Instant.ofEpochMilli(futureTimestamp),
+                java.time.ZoneId.systemDefault(),
+            )
+        val now = java.time.LocalDateTime.now(java.time.ZoneId.systemDefault())
+        val isTomorrow = futureDateTime.toLocalDate() == now.toLocalDate().plusDays(1)
+
+        if (isTomorrow) {
+            assertThat(result).contains("tomorrow")
+        } else {
+            assertThat(result).doesNotContain("tomorrow")
+        }
     }
 
     @Test
