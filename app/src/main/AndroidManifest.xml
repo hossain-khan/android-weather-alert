@@ -23,6 +23,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.App"
+            android:windowSoftInputMode="adjustResize"
             tools:ignore="Instantiatable">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

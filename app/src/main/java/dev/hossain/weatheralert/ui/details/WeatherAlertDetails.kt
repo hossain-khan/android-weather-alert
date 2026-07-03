@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -314,10 +316,13 @@ fun WeatherAlertDetailsScreen(
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        contentWindowInsets = WindowInsets.safeDrawing,
     ) { contentPaddingValues ->
         // https://developer.android.com/reference/kotlin/androidx/compose/material3/pulltorefresh/package-summary
         PullToRefreshBox(
-            modifier = Modifier.padding(contentPaddingValues),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = contentPaddingValues.calculateTopPadding()),
             state = pullToRefreshState,
             isRefreshing = state.isForecastRefreshing,
             onRefresh = {
@@ -325,10 +330,12 @@ fun WeatherAlertDetailsScreen(
             },
         ) {
             LazyColumn(
-                modifier =
-                    modifier
-                        .fillMaxSize()
-                        .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+                modifier = modifier.fillMaxSize(),
+                contentPadding = androidx.compose.foundation.layout.PaddingValues(
+                    start = MaterialTheme.dimensions.horizontalScreenPadding,
+                    end = MaterialTheme.dimensions.horizontalScreenPadding,
+                    bottom = contentPaddingValues.calculateBottomPadding(),
+                ),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 val alert = state.alertConfig

@@ -207,11 +207,13 @@ fun AlertHistoryScreen(
 
             else -> {
                 LazyColumn(
-                    modifier =
-                        modifier
-                            .fillMaxSize()
-                            .padding(contentPaddingValues)
-                            .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+                    modifier = modifier.fillMaxSize(),
+                    contentPadding = androidx.compose.foundation.layout.PaddingValues(
+                        start = MaterialTheme.dimensions.horizontalScreenPadding,
+                        end = MaterialTheme.dimensions.horizontalScreenPadding,
+                        top = contentPaddingValues.calculateTopPadding(),
+                        bottom = contentPaddingValues.calculateBottomPadding(),
+                    ),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     item {

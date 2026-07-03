@@ -431,28 +431,41 @@ fun CurrentWeatherAlerts(
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { contentPaddingValues ->
-        Column(
-            modifier =
-                modifier
-                    .fillMaxSize()
-                    .padding(contentPaddingValues)
-                    .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(horizontal = MaterialTheme.dimensions.horizontalScreenPadding),
         ) {
             if (state.tiles == null) {
                 // Show loading indicator in the middle of the screen
-                LoadingAlertsProgressUi()
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(contentPaddingValues),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    LoadingAlertsProgressUi()
+                }
             } else {
                 if (state.tiles.isEmpty()) {
-                    EmptyAlertState(
-                        onLearnMoreOpened = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = true)) },
-                        onLearnMoreClosed = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = false)) },
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(contentPaddingValues),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        EmptyAlertState(
+                            onLearnMoreOpened = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = true)) },
+                            onLearnMoreClosed = { state.eventSink(CurrentWeatherAlertScreen.Event.LearnMoreClicked(isOpened = false)) },
+                        )
+                    }
                 } else {
                     AlertTileGrid(
                         tiles = state.tiles,
                         eventSink = state.eventSink,
                         listState = listState,
                         lastWeatherCheckTime = state.lastWeatherCheckTime,
+                        contentPadding = contentPaddingValues,
                     )
                 }
             }
@@ -499,10 +512,12 @@ fun AlertTileGrid(
     eventSink: (CurrentWeatherAlertScreen.Event) -> Unit,
     listState: LazyListState,
     lastWeatherCheckTime: Long,
+    contentPadding: androidx.compose.foundation.layout.PaddingValues,
 ) {
     LazyColumn(
         state = listState,
         modifier = Modifier.fillMaxSize(),
+        contentPadding = contentPadding,
         // Add spacing between items (on top of list item card paddings)
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
