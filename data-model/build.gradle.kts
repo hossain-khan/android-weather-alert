@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "dev.hossain.weatheralert.datamodel"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 30
