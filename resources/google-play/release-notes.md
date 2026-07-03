@@ -13,10 +13,17 @@
 ## Weather Alert v2.X
 
 ### What's new
-* Updated Kotlin to 2.3.21 (latest bug-fix release)
-* Updated KSP to 2.3.7 (targets Kotlin 2.3)
-* Updated Android Gradle Plugin (AGP) to 9.2.0
-* Updated Compose BOM to 2026.04.01 (Compose UI 1.11.0)
+* Update libraries and dependencies to latest available versions
+* Minor bug fixes and stability improvements
+
+## Weather Alert v2.17
+
+### What's new
+* Updated app to target Android 17 (API Level 37).
+* Added adaptive edge-to-edge support across all screens with proper status/navigation bar and IME insets.
+* Resolved Google Play Console outdated SDK warning by upgrading the fragment dependency to v1.8.9.
+* Upgraded core dependencies (Compose BOM to 2026.06.01, Core-KTX to 1.19.0, Lifecycle to 2.11.0, KSP to 2.3.9, Circuit to 0.34.0, Metro to 1.3.0).
+* Fixed a bug where onboarding completion state was not properly saved due to coroutine scope cancellation during navigation.
 
 ## Weather Alert v2.16
 
