@@ -87,6 +87,31 @@ jobs:
           echo "WEATHERAPI_API_KEY=${{ secrets.WEATHERAPI_API_KEY }}" >> local.properties
           echo "✅ local.properties created with API keys"
 
+      - name: Validate API keys length
+        run: |
+          error=0
+          if [ ${#OPEN_WEATHER_API_KEY} -lt 16 ]; then
+            echo "❌ OPEN_WEATHER_API_KEY is too short (length: ${#OPEN_WEATHER_API_KEY}). Must be at least 16 characters."
+            error=1
+          fi
+          if [ ${#TOMORROW_IO_API_KEY} -lt 16 ]; then
+            echo "❌ TOMORROW_IO_API_KEY is too short (length: ${#TOMORROW_IO_API_KEY}). Must be at least 16 characters."
+            error=1
+          fi
+          if [ ${#WEATHERAPI_API_KEY} -lt 16 ]; then
+            echo "❌ WEATHERAPI_API_KEY is too short (length: ${#WEATHERAPI_API_KEY}). Must be at least 16 characters."
+            error=1
+          fi
+          if [ $error -ne 0 ]; then
+            echo "❌ API Key validation failed. Release build aborted."
+            exit 1
+          fi
+          echo "✅ All API keys verified to be at least 16 characters long."
+        env:
+          OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+          TOMORROW_IO_API_KEY: ${{ secrets.TOMORROW_IO_API_KEY }}
+          WEATHERAPI_API_KEY: ${{ secrets.WEATHERAPI_API_KEY }}
+
       - name: Build Release APK and AAB
         run: ./gradlew assembleProdRelease bundleProdRelease --parallel --daemon
 
