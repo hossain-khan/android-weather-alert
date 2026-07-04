@@ -20,7 +20,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check file changes
+        uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            src:
+              - 'app/**'
+              - 'data-model/**'
+              - 'service/**'
+              - 'gradle/**'
+              - 'build.gradle.kts'
+              - 'settings.gradle.kts'
+              - 'gradle.properties'
+              - 'gradlew'
+              - 'keystore/**'
+              - '.github/workflows/android.yml'
+              - '.github/workflows/android-lint.yml'
+              - '.github/workflows/kover.yml'
+              - '.github/workflows/diffuse.yml'
+
       - name: set up JDK
+        if: steps.filter.outputs.src == 'true'
         uses: actions/setup-java@v5
         with:
           java-version: ${{ matrix.java-version }}
@@ -29,24 +53,29 @@ jobs:
       # Android SDK setup for GitHub Actions
       # https://github.com/android-actions/setup-android
       - name: Setup Android SDK
+        if: steps.filter.outputs.src == 'true'
         uses: android-actions/setup-android@v4
 
       # Automatic gradle caching using `actions/cache@v4`
       # https://github.com/gradle/actions/tree/main/setup-gradle
       - name: Setup Gradle
+        if: steps.filter.outputs.src == 'true'
         uses: gradle/actions/setup-gradle@v6
 
       - name: Run Linter
+        if: steps.filter.outputs.src == 'true'
         run: ./gradlew lintKotlin --parallel --daemon
 
       - name: Run test
+        if: steps.filter.outputs.src == 'true'
         run: ./gradlew testInternalDebugUnitTest --parallel --daemon
 
       - name: Build with Gradle
+        if: steps.filter.outputs.src == 'true'
         run: ./gradlew assembleDebug --parallel --daemon
 
       - name: Archive Problems Report
-        if: ${{ failure() }}
+        if: failure() && steps.filter.outputs.src == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: build-report-${{ github.run_id }}
