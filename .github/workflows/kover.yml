@@ -16,8 +16,31 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check file changes
+        uses: dorny/paths-filter@v4
+        id: filter
+        with:
+          filters: |
+            src:
+              - 'app/**'
+              - 'data-model/**'
+              - 'service/**'
+              - 'gradle/**'
+              - 'build.gradle.kts'
+              - 'settings.gradle.kts'
+              - 'gradle.properties'
+              - 'gradlew'
+              - 'keystore/**'
+              - '.github/workflows/android.yml'
+              - '.github/workflows/android-lint.yml'
+              - '.github/workflows/kover.yml'
+              - '.github/workflows/diffuse.yml'
 
       - name: Set up JDK
+        if: steps.filter.outputs.src == 'true'
         uses: actions/setup-java@v5
         with:
           java-version: '21'
@@ -27,21 +50,25 @@ jobs:
       # Android SDK setup for GitHub Actions
       # https://github.com/android-actions/setup-android
       - name: Setup Android SDK
+        if: steps.filter.outputs.src == 'true'
         uses: android-actions/setup-android@v4
 
       # Automatic gradle caching using `actions/cache@v4`
       # https://github.com/gradle/actions/tree/main/setup-gradle
       - name: Setup Gradle
+        if: steps.filter.outputs.src == 'true'
         uses: gradle/actions/setup-gradle@v6
 
       # Generates reports in following location
       # - build/reports/kover/html/index.html
       # - build/reports/kover/report.xml
       - name: Build and run tests
+        if: steps.filter.outputs.src == 'true'
         run: ./gradlew koverHtmlReport koverXmlReport
 
       # https://github.com/actions/upload-artifact
       - name: Upload Kover report
+        if: steps.filter.outputs.src == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: kover-report
@@ -50,6 +77,7 @@ jobs:
       # Sticky Pull Request Comment
       # https://github.com/marocchino/sticky-pull-request-comment
       - name: Post coverage comment
+        if: steps.filter.outputs.src == 'true'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           message: |
@@ -59,6 +87,7 @@ jobs:
       # GitHub Action that uploads coverage to Codecov ☂️
       # https://github.com/codecov/codecov-action
       - name: Upload coverage reports to Codecov
+        if: steps.filter.outputs.src == 'true'
         uses: codecov/codecov-action@v5
         with:
             token: ${{ secrets.CODECOV_TOKEN }}
