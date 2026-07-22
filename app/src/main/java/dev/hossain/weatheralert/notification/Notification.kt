@@ -1,10 +1,12 @@
 package dev.hossain.weatheralert.notification
 
+import android.app.ActivityOptions
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Icon
+import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import dev.hossain.weatheralert.R
@@ -106,7 +108,10 @@ internal fun triggerNotification(
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     val intent =
-        context.packageManager.getLaunchIntentForPackage(context.packageName)?.apply {
+        (
+            context.packageManager.getLaunchIntentForPackage(context.packageName)
+                ?: Intent(context, dev.hossain.weatheralert.MainActivity::class.java)
+        ).apply {
             // FLAG_ACTIVITY_CLEAR_TASK with FLAG_ACTIVITY_NEW_TASK ensures the activity can be launched
             // from background on Android 15+ (resolves BAL restriction). This clears the back stack and
             // creates a fresh navigation state, which is appropriate for notification deep linking.
@@ -118,12 +123,23 @@ internal fun triggerNotification(
             // See https://slackhq.github.io/circuit/deep-linking-android/
             putExtra(BUNDLE_KEY_DEEP_LINK_DESTINATION_SCREEN, WeatherAlertDetailsScreen(userAlertId))
         }
+    val optionsBundle =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            ActivityOptions
+                .makeBasic()
+                .apply {
+                    setPendingIntentBackgroundActivityStartMode(ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOW_IF_VISIBLE)
+                }.toBundle()
+        } else {
+            null
+        }
     val pendingIntent =
         PendingIntent.getActivity(
             context,
             userAlertId.hashCode(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+            optionsBundle,
         )
 
     // ⚠️ Note: We use hashCode to generate notification IDs to avoid overflow issues with large alert IDs.
