@@ -1,6 +1,10 @@
 package dev.hossain.weatheralert.ui.theme
+
+import android.content.Context
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -24,6 +28,14 @@ private val LightColorScheme =
         tertiary = Pink40,
     )
 
+@Suppress("NewApi")
+@RequiresApi(Build.VERSION_CODES.S)
+@Composable
+private fun dynamicColorScheme(
+    context: Context,
+    darkTheme: Boolean,
+): ColorScheme = if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+
 /**
  * Custom theme for the app.
  * - See [M3 components](https://m3.material.io/components)
@@ -40,9 +52,8 @@ fun WeatherAlertAppTheme(
 ) {
     val colorScheme =
         when {
-            dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-                val context = LocalContext.current
-                if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamicColor -> {
+                dynamicColorScheme(LocalContext.current, darkTheme)
             }
 
             darkTheme -> {
