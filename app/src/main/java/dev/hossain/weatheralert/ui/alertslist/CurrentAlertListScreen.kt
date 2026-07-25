@@ -632,7 +632,7 @@ fun AlertListItem(
                 if (data.isAlertActive && !isSnoozed) {
                     append("Alert is active. ")
                 }
-                if (isSnoozed && snoozeText != null) {
+                if (isSnoozed) {
                     append("Alert is snoozed. $snoozeText. ")
                 }
                 if (data.alertNote.isNotEmpty()) {
