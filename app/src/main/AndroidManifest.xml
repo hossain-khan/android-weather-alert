@@ -41,8 +41,10 @@
         </receiver>
 
         <!--
-            You must remove the default initializer for a custom getWorkManagerConfiguration() implementation to take effect.
-            https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration#remove-default
+            Disable default WorkManager initialization so our custom WorkManager Configuration (via WeatherAlertApp) takes effect.
+            Since this app does not use `androidx.startup` for initializing any other components, we remove `InitializationProvider`
+            completely. This avoids manifest merger warnings regarding missing `WorkManagerInitializer` meta-data declarations.
+            See: https://developer.android.com/develop/background-work/background-tasks/persistent/configuration/custom-configuration#remove-default
         -->
         <provider
             android:name="androidx.startup.InitializationProvider"
