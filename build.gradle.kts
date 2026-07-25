@@ -83,3 +83,12 @@ dependencies {
     kover(project(":service:openmeteo"))
     kover(project(":service:weatherapi"))
 }
+
+subprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
+        }
+    }
+}
+
