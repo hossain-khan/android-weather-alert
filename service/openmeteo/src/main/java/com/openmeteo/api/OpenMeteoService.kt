@@ -98,7 +98,7 @@ class OpenMeteoServiceImpl constructor() : OpenMeteoService {
                                             .toOffsetDateTime()
                                             .toString(),
                                     // Value is in cm, convert to mm
-                                    snow = (it.value?.toDouble() ?: 0.0) * 10,
+                                    snow = (it.value ?: 0.0) * 10,
                                     rain = 0.0, // TODO - for rain loop again
                                 )
                             }
