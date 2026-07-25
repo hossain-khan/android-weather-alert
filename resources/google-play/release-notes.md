@@ -16,6 +16,14 @@
 * Update libraries and dependencies to latest available versions
 * Minor bug fixes and stability improvements
 
+## Weather Alert v2.18
+
+### What's new
+* Upgraded app to target Android 17 (API Level 37) and audited full compliance with Android 17 behavior changes.
+* Optimized WorkManager manifest initializers and resolved manifest merger warnings.
+* Configured Kotlin 2.2+ constructor annotation property target compatibility.
+* Fixed build configuration warnings and improved stability.
+
 ## Weather Alert v2.17
 
 ### What's new
