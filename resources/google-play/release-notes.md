@@ -16,6 +16,12 @@
 * Update libraries and dependencies to latest available versions
 * Minor bug fixes and stability improvements
 
+## Weather Alert v2.19
+
+### What's new
+* Update libraries and dependencies to latest available versions
+* Minor bug fixes and stability improvements
+
 ## Weather Alert v2.18
 
 ### What's new

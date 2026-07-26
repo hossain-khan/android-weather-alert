@@ -7,7 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.18.0] - 2026-07-25
+## [2.19.0] - 2026-07-25
+
+### Changed
+- Maintenance release with version bump (`versionCode = 28`, `versionName = "2.19"`).
+
 
 ### Changed
 - Upgraded target SDK (`targetSdk`) to API level 37 (Android 17).
