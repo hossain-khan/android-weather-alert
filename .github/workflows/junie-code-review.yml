@@ -10,7 +10,7 @@ name: Junie Code Review
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, ready_for_review]
     branches: [ "main" ]
 
 jobs:

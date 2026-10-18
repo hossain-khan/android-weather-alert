@@ -80,7 +80,7 @@ If JetBrains updates the Junie action version (`junie_version` in `action.yml`),
 
 ### 2. Automated PR Code Review (`.github/workflows/junie-code-review.yml`)
 
-- **Triggers**: Opened or updated (synchronized) Pull Requests targeting `main` (skips drafts).
+- **Triggers**: Opened, updated (synchronized), or marked ready for review (`ready_for_review`) Pull Requests targeting `main` (skips drafts).
 - **Permissions**: `contents: read`, `pull-requests: write`, `issues: write`
 - **Behavior**:
   - Automatically fetches the PR diff against `main`.
