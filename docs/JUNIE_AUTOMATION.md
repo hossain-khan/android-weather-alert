@@ -74,6 +74,7 @@ If JetBrains updates the Junie action version (`junie_version` in `action.yml`),
   - Pull Request review comments
   - Pull Request reviews
 - **Permissions**: `contents: write`, `pull-requests: write`, `issues: write`
+- **Security & Authorization**: Restricted to trusted users (`OWNER`, `MEMBER`, or `COLLABORATOR`) via `author_association` filter. Mentions from untrusted external users are skipped before provisioning a runner, protecting CI minutes and API balance.
 - **Behavior**:
   - Clones the repository and loads project context from `.junie/guidelines.md`.
   - Implements the requested change, commits to a branch, and opens/updates a PR.
