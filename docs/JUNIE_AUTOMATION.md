@@ -23,12 +23,44 @@ Junie is authenticated via OpenRouter using repository secrets:
 
 > [!IMPORTANT]
 > **Model Naming Requirement:**  
-> Junie CLI requires model names **without** provider prefixes. Do **not** use `anthropic/claude-sonnet-5.5` or `openai/gpt-4o`. Use Junie's supported identifiers:
-> - `claude-sonnet-5-5` (Recommended)
-> - `claude-sonnet-5`
-> - `claude-opus-5-5`
-> - `gemini-3.8-flash`
-> - `gpt-5.5`
+> Junie CLI requires model names **without** provider prefixes. Do **not** use `anthropic/claude-sonnet-5.5` or `openai/gpt-4o`. Always use Junie's supported identifiers (e.g. `claude-sonnet-5-5`).
+
+### Supported Model Names
+
+Junie maps internal model identifiers directly to the appropriate LLM endpoints via OpenRouter. Below is the complete list of supported models in Junie CLI:
+
+#### Anthropic Claude
+| Model Identifier | Notes |
+|---|---|
+| `claude-sonnet-5-5` | **Recommended** — Best balance of code reasoning, speed, and cost |
+| `claude-sonnet-5` | Previous generation Sonnet |
+| `claude-sonnet-4-6` | Fast coding model |
+| `claude-opus-5-5` | High-depth reasoning for complex tasks |
+| `claude-opus-5` | Previous generation Opus |
+| `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6` | Legacy Opus models |
+| `claude-fable-5-1`, `claude-fable-5` | Fable series |
+
+#### Google Gemini
+| Model Identifier | Notes |
+|---|---|
+| `gemini-3.8-flash` | Ultra-fast multimodal model |
+| `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite` | Flash series |
+| `gemini-3.1-pro-preview`, `gemini-3-flash-preview` | Preview releases |
+| `gemini-pro`, `gemini-flash` | Standard aliases |
+
+#### OpenAI GPT
+| Model Identifier | Notes |
+|---|---|
+| `gpt-5.5` | Flagship OpenAI model |
+| `gpt-5.4`, `gpt-5.3-codex`, `gpt-5.2-2025-12-11`, `gpt-5-2025-08-07` | GPT-5 family |
+| `gpt-6-sol`, `gpt-6-luna`, `gpt-6-astra` | Experimental series |
+| `gpt-5.6-sol`, `gpt-5.6-luna`, `gpt-5.6-terra` | GPT-5.6 series |
+| `gpt` | Default GPT alias |
+
+#### How to Find the Updated List Anytime
+If JetBrains updates the Junie action version (`junie_version` in `action.yml`), you can check newly added models by either:
+1. Providing an unrecognized model parameter (e.g. `junie-args: --model="help"`) in a PR comment — Junie will output the complete valid model list in the GitHub Actions step log.
+2. Checking the [JetBrains Junie GitHub Action Release Notes](https://github.com/JetBrains/junie-github-action/releases).
 
 ---
 
