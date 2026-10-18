@@ -351,6 +351,13 @@ If you run `gh` commands (such as creating a pull request) within the agent sand
    zsh -f -c 'gh pr create --repo hossain-khan/android-weather-alert ...'
    ```
 
+### JetBrains Junie GitHub Action
+The repository integrates [JetBrains Junie](https://github.com/JetBrains/junie-github-action) with OpenRouter BYOK for automated code reviews and `@junie-agent` interactive tasks.
+- Details & usage: See [`docs/JUNIE_AUTOMATION.md`](../docs/JUNIE_AUTOMATION.md)
+- Workflows: `.github/workflows/junie.yml` (interactive agent) and `.github/workflows/junie-code-review.yml` (PR code review)
+- Guidelines: `.junie/guidelines.md` symlinked to `.github/copilot-instructions.md`
+- Important: Junie model identifiers must omit the provider prefix (e.g. use `claude-sonnet-5-5`, not `anthropic/claude-sonnet-5.5`).
+
 ## Common Patterns & Examples
 
 ### Circuit Presenter Example

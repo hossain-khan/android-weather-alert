@@ -1,3 +1,11 @@
+# JetBrains Junie Interactive Agent Workflow
+# Source Action: https://github.com/JetBrains/junie-github-action
+# Documentation: docs/JUNIE_AUTOMATION.md
+#
+# Listens for '@junie-agent' mentions in issues, PR comments, and PR reviews.
+# Authenticated via OpenRouter BYOK (requires secrets.OPENROUTER_API_KEY).
+# Model configured via secrets.OPENROUTER_MODEL_NAME (must be without provider prefix, e.g. 'claude-sonnet-5-5').
+
 name: Junie Interactive Agent
 
 on:

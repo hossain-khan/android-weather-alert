@@ -79,6 +79,10 @@ For developers and QA engineers, the app includes a comprehensive **Developer Po
 
 **Note**: The Developer Portal is **not included** in production builds and is only available in `internalDebug` build variants.
 
+## AI Automation 🤖
+
+This repository uses [JetBrains Junie](https://github.com/JetBrains/junie-github-action) powered by OpenRouter for automated PR code reviews and interactive issue/PR assistance. See [`docs/JUNIE_AUTOMATION.md`](docs/JUNIE_AUTOMATION.md) for full setup and usage details.
+
 ## Tech Stack 📱
 Simple application generated from Android App template that uses:
 * Jetpack Compose
